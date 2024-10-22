@@ -50,9 +50,9 @@ const Footer = (props) => {
                                     <p>online store with lots of cool and exclusive features</p>
                                     <div className="contact-ft">
                                         <ul>
-                                            <li><i className="fi ti-location-pin"></i>28 Street, New York City, USA</li>
+                                            <li><i className="fi ti-location-pin"></i>510 Duncan Rd, Wilmington, DE, United States, Delaware</li>
                                             <li><i className="fi ti-mobile"></i>+000123456789</li>
-                                            <li><i className="fi flaticon-email"></i>varaus@gmail.com</li>
+                                            <li><i className="fi flaticon-email"></i>Delkins@bellevuecc.org</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -123,7 +123,7 @@ const Footer = (props) => {
                             </div>
                         </div>
                         <div className="col col-lg-6 col-md-6 col-12">
-                            <p className="copyright">&copy; 2023 Varaus. All rights reserved</p>
+                            <p className="copyright">&copy; 2023 Bellevue Community Center . All rights reserved</p>
                         </div>
                     </div>
                 </div>

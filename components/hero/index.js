@@ -27,7 +27,7 @@ const Hero = (props) => {
                                 <div className="row">
                                     <div className="col col-lg-8 col-md-12 col-12 slide-caption">
                                         <div className="slide-title">
-                                            <h2>The Varaus Hotel & Resort</h2>
+                                            <h2>The Bellevue Community Center  Hotel & Resort</h2>
                                         </div>
                                         <div className="slide-subtitle">
                                             <p>Make Your Life Better and Bright! You must trip with Us!</p>
@@ -46,7 +46,7 @@ const Hero = (props) => {
                                 <div className="row">
                                     <div className="col col-lg-8 col-md-12 col-12 slide-caption">
                                         <div className="slide-title">
-                                            <h2>The Varaus Hotel & Resort</h2>
+                                            <h2>The Bellevue Community Center  Hotel & Resort</h2>
                                         </div>
                                         <div className="slide-subtitle">
                                             <p>Make Your Life Better and Bright! You must trip with Us!</p>
@@ -65,7 +65,7 @@ const Hero = (props) => {
                                 <div className="row">
                                     <div className="col col-lg-8 col-md-12 col-12 slide-caption">
                                         <div className="slide-title">
-                                            <h2>The Varaus Hotel & Resort</h2>
+                                            <h2>The Bellevue Community Center  Hotel & Resort</h2>
                                         </div>
                                         <div className="slide-subtitle">
                                             <p>Make Your Life Better and Bright! You must trip with Us!</p>

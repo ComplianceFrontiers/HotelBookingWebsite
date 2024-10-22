@@ -9,8 +9,8 @@ const HeaderTopbar = () => {
                     <div className="col col-md-6 col-sm-7 col-12">
                         <div className="contact-intro">
                             <ul>
-                                <li><i className="fi ti-location-pin"></i>28 Street, New York City, USA</li>
-                                <li><i className="fi flaticon-email"></i> varaus@gmail.com</li>
+                                <li><i className="fi ti-location-pin"></i>510 Duncan Rd, Wilmington, DE, United States, Delaware</li>
+                                <li><i className="fi flaticon-email"></i> Delkins@bellevuecc.org</li>
                             </ul>
                         </div>
                     </div>

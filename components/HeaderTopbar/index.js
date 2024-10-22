@@ -17,7 +17,9 @@ const HeaderTopbar = () => {
                     <div className="col col-md-6 col-sm-5 col-12">
                         <div className="contact-info">
                             <ul>
-                                <li><Link href="/"><i className="ti-facebook"></i></Link></li>
+                                <li><Link href="https://www.facebook.com/bellevuecc" target="_blank" rel="noopener noreferrer">
+    <i className="ti-facebook"></i>
+  </Link></li>
                                 <li><Link href="/"><i className="ti-twitter-alt"></i></Link></li>
                                 <li><Link href="/"><i className="ti-instagram"></i></Link></li>
                                 <li><Link href="/"><i className="ti-google"></i></Link></li>

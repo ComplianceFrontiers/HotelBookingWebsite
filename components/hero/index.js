@@ -22,7 +22,7 @@ const Hero = (props) => {
             <div className="hero-slider">
                 <Slider {...settings}>
                     <div className="slide">
-                        <div className="slide-inner" style={{ backgroundImage: `url(${'/images/slider/slide-1.jpg'})` }}>
+                        <div className="slide-inner" style={{ backgroundImage: `url(${'/images/slider/bcc.jpg'})` }}>
                             <div className="container">
                                 <div className="row">
                                     <div className="col col-lg-8 col-md-12 col-12 slide-caption">

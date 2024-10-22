@@ -17,7 +17,7 @@ import dSimg6 from '/public/images/destination/img-6.jpg'
 const Destinations = [
     {
         id: '1',
-        title:'Paris, France',
+        title:'GYM',
         slug:'Paris,France',
         subTitle:'Vietnam Sea Beach',
         dimg1:dimg1,
@@ -27,7 +27,7 @@ const Destinations = [
     },
     {
         id: '2',
-        title:'United Arab',
+        title:'Dr. Lindsey Slater Conference Center',
         slug:'United-Arab',
         subTitle:'Paris, France',
         dimg1:dimg2,
@@ -37,7 +37,7 @@ const Destinations = [
     },
     {
         id: '3',
-        title:'San Francisco',
+        title:'Dr. Lindsey Slater Pavillion',
         slug:'San-Francisco',
         subTitle:'Vaadhoo, Maldives',
         dimg1:dimg3,
@@ -47,7 +47,7 @@ const Destinations = [
     },
     {
         id: '4',
-        title:'Singapore',
+        title:'Philip B. Lynch Sr. Firepit',
         slug:'Singapore',
         subTitle:'Vietnam Sea Beach',
         dimg1:dimg4,
@@ -57,7 +57,7 @@ const Destinations = [
     },
     {
         id: '5',
-        title:'Sea View Resort',
+        title:'Multi-Purpose Room (MPR)',
         slug:'Sea-View-Resort',
         subTitle:'Paris, France',
         dimg1:dimg5,

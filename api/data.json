@@ -2,7 +2,7 @@
   {
     "id": 1,
     "proImg": "/images/room/img-1.jpg",
-    "title": "Lake view Room",
+    "title": "GYM",
     "slug":"Lake-view-Room",
     "price": "200",
     "delPrice": "380",
@@ -16,7 +16,7 @@
   {
     "id": 2,
     "proImg": "/images/room/img-2.jpg",
-    "title": "Queen Room Balcony",
+    "title": "Dr. Lindsey Slater Conference Center",
     "slug":"Queen-Room-Balcony",
     "price": "250",
     "delPrice": "380",
@@ -30,8 +30,8 @@
   {
     "id": 3,
     "proImg": "/images/room/img-3.jpg",
-    "title": "Apartment",
-    "slug":"Apartment",
+    "title": "Dr. Lindsey Slater Pavilliont",
+    "slug":"Dr. Lindsey Slater Pavilliont",
     "price": "230",
     "sqm":"82",
     "Des":"If you are going to use a passage Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
@@ -43,8 +43,8 @@
   },
   {
     "id": 4,
-    "proImg": "/images/room/img-9.jpg",
-    "title": "Sea view Room",
+    "proImg": "/images/room/img-11.jpg",
+    "title": "Philip B. Lynch Sr. Firepit",
     "slug":"Sea-view-Room",
     "price": "280",
     "sqm":"45",
@@ -58,28 +58,14 @@
   {
     "id": 5,
     "proImg": "/images/room/img-10.jpg",
-    "title": "Apartment Balcony",
-    "slug":"Apartment-Balcony",
+    "title": "Dr. Lindsey Slater Pavilliont Balcony",
+    "slug":"Dr. Lindsey Slater Pavilliont-Balcony",
     "price": "260",
     "sqm":"55",
     "Des":"If you are going to use a passage Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
     "bedroom":"2",
     "bathroom":"1",
     "delPrice": "280",
-    "capacity":"2",
-    "Children":"6"
-  },
-  {
-    "id": 6,
-    "proImg": "/images/room/img-11.jpg",
-    "title": "Deluxe Contrast Room",
-    "slug":"Deluxe-Contrasts",
-    "price": "200",
-    "sqm":"85",
-    "Des":"If you are going to use a passage Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
-    "bedroom":"2",
-    "bathroom":"1",
-    "delPrice": "380",
     "capacity":"2",
     "Children":"6"
   }

@@ -4,6 +4,8 @@ import Link from 'next/link'
 import rm1 from '../../../../images/room/img-1.jpg'
 import rm2 from '../../../../images/room/img-2.jpg'
 import rm3 from '../../../../images/room/img-3.jpg'
+import rm4 from '../../../../images/room/img-4.jpg'
+import rm5 from '../../../../images/room/img-5.jpg'
 
 const OtherRoom = (props) => {
 
@@ -11,7 +13,7 @@ const OtherRoom = (props) => {
 
         {
             RoomImg:rm1,
-            RoomHeading:"Lake view Room",
+            RoomHeading:"GYM",
             RoomCount:'Twin Room',
             Des:"If you are going to use a passage Lorem Ipsum, you need",
             Price:"$142",
@@ -19,7 +21,7 @@ const OtherRoom = (props) => {
         },
         {
             RoomImg:rm2,
-            RoomHeading:"Queen Room Balcony",
+            RoomHeading:"Dr. Lindsey Slater Conference Center",
             RoomCount:'Twin Room',
             Des:"If you are going to use a passage Lorem Ipsum, you need.",
             Price:"$142",
@@ -27,12 +29,28 @@ const OtherRoom = (props) => {
         },
         {
             RoomImg:rm3,
-            RoomHeading:"Apartment",
+            RoomHeading:"Dr. Lindsey Slater Pavilliont",
+            RoomCount:'Twin Room',
+            Des:"If you are going to use a passage Lorem Ipsum, you need.",
+            Price:"$142",
+            Link:"/room-single",
+        },{
+            RoomImg:rm4,
+            RoomHeading:"Dr. Lindsey Slater Conference Center",
             RoomCount:'Twin Room',
             Des:"If you are going to use a passage Lorem Ipsum, you need.",
             Price:"$142",
             Link:"/room-single",
         },
+        {
+            RoomImg:rm5,
+            RoomHeading:"Dr. Lindsey Slater Pavilliont",
+            RoomCount:'Twin Room',
+            Des:"If you are going to use a passage Lorem Ipsum, you need.",
+            Price:"$142",
+            Link:"/room-single",
+        }
+        
 
     ]
 

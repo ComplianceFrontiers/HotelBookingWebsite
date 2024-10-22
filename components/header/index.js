@@ -91,7 +91,7 @@ const Header = (props) => {
                             </div>
                             <div className="col-xl-3 get-q">
                                 <div className="get-quote">
-                                    <Link href="/contact"><i className="fi flaticon-support-1"></i>Call : +0123-456-789</Link>
+                                    <Link href="/contact"><i className="fi flaticon-support-1"></i>Call : (302) 762-1391</Link>
                                 </div>
                             </div>
                             <div className="col-xl-1 col-lg-1 col-md-6 col-sm-6 col-6">

@@ -12,9 +12,11 @@ import {
   incrementQuantity,
   decrementQuantity,
 } from "../../store/actions/action";
+import { useRouter } from "next/navigation";
 // import './CartPage.scss'; // Import your custom styles
 
 const CartPage = (props) => {
+  const router = useRouter();
   const ClickHandler = () => {
     window.scrollTo(10, 0);
   };
@@ -28,6 +30,17 @@ const CartPage = (props) => {
     const updatedCarts = [...editableCarts];
     updatedCarts[index][field] = value;
     setEditableCarts(updatedCarts);
+  };
+  const handleProceedToCheckout = () => {
+    const userDetails = localStorage.getItem("user_details");
+    console.log("uuuuu",userDetails,userDetails==null)
+    if (userDetails==null) {
+      // If user_details is not found, redirect to login
+      router.push("/login");
+    } else {
+      // If user_details exists, proceed to checkout
+      // router.push("/checkout");
+    }
   };
 
   return (
@@ -150,13 +163,14 @@ const CartPage = (props) => {
                   <div className="submit-btn-area">
                     <ul>
                       <li>
-                        <Link
-                          onClick={ClickHandler}
+                        {/* <Link */}
+                        <div
+                            onClick={handleProceedToCheckout}
                           className="theme-btn-s2"
-                          href="/checkout"
                         >
                           Proceed to Checkout{" "}
-                        </Link>
+                        {/* </Link> */}
+                        </div>
                       </li>
                     </ul>
                   </div>

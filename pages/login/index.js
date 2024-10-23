@@ -11,8 +11,7 @@ const LoginPage = () => {
     const router = useRouter();
 
     const [value, setValue] = useState({
-        email: '',
-        password: '',  // Add a password field
+        email: ''
     });
 
     const changeHandler = (e) => {
@@ -48,6 +47,10 @@ const LoginPage = () => {
                 if (response.ok) {
                     // Handle successful login
                     toast.success(data.message);
+                    
+                    // Store user details in local storage
+                    localStorage.setItem('user_details', JSON.stringify(data.user_details));
+
                     router.push('/');  // Redirect to the home page after successful login
                 } else {
                     // Handle errors

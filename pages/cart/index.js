@@ -21,7 +21,7 @@ const CartPage = (props) => {
 
   const { carts } = props;
 
-  // State for holding editable values
+  // State for holding editable values (optional, can be managed through Redux)
   const [editableCarts, setEditableCarts] = useState(carts);
 
   const handleChange = (index, field, value) => {
@@ -54,60 +54,59 @@ const CartPage = (props) => {
                         </tr>
                       </thead>
                       <tbody>
-  {editableCarts && editableCarts.length > 0 && editableCarts.map((catItem, crt) => (
-    <tr key={crt}>
-      <td className="product">
-        <ul>
-          <li className="first-cart">{catItem.title}</li>
-        </ul>
-      </td>
-      <td className="ptice">
-        <input
-          type="text"
-          value={catItem.capacity}
-          onChange={(e) => handleChange(crt, 'capacity', e.target.value)}
-          className="editable-input"
-        />
-      </td>
-      <td className="ptice">
-        <input
-          type="number"
-          value={catItem.qty}
-          onChange={(e) => handleChange(crt, 'qty', e.target.value)}
-          className="editable-input"
-        />
-      </td>
-      <td className="stock">
-        <input
-          type="datetime-local"
-          value={catItem.checkIn} // Ensure this is in 'YYYY-MM-DDTHH:MM' format
-          onChange={(e) => handleChange(crt, 'checkIn', e.target.value)}
-          className="editable-input"
-        />
-      </td>
-      <td className="stock">
-        <input
-          type="datetime-local"
-          value={catItem.checkOut} // Ensure this is in 'YYYY-MM-DDTHH:MM' format
-          onChange={(e) => handleChange(crt, 'checkOut', e.target.value)}
-          className="editable-input"
-        />
-      </td>
-      <td className="stock">${catItem.qty * catItem.price}</td>
-      <td className="action">
-        <ul>
-          <li
-            className="w-btn"
-            onClick={() => props.removeFromCart(catItem.id)}
-          >
-            <i className="fi ti-trash"></i>
-          </li>
-        </ul>
-      </td>
-    </tr>
-  ))}
-</tbody>
-
+                        {carts && carts.length > 0 && carts.map((catItem, crt) => (
+                          <tr key={crt}>
+                            <td className="product">
+                              <ul>
+                                <li className="first-cart">{catItem.title}</li>
+                              </ul>
+                            </td>
+                            <td className="ptice">
+                              <input
+                                type="text"
+                                value={catItem.capacity}
+                                onChange={(e) => handleChange(crt, 'capacity', e.target.value)}
+                                className="editable-input"
+                              />
+                            </td>
+                            <td className="ptice">
+                              <input
+                                type="number"
+                                value={catItem.qty}
+                                onChange={(e) => handleChange(crt, 'qty', e.target.value)}
+                                className="editable-input"
+                              />
+                            </td>
+                            <td className="stock">
+                              <input
+                                type="datetime-local"
+                                value={catItem.checkIn} // Ensure this is in 'YYYY-MM-DDTHH:MM' format
+                                onChange={(e) => handleChange(crt, 'checkIn', e.target.value)}
+                                className="editable-input"
+                              />
+                            </td>
+                            <td className="stock">
+                              <input
+                                type="datetime-local"
+                                value={catItem.checkOut} // Ensure this is in 'YYYY-MM-DDTHH:MM' format
+                                onChange={(e) => handleChange(crt, 'checkOut', e.target.value)}
+                                className="editable-input"
+                              />
+                            </td>
+                            <td className="stock">${catItem.qty * catItem.price}</td>
+                            <td className="action">
+                              <ul>
+                                <li
+                                  className="w-btn"
+                                  onClick={() => props.removeFromCart(catItem.id)}
+                                >
+                                  <i className="fi ti-trash"></i>
+                                </li>
+                              </ul>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
                     </table>
                   </form>
                   <div className="submit-btn-area">
@@ -129,10 +128,10 @@ const CartPage = (props) => {
                   <div className="cart-product-list">
                     <ul>
                       <li>
-                        Total Room<span>( {editableCarts.length} )</span>
+                        Total Room<span>( {carts.length} )</span>
                       </li>
                       <li>
-                        Sub Price<span>${totalPrice(editableCarts)}</span>
+                        Sub Price<span>${totalPrice(carts)}</span>
                       </li>
                       <li>
                         Vat<span>$0</span>
@@ -144,7 +143,7 @@ const CartPage = (props) => {
                         Delivery Charge<span>$0</span>
                       </li>
                       <li className="cart-b">
-                        Total Price<span>${totalPrice(editableCarts)}</span>
+                        Total Price<span>${totalPrice(carts)}</span>
                       </li>
                     </ul>
                   </div>

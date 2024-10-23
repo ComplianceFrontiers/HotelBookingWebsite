@@ -13,17 +13,12 @@ import {
   decrementQuantity,
 } from "../../store/actions/action";
 import { useRouter } from "next/navigation";
-// import './CartPage.scss'; // Import your custom styles
 
 const CartPage = (props) => {
   const router = useRouter();
-  const ClickHandler = () => {
-    window.scrollTo(10, 0);
-  };
-
   const { carts } = props;
 
-  // State for holding editable values (optional, can be managed through Redux)
+  // State for holding editable values (optional)
   const [editableCarts, setEditableCarts] = useState(carts);
 
   const handleChange = (index, field, value) => {
@@ -31,17 +26,57 @@ const CartPage = (props) => {
     updatedCarts[index][field] = value;
     setEditableCarts(updatedCarts);
   };
-  const handleProceedToCheckout = () => {
+
+  const handleProceedToCheckout = async () => {
     const userDetails = localStorage.getItem("user_details");
-    console.log("uuuuu",userDetails,userDetails==null)
-    if (userDetails==null) {
+    
+    // Check if userDetails is null or not a valid JSON
+    if (!userDetails || userDetails === "{}") {
       // If user_details is not found, redirect to login
       router.push("/login");
     } else {
-      // If user_details exists, proceed to checkout
-      // router.push("/checkout");
+      // Parse the user details from localStorage
+      const parsedUserDetails = JSON.parse(userDetails);
+      const email = parsedUserDetails.email; // Assuming user_details contains email
+  
+      // Prepare the checkout details from the editable carts
+      const checkoutDetails = editableCarts.map(item => ({
+        title: item.title,
+        capacity: item.capacity,
+        qty: item.qty,
+        checkIn: item.checkIn,
+        checkOut: item.checkOut,
+        price: item.price,
+      }));
+  
+      console.log("Checkout Details:", checkoutDetails);
+  
+      try {
+        const response = await fetch('http://127.0.0.1:80/checkout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, checkout_details: checkoutDetails }),
+        });
+  
+        if (response.ok) {
+          const jsonResponse = await response.json();
+          console.log("Checkout successful:", jsonResponse);
+          // Redirect to a confirmation page or the checkout page
+          router.push("/checkout"); // Adjust this path as necessary
+        } else {
+          const errorResponse = await response.json();
+          console.error("Checkout error:", errorResponse);
+          alert("Error during checkout: " + (errorResponse.error || "An unknown error occurred."));
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred while processing your request.");
+      }
     }
   };
+  
 
   return (
     <Fragment>
@@ -93,7 +128,7 @@ const CartPage = (props) => {
                             <td className="stock">
                               <input
                                 type="datetime-local"
-                                value={catItem.checkIn} // Ensure this is in 'YYYY-MM-DDTHH:MM' format
+                                value={catItem.checkIn}
                                 onChange={(e) => handleChange(crt, 'checkIn', e.target.value)}
                                 className="editable-input"
                               />
@@ -101,7 +136,7 @@ const CartPage = (props) => {
                             <td className="stock">
                               <input
                                 type="datetime-local"
-                                value={catItem.checkOut} // Ensure this is in 'YYYY-MM-DDTHH:MM' format
+                                value={catItem.checkOut}
                                 onChange={(e) => handleChange(crt, 'checkOut', e.target.value)}
                                 className="editable-input"
                               />
@@ -125,11 +160,7 @@ const CartPage = (props) => {
                   <div className="submit-btn-area">
                     <ul>
                       <li>
-                        <Link
-                          onClick={ClickHandler}
-                          className="theme-btn-s2"
-                          href="/search-result"
-                        >
+                        <Link onClick={() => window.scrollTo(10, 0)} className="theme-btn-s2" href="/search-result">
                           Add Another{" "}
                         </Link>
                       </li>
@@ -143,18 +174,6 @@ const CartPage = (props) => {
                       <li>
                         Total Room<span>( {carts.length} )</span>
                       </li>
-                      <li>
-                        Sub Price<span>${totalPrice(carts)}</span>
-                      </li>
-                      <li>
-                        Vat<span>$0</span>
-                      </li>
-                      <li>
-                        Eco Tax<span>$0</span>
-                      </li>
-                      <li>
-                        Delivery Charge<span>$0</span>
-                      </li>
                       <li className="cart-b">
                         Total Price<span>${totalPrice(carts)}</span>
                       </li>
@@ -163,13 +182,8 @@ const CartPage = (props) => {
                   <div className="submit-btn-area">
                     <ul>
                       <li>
-                        {/* <Link */}
-                        <div
-                            onClick={handleProceedToCheckout}
-                          className="theme-btn-s2"
-                        >
+                        <div onClick={handleProceedToCheckout} className="theme-btn-s2">
                           Proceed to Checkout{" "}
-                        {/* </Link> */}
                         </div>
                       </li>
                     </ul>

@@ -1,53 +1,65 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Grid from "@mui/material/Grid";
-import SimpleReactValidator from "simple-react-validator";
-import {toast} from "react-toastify";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 import Link from "next/link";
+import axios from 'axios'; // Import axios
+import { toast } from "react-toastify";
 
 const SignUpPage = (props) => {
 
-    const router = useRouter()
+    const router = useRouter();
 
     const [value, setValue] = useState({
         email: '',
         full_name: '',
-        password: '',
-        confirm_password: '',
+        phone: '',
     });
 
     const changeHandler = (e) => {
-        setValue({...value, [e.target.name]: e.target.value});
-        validator.showMessages();
+        setValue({ ...value, [e.target.name]: e.target.value });
     };
 
-    const [validator] = React.useState(new SimpleReactValidator({
-        className: 'errorMessage'
-    }));
-
-
-    const submitForm = (e) => {
+    const submitForm = async (e) => {
         e.preventDefault();
-        if (validator.allValid()) {
-            setValue({
-                email: '',
-                full_name: '',
-                password: '',
-                confirm_password: '',
+
+        try {
+            // Make the POST request to the signup API
+            const response = await axios.post('http://127.0.0.1:80/signup', {
+                email: value.email,
+                full_name: value.full_name,
+                phone: value.phone,
             });
-            validator.hideMessages();
-            toast.success('Registration Complete successfully!');
-            router.push('/login')
-        } else {
-            validator.showMessages();
-            toast.error('Empty field is not allowed!');
+
+            // Handle the response
+            if (response.status === 201) {
+                const userDetails = {
+                    email: response.data.email,
+                    full_name: response.data.full_name,
+                    phone: response.data.phone,
+                };
+
+                // Store user details in localStorage
+                localStorage.setItem('user_details', JSON.stringify(userDetails));
+
+                toast.success('Registration complete!');
+
+                // Redirect to login page
+                router.push('/login');
+            }
+        } catch (error) {
+            if (error.response) {
+                // Display error message if email is already registered or any other error occurs
+                toast.error(error.response.data.error || 'An error occurred during registration');
+            } else {
+                toast.error('Network error or server is down');
+            }
         }
     };
+
     return (
         <Grid className="loginWrapper">
-
             <Grid className="loginForm">
                 <h2>Signup</h2>
                 <p>Signup your account</p>
@@ -65,10 +77,9 @@ const SignUpPage = (props) => {
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
-                                onBlur={(e) => changeHandler(e)}
-                                onChange={(e) => changeHandler(e)}
+                                onBlur={changeHandler}
+                                onChange={changeHandler}
                             />
-                            {validator.message('full name', value.full_name, 'required|alpha')}
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
@@ -82,62 +93,37 @@ const SignUpPage = (props) => {
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
-                                onBlur={(e) => changeHandler(e)}
-                                onChange={(e) => changeHandler(e)}
+                                onBlur={changeHandler}
+                                onChange={changeHandler}
                             />
-                            {validator.message('email', value.email, 'required|email')}
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
                                 className="inputOutline"
                                 fullWidth
-                                placeholder="Password"
-                                value={value.password}
+                                placeholder="Phone Number"
+                                value={value.phone}
                                 variant="outlined"
-                                name="password"
-                                label="Password"
+                                name="phone"
+                                label="Phone"
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
-                                onBlur={(e) => changeHandler(e)}
-                                onChange={(e) => changeHandler(e)}
+                                onBlur={changeHandler}
+                                onChange={changeHandler}
                             />
-                            {validator.message('password', value.password, 'required')}
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                className="inputOutline"
-                                fullWidth
-                                placeholder="Confirm Password"
-                                value={value.password}
-                                variant="outlined"
-                                name="confirm_password"
-                                label="Confirm Password"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                onBlur={(e) => changeHandler(e)}
-                                onChange={(e) => changeHandler(e)}
-                            />
-                            {validator.message('confirm password', value.confirm_password, `in:${value.password}`)}
                         </Grid>
                         <Grid item xs={12}>
                             <Grid className="formFooter">
                                 <Button fullWidth className="cBtn cBtnLarge cBtnTheme" type="submit">Sign Up</Button>
                             </Grid>
-                            <Grid className="loginWithSocial">
-                                <Button className="facebook"><i className="fa fa-facebook"></i></Button>
-                                <Button className="twitter"><i className="fa fa-twitter"></i></Button>
-                                <Button className="linkedin"><i className="fa fa-linkedin"></i></Button>
-                            </Grid>
-                            <p className="noteHelp">Already have an account? <Link href="/login">Return to Sign In</Link>
-                            </p>
+                            <p className="noteHelp">Already have an account? <Link href="/login">Return to Sign In</Link></p>
                         </Grid>
                     </Grid>
                 </form>
             </Grid>
         </Grid>
-    )
+    );
 };
 
 export default SignUpPage;

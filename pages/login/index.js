@@ -1,63 +1,67 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Grid from "@mui/material/Grid";
 import SimpleReactValidator from "simple-react-validator";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 import Link from "next/link";
 
-
-const LoginPage = (props) => {
-
-    const router = useRouter()
-
+const LoginPage = () => {
+    const router = useRouter();
 
     const [value, setValue] = useState({
-        email: 'user@gmail.com',
-        password: '123456',
-        remember: false,
+        email: '',
+        password: '',  // Add a password field
     });
 
     const changeHandler = (e) => {
-        setValue({...value, [e.target.name]: e.target.value});
+        setValue({ ...value, [e.target.name]: e.target.value });
         validator.showMessages();
-    };
-
-    const rememberHandler = () => {
-        setValue({...value, remember: !value.remember});
     };
 
     const [validator] = React.useState(new SimpleReactValidator({
         className: 'errorMessage'
     }));
 
-
-
-    const submitForm = (e) => {
+    const submitForm = async (e) => {
         e.preventDefault();
         if (validator.allValid()) {
-            setValue({
-                email: '',
-                password: '',
-                remember: false
-            });
-            validator.hideMessages();
+            // Create the payload for login
+            const payload = {
+                email: value.email,
+                password: value.password,
+            };
 
-            const userRegex = /^user+.*/gm;
-            const email = value.email;
+            try {
+                // Make the API call
+                const response = await fetch('http://127.0.0.1:80/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload),
+                });
 
-            if (email.match(userRegex)) {
-                toast.success('You successfully Login on Bellevue Community Center  !');
-                router.push('/')
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Handle successful login
+                    toast.success(data.message);
+                    router.push('/');  // Redirect to the home page after successful login
+                } else {
+                    // Handle errors
+                    toast.error(data.error);
+                }
+            } catch (error) {
+                toast.error('An error occurred. Please try again later.');
             }
         } else {
             validator.showMessages();
             toast.error('Empty field is not allowed!');
         }
     };
+
     return (
         <Grid className="loginWrapper">
             <Grid className="loginForm">
@@ -83,47 +87,16 @@ const LoginPage = (props) => {
                             {validator.message('email', value.email, 'required|email')}
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField
-                                className="inputOutline"
-                                fullWidth
-                                placeholder="Password"
-                                value={value.password}
-                                variant="outlined"
-                                name="password"
-                                type="password"
-                                label="Password"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                onBlur={(e) => changeHandler(e)}
-                                onChange={(e) => changeHandler(e)}
-                            />
-                            {validator.message('password', value.password, 'required')}
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Grid className="formAction">
-                                <FormControlLabel
-                                    control={<Checkbox checked={value.remember} onChange={rememberHandler}/>}
-                                    label="Remember Me"
-                                />
-                                <Link href="/forgot-password">Forgot Password?</Link>
-                            </Grid>
                             <Grid className="formFooter">
                                 <Button fullWidth className="cBtnTheme" type="submit">Login</Button>
                             </Grid>
-                            <Grid className="loginWithSocial">
-                                <Button className="facebook"><i className="fa fa-facebook"></i></Button>
-                                <Button className="twitter"><i className="fa fa-twitter"></i></Button>
-                                <Button className="linkedin"><i className="fa fa-linkedin"></i></Button>
-                            </Grid>
-                            <p className="noteHelp">Don't have an account? <Link href="/register">Create free account</Link>
-                            </p>
+                            <p className="noteHelp">Don't have an account? <Link href="/register">Create free account</Link></p>
                         </Grid>
                     </Grid>
                 </form>
             </Grid>
         </Grid>
-    )
+    );
 };
 
 export default LoginPage;

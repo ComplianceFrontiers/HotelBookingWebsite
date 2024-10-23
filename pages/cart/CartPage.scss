@@ -1,0 +1,47 @@
+.table-responsive {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+  
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border: 1px solid #ddd; // Add borders
+    }
+  
+    th {
+      background-color: #f4f4f4; // Header background
+    }
+  
+    tr:hover {
+      background-color: #f1f1f1; // Row hover effect
+    }
+  
+    .editable-input {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #ccc; // Border for inputs
+      border-radius: 4px; // Rounded corners
+      box-sizing: border-box; // Prevent padding from affecting width
+    }
+  
+    .qty-input {
+      width: 50px; // Fixed width for quantity input
+      text-align: center; // Center align text
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  
+    .action {
+      text-align: center; // Center align action icons
+    }
+  }
+  
+  // Make it responsive
+  @media (max-width: 768px) {
+    .table-responsive {
+      display: block; // Stack items on smaller screens
+      overflow-x: auto; // Allow scrolling
+    }
+  }
+  

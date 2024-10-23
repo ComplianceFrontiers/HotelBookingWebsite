@@ -47,7 +47,7 @@ const Destinations = [
     },
     {
         id: '4',
-        title:'Philip B. Lynch Sr. Firepit',
+        title:'Multi-Purpose Room (MPR)',
         slug:'Singapore',
         subTitle:'Vietnam Sea Beach',
         dimg1:dimg4,

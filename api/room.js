@@ -33,7 +33,7 @@ const Rooms = [
     },
     {
         RoomImg:rm4,
-        RoomHeading:"Philip B. Lynch Sr. Firepit",
+        RoomHeading:"Multi-Purpose Room (MPR)",
         slug:'Sea-view-Room',
         RoomCount:'Single Room',
         Des:"If you are going to use a passage Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
@@ -41,7 +41,7 @@ const Rooms = [
     },
     {
         RoomImg:rm5,
-        RoomHeading:"Dr. Lindsey Slater Pavilliont Balcony",
+        RoomHeading:"Philip B. Lynch Sr. Firepit",
         slug:'Dr. Lindsey Slater Pavilliont-Balcony',
         RoomCount:'Twin Room',
         Des:"If you are going to use a passage Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",

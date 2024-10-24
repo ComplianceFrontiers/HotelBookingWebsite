@@ -52,7 +52,7 @@ const CartPage = (props) => {
       console.log("Checkout Details:", checkoutDetails);
   
       try {
-        const response = await fetch('http://127.0.0.1:80/checkout', {
+        const response = await fetch('https://hotel-website-backend-eosin.vercel.app//checkout', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

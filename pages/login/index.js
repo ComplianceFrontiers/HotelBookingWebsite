@@ -34,7 +34,7 @@ const LoginPage = () => {
 
             try {
                 // Make the API call
-                const response = await fetch('http://127.0.0.1:80/login', {
+                const response = await fetch('https://hotel-website-backend-eosin.vercel.app//login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

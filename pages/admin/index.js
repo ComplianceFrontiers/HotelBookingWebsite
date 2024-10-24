@@ -7,14 +7,17 @@ const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [userDetails, setUserDetails] = useState(null);
   const [month, setMonth] = useState(new Date());
+  const [loading, setLoading] = useState(true); // State to manage loading
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get('http://127.0.0.1:80/users');
+        const result = await axios.get('https://hotel-website-backend-eosin.vercel.app//users');
         setBookings(result.data);
       } catch (error) {
         console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false); // Stop loading when data is fetched
       }
     };
 
@@ -25,8 +28,8 @@ const Calendar = () => {
     const dateString = date.toISOString().split('T')[0]; // Format the date to YYYY-MM-DD
 
     const bookingsForDate = bookings
-      .flatMap(user => user.checkout_details) // Flatten user checkout details
-      .flat() // Flatten the array of bookings
+      .flatMap(user => user.checkout_details)
+      .flat()
       .filter(booking => {
         if (!booking || !booking.checkIn || !booking.checkOut) {
           return false; // Skip if checkIn or checkOut is missing
@@ -50,6 +53,19 @@ const Calendar = () => {
       setUserDetails(bookingsForDate);
     } else {
       setUserDetails(null);
+    }
+  };
+
+  // Function to fetch user details from API based on title and checkIn
+  const fetchUserDetails = async (title, checkIn) => {
+    try {
+      const response = await axios.get(`https://hotel-website-backend-eosin.vercel.app//checkout/filter`, {
+        params: { title, checkIn }
+      });
+      console.log(response.data)
+      setUserDetails(response.data);
+    } catch (error) {
+      console.error('Error fetching user details:', error);
     }
   };
 
@@ -96,7 +112,7 @@ const Calendar = () => {
         <button onClick={() => changeYear(1)}>Next Year</button>
       </div>
       <div className="calendar">
-        {generateCalendarDays()}
+        {loading ? <p>Loading...</p> : generateCalendarDays()}
       </div>
 
       {userDetails && (
@@ -104,8 +120,18 @@ const Calendar = () => {
           <h3>Bookings for {selectedDate.toDateString()}</h3>
           {userDetails.map((booking, index) => (
             <div key={index} className="booking-detail">
-              <p><strong>Room:</strong> {booking.title}</p>
-              <p><strong>Check-In:</strong> {new Date(booking.checkIn).toLocaleString()}</p>
+              <p
+                style={{ cursor: 'pointer', color: 'blue' }} // Add styles to indicate it's clickable
+                onClick={() => fetchUserDetails(booking.title, booking.checkIn)}
+              >
+                <strong>Room:</strong> {booking.title}
+              </p>
+              <p
+                style={{ cursor: 'pointer', color: 'blue' }} // Add styles to indicate it's clickable
+                onClick={() => fetchUserDetails(booking.title, booking.checkIn)}
+              >
+                <strong>Check-In:</strong> {new Date(booking.checkIn).toLocaleString()}
+              </p>
               <p><strong>Check-Out:</strong> {new Date(booking.checkOut).toLocaleString()}</p>
               <hr />
             </div>

@@ -9,6 +9,9 @@ const Admin = () => {
   const [bookingDetails, setBookingDetails] = useState({});
   const [value, setValue] = useState(new Date()); // Current selected date
   const [selectedBooking, setSelectedBooking] = useState(null);
+  const [view, setView] = useState('month'); // View type: 'month', 'week', 'day'
+  const [roomFilter, setRoomFilter] = useState(''); // Filter by room title
+  const [roomTitles, setRoomTitles] = useState([]); // List of room titles for filtering
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,7 +20,8 @@ const Admin = () => {
         const users = result.data;
 
         const booked = {};
-        
+        const rooms = new Set(); // To keep track of room titles
+
         users.forEach(user => {
           const checkoutDetails = user.checkout_details;
           if (checkoutDetails) {
@@ -25,6 +29,8 @@ const Admin = () => {
               details.forEach(({ checkIn, checkOut, title }) => {
                 const startDate = new Date(checkIn);
                 const endDate = new Date(checkOut);
+                rooms.add(title); // Add room title to the set
+                
                 // Loop through the date range and mark as booked
                 for (
                   let date = startDate;
@@ -52,6 +58,7 @@ const Admin = () => {
 
         setBookedDates(Object.keys(booked));
         setBookingDetails(booked);
+        setRoomTitles([...rooms]); // Convert set to array for dropdown
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -61,9 +68,17 @@ const Admin = () => {
   }, []);
 
   const tileClassName = ({ date, view }) => {
-    if (view === 'month') {
-      if (bookedDates.includes(date.toDateString())) {
-        return 'booked'; // Apply a class for booked dates
+    if (view === 'month' || view === 'week' || view === 'day') {
+      const dateString = date.toDateString();
+      if (bookedDates.includes(dateString)) {
+        // Apply a class for booked dates, with room filter applied if necessary
+        if (roomFilter) {
+          const bookingForDay = bookingDetails[dateString]?.some(
+            (booking) => booking.title === roomFilter
+          );
+          return bookingForDay ? 'booked' : 'available';
+        }
+        return 'booked'; // No filter, show all booked dates
       }
       return 'available'; // Apply a class for available dates
     }
@@ -78,32 +93,67 @@ const Admin = () => {
     }
   };
 
+  const handleViewChange = (newView) => {
+    setView(newView);
+  };
+
+  const handleFilterChange = (event) => {
+    setRoomFilter(event.target.value);
+  };
+
   return (
     <div className="admin">
       <h1>Admin Panel</h1>
-      <Calendar
-        onChange={setValue}
-        value={value}
-        tileClassName={tileClassName}
-        onClickDay={handleDayClick} // Handle day click
-      />
-      {selectedBooking && (
-        <div className="booking-details">
-          <h2>Booking Details</h2>
-          <ul>
-            {selectedBooking.map((booking, index) => (
-              <li key={index}>
-                <strong>Room Title:</strong> {booking.title} <br />
-                <strong>Check-In:</strong> {new Date(booking.checkIn).toLocaleString()} <br />
-                <strong>Check-Out:</strong> {new Date(booking.checkOut).toLocaleString()} <br />
-                <strong>Email:</strong> {booking.email} <br />
-                <strong>Full Name:</strong> {booking.fullName} <br />
-                <strong>Price:</strong> ${booking.price}
-              </li>
+      <div className="admin-container">
+        {/* Left-Side Filter by Room Title */}
+        <div className="filter-section">
+          <h2>Filter by Room Title</h2>
+          <select value={roomFilter} onChange={handleFilterChange}>
+            <option value="">All Rooms</option>
+            {roomTitles.map((title, index) => (
+              <option key={index} value={title}>
+                {title}
+              </option>
             ))}
-          </ul>
+          </select>
         </div>
-      )}
+
+        {/* Right-Side Calendar */}
+        <div className="calendar-section">
+          {/* View Change Buttons */}
+          <div className="view-options">
+            <button onClick={() => handleViewChange('month')} className={view === 'month' ? 'active' : ''}>Month</button>
+            <button onClick={() => handleViewChange('week')} className={view === 'week' ? 'active' : ''}>Week</button>
+            <button onClick={() => handleViewChange('day')} className={view === 'day' ? 'active' : ''}>Day</button>
+          </div>
+
+          <Calendar
+            onChange={setValue}
+            value={value}
+            view={view} // Set the current view (month, week, day)
+            tileClassName={tileClassName}
+            onClickDay={handleDayClick} // Handle day click
+          />
+
+          {selectedBooking && (
+            <div className="booking-details">
+              <h2>Booking Details</h2>
+              <ul>
+                {selectedBooking.map((booking, index) => (
+                  <li key={index}>
+                    <strong>Room Title:</strong> {booking.title} <br />
+                    <strong>Check-In:</strong> {new Date(booking.checkIn).toLocaleString()} <br />
+                    <strong>Check-Out:</strong> {new Date(booking.checkOut).toLocaleString()} <br />
+                    <strong>Email:</strong> {booking.email} <br />
+                    <strong>Full Name:</strong> {booking.fullName} <br />
+                    <strong>Price:</strong> ${booking.price}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

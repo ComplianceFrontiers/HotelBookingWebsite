@@ -1,17 +1,64 @@
 .admin {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
 
-  .react-calendar {
-    margin: 0 auto;
-  }
+.admin-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
 
-  .booked {
-    background-color: green !important;
-    color: white !important; // Optional: Change text color for better visibility
-  }
+.filter-section {
+  width: 20%;
+  margin-right: 20px;
+}
 
-  .available {
-    background-color: rgb(221, 67, 67) !important;
-    color: white !important; // Optional: Change text color for better visibility
-  }
+.calendar-section {
+  width: 70%;
+}
+
+.view-options {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 8px 16px;
+  margin: 0 5px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #e0e0e0;
+}
+
+button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.booked {
+  background-color: #28a745 !important; /* Green for booked dates */
+  color: white !important;
+}
+
+.available {
+  background-color: #dc3545 !important; /* Red for available dates */
+  color: white !important;
+}
+
+.booking-details {
+  margin-top: 20px;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }

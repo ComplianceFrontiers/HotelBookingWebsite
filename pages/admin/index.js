@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-// import './Calendar.module.scss'; // Importing SCSS file for styling
 
 const Calendar = () => {
   const [bookings, setBookings] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [userDetails, setUserDetails] = useState(null);
   const [month, setMonth] = useState(new Date());
-  const [loading, setLoading] = useState(true); // State to manage loading
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,7 +16,7 @@ const Calendar = () => {
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
-        setLoading(false); // Stop loading when data is fetched
+        setLoading(false);
       }
     };
 
@@ -25,27 +24,24 @@ const Calendar = () => {
   }, []);
 
   const getBookingsForDate = (date) => {
-    const dateString = date.toISOString().split('T')[0]; // Format the date to YYYY-MM-DD
+    const dateString = date.toISOString().split('T')[0];
 
     const bookingsForDate = bookings
       .flatMap(user => user.checkout_details)
       .flat()
       .filter(booking => {
         if (!booking || !booking.checkIn || !booking.checkOut) {
-          return false; // Skip if checkIn or checkOut is missing
+          return false;
         }
 
         const checkInDate = new Date(booking.checkIn);
         const checkOutDate = new Date(booking.checkOut);
-        
-        // Check if the date is within the booking range
         return checkInDate <= date && checkOutDate >= date;
       });
 
     return bookingsForDate;
   };
 
-  // Function to handle date click
   const handleDateClick = (date) => {
     const bookingsForDate = getBookingsForDate(date);
     if (bookingsForDate.length > 0) {
@@ -56,20 +52,17 @@ const Calendar = () => {
     }
   };
 
-  // Function to fetch user details from API based on title and checkIn
   const fetchUserDetails = async (title, checkIn) => {
     try {
       const response = await axios.get(`https://hotel-website-backend-eosin.vercel.app/checkout/filter`, {
         params: { title, checkIn }
       });
-      console.log(response.data)
       setUserDetails(response.data);
     } catch (error) {
       console.error('Error fetching user details:', error);
     }
   };
 
-  // Generate the calendar days
   const generateCalendarDays = () => {
     const days = [];
     const startDate = new Date(month.getFullYear(), month.getMonth(), 1);
@@ -91,26 +84,49 @@ const Calendar = () => {
     return days;
   };
 
-  const changeMonth = (increment) => {
-    const newMonth = new Date(month.setMonth(month.getMonth() + increment));
+  // Handle month change
+  const handleMonthChange = (e) => {
+    const newMonth = new Date(month.setMonth(e.target.value));
     setMonth(newMonth);
   };
 
-  const changeYear = (increment) => {
-    const newYear = new Date(month.setFullYear(month.getFullYear() + increment));
+  // Handle year change
+  const handleYearChange = (e) => {
+    const newYear = new Date(month.setFullYear(e.target.value));
     setMonth(newYear);
   };
+
+  const months = Array.from({ length: 12 }, (_, i) => new Date(0, i).toLocaleString('default', { month: 'long' }));
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 21 }, (_, i) => currentYear - 10 + i);
 
   return (
     <div className="calendar-container">
       <h2>Booking Calendar</h2>
-      <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-        <button onClick={() => changeYear(-1)}>Previous Year</button>
-        <button onClick={() => changeMonth(-1)}>Previous Month</button>
-        <span>{month.toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
-        <button onClick={() => changeMonth(1)}>Next Month</button>
-        <button onClick={() => changeYear(1)}>Next Year</button>
-      </div>
+      <div style={{ textAlign: 'center', marginBottom: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '20px' }}>
+  <label style={{ marginRight: '10px', fontWeight: 'bold', fontSize: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+    Month:
+    <select value={month.getMonth()} onChange={handleMonthChange} style={{ padding: '5px', fontSize: '15px', borderRadius : '5px' }}>
+      {months.map((monthName, index) => (
+        <option key={index} value={index}>
+          {monthName}
+        </option>
+      ))}
+    </select>
+  </label>
+  <label style={{ fontWeight: 'bold', fontSize: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+    Year:
+    <select value={month.getFullYear()} onChange={handleYearChange} style={{ padding: '5px', fontSize: '15px' , borderRadius : '5px' }}>
+      {years.map(year => (
+        <option key={year} value={year}>
+          {year}
+        </option>
+      ))}
+    </select>
+  </label>
+</div>
+
+
       <div className="calendar">
         {loading ? <p>Loading...</p> : generateCalendarDays()}
       </div>
@@ -121,13 +137,13 @@ const Calendar = () => {
           {userDetails.map((booking, index) => (
             <div key={index} className="booking-detail">
               <p
-                style={{ cursor: 'pointer', color: 'blue' }} // Add styles to indicate it's clickable
+                style={{ cursor: 'pointer', color: 'blue' }}
                 onClick={() => fetchUserDetails(booking.title, booking.checkIn)}
               >
                 <strong>Room:</strong> {booking.title}
               </p>
               <p
-                style={{ cursor: 'pointer', color: 'blue' }} // Add styles to indicate it's clickable
+                style={{ cursor: 'pointer', color: 'blue' }}
                 onClick={() => fetchUserDetails(booking.title, booking.checkIn)}
               >
                 <strong>Check-In:</strong> {new Date(booking.checkIn).toLocaleString()}

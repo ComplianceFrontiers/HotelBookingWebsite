@@ -12,7 +12,7 @@ const Calendar = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get('https://hotel-website-backend-eosin.vercel.app//users');
+        const result = await axios.get('https://hotel-website-backend-eosin.vercel.app/users');
         setBookings(result.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -59,7 +59,7 @@ const Calendar = () => {
   // Function to fetch user details from API based on title and checkIn
   const fetchUserDetails = async (title, checkIn) => {
     try {
-      const response = await axios.get(`https://hotel-website-backend-eosin.vercel.app//checkout/filter`, {
+      const response = await axios.get(`https://hotel-website-backend-eosin.vercel.app/checkout/filter`, {
         params: { title, checkIn }
       });
       console.log(response.data)

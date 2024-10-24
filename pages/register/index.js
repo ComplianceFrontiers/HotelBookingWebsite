@@ -26,7 +26,7 @@ const SignUpPage = (props) => {
 
         try {
             // Make the POST request to the signup API
-            const response = await axios.post('https://hotel-website-backend-eosin.vercel.app//signup', {
+            const response = await axios.post('https://hotel-website-backend-eosin.vercel.app/signup', {
                 email: value.email,
                 full_name: value.full_name,
                 phone: value.phone,

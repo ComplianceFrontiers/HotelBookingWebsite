@@ -63,3 +63,12 @@ button.active {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
+.calendar-section {
+  width: 70%;
+  position: relative; // Ensure absolute positioning works
+
+  .custom-calendar {
+    width: 800px; // Set your desired width
+    height: auto; // Set your desired height
+  }
+}

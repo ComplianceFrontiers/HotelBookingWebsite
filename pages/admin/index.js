@@ -132,12 +132,14 @@ const Admin = () => {
           </div>
 
           <Calendar
-            onChange={setValue}
-            value={value}
-            view={view} // Set the current view (month, week, day)
-            tileClassName={tileClassName}
-            onClickDay={handleDayClick} // Handle day click
-          />
+  onChange={setValue}
+  value={value}
+  view={view} // Set the current view (month, week, day)
+  tileClassName={tileClassName}
+  onClickDay={handleDayClick} // Handle day click
+  className="custom-calendar" // Apply the custom class here
+/>
+
 
           {selectedBooking && (
             <div className="booking-details">

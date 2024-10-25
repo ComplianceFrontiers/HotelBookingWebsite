@@ -53,7 +53,7 @@ button.active {
 }
 
 .available {
-  background-color: #dc3545 !important; /* Red for available dates */
+  background-color: #ca525e !important; /* Red for available dates */
   color: white !important;
 }
 
@@ -73,4 +73,29 @@ button.active {
     width: 800px; // Set your desired width
     height: auto; // Set your desired height
   }
+}
+.custom-calendar .react-calendar__tile {
+  height: 100px; /* Slightly increased height to allow more room for content */
+  width:auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  transition: background-color 0.3s;
+  overflow: hidden;
+  text-align: center;
+}
+
+.custom-calendar .tile-content .room-title {
+  font-size: 12px;
+  color: #0b0b0b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  // max-width: 9%; /* Ensures text does not extend beyond the tile */
 }

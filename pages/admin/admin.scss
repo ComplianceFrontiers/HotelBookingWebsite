@@ -53,8 +53,8 @@ button.active {
 }
 
 .available {
-  background-color: #ca525e !important; /* Red for available dates */
-  color: white !important;
+  background-color: #eff5ef !important; /* Red for available dates */
+  color: rgb(17, 16, 16) !important;
 }
 
 .booking-details {
@@ -75,27 +75,24 @@ button.active {
   }
 }
 .custom-calendar .react-calendar__tile {
-  height: 100px; /* Slightly increased height to allow more room for content */
-  width:auto;
+  height: 120px; /* Increased height for more content space */
+  padding: 4px; /* Reduced padding */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding: 8px;
+  justify-content: center;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 6px;
-  transition: background-color 0.3s;
   overflow: hidden;
   text-align: center;
 }
 
 .custom-calendar .tile-content .room-title {
-  font-size: 12px;
+  font-size: 10px; /* Smaller font size to fit content */
   color: #0b0b0b;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  // max-width: 9%; /* Ensures text does not extend beyond the tile */
+  max-height: 3em; /* Prevent overflow within the tile */
+  overflow-wrap: break-word; /* Wrap long words if needed */
+  white-space: normal; /* Allow text wrapping */
 }

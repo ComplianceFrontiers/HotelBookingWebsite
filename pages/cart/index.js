@@ -20,6 +20,7 @@ const CartPage = (props) => {
 
   // State for holding editable values (optional)
   const [editableCarts, setEditableCarts] = useState(carts);
+  const [isChecked, setIsChecked] = useState(false); // New state for the checkbox
 
   const handleChange = (index, field, value) => {
     const updatedCarts = [...editableCarts];
@@ -76,7 +77,6 @@ const CartPage = (props) => {
       }
     }
   };
-  
 
   return (
     <Fragment>
@@ -179,15 +179,39 @@ const CartPage = (props) => {
                       </li>
                     </ul>
                   </div>
+
+                  {/* Checkbox for terms and conditions */}
+                  <div className="terms-checkbox">
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          onChange={(e) => setIsChecked(e.target.checked)} // Update state when checkbox changes
+                        />
+                        <div className="custom-checkbox"></div> {/* Custom checkbox */}
+                        I accept the{" "}
+                        <Link href="/tandc" style={{ textDecoration: 'underline' }} target="_blank">
+                                terms and conditions
+                              </Link>
+
+                      </label>
+                    </div>
+
+
+
                   <div className="submit-btn-area">
                     <ul>
                       <li>
-                        <div onClick={handleProceedToCheckout} className="theme-btn-s2">
+                        <div
+                          onClick={isChecked ? handleProceedToCheckout : null}
+                          className={`theme-btn-s2 ${!isChecked ? 'disabled' : ''}`} // Apply disabled class conditionally
+                        >
                           Proceed to Checkout{" "}
                         </div>
                       </li>
                     </ul>
                   </div>
+
                 </div>
               </div>
             </div>

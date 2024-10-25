@@ -44,4 +44,92 @@
       overflow-x: auto; // Allow scrolling
     }
   }
+  .terms-checkbox {
+    display: flex;
+    align-items: center; // Center align label and checkbox
+    margin: 15px 0; // Space around the checkbox
+  
+    input[type="checkbox"] {
+      display: none; // Hide the default checkbox
+    }
+  
+    // Custom checkbox styling
+    .custom-checkbox {
+      width: 20px; // Width of custom checkbox
+      height: 20px; // Height of custom checkbox
+      border: 2px solid #007bff; // Border color
+      border-radius: 4px; // Rounded corners
+      position: relative; // Positioning for the checkmark
+      cursor: pointer; // Pointer on hover
+  
+      &:after {
+        content: ''; // Checkmark pseudo-element
+        position: absolute;
+        width: 10px; // Width of checkmark
+        height: 10px; // Height of checkmark
+        background-color: #007bff; // Checkmark color
+        left: 50%; // Center checkmark
+        top: 50%; // Center checkmark
+        transform: translate(-50%, -50%) scale(0); // Scale down initially
+        border-radius: 2px; // Rounded checkmark
+        transition: transform 0.2s ease; // Animation for checkmark
+      }
+    }
+  
+    // Scale up the checkmark when checked
+    input[type="checkbox"]:checked + .custom-checkbox:after {
+      transform: translate(-50%, -50%) scale(1); // Scale up checkmark
+    }
+  
+    label {
+      margin-left: 10px; // Space between checkbox and label
+      font-size: 16px; // Font size for label
+      color: #333; // Text color
+      cursor: pointer; // Pointer on hover
+    }
+  }
+  .terms-checkbox {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    margin-top: 15px;
+  
+    input[type="checkbox"] {
+      margin-right: 8px;
+      cursor: pointer;
+    }
+  
+    .custom-checkbox {
+      width: 18px;
+      height: 18px;
+      border: 1px solid #ccc;
+      display: inline-block;
+      margin-right: 8px;
+    }
+  }
+  
+  .submit-btn-area {
+    margin-top: 20px;
+  
+    .theme-btn-s2 {
+      padding: 12px 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      background-color: #5e60ce;
+      color: #fff;
+      border: none;
+      font-weight: bold;
+  
+      &:hover {
+        background-color: #4c51bd;
+      }
+  
+      &.disabled {
+        cursor: not-allowed;
+        background-color: #ddd;
+        color: #aaa;
+        pointer-events: none;
+      }
+    }
+  }
   

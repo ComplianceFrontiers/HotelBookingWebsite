@@ -3,24 +3,21 @@ import PageTitle from '../../components/pagetitle';
 import Navbar from '../../components/Navbar';
 import Footer from "../../components/footer";
 import Scrollbar from "../../components/scrollbar";
-import { Button, Grid } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, RadioGroup, FormControlLabel, Radio } from "@mui/material";
 import Link from "next/link";
 import { connect } from "react-redux";
 import { totalPrice } from "../../utils";
-import {
-  removeFromCart,
-  incrementQuantity,
-  decrementQuantity,
-} from "../../store/actions/action";
+import { removeFromCart, incrementQuantity, decrementQuantity } from "../../store/actions/action";
 import { useRouter } from "next/navigation";
 
 const CartPage = (props) => {
   const router = useRouter();
   const { carts } = props;
 
-  // State for holding editable values (optional)
   const [editableCarts, setEditableCarts] = useState(carts);
-  const [isChecked, setIsChecked] = useState(false); // New state for the checkbox
+  const [isChecked, setIsChecked] = useState(false);
+  const [openPopup, setOpenPopup] = useState(false);
+  const [paymentOption, setPaymentOption] = useState("paynow");
 
   const handleChange = (index, field, value) => {
     const updatedCarts = [...editableCarts];
@@ -30,52 +27,20 @@ const CartPage = (props) => {
 
   const handleProceedToCheckout = async () => {
     const userDetails = localStorage.getItem("user_details");
-    
-    // Check if userDetails is null or not a valid JSON
     if (!userDetails || userDetails === "{}") {
-      // If user_details is not found, redirect to login
       router.push("/login");
     } else {
-      // Parse the user details from localStorage
-      const parsedUserDetails = JSON.parse(userDetails);
-      const email = parsedUserDetails.email; // Assuming user_details contains email
-  
-      // Prepare the checkout details from the editable carts
-      const checkoutDetails = editableCarts.map(item => ({
-        title: item.title,
-        capacity: item.capacity,
-        qty: item.qty,
-        checkIn: item.checkIn,
-        checkOut: item.checkOut,
-        price: item.price,
-      }));
-  
-      console.log("Checkout Details:", checkoutDetails);
-  
-      try {
-        const response = await fetch('https://hotel-website-backend-eosin.vercel.app/checkout', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email, checkout_details: checkoutDetails }),
-        });
-  
-        if (response.ok) {
-          const jsonResponse = await response.json();
-          console.log("Checkout successful:", jsonResponse);
-          // Redirect to a confirmation page or the checkout page
-          router.push("/checkout"); // Adjust this path as necessary
-        } else {
-          const errorResponse = await response.json();
-          console.error("Checkout error:", errorResponse);
-          alert("Error during checkout: " + (errorResponse.error || "An unknown error occurred."));
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("An error occurred while processing your request.");
-      }
+      setOpenPopup(true);
     }
+  };
+
+  const handlePaymentOptionChange = (event) => {
+    setPaymentOption(event.target.value);
+  };
+
+  const handleProceedToPayment = () => {
+    setOpenPopup(false);
+    router.push("/checkout");
   };
 
   return (
@@ -180,37 +145,51 @@ const CartPage = (props) => {
                     </ul>
                   </div>
 
-                  {/* Checkbox for terms and conditions */}
                   <div className="terms-checkbox">
-                      <label>
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          onChange={(e) => setIsChecked(e.target.checked)} // Update state when checkbox changes
-                        />
-                        <div className="custom-checkbox"></div> {/* Custom checkbox */}
-                        I accept the{" "}
-                        <Link href="/tandc" style={{ textDecoration: 'underline' }} target="_blank">
-                                terms and conditions
-                              </Link>
-
-                      </label>
-                    </div>
-
-
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={(e) => setIsChecked(e.target.checked)}
+                      />
+                      <div className="custom-checkbox"></div>
+                      I accept the{" "}
+                      <Link href="/tandc" style={{ textDecoration: 'underline' }} target="_blank">
+                        terms and conditions
+                      </Link>
+                    </label>
+                  </div>
 
                   <div className="submit-btn-area">
                     <ul>
                       <li>
                         <div
                           onClick={isChecked ? handleProceedToCheckout : null}
-                          className={`theme-btn-s2 ${!isChecked ? 'disabled' : ''}`} // Apply disabled class conditionally
+                          className={`theme-btn-s2 ${!isChecked ? 'disabled' : ''}`}
                         >
                           Proceed to Checkout{" "}
                         </div>
                       </li>
                     </ul>
                   </div>
+
+                  {/* Popup Dialog */}
+                  <Dialog open={openPopup} onClose={() => setOpenPopup(false)}>
+                    <DialogTitle>Thank You!</DialogTitle>
+                    <DialogContent>
+                      <p>Please choose your payment option:</p>
+                      <RadioGroup value={paymentOption} onChange={handlePaymentOptionChange}>
+                        <FormControlLabel value="paynow" control={<Radio />} label="Pay Now" />
+                        <FormControlLabel value="paylater" control={<Radio />} label="Pay Later" />
+                        <FormControlLabel value="payhalf" control={<Radio />} label="Pay Half" />
+                      </RadioGroup>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleProceedToPayment} color="primary" variant="contained">
+                        Proceed to Payment
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
 
                 </div>
               </div>

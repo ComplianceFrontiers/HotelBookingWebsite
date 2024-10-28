@@ -16,6 +16,7 @@ import Head from "next/head";
 import '../pages/cart/CartPage.scss'; 
 import '../pages/admin/admin.scss'; 
 import '../pages/tandc/tandc.scss'; 
+import '../pages/Gallery/gallery.scss';
 
 function MyApp({ Component, pageProps }) {
   return (

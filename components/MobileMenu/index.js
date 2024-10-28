@@ -120,40 +120,40 @@ const menus = [
 
     {
         id: 5,
-        title: 'Blog',
-        link: '/blog',
-        submenu: [
-            {
-                id: 51,
-                title: 'Blog',
-                link: '/blog'
-            },
-            {
-                id: 52,
-                title: 'Blog Left sidebar',
-                link: '/blog-left-sidebar'
-            },
-            {
-                id: 53,
-                title: 'Blog full width',
-                link: '/blog-fullwidth'
-            },
-            {
-                id: 54,
-                title: 'Blog single',
-                link: '/blog-single/You’re-In-Dubai'
-            },
-            {
-                id: 55,
-                title: 'Blog single Left sidebar',
-                link: '/blog-single-left-sidebar/You’re-In-Dubai'
-            },
-            {
-                id: 56,
-                title: 'Blog single Left sidebar',
-                link: '/blog-single-fullwidth/You’re-In-Dubai'
-            },
-        ]
+        title: 'Gallery',
+        link: '/Gallery',
+        // submenu: [
+        //     {
+        //         id: 51,
+        //         title: 'Blog',
+        //         link: '/blog'
+        //     },
+        //     {
+        //         id: 52,
+        //         title: 'Blog Left sidebar',
+        //         link: '/blog-left-sidebar'
+        //     },
+        //     {
+        //         id: 53,
+        //         title: 'Blog full width',
+        //         link: '/blog-fullwidth'
+        //     },
+        //     {
+        //         id: 54,
+        //         title: 'Blog single',
+        //         link: '/blog-single/You’re-In-Dubai'
+        //     },
+        //     {
+        //         id: 55,
+        //         title: 'Blog single Left sidebar',
+        //         link: '/blog-single-left-sidebar/You’re-In-Dubai'
+        //     },
+        //     {
+        //         id: 56,
+        //         title: 'Blog single Left sidebar',
+        //         link: '/blog-single-fullwidth/You’re-In-Dubai'
+        //     },
+        // ]
     },
     {
         id: 88,

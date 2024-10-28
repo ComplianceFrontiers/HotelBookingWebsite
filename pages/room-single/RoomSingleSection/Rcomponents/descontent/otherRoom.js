@@ -18,7 +18,7 @@ const OtherRoom = (props) => {
                         <div className="row">
                             <div className="col col-xs-12 sortable-gallery">
                                 <div className="gallery-container">
-                                    {Rooms.slice(0, 3).map((room, rm) => (
+                                    {Rooms.slice(0, 5).map((room, rm) => (
                                         <div className="grid" key={rm}>
                                             <div className="room-item">
                                                 <Image src={room.RoomImg} alt="" className="img img-responsive" />

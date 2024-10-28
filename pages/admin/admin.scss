@@ -48,12 +48,14 @@ button.active {
 }
 
 .booked {
-  background-color: #28a745 !important; /* Green for booked dates */
-  color: white !important;
+  background-color: #eff5ef !important; /* Red for available dates */
+
+  // background-color: #28a745 !important; /* Green for booked dates */
+  // color: white !important;
 }
 
 .available {
-  background-color: #eff5ef !important; /* Red for available dates */
+  background-color: #f0f0f0;
   color: rgb(17, 16, 16) !important;
 }
 
@@ -89,10 +91,17 @@ button.active {
   text-align: center;
 }
 
-.custom-calendar .tile-content .room-title {
+.custom-calendar .tile-content {
   font-size: 10px; /* Smaller font size to fit content */
   color: #0b0b0b;
   max-height: 3em; /* Prevent overflow within the tile */
   overflow-wrap: break-word; /* Wrap long words if needed */
   white-space: normal; /* Allow text wrapping */
+}
+.room-title {
+  background-color: #28a745; /* Green for booked titles */
+  color: white; /* Text color for visibility */
+  padding: 5px; /* Add some padding for better appearance */
+  border-radius: 4px; /* Rounded corners for better aesthetics */
+  margin: 2px 0; /* Space between titles */
 }

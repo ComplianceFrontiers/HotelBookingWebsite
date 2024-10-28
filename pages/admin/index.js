@@ -113,6 +113,7 @@ const Admin = () => {
     }
     return null;
   };
+  
 
   return (
     <div className="admin">
@@ -131,12 +132,6 @@ const Admin = () => {
         </div>
 
         <div className="calendar-section">
-          {/* <div className="view-options">
-            <button onClick={() => handleViewChange('month')} className={view === 'month' ? 'active' : ''}>Month</button>
-            <button onClick={() => handleViewChange('week')} className={view === 'week' ? 'active' : ''}>Week</button>
-            <button onClick={() => handleViewChange('year')} className={view === 'year' ? 'active' : ''}>Year</button>
-          </div> */}
-
           <Calendar
             onChange={setValue}
             value={value}

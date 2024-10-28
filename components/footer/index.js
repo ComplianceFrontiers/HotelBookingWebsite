@@ -27,6 +27,12 @@ const Footer = (props) => {
                                 <div className="logo widget-title">
                                     <Image src={Logo} alt="logo" />
                                 </div>
+                                <div className="contact-ft">
+                                <ul>
+                                <li><i className="fi ti-location-pin"></i>510 Duncan Rd, Wilmington, DE, United States, Delaware</li>
+                                <li><i className="fi flaticon-email"></i> info@bellevuecc.org</li>
+                            </ul>
+                            </div>
                             </div>
                             <div className="col-lg-6 col-md-6 col-sm-6 col-12 custom-grid">
                                 <ul>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Modal from 'react-modal';
+// import Modal from 'react-modal';
 import '../../node_modules/react-modal-video/scss/modal-video.scss';
 
 const VideoModal = () => {

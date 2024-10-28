@@ -88,6 +88,8 @@ const Header = (props) => {
                                                 </li>
                                             </ul>
                                         </li>
+                                        <li><Link onClick={ClickHandler} href="/event" title="">Event</Link></li>
+
                                         <li><Link onClick={ClickHandler} href="/contact" title="">Contact</Link></li>
                                     </ul>
                                 </nav>

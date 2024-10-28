@@ -20,7 +20,7 @@ const About = (props) => {
                         <div className="wpo-about-text">
                             <div className="wpo-section-title">
                             <span>Welcome to Bellevue Community Center Rentals</span>
-                                <h3>Discover Versatile Spaces for Every Event<br/> Your Holidays </h3>
+                                <h4>Discover Versatile Spaces for Every Event  Your Holidays </h4>
                             </div>
                             <p>Whether you&#39;re planning a corporate meeting, a sports activity, a community gathering, or a
 special celebration, Bellevue Community Center (BCC) offers a range of beautifully designed,

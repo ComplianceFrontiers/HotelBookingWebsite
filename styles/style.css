@@ -3464,6 +3464,16 @@ hero-style3
   line-height: 75px;
 }
 
+.wpo-section-title h3 {
+  font-size: 40px;
+  font-weight: 700;
+  margin: 0;
+  display: inline-block;
+  position: relative;
+  line-height:40px;
+}
+
+
 .wpo-section-title {
   margin-bottom: 35px;
 }

@@ -32,26 +32,29 @@ const Header = (props) => {
                             <div className="col-xl-6 col-lg-8 d-lg-block d-none">
                                 <nav>
                                     <ul>
-                                        <li><Link onClick={ClickHandler}  href="/home" title="">Home +</Link>
-                                            <ul>
+                                        <li><Link onClick={ClickHandler}  href="/home" title="">Home </Link>
+                                            {/* <ul>
                                                 <li><Link onClick={ClickHandler} href="/home">Home style 1</Link></li>
                                                 <li><Link onClick={ClickHandler} href="/home2">Home style 2</Link></li>
                                                 <li><Link onClick={ClickHandler} href="/home3">Home style 3</Link></li>
-                                            </ul>
+                                            </ul> */}
                                         </li>
-                                        <li><Link onClick={ClickHandler} href="/room" title="">Room +</Link>
+                                        <li><Link onClick={ClickHandler} href="/room" title="">Room </Link>
                                             <ul>
-                                                <li><Link onClick={ClickHandler} href="/room" title="">Room</Link></li>
-                                                <li><Link onClick={ClickHandler} href="/room-single/Dr. Lindsey Slater Pavilliont" title="">Room Single</Link></li>
+                                                <li><Link onClick={ClickHandler} href="/room" title="">Gym</Link></li>
+                                                <li><Link onClick={ClickHandler} href="/room-single/Dr. Lindsey Slater Pavilliont" title="">Conference Center</Link></li>
+                                                <li><Link onClick={ClickHandler} href="/room-single/Dr. Lindsey Slater Pavilliont" title="">Pavilion</Link></li>
+                                                <li><Link onClick={ClickHandler} href="/room-single/Dr. Lindsey Slater Pavilliont" title="">Auditorium</Link></li>
+                                                <li><Link onClick={ClickHandler} href="/room-single/Dr. Lindsey Slater Pavilliont" title="">Firepit</Link></li>
                                             </ul>
                                         </li>
-                                        <li><Link onClick={ClickHandler} href="/destination" title="">Destination +</Link>
+                                        <li><Link onClick={ClickHandler} href="/destination" title="">Schedulin</Link>
                                             <ul>
                                                 <li><Link onClick={ClickHandler} href="/destination" title="">Destination</Link></li>
                                                 <li><Link onClick={ClickHandler} href="/destination-single/Paris,France" title="">Destination Single</Link></li>
                                             </ul>
                                         </li>
-                                        <li><Link onClick={ClickHandler} href="/home" title="">Pages +</Link>
+                                        <li><Link onClick={ClickHandler} href="/home" title="">Pages </Link>
                                             <ul>
                                                 <li><Link onClick={ClickHandler} href="/about" title="">About</Link></li>
                                                 <li><Link onClick={ClickHandler} href="/404" title="">Error 404</Link></li>
@@ -65,13 +68,13 @@ const Header = (props) => {
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><Link onClick={ClickHandler} href="/service" title="">Service +</Link>
+                                        <li><Link onClick={ClickHandler} href="/service" title="">Service </Link>
                                             <ul>
                                                 <li><Link onClick={ClickHandler} href="/service" title="">Service</Link></li>
                                                 <li><Link onClick={ClickHandler} href="/service-single/Delicious-Food" title="">Service Single</Link></li>
                                             </ul>
                                         </li>
-                                        <li><Link onClick={ClickHandler} href="/blog">Blog +</Link>
+                                        <li><Link onClick={ClickHandler} href="/blog">Gallery </Link>
                                             <ul>
                                                 <li><Link onClick={ClickHandler} href="/blog">Blog</Link></li>
                                                 <li><Link onClick={ClickHandler} href="/blog-left-sidebar">Blog Left sidebar</Link></li>

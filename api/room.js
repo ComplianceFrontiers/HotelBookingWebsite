@@ -9,10 +9,10 @@ import rm5 from '/public/images/room/img-5.jpg'
 const Rooms = [
     {
         RoomImg:rm1,
-        RoomHeading:"GYM",
+        RoomHeading:"Gymnasium",
         slug:'Lake-view-Room',
         RoomCount:'Twin Room',
-        Des:"Discover our newly renovated, A/C-equipped gymnasium featuring smart, eco-friendly utilities and a half-court divider for versatile workouts and maximum comfort during your fitness journey.",
+        Des:"Our newly renovated gym is equipped with air conditioning, eco-friendly features, and a convenient half-court divider. It’s perfect for sports events, fitness classes, or recreational activities for all ages.",
         Price:"$142",
     },
     {
@@ -20,7 +20,7 @@ const Rooms = [
         RoomHeading:"Dr. Lindsey Slater Conference Center",
         slug:'Queen-Room-Balcony',
         RoomCount:'Single Room',
-        Des:"Introducing the newly renovated Dr. Lindsey Slater Conference Center, featuring a convertible space equipped with a 4K smart TV and adaptive video and surround sound for all your meeting needs.",
+        Des:"This modern conference space features a 4K smart TV, adaptive video, and surround sound, creating a high-tech environment ideal for meetings, presentations, and professional gatherings.",
         Price:"$142",
     },
     {
@@ -28,7 +28,7 @@ const Rooms = [
         RoomHeading:"Dr. Lindsey Slater Pavilliont",
         slug:'Dr. Lindsey Slater Pavilliont',
         RoomCount:'Twin Room',
-        Des:"The Dr. Lindsey Slater Pavilion, generously donated by Dr. Slater, is ideal for outdoor events. Located near Bellevue Farms, it features electricity outlets and complimentary Wi-Fi for all gatherings.",
+        Des:"Enjoy an open-air experience with the Dr. Lindsey Slater Pavilion. Located next to Bellevue Farms, it’s equipped with electricity outlets and Wi-Fi, making it the ideal spot for outdoor events and celebrations.",
         Price:"$142",
     },
     {
@@ -36,7 +36,7 @@ const Rooms = [
         RoomHeading:"Multi-Purpose Room (MPR)",
         slug:'Sea-view-Room',
         RoomCount:'Single Room',
-        Des:"Explore our spacious and versatile Multi-Purpose Room, ideal for events. Equipped with a stage, ample seating, tables, and room dividers for customized layouts and unforgettable gatherings.",
+        Des:"Spacious and flexible, the MPR offers a stage, configurable seating, and dividers. This versatile room is perfect for workshops, family gatherings, and community events.",
         Price:"$142",
     },
     {
@@ -44,7 +44,7 @@ const Rooms = [
         RoomHeading:"Philip B. Lynch Sr. Firepit",
         slug:'Dr. Lindsey Slater Pavilliont-Balcony',
         RoomCount:'Twin Room',
-        Des:"Experience the Dr. Lindsey Slater Pavilion Balcony at Bellevue Farms, featuring the Philip B. Lynch Sr. firepit, beautifully crafted with generous donations to enhance your outdoor gatherings and relaxation.",
+        Des:"Nestled within Bellevue Farms, our firepit is a unique venue for cozy gatherings, fireside storytelling, or small community events. It’s a rustic setting perfect for memorable moments under the open sky.",
         Price:"$142",
     },
     // {

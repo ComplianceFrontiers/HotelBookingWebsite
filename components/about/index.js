@@ -19,12 +19,15 @@ const About = (props) => {
                     <div className="col-lg-5 col-md-12 colsm-12">
                         <div className="wpo-about-text">
                             <div className="wpo-section-title">
-                                <span>About Us</span>
-                                <h2>A Best Place <br/> to Enjoy </h2>
+                            <span>Welcome to Bellevue Community Center Rentals</span>
+                                <h3>Discover Versatile Spaces for Every Event<br/> Your Holidays </h3>
                             </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. </p>
+                            <p>Whether you&#39;re planning a corporate meeting, a sports activity, a community gathering, or a
+special celebration, Bellevue Community Center (BCC) offers a range of beautifully designed,
+eco-friendly facilities tailored to meet your needs. Located in the heart of Wilmington, Delaware,
+our center is a hub for community activities, events, and experiences that bring people together.</p>
                             <div className="btns">
-                                <Link onClick={ClickHandler} href="/about" className="theme-btn-s2">More About Us</Link>
+                                <Link onClick={ClickHandler} href="/about" className="theme-btn-s2">Schedule Your Event</Link>
                             </div>
                         </div>
                     </div>

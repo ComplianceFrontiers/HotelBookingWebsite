@@ -36,7 +36,7 @@ const VideoSection = (props) => {
             <div className={`container ${props.vClass}`}>
                 <div className="row">
                     <div className="col-12">
-                        <div className="banner-img" onClick={handleImageClick} style={{ cursor: 'pointer' }}>
+                        <div className="banner-img"  style={{ cursor: 'pointer' }}>
                             <Image src={vdimg} alt="Click to play video" />
                         </div>
                     </div>

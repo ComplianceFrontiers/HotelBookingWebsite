@@ -22,8 +22,8 @@ const RoomSection = (props) => {
                 <div className="container">
                     <div className="col-12">
                         <div className="wpo-section-title">
-                            <span>Our Rooms</span>
-                            <h2>Discover Our Rooms</h2>
+                            <span></span>
+                            <h2>Explore Our Facilities</h2>
                         </div>
                     </div>
                     <div className="row">

@@ -27,13 +27,14 @@ const Hero = (props) => {
                                 <div className="row">
                                     <div className="col col-lg-8 col-md-12 col-12 slide-caption">
                                         <div className="slide-title">
-                                            <h2>The Bellevue Community Center  Hotel & Resort</h2>
+                                            <h2>Spaces Designed for Moments That Matter</h2>
                                         </div>
                                         <div className="slide-subtitle">
-                                            <p>Make Your Life Better and Bright! You must trip with Us!</p>
+                                            <p>At Bellevue Community Center, we provide spaces that transform gatherings into
+                                            cherished memories.</p>
                                         </div>
                                         <div className="btns">
-                                            <Link href="/room" className="theme-btn">Book A Room</Link>
+                                            <Link href="/room" className="theme-btn">Create Memories</Link>
                                         </div>
                                     </div>
                                 </div>
@@ -46,13 +47,14 @@ const Hero = (props) => {
                                 <div className="row">
                                     <div className="col col-lg-8 col-md-12 col-12 slide-caption">
                                         <div className="slide-title">
-                                            <h2>The Bellevue Community Center  Hotel & Resort</h2>
+                                            <h2>The Heart of Every Gathering</h2>
                                         </div>
                                         <div className="slide-subtitle">
-                                            <p>Make Your Life Better and Bright! You must trip with Us!</p>
+                                            <p>At Bellevue Community Center, we’re at the heart of every gathering, fostering
+                                            connections and creating unforgettable experiences.</p>
                                         </div>
                                         <div className="btns">
-                                            <Link href="/room" className="theme-btn">Book A Room</Link>
+                                            <Link href="/room" className="theme-btn">Create Memories</Link>
                                         </div>
                                     </div>
                                 </div>
@@ -65,13 +67,14 @@ const Hero = (props) => {
                                 <div className="row">
                                     <div className="col col-lg-8 col-md-12 col-12 slide-caption">
                                         <div className="slide-title">
-                                            <h2>The Bellevue Community Center  Hotel & Resort</h2>
+                                            <h2>Flexible Spaces, Lasting Memories</h2>
                                         </div>
                                         <div className="slide-subtitle">
-                                            <p>Make Your Life Better and Bright! You must trip with Us!</p>
+                                            <p>At Bellevue Community Center, our flexible spaces are designed to create lasting
+                                            memories for every event.</p>
                                         </div>
                                         <div className="btns">
-                                            <Link href="/room" className="theme-btn">Book A Room</Link>
+                                            <Link href="/room" className="theme-btn">Create Memories</Link>
                                         </div>
                                     </div>
                                 </div>

@@ -1,95 +1,124 @@
-.gallery-container { 
+.gallery-container {
   .hero-section {
-      background-color: #b7a576;
-      padding: 2rem;
-      text-align: center;
-      color: #fff;
+    background-color: #b7a576;
+    padding: 2rem;
+    text-align: center;
+    color: #fff;
 
-      .hero-content {
-          max-width: 800px;
-          margin: 0 auto;
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
 
-          h1 {
-              font-size: 2rem;
-              font-weight: bold;
-          }
-
-          p {
-              font-size: 1rem;
-              color: #ddd;
-          }
-      }
-  }
-
-  .quote-section {
-      padding: 3rem;
-      text-align: center;
-      background: #fff;
-
-      blockquote {
-          font-size: 1.25rem;
-          color: #444;
-          max-width: 600px;
-          margin: 0 auto;
-          font-style: italic;
-          position: relative;
-
-          &:before {
-              content: '“';
-              font-size: 3rem;
-              color: #b7a576;
-              position: absolute;
-              top: -10px;
-              left: 10px;
-          }
-
-          footer {
-              font-size: 1rem;
-              color: #888;
-              margin-top: 1rem;
-              font-style: normal;
-          }
+      h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
       }
 
-      .dots {
-          margin-top: 1.5rem;
-
-          .dot {
-              width: 10px;
-              height: 10px;
-              margin: 0 5px;
-              background-color: #ddd;
-              display: inline-block;
-              border-radius: 50%;
-
-              &.active {
-                  background-color: #b7a576;
-              }
-          }
+      p {
+        font-size: 1.2rem;
+        color: #ddd;
       }
+    }
   }
 
   .masonry-gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 10px;
-      padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 10px;
+    padding: 2rem;
 
-      .gallery-item {
-          overflow: hidden;
-          border-radius: 5px;
+    .gallery-item {
+      overflow: hidden;
+      border-radius: 5px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
 
-          img {
-              width: 100%;
-              height: auto;
-              display: block;
-              object-fit: cover;
-              transition: transform 0.3s ease;
+      &:hover {
+        transform: translateY(-5px);
+      }
 
-              &:hover {
-                  transform: scale(1.05);
-              }
-          } // Closing brace for img
-      } // Closing brace for gallery-item
-  } // Closing brace for masonry-gallery
-} // Closing brace for gallery-container
+      img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Prevent overflow on modal */
+    transition: opacity 0.5s ease;
+
+    &.active {
+      display: flex; /* Show when active */
+      opacity: 1; /* Fade in effect */
+    }
+
+    .modal-content {
+      position: relative;
+      max-width: 100%; /* Responsive max width */
+      max-height: 100%; /* Responsive max height */
+      overflow: auto; /* Allow scrolling for content if necessary */
+
+      img {
+        max-width: 100%; /* Keep images responsive */
+        max-height: 100vh; /* Limit height to prevent overflow */
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      }
+
+      .close-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+        transition: color 0.3s;
+
+        &:hover {
+          color: #b7a576; // Change color on hover
+        }
+      }
+
+      .arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        color: white;
+        font-size: 3rem;
+        cursor: pointer;
+        z-index: 1000;
+        transition: color 0.3s;
+
+        &.left {
+          left: 20px;
+        }
+
+        &.right {
+          right: 20px;
+        }
+
+        &:hover {
+          color: #b7a576; // Change color on hover
+        }
+      }
+    }
+  }
+}

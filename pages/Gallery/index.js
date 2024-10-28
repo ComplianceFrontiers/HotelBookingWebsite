@@ -1,4 +1,6 @@
-import React from 'react';
+// Gallery Component
+
+import React, { useState } from 'react';
 import g1 from '/public/images/Gallery/1.jpg';
 import g2 from '/public/images/Gallery/2.jpg';
 import g3 from '/public/images/Gallery/3.jpg';
@@ -20,34 +22,63 @@ const Gallery = () => {
     g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15
   ];
 
+  const [modalActive, setModalActive] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const openModal = (index) => {
+    setCurrentImageIndex(index);
+    setModalActive(true);
+  };
+
+  const closeModal = () => {
+    setModalActive(false);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
+  const handleKeyDown = (e) => {
+    if (modalActive) {
+      if (e.key === 'ArrowLeft') {
+        prevImage();
+      } else if (e.key === 'ArrowRight') {
+        nextImage();
+      } else if (e.key === 'Escape') {
+        closeModal();
+      }
+    }
+  };
+
   return (
-    <div className="gallery-container">
+    <div className="gallery-container" onKeyDown={handleKeyDown} tabIndex="0">
       <div className="hero-section">
         <div className="hero-content">
-          <h1>Masonry Photo Gallery</h1>
-          <p>Home {'>'} Masonry Photo Gallery</p>
+          <h1>BCC Photo Gallery</h1>
         </div>
       </div>
-
-      <div className="quote-section">
-        <blockquote>
-          <p>In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.</p>
-          <footer>William Woe - Photographer</footer>
-        </blockquote>
-        <div className="dots">
-          <span className="dot active"></span>
-          <span className="dot"></span>
-          <span className="dot"></span>
-        </div>
-      </div>
-
       <div className="masonry-gallery">
         {images.map((src, index) => (
-          <div key={index} className="gallery-item">
+          <div key={index} className="gallery-item" onClick={() => openModal(index)}>
             <img src={src.src} alt={`Gallery ${index + 1}`} />
           </div>
         ))}
       </div>
+
+     {/* Full-screen Modal */}
+<div className={`modal ${modalActive ? 'active' : ''}`} onClick={closeModal}>
+  <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+    <img src={images[currentImageIndex].src} alt={`Full-screen Gallery ${currentImageIndex + 1}`} />
+    <div className="arrow left" onClick={prevImage} aria-label="Previous Image" role="button">&#10094;</div>
+    <div className="arrow right" onClick={nextImage} aria-label="Next Image" role="button">&#10095;</div>
+    <div className="close-button" onClick={closeModal} aria-label="Close" role="button">&#10006;</div>
+  </div>
+</div>
+
     </div>
   );
 };

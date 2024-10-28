@@ -81,10 +81,10 @@ const Testimonial = () => {
                 <div className="col-12">
                     <div className="wpo-section-title">
                         <span>Why Choose BCC for Your Next Event?</span>
-                        <h3>Our commitment to sustainability, advanced amenities, and the convenience of location make
+                        <p>Our commitment to sustainability, advanced amenities, and the convenience of location make
 Bellevue Community Center the perfect choice for your event. Whether you&#39;re hosting a small
 gathering or a large celebration, our facilities are designed to offer comfort, flexibility, and
-modern convenience.</h3>
+modern convenience.</p>
                     </div>
                 </div>
                 <div className="row">

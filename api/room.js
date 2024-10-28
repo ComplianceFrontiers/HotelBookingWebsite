@@ -1,8 +1,8 @@
 import rm1 from '/public/images/room/img-1.jpg'
 import rm2 from '/public/images/room/img-2.jpg'
 import rm3 from '/public/images/room/img-3.jpg'
-import rm4 from '/public/images/room/img-4.jpg'
-import rm5 from '/public/images/room/img-5.jpg'
+import rm4 from '/public/images/room/img-10.jpg'
+import rm5 from '/public/images/room/img-11.jpg'
 // import rm6 from '/public/images/room/img-11.jpg'
 
 

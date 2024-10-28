@@ -25,7 +25,7 @@ const Header = (props) => {
                     <div className="header-content">
                         <div className="row align-items-center">
                             <div className="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4">
-                                <div className="logo">
+                                <div className="logo"> 
                                     <Link onClick={ClickHandler} href="/home" title=""><Image src={Logo} alt="" /></Link>
                                 </div>
                             </div>
@@ -48,7 +48,7 @@ const Header = (props) => {
                                                 <li><Link onClick={ClickHandler} href="/room-single/Dr. Lindsey Slater Pavilliont" title="">Firepit</Link></li>
                                             </ul>
                                         </li>
-                                        <li><Link onClick={ClickHandler} href="/destination" title="">Schedulin</Link>
+                                        <li><Link onClick={ClickHandler} href="/destination" title="">Scheduling</Link>
                                             <ul>
                                                 <li><Link onClick={ClickHandler} href="/destination" title="">Destination</Link></li>
                                                 <li><Link onClick={ClickHandler} href="/destination-single/Paris,France" title="">Destination Single</Link></li>

@@ -76,7 +76,7 @@ const RoomSection = (props) => {
                             <div className="gallery-container">
                                 <TabContent activeTab={activeTab}>
                                     <TabPane tabId="1">
-                                        {Rooms.slice(0,3).map((room, rm) => (
+                                        {Rooms.slice(0,5).map((room, rm) => (
                                             <div className="grid" key={rm}>
                                                 <div className="room-item">
                                                     <Image src={room.RoomImg} alt="" className="img img-responsive" />

@@ -19,7 +19,8 @@
 }
 
 .calendar-section {
-  width: 70%;
+  margin-left: 80px;
+  width: 80%;
 }
 
 .view-options {
@@ -29,7 +30,7 @@
 }
 
 button {
-  padding: 8px 16px;
+  padding: 10px 16px;
   margin: 0 5px;
   cursor: pointer;
   background-color: #f0f0f0;
@@ -50,8 +51,6 @@ button.active {
 .booked {
   background-color: #eff5ef !important; /* Red for available dates */
 
-  // background-color: #28a745 !important; /* Green for booked dates */
-  // color: white !important;
 }
 
 .available {
@@ -68,7 +67,7 @@ button.active {
 }
 
 .calendar-section {
-  width: 70%;
+  width: 90%;
   position: relative; // Ensure absolute positioning works
 
   .custom-calendar {
@@ -77,9 +76,8 @@ button.active {
   }
 }
 .custom-calendar .react-calendar__tile {
-  height: 120px; /* Increased height for more content space */
-  padding: 4px; /* Reduced padding */
-  display: flex;
+  height: 110px; /* Increased height for more content space */
+   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;

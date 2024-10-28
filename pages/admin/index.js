@@ -11,6 +11,7 @@ const Admin = () => {
   const [view, setView] = useState('month');
   const [roomFilter, setRoomFilter] = useState('');
   const [roomTitles, setRoomTitles] = useState([]);
+  const [filteredDates, setFilteredDates] = useState([]); // To hold dates based on the filter
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,13 +68,8 @@ const Admin = () => {
   const tileClassName = ({ date, view }) => {
     if (view === 'month' || view === 'week' || view === 'year') {
       const dateString = date.toDateString();
-      if (bookedDates.includes(dateString)) {
-        if (roomFilter) {
-          const bookingForDay = bookingDetails[dateString]?.some(
-            (booking) => booking.title === roomFilter
-          );
-          return bookingForDay ? 'booked' : 'available';
-        }
+      // Check if the date is booked
+      if (filteredDates.includes(dateString)) {
         return 'booked';
       }
       return 'available';
@@ -97,9 +93,20 @@ const Admin = () => {
     setRoomFilter(event.target.value);
   };
 
+  const applyFilter = () => {
+    if (roomFilter) {
+      const newFilteredDates = bookedDates.filter(dateString => 
+        bookingDetails[dateString]?.some(booking => booking.title === roomFilter)
+      );
+      setFilteredDates(newFilteredDates);
+    } else {
+      setFilteredDates(bookedDates); // Reset to all booked dates if no filter is applied
+    }
+  };
+
   const tileContent = ({ date, view }) => {
     const dateString = date.toDateString();
-    if (bookedDates.includes(dateString)) {
+    if (filteredDates.includes(dateString)) {
       const bookings = bookingDetails[dateString];
       return (
         <div className="tile-content">
@@ -113,22 +120,37 @@ const Admin = () => {
     }
     return null;
   };
-  
 
   return (
     <div className="admin">
-      <h1>Admin Panel</h1>
+      {/* <h1>Admin Panel</h1> */}
       <div className="admin-container">
         <div className="filter-section">
           <h2>Filter by Room Title</h2>
-          <select value={roomFilter} onChange={handleFilterChange}>
-            <option value="">All Rooms</option>
-            {roomTitles.map((title, index) => (
-              <option key={index} value={title}>
-                {title}
-              </option>
-            ))}
-          </select>
+          {roomTitles.length > 0 ? (
+            roomTitles.map((title, index) => (
+              <div key={index}>
+                <label>
+                  <input
+                    type="radio"
+                    value={title}
+                    checked={roomFilter === title}
+                    onChange={handleFilterChange}
+                  />
+                  {title}
+                </label>
+              </div>
+            ))
+          ) : (
+            <p>No rooms available.</p>
+          )}
+          <button onClick={applyFilter}>Filter</button> {/* Filter button */}
+          <div>
+            <button onClick={() => {
+              setRoomFilter('');
+              setFilteredDates(bookedDates); // Clear filter and show all dates
+            }}>Clear Filter</button>
+          </div>
         </div>
 
         <div className="calendar-section">

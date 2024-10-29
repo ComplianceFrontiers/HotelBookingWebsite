@@ -15,7 +15,7 @@ const CartPage = (props) => {
   const { carts } = props;
 
   const [editableCarts, setEditableCarts] = useState(carts);
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
   const [openPopup, setOpenPopup] = useState(false);
   const [paymentOption, setPaymentOption] = useState("paynow");
 
@@ -26,12 +26,8 @@ const CartPage = (props) => {
   };
 
   const handleProceedToCheckout = async () => {
-    const userDetails = localStorage.getItem("user_details");
-    if (!userDetails || userDetails === "{}") {
-      router.push("/login");
-    } else {
-      setOpenPopup(true);
-    }
+    setOpenPopup(false);
+    router.push("/tandc");
   };
 
   const handlePaymentOptionChange = (event) => {
@@ -40,7 +36,7 @@ const CartPage = (props) => {
 
   const handleProceedToPayment = () => {
     setOpenPopup(false);
-    router.push("/checkout");
+    router.push("/tandc");
   };
 
   return (
@@ -145,7 +141,7 @@ const CartPage = (props) => {
                     </ul>
                   </div>
 
-                  <div className="terms-checkbox">
+                  {/* <div className="terms-checkbox">
                     <label>
                       <input
                         type="checkbox"
@@ -158,7 +154,7 @@ const CartPage = (props) => {
                         terms and conditions
                       </Link>
                     </label>
-                  </div>
+                  </div> */}
 
                   <div className="submit-btn-area">
                     <ul>

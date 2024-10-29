@@ -5,7 +5,7 @@ import React from 'react';
 const TermsAndConditions = () => {
   // Handler function for the Go Back button
   const handleGoBack = () => {
-    window.location.href = '/cart';
+    window.location.href = '/checkout';
   };
 
   return (
@@ -48,7 +48,7 @@ const TermsAndConditions = () => {
       <p>Your contact information will be handled in accordance with the privacy policy of Delaware Chess Champs and Chess Champs LLC, ensuring confidentiality and security.</p>
       
       <p>By submitting this form, I agree to the terms and conditions outlined in the Disclaimer and Liability Waiver. By providing your email address and phone number, you acknowledge that you have read and understood the terms of this publicity disclaimer and consent to receive communications from Delaware Chess Champs and Chess Champs LLC.</p>
-      <button className="go-back-button" onClick={handleGoBack}>Go Back</button>
+      <button className="go-back-button" onClick={handleGoBack}>I Accept and continue</button>
     </div>
   );
 };

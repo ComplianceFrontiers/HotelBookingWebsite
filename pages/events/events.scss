@@ -1,0 +1,106 @@
+.admin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  
+  
+  .admin-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .filter-section {
+    width: 20%;
+    margin-right: 20px;
+  }
+  
+  .calendar-section {
+    margin-left: 80px;
+    width: 80%;
+  }
+  
+  .view-options {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  button {
+    padding: 10px 16px;
+    margin: 0 5px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  button.active {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .booked {
+    background-color: #eff5ef !important; /* Red for available dates */
+  
+  }
+  
+  .available {
+    background-color: #f0f0f0;
+    color: rgb(17, 16, 16) !important;
+  }
+  
+  .booking-details {
+    margin-top: 20px;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .calendar-section {
+    width: 90%;
+    position: relative; // Ensure absolute positioning works
+  
+    .custom-calendar {
+      width: 800px; // Set your desired width
+      height: auto; // Set your desired height
+    }
+  }
+  .custom-calendar .react-calendar__tile {
+    height: 110px; /* Increased height for more content space */
+     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    overflow: hidden;
+    text-align: center;
+  }
+  
+  .custom-calendar .tile-content {
+    font-size: 10px; /* Smaller font size to fit content */
+    color: #0b0b0b;
+    max-height: 3em; /* Prevent overflow within the tile */
+    overflow-wrap: break-word; /* Wrap long words if needed */
+    white-space: normal; /* Allow text wrapping */
+  }
+  .room-title {
+    background-color: #28a745; /* Green for booked titles */
+    color: white; /* Text color for visibility */
+    padding: 5px; /* Add some padding for better appearance */
+    border-radius: 4px; /* Rounded corners for better aesthetics */
+    margin: 2px 0; /* Space between titles */
+  }
+  

@@ -2519,6 +2519,9 @@ header.fixed .header-content {
 }
 
 .hero .slide-caption > div.slide-title * {
+  font-size: 45px;
+  font-weight: 700;
+  line-height: 55px;
   -webkit-animation-delay: 0s;
   animation-delay: 0s;
 }

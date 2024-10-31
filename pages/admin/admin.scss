@@ -73,6 +73,16 @@ button.active {
   .custom-calendar {
     width: 800px; // Set your desired width
     height: auto; // Set your desired height
+    .react-calendar__tile--active {
+      color: black; // Change text color to black
+      background-color: #fff; // Adjust background color if needed
+    }
+
+    // Additional styling for hover or focus states
+    .react-calendar__tile--active:focus,
+    .react-calendar__tile--active:hover {
+      color: black; // Ensure it remains black on hover/focus
+    }
   }
 }
 .custom-calendar .react-calendar__tile {
@@ -98,7 +108,7 @@ button.active {
 }
 .room-title {
   background-color: #28a745; /* Green for booked titles */
-  color: white; /* Text color for visibility */
+  color: rgb(255, 255, 255); /* Text color for visibility */
   padding: 5px; /* Add some padding for better appearance */
   border-radius: 4px; /* Rounded corners for better aesthetics */
   margin: 2px 0; /* Space between titles */

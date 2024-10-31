@@ -73,6 +73,16 @@
     .custom-calendar {
       width: 800px; // Set your desired width
       height: auto; // Set your desired height
+      .react-calendar__tile--active {
+        color: black; // Change text color to black
+        background-color: #fff; // Adjust background color if needed
+      }
+  
+      // Additional styling for hover or focus states
+      .react-calendar__tile--active:focus,
+      .react-calendar__tile--active:hover {
+        color: black; // Ensure it remains black on hover/focus
+      }
     }
   }
   .custom-calendar .react-calendar__tile {

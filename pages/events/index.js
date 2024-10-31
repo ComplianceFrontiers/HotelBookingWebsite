@@ -20,7 +20,7 @@ const Events = () => {
         const users = result.data;
 
         const booked = {};
-        const rooms = new Set();
+        const rooms = new Set();vcnfj
 
         users.forEach(user => {
           const checkoutDetails = user.checkout_details;
@@ -76,6 +76,7 @@ const Events = () => {
     }
   };
 
+  
   const handleDayClick = (date) => {
     const dateString = date.toDateString();
     if (bookingDetails[dateString]) {
@@ -119,6 +120,10 @@ const Events = () => {
       );
     }
     return null;
+  };
+
+  const handleBookingRedirect = () => {
+    window.location.href = '/search-result'; // Replace with your desired URL
   };
 
   return (
@@ -181,6 +186,9 @@ const Events = () => {
               </ul>
             </div>
           )}
+          <button onClick={handleBookingRedirect} className="booking-button">
+            Go for Booking
+          </button>
         </div>
       </div>
     </div>

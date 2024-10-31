@@ -113,3 +113,28 @@ button.active {
   border-radius: 4px; /* Rounded corners for better aesthetics */
   margin: 2px 0; /* Space between titles */
 }
+.booking-button {
+  position: fixed; /* Fixed positioning to always place it at the bottom-right of the screen */
+  bottom: 20px; /* 20px from the bottom of the page */
+  right: 20px; /* 20px from the right side of the page */
+  padding: 12px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, transform 0.2s;
+  z-index: 10; /* Ensure it appears above other elements */
+}
+
+.booking-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.booking-button:active {
+  background-color: #004494;
+  transform: scale(1);
+}

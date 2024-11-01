@@ -20,7 +20,7 @@ const Events = () => {
         const users = result.data;
 
         const booked = {};
-        const rooms = new Set();vcnfj
+        const rooms = new Set();
 
         users.forEach(user => {
           const checkoutDetails = user.checkout_details;

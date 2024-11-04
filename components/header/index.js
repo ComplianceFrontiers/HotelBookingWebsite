@@ -39,7 +39,7 @@ const Header = (props) => {
                                                 <li><Link onClick={ClickHandler} href="/home3">Home style 3</Link></li>
                                             </ul> */}
                                         </li>
-                                        <li><Link onClick={ClickHandler} href="/room" title="">Rental </Link>
+                                        <li><Link onClick={ClickHandler} href="/room" title="">Rentals </Link>
                                             <ul>
                                                 <li><Link onClick={ClickHandler} href="/room" title="">Multi-Purpose Room</Link></li>
                                                 <li><Link onClick={ClickHandler} href="/room-single/Dr. Lindsey Slater Pavillion" title="">Gym</Link></li>
@@ -49,7 +49,7 @@ const Header = (props) => {
                                                 <li><Link onClick={ClickHandler} href="/room-single/Dr. Lindsey Slater Pavillion" title="">Firepit</Link></li>
                                             </ul>
                                         </li>
-                                        <li><Link onClick={ClickHandler} href="/destination" title="">Scheduling</Link>
+                                        <li><Link onClick={ClickHandler} href="/destination" title="">sample</Link>
                                             <ul>
                                                 <li><Link onClick={ClickHandler} href="/destination" title="">Destination</Link></li>
                                                 <li><Link onClick={ClickHandler} href="/destination-single/Paris,France" title="">Destination Single</Link></li>
@@ -69,7 +69,7 @@ const Header = (props) => {
                                                 </li>
                                             </ul>
                                         </li> */}
-                                        <li><Link onClick={ClickHandler} href="/service" title="">Service </Link>
+                                        <li><Link onClick={ClickHandler} href="/service" title="">Services </Link>
                                             <ul>
                                                 <li><Link onClick={ClickHandler} href="/service" title="">Service</Link></li>
                                                 <li><Link onClick={ClickHandler} href="/service-single/Delicious-Food" title="">Service Single</Link></li>
@@ -89,7 +89,7 @@ const Header = (props) => {
                                                 </li>
                                             </ul> */}
                                         </li>
-                                        <li><Link onClick={ClickHandler} href="/events" title="">Events</Link></li>
+                                        <li><Link onClick={ClickHandler} href="/events" title="">Scheduling</Link></li>
 
                                         <li><Link onClick={ClickHandler} href="/contact" title="">Contact</Link></li>
                                     </ul>

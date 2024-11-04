@@ -1,8 +1,8 @@
 import React from "react";
 import Slider from "react-slick";
-import ts1 from '/public/images/testimonial/img-1.jpg'
-import ts2 from '/public/images/testimonial/img-2.jpg'
-import ts3 from '/public/images/testimonial/img-3.jpg'
+import ts1 from '/public/images/testimonial/1.png'
+import ts2 from '/public/images/testimonial/2.png'
+import ts3 from '/public/images/testimonial/3.png'
 import Image from "next/image";
 
 
@@ -52,28 +52,23 @@ const Testimonial = () => {
     const testimonial = [
         {
             tsImg: ts1,
-            Des: "“The trip was incredible. I got to see so many places I wouldn't have by myself, me and my husband really enjoyed a lot.”",
-            Title: 'Benjir Walton',
-            Sub: "Singapore",
+            Des: "“The perfect venue for our community event! The facilities were spotless, and the additional services like A/V equipment made our presentation seamless. Highly recommend!”",
+            Title: 'Sarah L., Newark, DE',
+            Sub: "Us",
         },
         {
             tsImg: ts2,
-            Des: "“The trip was incredible. I got to see so many places I wouldn't have by myself, me and my husband really enjoyed a lot.”",
-            Title: 'Jenefar Meera',
-            Sub: "Canada",
+            Des: "“We hosted a family reunion at the pavilion, and it was a fantastic experience. The setup and cleanup services allowed us to focus on spending quality time with loved ones.”",
+            Title: 'Mark R., Wilmington, DE',
+            Sub: "Us",
         },
         {
             tsImg: ts3,
-            Des: "“The trip was incredible. I got to see so many places I wouldn't have by myself, me and my husband really enjoyed a lot.”",
-            Title: 'Lily monalisa',
-            Sub: "Singapore",
-        },
-        {
-            tsImg: ts1,
-            Des: "“The trip was incredible. I got to see so many places I wouldn't have by myself, me and my husband really enjoyed a lot.”",
-            Title: 'Benjir Walton',
-            Sub: "Singapore",
+            Des: "“From the spacious multi-purpose room to the friendly on-site support, everything exceeded our expectations. Bellevue Community Center made our event unforgettable!”",
+            Title: 'Emily K., Dover, DE',
+            Sub: "Us",
         }
+        
     ]
     return (
         <div className="testimonial-area section-padding">

@@ -96,7 +96,7 @@ const BlogSidebarLeft = (props) => {
                     </div>
                 </div>
                 <div className="widget instagram">
-                    <h3>Service</h3>
+                    <h3>Services</h3>
                     <ul className="d-flex">
                         <li><Link onClick={ClickHandler} href="/service-single"><img src={inst1} alt="" /></Link></li>
                         <li><Link onClick={ClickHandler} href="/service-single"><img src={inst2} alt=""/></Link></li>

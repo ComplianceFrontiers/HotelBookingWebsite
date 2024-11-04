@@ -73,7 +73,7 @@ const BlogSidebar = (props) => {
                     </div>
                 </div>
                 <div className="widget instagram">
-                    <h3>Service</h3>
+                    <h3>Services</h3>
                     <ul className="d-flex">
                     {Services.map((service, sev) => (
                         <li  key={sev}><Link onClick={ClickHandler} href="/service-single/[slug]" as={`/service-single/${service.slug}`}><Image src={service.simg1} alt="" /></Link></li>

@@ -28,7 +28,7 @@ const menus = [
 
     {
         id: 2,
-        title: 'Rental',
+        title: 'Rentals',
         link: '/room',
         submenu: [
             {
@@ -102,7 +102,7 @@ const menus = [
 
     {
         id: 4,
-        title: 'Service',
+        title: 'Services',
         link: '/service',
         submenu: [
             {

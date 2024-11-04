@@ -1,8 +1,11 @@
-import React, { useEffect, useState,Fragment } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import axios from 'axios';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import Navbar from '../../components/Navbar';
+import Book from '/public/images/events/book.png';
+import Book1 from '/public/images/events/book1.png';
+
 const Events = () => {
   const [bookedDates, setBookedDates] = useState([]);
   const [bookingDetails, setBookingDetails] = useState({});
@@ -130,13 +133,13 @@ const Events = () => {
 };
 
   return (
-    <Fragment>           
+    <Fragment>
          <Navbar hclass={'wpo-header-style-3'}/>
 
-    <div className="admin">
+      <div className="admin">
 
-      <div className="admin-container">
-      <div className="filter-section">
+        <div className="admin-container">
+          <div className="filter-section">
           <div className='filter-data'>
           <h2 className="heading">Filter by Room Title</h2>
           {roomTitles.length > 0 ? (
@@ -172,42 +175,49 @@ const Events = () => {
                       Contact Us
                     </button>
           </div>
-        </div>
+          </div>
 
-        <div className="calendar-section">
-          <Calendar
-            onChange={setValue}
-            value={value}
-            view={view}
-            tileClassName={tileClassName}
-            tileContent={tileContent}
+          <div className="calendar-section">
+            <Calendar
+              onChange={setValue}
+              value={value}
+              view={view}
+              tileClassName={tileClassName}
+              tileContent={tileContent}
             // onClickDay={handleDayClick}
-            className="custom-calendar"
-          />
+              className="custom-calendar"
+            />
 
-          {selectedBooking && (
-            <div className="booking-details">
-              <h2>Booking Details</h2>
-              <ul>
-                {selectedBooking.map((booking, index) => (
-                  <li key={index}>
-                    <strong>Room Title:</strong> {booking.title} <br />
-                    <strong>Check-In:</strong> {new Date(booking.checkIn).toLocaleString()} <br />
-                    <strong>Check-Out:</strong> {new Date(booking.checkOut).toLocaleString()} <br />
-                    <strong>Email:</strong> {booking.email} <br />
-                    <strong>Full Name:</strong> {booking.fullName} <br />
-                    <strong>Price:</strong> ${booking.price}
-                  </li>
-                ))}
-              </ul>
+            {selectedBooking && (
+              <div className="booking-details">
+                <h2>Booking Details</h2>
+                <ul>
+                  {selectedBooking.map((booking, index) => (
+                    <li key={index}>
+                      <strong>Room Title:</strong> {booking.title} <br />
+                      <strong>Check-In:</strong> {new Date(booking.checkIn).toLocaleString()} <br />
+                      <strong>Check-Out:</strong> {new Date(booking.checkOut).toLocaleString()} <br />
+                      <strong>Email:</strong> {booking.email} <br />
+                      <strong>Full Name:</strong> {booking.fullName} <br />
+                      <strong>Price:</strong> ${booking.price}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <button onClick={handleBookingRedirect} className="booking-button">
+              Go for Booking
+            </button>
+
+            {/* Add the images below the calendar */}
+            <div className="image-section">
+              <img src= '/images/events/book1.png' alt="Book 1" className="calendar-image" />
+              <img src='/images/events/book.png' alt="Book 2" className="calendar-image" />
             </div>
-          )}
-          <button onClick={handleBookingRedirect} className="booking-button">
-            Go for Booking
-          </button>
+          </div>
         </div>
       </div>
-    </div>
     </Fragment>
   );
 };

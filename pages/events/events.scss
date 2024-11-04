@@ -21,6 +21,20 @@
     width: 80%;
     position: relative; // Ensure absolute positioning works for booking button
     
+      .image-section {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    
+        .calendar-image {
+          width: 150px; /* Adjust size as needed */
+          margin: 0 10px; /* Space between images */
+          border-radius: 5px; /* Optional styling */
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional styling */
+        }
+      }
+    
+    
     .custom-calendar {
       width: 800px; // Set your desired width
       height: auto; // Set your desired height
@@ -60,7 +74,7 @@
     }
   
     .room-title {
-      background-color: #28a745; /* Green for booked titles */
+      background-color: #e0410c; /* Green for booked titles */
       color: white; /* Text color for visibility */
       padding: 5px; /* Add some padding for better appearance */
       border-radius: 4px; /* Rounded corners for better aesthetics */

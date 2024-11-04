@@ -1,16 +1,16 @@
-import simg1 from '/public/images/featured/1.jpg'
-import simg2 from '/public/images/featured/2.jpg'
-import simg3 from '/public/images/featured/3.jpg'
-import simg4 from '/public/images/featured/4.jpg'
-import simg5 from '/public/images/featured/5.jpg'
-import simg6 from '/public/images/featured/6.jpg'
+import simg1 from '/public/images/featured/1.png'
+import simg2 from '/public/images/featured/2.png'
+import simg3 from '/public/images/featured/3.png'
+import simg4 from '/public/images/featured/4.png'
+import simg5 from '/public/images/featured/5.png'
+import simg6 from '/public/images/featured/6.png'
 
-import singleImg1 from '/public/images/featured/1.jpg'
-import singleImg2 from '/public/images/featured/2.jpg'
-import singleImg3 from '/public/images/featured/3.jpg'
-import singleImg4 from '/public/images/featured/4.jpg'
-import singleImg5 from '/public/images/featured/5.jpg'
-import singleImg6 from '/public/images/featured/6.jpg'
+import singleImg1 from '/public/images/featured/1.png'
+import singleImg2 from '/public/images/featured/2.png'
+import singleImg3 from '/public/images/featured/3.png'
+import singleImg4 from '/public/images/featured/4.png'
+import singleImg5 from '/public/images/featured/5.png'
+import singleImg6 from '/public/images/featured/6.png'
 
 
 

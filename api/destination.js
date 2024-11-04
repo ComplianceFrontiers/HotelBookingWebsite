@@ -1,16 +1,16 @@
 import dimg1 from '/public/images/destination/img-1.jpg'
-import dimg2 from '/public/images/destination/img-2.jpg'
-import dimg3 from '/public/images/destination/img-3.jpg'
-import dimg4 from '/public/images/destination/img-4.jpg'
-import dimg5 from '/public/images/destination/img-5.jpg'
-import dimg6 from '/public/images/destination/img-6.jpg'
+import dimg2 from '/public/images/destination/img-1.jpg'
+import dimg3 from '/public/images/destination/img-1.jpg'
+import dimg4 from '/public/images/destination/img-1.jpg'
+import dimg5 from '/public/images/destination/img-1.jpg'
+import dimg6 from '/public/images/destination/img-1.jpg'
 
 import dSimg1 from '/public/images/destination/img-1.jpg'
-import dSimg2 from '/public/images/destination/img-2.jpg'
-import dSimg3 from '/public/images/destination/img-3.jpg'
-import dSimg4 from '/public/images/destination/img-4.jpg'
-import dSimg5 from '/public/images/destination/img-5.jpg'
-import dSimg6 from '/public/images/destination/img-6.jpg'
+import dSimg2 from '/public/images/destination/img-1.jpg'
+import dSimg3 from '/public/images/destination/img-1.jpg'
+import dSimg4 from '/public/images/destination/img-1.jpg'
+import dSimg5 from '/public/images/destination/img-1.jpg'
+import dSimg6 from '/public/images/destination/img-1.jpg'
 
 
 

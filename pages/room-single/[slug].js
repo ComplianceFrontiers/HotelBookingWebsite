@@ -21,7 +21,7 @@ const RoomSinglePage = (props) => {
     return (
         <Fragment>
             <Navbar hclass={'wpo-header-style-3'}/>
-            <PageTitle pageTitle={roomDetails?.RoomHeading} pagesub={'Room'} />
+            <PageTitle pageTitle={roomDetails?.RoomHeading} pagesub={'gymnasium'} />
             <div className="room-single-page">
                 <SearchSection/>
                 <RoomsSec />

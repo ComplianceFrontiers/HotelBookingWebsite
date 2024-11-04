@@ -10,7 +10,8 @@ const PageTitle = (props) => {
                     <h2>{props.pageTitle}</h2>
                         <ol className="breadcrumb">
                             {/* <li><Link href="/home">Home</Link></li> */}
-                            {/* <li><span>{props.pagesub}</span></li> */}
+                            <h2 style={{ fontSize: '50px' }}>{props.pagesub}</h2>
+
                         </ol>
                     </div>
                 </div>

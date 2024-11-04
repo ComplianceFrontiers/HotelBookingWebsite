@@ -42,7 +42,7 @@ const Header = (props) => {
                                         <li><Link onClick={ClickHandler} href="/room" title="">Rentals </Link>
                                             <ul>
                                                 <li><Link onClick={ClickHandler} href="/room" title="">Multi-Purpose Room</Link></li>
-                                                <li><Link onClick={ClickHandler} href="/room-single/Gymnasium" title="">Gym</Link></li>
+                                                <li><Link onClick={ClickHandler} href="/destination-single/gymnasium" title="">Gym</Link></li>
                                                 <li><Link onClick={ClickHandler} href="/room-single/Conference Center" title="">Conference Center</Link></li>
                                                 <li><Link onClick={ClickHandler} href="/room-single/Auditorium" title="">Auditorium</Link></li>
                                                 <li><Link onClick={ClickHandler} href="/room-single/Pavilion" title="">Pavilion</Link></li>
@@ -55,20 +55,7 @@ const Header = (props) => {
                                                 <li><Link onClick={ClickHandler} href="/destination-single/Paris,France" title="">Destination Single</Link></li>
                                             </ul>
                                         </li>
-                                        {/* <li><Link onClick={ClickHandler} href="/home" title="">Pages </Link>
-                                            <ul>
-                                                <li><Link onClick={ClickHandler} href="/about" title="">About</Link></li>
-                                                <li><Link onClick={ClickHandler} href="/404" title="">Error 404</Link></li>
-                                                <li><Link onClick={ClickHandler} href="/search-result" title="">Search Result</Link></li>
-                                                <li><i className="fa fa-angle-right"></i><Link onClick={ClickHandler} href="/" title="">Auth Page</Link>
-                                                    <ul>
-                                                        <li><Link onClick={ClickHandler} href="/login" title="">Login Page</Link></li>
-                                                        <li><Link onClick={ClickHandler} href="/register" title="">Signup Page</Link></li>
-                                                        <li><Link onClick={ClickHandler} href="/forgot-password" title="">Forgot Password</Link></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li> */}
+                                       
                                         <li><Link onClick={ClickHandler} href="/service" title="">Services </Link>
                                             <ul>
                                                 <li><Link onClick={ClickHandler} href="/service" title="">Service</Link></li>
@@ -76,18 +63,7 @@ const Header = (props) => {
                                             </ul>
                                         </li>
                                         <li><Link onClick={ClickHandler} href="/Gallery">Gallery </Link>
-                                            {/* <ul>
-                                                <li><Link onClick={ClickHandler} href="/blog">Blog</Link></li>
-                                                <li><Link onClick={ClickHandler} href="/blog-left-sidebar">Blog Left sidebar</Link></li>
-                                                <li><Link onClick={ClickHandler} href="/blog-fullwidth">Blog full width</Link></li>
-                                                <li><i className="fa fa-angle-right"></i><Link onClick={ClickHandler} href="/blog-single/You’re-In-Dubai" title="">Blog Details</Link>
-                                                    <ul>
-                                                        <li><Link onClick={ClickHandler} href="/blog-single/You’re-In-Dubai" title="">Blog single</Link></li>
-                                                        <li><Link onClick={ClickHandler} href="/blog-single-left-sidebar/You’re-In-Dubai" title="">Blog single Left sidebar</Link></li>
-                                                        <li><Link onClick={ClickHandler} href="/blog-single-fullwidth/You’re-In-Dubai" title="">Blog single full width</Link></li>
-                                                    </ul>
-                                                </li>
-                                            </ul> */}
+                                            
                                         </li>
                                         <li><Link onClick={ClickHandler} href="/events" title="">Scheduling</Link></li>
 

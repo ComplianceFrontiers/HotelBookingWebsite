@@ -57,6 +57,7 @@ const Admin = () => {
         setBookedDates(Object.keys(booked));
         setBookingDetails(booked);
         setRoomTitles([...rooms]);
+        setFilteredDates(Object.keys(booked));
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -150,12 +151,16 @@ const Admin = () => {
             <p>No rooms available.</p>
           )}
           <button onClick={applyFilter}>Show availability</button> {/* Filter button */}
-          {/* <div>
-            <button onClick={() => {
-              setRoomFilter('');
-              setFilteredDates(bookedDates); // Clear filter and show all dates
-            }}>Clear Filter</button>
-          </div> */}
+          <div>
+                <div style={{ display: 'flex', alignItems: 'center', fontWeight: 'bold', marginBottom: '8px' }}>
+                  <span style={{ width: '12px', height: '12px', backgroundColor: 'red', display: 'inline-block', marginRight: '8px' }}></span>
+                  <span>Facility Booked</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', fontWeight: 'bold' }}>
+                  <span style={{ width: '12px', height: '12px', backgroundColor: 'white', border: '1px solid black', display: 'inline-block', marginRight: '8px' }}></span>
+                  <span>Facility Available</span>
+                </div>
+              </div>
           </div>
 
           <div className="questions">

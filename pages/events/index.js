@@ -60,6 +60,7 @@ const Events = () => {
         setBookedDates(Object.keys(booked));
         setBookingDetails(booked);
         setRoomTitles([...rooms]);
+        setFilteredDates(Object.keys(booked)); // Set filtered dates to all booked dates initially
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -71,7 +72,6 @@ const Events = () => {
   const tileClassName = ({ date, view }) => {
     if (view === 'month' || view === 'week' || view === 'year') {
       const dateString = date.toDateString();
-      // Check if the date is booked
       if (filteredDates.includes(dateString)) {
         return 'booked';
       }
@@ -79,7 +79,6 @@ const Events = () => {
     }
   };
 
-  
   const handleDayClick = (date) => {
     const dateString = date.toDateString();
     if (bookingDetails[dateString]) {
@@ -99,14 +98,18 @@ const Events = () => {
 
   const applyFilter = () => {
     if (roomFilter) {
-      const newFilteredDates = bookedDates.filter(dateString => 
+      const newFilteredDates = bookedDates.filter(dateString =>
         bookingDetails[dateString]?.some(booking => booking.title === roomFilter)
       );
       setFilteredDates(newFilteredDates);
     } else {
-      setFilteredDates(bookedDates); // Reset to all booked dates if no filter is applied
+      setFilteredDates(bookedDates); // Show all booked dates if no specific room filter
     }
   };
+
+  useEffect(() => {
+    applyFilter(); // Apply filter automatically on initial load
+  }, [bookedDates, roomFilter]);
 
   const tileContent = ({ date, view }) => {
     const dateString = date.toDateString();
@@ -126,61 +129,58 @@ const Events = () => {
   };
 
   const handleBookingRedirect = () => {
-    window.location.href = '/search-result'; // Replace with your desired URL
+    window.location.href = '/search-result';
   };
+
   const ClickHandler = () => {
     window.scrollTo(10, 0);
-};
+  };
 
   return (
     <Fragment>
-         <Navbar hclass={'wpo-header-style-3'}/>
-
+      <Navbar hclass={'wpo-header-style-3'} />
       <div className="admin">
-
         <div className="admin-container">
           <div className="filter-section">
-          <div className='filter-data'>
-          <h2 className="heading">Filter by Room Title</h2>
-          {roomTitles.length > 0 ? (
-            roomTitles.map((title, index) => (
-              <div key={index}>
-                <label>
-                  <input
-                    type="checkbox"
-                    value={title}
-                    checked={roomFilter === title}
-                    onChange={handleFilterChange}
-                  />
-                  {title}
-                </label>
+            <div className='filter-data'>
+              <h2 className="heading">Filter by Room Title</h2>
+              {roomTitles.length > 0 ? (
+                roomTitles.map((title, index) => (
+                  <div key={index}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        value={title}
+                        checked={roomFilter === title}
+                        onChange={handleFilterChange}
+                      />
+                      {title}
+                    </label>
+                  </div>
+                ))
+              ) : (
+                <p>No rooms available.</p>
+              )}
+              <button onClick={applyFilter}>Show availability</button>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', fontWeight: 'bold', marginBottom: '8px' }}>
+                  <span style={{ width: '12px', height: '12px', backgroundColor: 'red', display: 'inline-block', marginRight: '8px' }}></span>
+                  <span>Facility Booked</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', fontWeight: 'bold' }}>
+                  <span style={{ width: '12px', height: '12px', backgroundColor: 'white', border: '1px solid black', display: 'inline-block', marginRight: '8px' }}></span>
+                  <span>Facility Available</span>
+                </div>
               </div>
-            ))
-          ) : (
-            <p>No rooms available.</p>
-          )}
-          <button onClick={applyFilter}>Show availability</button> {/* Filter button */}
-          <div>
-      <div style={{ display: 'flex', alignItems: 'center', fontWeight: 'bold', marginBottom: '8px' }}>
-        <span style={{ width: '12px', height: '12px', backgroundColor: 'red', display: 'inline-block', marginRight: '8px' }}></span>
-        <span>Facility Booked</span>
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center', fontWeight: 'bold' }}>
-        <span style={{ width: '12px', height: '12px', backgroundColor: 'white', border: '1px solid black', display: 'inline-block', marginRight: '8px' }}></span>
-        <span>Facility Available</span>
-      </div>
-    </div>
+            </div>
+            <div className="questions">
+              <h2 className="heading">How we can <br /> Help You!</h2>
+              <p>Need more information or assistance with booking? Don’t hesitate to reach out. Our friendly team is ready to answer any questions and guide you through the reservation process to ensure your experience is seamless and enjoyable.</p>
+              <button className="contact-button" href="/contact" onClick={ClickHandler}>
+                Contact Us
+              </button>
+            </div>
           </div>
-
-          <div className="questions">
-                    <h2 className="heading">How we can  <br /> Help You!</h2>
-                    <p>Need more information or assistance with booking? Don’t hesitate to reach out. Our friendly team is ready to answer any questions and guide you through the reservation process to ensure your experience is seamless and enjoyable.</p>
-                    <button class="contact-button" href="/contact" onClick={ClickHandler}>
-                      Contact Us
-                    </button>
-          </div>
-          </div>
-
           <div className="calendar-section">
             <Calendar
               onChange={setValue}
@@ -188,10 +188,8 @@ const Events = () => {
               view={view}
               tileClassName={tileClassName}
               tileContent={tileContent}
-            // onClickDay={handleDayClick}
               className="custom-calendar"
             />
-
             {selectedBooking && (
               <div className="booking-details">
                 <h2>Booking Details</h2>
@@ -209,14 +207,11 @@ const Events = () => {
                 </ul>
               </div>
             )}
-
             <button onClick={handleBookingRedirect} className="booking-button">
               Go for Booking
             </button>
-
-            {/* Add the images below the calendar */}
             <div className="image-section">
-              <img src= '/images/events/book1.png' alt="Book 1" className="calendar-image" />
+              <img src='/images/events/book1.png' alt="Book 1" className="calendar-image" />
               <img src='/images/events/book.png' alt="Book 2" className="calendar-image" />
             </div>
           </div>

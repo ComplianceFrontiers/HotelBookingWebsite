@@ -125,6 +125,9 @@ const Events = () => {
   const handleBookingRedirect = () => {
     window.location.href = '/search-result'; // Replace with your desired URL
   };
+  const ClickHandler = () => {
+    window.scrollTo(10, 0);
+};
 
   return (
     <Fragment>           
@@ -133,14 +136,15 @@ const Events = () => {
     <div className="admin">
 
       <div className="admin-container">
-        <div className="filter-section">
-          <h2>Filter by Room Title</h2>
+      <div className="filter-section">
+          <div className='filter-data'>
+          <h2 className="heading">Filter by Room Title</h2>
           {roomTitles.length > 0 ? (
             roomTitles.map((title, index) => (
               <div key={index}>
                 <label>
                   <input
-                    type="radio"
+                    type="checkbox"
                     value={title}
                     checked={roomFilter === title}
                     onChange={handleFilterChange}
@@ -152,12 +156,21 @@ const Events = () => {
           ) : (
             <p>No rooms available.</p>
           )}
-          <button onClick={applyFilter}>Filter</button> {/* Filter button */}
-          <div>
+          <button onClick={applyFilter}>Show availability</button> {/* Filter button */}
+          {/* <div>
             <button onClick={() => {
               setRoomFilter('');
               setFilteredDates(bookedDates); // Clear filter and show all dates
             }}>Clear Filter</button>
+          </div> */}
+          </div>
+
+          <div className="questions">
+                    <h2 className="heading">How we can  <br /> Help You!</h2>
+                    <p>Need more information or assistance with booking? Don’t hesitate to reach out. Our friendly team is ready to answer any questions and guide you through the reservation process to ensure your experience is seamless and enjoyable.</p>
+                    <button class="contact-button" href="/contact" onClick={ClickHandler}>
+                      Contact Us
+                    </button>
           </div>
         </div>
 

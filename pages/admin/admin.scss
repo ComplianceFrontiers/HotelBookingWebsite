@@ -138,3 +138,82 @@ button.active {
   background-color: #004494;
   transform: scale(1);
 }
+
+.filter-data {
+  background-color: rgb(236, 236, 236);
+  border: 2px solid #e4e4e4; /* Adjust the color and width as needed */
+  width: 350px;
+  padding: 30px; /* Optional: Adds some spacing inside the border */
+  border-radius: 5px; /* Optional: Rounds the corners of the border */
+  button{
+    margin-top: 20px;
+    background-color: #0f345f;
+    color: white;
+    border-radius: 20px;
+  }
+  input{
+    font-size: 12px;
+    font-weight: 600;
+    margin: 10px;
+    text-align: center;
+  }
+}
+
+.questions {
+  background-color: rgb(41, 41, 41);
+  margin-top: 50px;
+  width: 350px;
+  border: 2px solid #000; /* Adjust the color and width as needed */
+  padding: 30px; /* Optional: Adds some spacing inside the border */
+  border-radius: 5px; /* Optional: Rounds the corners of the border */
+  h2,p {
+    color: white;
+  }
+  button{
+    font-size: 20px;
+    border: 2px solid white;
+    background-color:rgb(41, 41, 41);
+    color: white;
+  }
+}
+.heading {
+  font-size: 30px; /* Adjust font size as needed */
+  font-weight: bold;
+ 
+  position: relative;
+  color: #1a2b48; /* Color for the heading */
+}
+
+.heading::after {
+  margin: 5px;
+  content: "";
+  display: block;
+  width: 70px; /* Adjust the width of the line */
+  height: 5px; /* Adjust the thickness of the line */
+  background-color: #00c389; /* Green color */
+  margin-top: 10px; /* Space between heading text and line */
+}
+.contact-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  border: 2px solid #fff; /* White border */
+  background-color: #3c3f4a; /* Dark background */
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.contact-button::after {
+  content: "→"; /* Arrow symbol */
+  font-size: 25px; /* Adjust size if needed */
+  margin-left: 20px; /* Space between text and arrow */
+  transition: transform 0.3s ease;
+}
+
+.contact-button:hover::after {
+  transform: translateX(5px); /* Moves arrow slightly to the right on hover */
+}

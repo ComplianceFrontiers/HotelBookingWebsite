@@ -8,21 +8,14 @@ import Image from 'next/image';
 const RoomSection = (props) => {
 
     const [activeTab, setActiveTab] = useState('1');
-
-    const toggle = tab => {
-        if (activeTab !== tab) setActiveTab(tab);
-    }
-
-
-
-
+ 
     return (
-        <section className={`Room-area section-padding ${props.rClass}`}>
+        <section >
             <div className="Room-section">
                 <div className="container">
                     <div className="col-12">
                         <div className="wpo-section-title">
-                            <span></span>
+                            {/* <span></span> */}
                             <h2>Explore Our Facilities</h2>
                         </div>
                     </div>

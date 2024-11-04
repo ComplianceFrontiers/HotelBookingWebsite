@@ -9,8 +9,8 @@ const PageTitle = (props) => {
                     <div className="col col-xs-12">
                     <h2>{props.pageTitle}</h2>
                         <ol className="breadcrumb">
-                            <li><Link href="/home">Home</Link></li>
-                            <li><span>{props.pagesub}</span></li>
+                            {/* <li><Link href="/home">Home</Link></li> */}
+                            {/* <li><span>{props.pagesub}</span></li> */}
                         </ol>
                     </div>
                 </div>

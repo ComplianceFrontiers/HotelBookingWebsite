@@ -46,75 +46,7 @@ const Footer = (props) => {
                         </div>
                     </div>
                 </div>
-                {/* <div className="footer-middle">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col col-lg-3 col-md-6 col-sm-12 col-12">
-                                <div className="widget market-widget wpo-service-link-widget">
-                                    <div className="widget-title">
-                                        <h3>Contact </h3>
-                                    </div>
-                                    <p>online store with lots of cool and exclusive features</p>
-                                    <div className="contact-ft">
-                                        <ul>
-                                            <li><i className="fi ti-location-pin"></i>510 Duncan Rd, Wilmington, DE, United States, Delaware</li>
-                                            <li><i className="fi ti-mobile"></i>(302) 762-1391</li>
-                                            <li><i className="fi flaticon-email"></i>info@bellevuecc.org</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col col-lg-3 col-md-6 col-sm-12 col-12">
-                                <div className="widget link-widget resource-widget">
-                                    <div className="widget-title">
-                                        <h3>Destination</h3>
-                                    </div>
-                                    {Destinations.slice(0, 2).map((destination, ditem) => (
-                                        <div className="news-wrap" key={ditem}>
-                                            <div className="news-img">
-                                                <Image src={destination.dSimg} alt="" />
-                                            </div>
-                                            <div className="news-text">
-                                                <h3><Link onClick={ClickHandler} href="/destination-single/[slug]" as={`/destination-single/${destination.slug}`}>{destination.title}</Link></h3>
-                                                <span>{destination.date}</span>
-                                                <h2>${destination.price}</h2>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                            <div className="col col-lg-3 col-md-6 col-sm-12 col-12">
-                                <div className="widget link-widget">
-                                    <div className="widget-title">
-                                        <h3>Useful Links</h3>
-                                    </div>
-                                    <ul>
-                                        <li><Link onClick={ClickHandler} href="/about">About Us</Link></li>
-                                        <li><Link onClick={ClickHandler} href="/room">Our Offers</Link></li>
-                                        <li><Link onClick={ClickHandler} href="/service">How Spread</Link></li>
-                                        <li><Link onClick={ClickHandler} href="/contact">Contact Us</Link></li>
-                                        <li><Link onClick={ClickHandler} href="/service-single">Our Event</Link></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div className="col col-lg-3 col-md-6 col-sm-12 col-12">
-                                <div className="widget newsletter-widget">
-                                    <div className="widget-title">
-                                        <h3>Newsletter</h3>
-                                    </div>
-                                    <form onSubmit={SubmitHandler}>
-                                        <div className="input-1">
-                                            <input type="email" className="form-control" placeholder="Email Address *" required="" />
-                                        </div>
-                                        <div className="submit clearfix">
-                                            <button type="submit">subscribe<i className="ti-angle-right"></i></button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
+                
             </div>
 
             <div className="wpo-lower-footer">

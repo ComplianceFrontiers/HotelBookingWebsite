@@ -940,14 +940,14 @@ ul.smothscroll a:hover {
 
 .wpo-site-footer .wpo-upper-footer,
 .wpo-site-footer-2 .wpo-upper-footer {
-  padding: 40px 0 70px;
+  padding: 5px 0 0px;
   background: url(/images/footer.jpg) center center/cover no-repeat local;
 }
 
 @media (max-width: 991px) {
   .wpo-site-footer .wpo-upper-footer,
   .wpo-site-footer-2 .wpo-upper-footer {
-    padding: 70px 0;
+    padding: 5px 0;
     padding-bottom: 0;
   }
 }
@@ -955,15 +955,15 @@ ul.smothscroll a:hover {
 @media (max-width: 767px) {
   .wpo-site-footer .wpo-upper-footer,
   .wpo-site-footer-2 .wpo-upper-footer {
-    padding: 40px 0;
+    padding: 20px 0;
   }
 }
 
 @media (max-width: 991px) {
   .wpo-site-footer .wpo-upper-footer .col,
   .wpo-site-footer-2 .wpo-upper-footer .col {
-    min-height: 235px;
-    margin-bottom: 70px;
+    min-height: 200px;
+    margin-bottom:20px;
   }
 }
 
@@ -1031,7 +1031,7 @@ ul.smothscroll a:hover {
 
 .wpo-site-footer .about-widget ul > li + li,
 .wpo-site-footer-2 .about-widget ul > li + li {
-  margin-left: 25px;
+  margin-left: 20px;
 }
 
 .wpo-site-footer .about-widget ul a {
@@ -1066,7 +1066,7 @@ ul.smothscroll a:hover {
 }
 
 .wpo-footer-top ul li {
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .wpo-footer-top ul li a {
@@ -1094,7 +1094,7 @@ ul.smothscroll a:hover {
 
 @media screen and (min-width: 1200px) {
   .wpo-site-footer .link-widget {
-    padding-left: 20px;
+    padding-left: 10px;
   }
 
   .wpo-site-footer-2 .link-widget {

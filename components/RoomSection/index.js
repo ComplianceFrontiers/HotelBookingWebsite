@@ -29,7 +29,7 @@ const RoomSection = (props) => {
                     <div className="row">
                         <div className="col col-xs-12 sortable-gallery">
                             <div className="gallery-filters">
-                                <Nav tabs>
+                                {/* <Nav tabs>
                                     <NavItem>
                                         <NavLink
                                             className={classnames({ active: activeTab === '1' })}
@@ -71,7 +71,7 @@ const RoomSection = (props) => {
                                         </NavLink>
                                     </NavItem>
 
-                                </Nav>
+                                </Nav> */}
                             </div>
                             <div className="gallery-container">
                                 <TabContent activeTab={activeTab}>
@@ -88,7 +88,7 @@ const RoomSection = (props) => {
                                                         <span>{room.RoomCount}</span>
                                                         <p>{room.Des}</p>
                                                         <small>From: <span>{room.Price}</span> / Night</small>
-                                                        <Link className="theme-btn-s2" href="/events" as={`/room-single/${room.slug}`}>Check Availability</Link>
+                                                        <Link className="theme-btn-s2" href="/events" as={`/room-single/${room.slug}`}>Explore</Link>
                                                     </div>
                                                 </div>
                                             </div>
@@ -107,7 +107,7 @@ const RoomSection = (props) => {
                                                         <span>{room.RoomCount}</span>
                                                         <p>{room.Des}</p>
                                                         <small>From: <span>{room.Price}</span> / Night</small>
-                                                        <Link className="theme-btn-s2" href="/events" as={`/room-single/${room.slug}`}>Check Availability</Link>
+                                                        <Link className="theme-btn-s2" href="/events" as={`/room-single/${room.slug}`}>Explore</Link>
                                                     </div>
                                                 </div>
                                             </div>
@@ -126,7 +126,7 @@ const RoomSection = (props) => {
                                                         <span>{room.RoomCount}</span>
                                                         <p>{room.Des}</p>
                                                         <small>From: <span>{room.Price}</span> / Night</small>
-                                                        <Link className="theme-btn-s2" href="/events" as={`/room-single/${room.slug}`}>Check Availability</Link>
+                                                        <Link className="theme-btn-s2" href="/events" as={`/room-single/${room.slug}`}>Explore</Link>
                                                     </div>
                                                 </div>
                                             </div>
@@ -145,7 +145,7 @@ const RoomSection = (props) => {
                                                         <span>{room.RoomCount}</span>
                                                         <p>{room.Des}</p>
                                                         <small>From: <span>{room.Price}</span> / Night</small>
-                                                        <Link className="theme-btn-s2" href="/events" as={`/room-single/${room.slug}`}>Check Availability</Link>
+                                                        <Link className="theme-btn-s2" href="/events" as={`/room-single/${room.slug}`}>Explore</Link>
                                                     </div>
                                                 </div>
                                             </div>
@@ -164,7 +164,7 @@ const RoomSection = (props) => {
                                                         <span>{room.RoomCount}</span>
                                                         <p>{room.Des}</p>
                                                         <small>From: <span>{room.Price}</span> / Night</small>
-                                                        <Link className="theme-btn-s2" href="/events" as={`/room-single/${room.slug}`}>Check Availability</Link>
+                                                        <Link className="theme-btn-s2" href="/events" as={`/room-single/${room.slug}`}>Explore</Link>
                                                     </div>
                                                 </div>
                                             </div>

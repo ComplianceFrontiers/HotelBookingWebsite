@@ -39,12 +39,13 @@ const Header = (props) => {
                                                 <li><Link onClick={ClickHandler} href="/home3">Home style 3</Link></li>
                                             </ul> */}
                                         </li>
-                                        <li><Link onClick={ClickHandler} href="/room" title="">Room </Link>
+                                        <li><Link onClick={ClickHandler} href="/room" title="">Rental </Link>
                                             <ul>
-                                                <li><Link onClick={ClickHandler} href="/room" title="">Gym</Link></li>
+                                                <li><Link onClick={ClickHandler} href="/room" title="">Multi-Purpose Room</Link></li>
+                                                <li><Link onClick={ClickHandler} href="/room-single/Dr. Lindsey Slater Pavilliont" title="">Gym</Link></li>
                                                 <li><Link onClick={ClickHandler} href="/room-single/Dr. Lindsey Slater Pavilliont" title="">Conference Center</Link></li>
-                                                <li><Link onClick={ClickHandler} href="/room-single/Dr. Lindsey Slater Pavilliont" title="">Pavilion</Link></li>
                                                 <li><Link onClick={ClickHandler} href="/room-single/Dr. Lindsey Slater Pavilliont" title="">Auditorium</Link></li>
+                                                <li><Link onClick={ClickHandler} href="/room-single/Dr. Lindsey Slater Pavilliont" title="">Pavilion</Link></li>
                                                 <li><Link onClick={ClickHandler} href="/room-single/Dr. Lindsey Slater Pavilliont" title="">Firepit</Link></li>
                                             </ul>
                                         </li>
@@ -54,7 +55,7 @@ const Header = (props) => {
                                                 <li><Link onClick={ClickHandler} href="/destination-single/Paris,France" title="">Destination Single</Link></li>
                                             </ul>
                                         </li>
-                                        <li><Link onClick={ClickHandler} href="/home" title="">Pages </Link>
+                                        {/* <li><Link onClick={ClickHandler} href="/home" title="">Pages </Link>
                                             <ul>
                                                 <li><Link onClick={ClickHandler} href="/about" title="">About</Link></li>
                                                 <li><Link onClick={ClickHandler} href="/404" title="">Error 404</Link></li>
@@ -67,7 +68,7 @@ const Header = (props) => {
                                                     </ul>
                                                 </li>
                                             </ul>
-                                        </li>
+                                        </li> */}
                                         <li><Link onClick={ClickHandler} href="/service" title="">Service </Link>
                                             <ul>
                                                 <li><Link onClick={ClickHandler} href="/service" title="">Service</Link></li>
@@ -94,16 +95,21 @@ const Header = (props) => {
                                     </ul>
                                 </nav>
                             </div>
-                            <div className="col-xl-3 get-q">
-                                <div className="get-quote">
-                                    <Link href="/contact"><i className="fi flaticon-support-1"></i>Call : (302) 762-1391</Link>
-                                </div>
+                            <div className="col-xl-3 action-buttons">
+                                    <div className="login-button">
+                                        <Link href="/login">Login</Link>
+                                    </div>
+                                    <div className="contactus-button">
+                                        <Link href="/contact">Contact Us</Link>
+                                    </div>
                             </div>
+
+
                             <div className="col-xl-1 col-lg-1 col-md-6 col-sm-6 col-6">
                                 <div className="contact">
                                     <div className="cart-search-contact">
                                         <div className="header-search-form-wrapper">
-                                            <button className="search-toggle-btn"><i className="fi flaticon-search"></i></button>
+                                            {/* <button className="search-toggle-btn"><i className="fi flaticon-search"></i></button> */}
                                             <div className="header-search-form">
                                                 <form onSubmit={SubmitHandler}>
                                                     <div>

@@ -30,15 +30,16 @@ const Footer = (props) => {
                                 <div className="contact-ft">
                                 <ul>
                                 <li><i className="fi ti-location-pin"></i>510 Duncan Rd, Wilmington, DE, United States, Delaware</li>
-                                <li><i className="fi flaticon-email"></i> info@bellevuecc.org</li>
-                            </ul>
-                            </div>
+                                <li><i className="fi flaticon-email"></i>info@bellevuecc.org</li>
+                                <li><i className="fi flaticon-phone"></i>Contact : (302) 762 - 1391</li>
+                                </ul>
+                                </div>
                             </div>
                             <div className="col-lg-6 col-md-6 col-sm-6 col-12 custom-grid">
                                 <ul>
                                     <li><Link onClick={ClickHandler} href="/"><i className="ti-facebook"></i></Link></li>
-                                    <li><Link onClick={ClickHandler} href="/"><i className="ti-twitter-alt"></i></Link></li>
-                                    <li><Link onClick={ClickHandler} href="/"><i className="ti-instagram"></i></Link></li>
+                                    {/* <li><Link onClick={ClickHandler} href="/"><i className="ti-twitter-alt"></i></Link></li>
+                                    <li><Link onClick={ClickHandler} href="/"><i className="ti-instagram"></i></Link></li> */}
                                     <li><Link onClick={ClickHandler} href="/"><i className="ti-google"></i></Link></li>
                                 </ul>
                             </div>

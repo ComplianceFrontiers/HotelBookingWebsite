@@ -18,11 +18,11 @@ const HomePage = () => {
             <Hero heroClass={'hero-style-1'} />
             <SearchSection />
             <About />
-            <Destination />
+            {/* <Destination /> */}
             <RoomSection />
             <VideoSection />
             <Testimonial />
-            <BlogSection/>
+            {/* <BlogSection/> */}
             <Footer />
             <Scrollbar />
         </Fragment>

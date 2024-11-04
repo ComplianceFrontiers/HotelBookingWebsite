@@ -22,7 +22,7 @@ const SearchSection = (props) => {
                             <div className="wpo-select-area">
                                 <form onSubmit={SubmitHandler} className="clearfix">
                                     <div className="select-sub">
-                                        <span><i className="fi flaticon-calendar"></i>Check - In</span>
+                                        <span><i className="fi flaticon-calendar"></i>Rental date</span>
                                         <div className="form-group">
                                             <div id="filterDate">
                                                 <div className="input-group date" data-date-format="dd.mm.yyyy">
@@ -34,7 +34,7 @@ const SearchSection = (props) => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="select-sub">
+                                    {/* <div className="select-sub">
                                         <span><i className="fi flaticon-calendar"></i>Check - out</span>
                                         <div className="form-group">
                                             <div id="filterDate2">
@@ -46,19 +46,17 @@ const SearchSection = (props) => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div className="select-sub">
                                         <span> <i className="fi flaticon-user"></i> Guests</span>
                                         <select className="select wide">
-                                            <option>02</option>
-                                            <option>01</option>
-                                            <option>03</option>
-                                            <option>04</option>
-                                            <option>05</option>
-                                            <option>06</option>
+                                            <option>25-50</option>
+                                            <option>50-75</option>
+                                            <option>75-100</option>
+                                            <option>100+</option>
                                         </select>
                                     </div>
-                                    <div className="select-sub">
+                                    {/* <div className="select-sub">
                                         <span> <i className="fi flaticon-user"></i> CHILDREN</span>
                                         <select className="select wide">
                                             <option>01</option>
@@ -68,9 +66,9 @@ const SearchSection = (props) => {
                                             <option>05</option>
                                             <option>06</option>
                                         </select>
-                                    </div>
+                                    </div> */}
                                     <div className="select-sub">
-                                        <Link href='/search-result' className="theme-btn-s2" type="submit">Check Availability</Link>
+                                        <Link href='/destination' className="theme-btn-s2" type="submit">Check Availability</Link>
                                     </div>
                                 </form>
                             </div>

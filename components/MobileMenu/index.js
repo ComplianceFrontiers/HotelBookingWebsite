@@ -28,7 +28,7 @@ const menus = [
 
     {
         id: 2,
-        title: 'Room',
+        title: 'Rental',
         link: '/room',
         submenu: [
             {
@@ -45,7 +45,7 @@ const menus = [
     },
     {
         id: 3,
-        title: 'Destination',
+        title: 'Scheduling',
         link: '/destination',
         submenu: [
             {
@@ -61,44 +61,44 @@ const menus = [
         ]
     },
     
-    {
-        id: 7,
-        title: 'Pages',
-        link: '/',
-        submenu: [
-            {
-                id: 71,
-                title: 'About',
-                link: '/about'
-            },
-            {
-                id: 79,
-                title: 'Error 404',
-                link: '/404'
-            },
-            {
-                id: 87,
-                title: 'Search Result',
-                link: '/search-result'
-            },
-            {
-                id: 80,
-                title: 'Login Page',
-                link: '/404'
-            },
-            {
-                id: 81,
-                title: 'Signup Page',
-                link: '/register'
-            },
-            {
-                id: 82,
-                title: 'Forgot Password',
-                link: '/forgot-password'
-            },
+    // {
+    //     id: 7,
+    //     title: 'Pages',
+    //     link: '/',
+    //     submenu: [
+    //         {
+    //             id: 71,
+    //             title: 'About',
+    //             link: '/about'
+    //         },
+    //         {
+    //             id: 79,
+    //             title: 'Error 404',
+    //             link: '/404'
+    //         },
+    //         {
+    //             id: 87,
+    //             title: 'Search Result',
+    //             link: '/search-result'
+    //         },
+    //         {
+    //             id: 80,
+    //             title: 'Login Page',
+    //             link: '/404'
+    //         },
+    //         {
+    //             id: 81,
+    //             title: 'Signup Page',
+    //             link: '/register'
+    //         },
+    //         {
+    //             id: 82,
+    //             title: 'Forgot Password',
+    //             link: '/forgot-password'
+    //         },
 
-        ]
-    },
+    //     ]
+    // },
 
     {
         id: 4,

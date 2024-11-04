@@ -486,7 +486,7 @@ button:focus {
 }
 
 .section-padding {
-  padding: 110px 0;
+  padding: 30px 0;
 }
 
 @media (max-width: 991px) {
@@ -672,7 +672,7 @@ button:focus {
 .theme-btn-s4 {
   color: #00d690;
   font-weight: 600;
-  padding: 15px 27px;
+  padding: 8px 20px;
   border: 0;
   text-transform: capitalize;
   display: block;
@@ -1162,21 +1162,32 @@ ul.smothscroll a:hover {
   }
 }
 
-.wpo-site-footer .contact-ft ul li .fi:before,
-.wpo-site-footer-2 .contact-ft ul li .fi:before {
-  font-size: 20px;
-  margin-right: 15px;
+.wpo-site-footer .contact-ft ul,
+.wpo-site-footer-2 .contact-ft ul {
+  list-style-type: none; 
+  padding: 0;
+  margin: 0;
+  display: block;
 }
 
 .wpo-site-footer .contact-ft ul li,
 .wpo-site-footer-2 .contact-ft ul li {
-  padding-bottom: 5px;
+  display: block !important;
+  margin-bottom: 10px;
+}
+
+.wpo-site-footer .contact-ft ul li .fi:before,
+.wpo-site-footer-2 .contact-ft ul li .fi:before {
+  font-size: 20px;
+  margin-right: 15px;
+  vertical-align: middle;
 }
 
 .wpo-site-footer .contact-ft,
 .wpo-site-footer-2 .contact-ft {
   margin-top: 1px;
 }
+
 
 .wpo-site-footer .wpo-lower-footer,
 .wpo-site-footer-2 .wpo-lower-footer {
@@ -1373,9 +1384,10 @@ ul.smothscroll a:hover {
   color: #283a5e;
 }
 
+
 .page-title h2 {
-  font-size: 40px;
-  font-size: 2.5rem;
+  font-size: 90px;
+  
   margin-bottom: 0.3em;
   text-transform: capitalize;
   font-weight: 700;
@@ -2080,21 +2092,39 @@ header.fixed .header-content {
   }
 }
 
-.get-quote a {
-  font-size: 24px;
-  color: #283a5e;
+.action-buttons {
   display: flex;
-  align-items: center;
-  margin-right: 30px;
+  gap: 10px;
   justify-content: flex-end;
+  align-items: center;
+
+  .login-button,
+  .contactus-button {
+      a {
+          display: inline-block;
+          padding: 8px 16px;
+          border-radius: 4px;
+          font-size: 16px;
+          font-weight: 500;
+          color: #fff;
+          text-decoration: none;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+              background-color: darken(#007bff, 10%);
+          }
+      }
+  }
+
+  .login-button a {
+      background-color: #007bff; 
+  }
+
+  .contactus-button a {
+      background-color: #28a745;
+  }
 }
 
-.get-quote a i {
-  font-size: 30px;
-  font-size: 2rem;
-  color: #00d690;
-  margin-right: 3px;
-}
 
 @media (max-width: 1199px) {
   .get-q {
@@ -2122,7 +2152,7 @@ header.fixed .header-content {
   }
 
   .get-quote a {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   nav ul {
@@ -3887,7 +3917,7 @@ hero-style3
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  width: 90%;
+  width: 80%;
   text-align: center;
   z-index: 999;
   padding: 20px;
@@ -3901,9 +3931,10 @@ hero-style3
   bottom: -80%;
   left: 50%;
   transform: translateX(-50%);
+  height: 93%;
   width: 90%;
   z-index: 999;
-  padding: 20px;
+  padding:15px;
   background: rgba(255, 255, 255, 0.9);
   transition: all 0.5s;
   opacity: 0;

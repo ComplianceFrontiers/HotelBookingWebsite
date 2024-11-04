@@ -36,6 +36,7 @@
   -webkit-font-smoothing: antialiased;
   font-smoothing: antialiased;
     }
+    .flaticon-phone:before { content: "\f100"; } /* assuming \f100 is a suitable replacement */
 
     .flaticon-support:before { content: "\f100"; }
 .flaticon-calendar:before { content: "\f101"; }

@@ -25,8 +25,8 @@ const Rooms = [
     },
     {
         RoomImg:rm3,
-        RoomHeading:"Dr. Lindsey Slater Pavilliont",
-        slug:'Dr. Lindsey Slater Pavilliont',
+        RoomHeading:"Dr. Lindsey Slater Pavillion",
+        slug:'Dr. Lindsey Slater Pavillion',
         RoomCount:'',
         Des:"Enjoy an open-air experience with the Dr. Lindsey Slater Pavilion. Located next to Bellevue Farms, it’s equipped with electricity outlets and Wi-Fi, making it the ideal spot for outdoor events and celebrations.",
         Price:"$50",
@@ -42,7 +42,7 @@ const Rooms = [
     {
         RoomImg:rm5,
         RoomHeading:"Philip B. Lynch Sr. Firepit",
-        slug:'Dr. Lindsey Slater Pavilliont-Balcony',
+        slug:'Dr. Lindsey Slater Pavillion-Balcony',
         RoomCount:'',
         Des:"Nestled within Bellevue Farms, our firepit is a unique venue for cozy gatherings, fireside storytelling, or small community events. It’s a rustic setting perfect for memorable moments under the open sky.",
         Price:"$50",

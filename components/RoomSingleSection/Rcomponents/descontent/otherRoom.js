@@ -29,7 +29,7 @@ const OtherRoom = (props) => {
         },
         {
             RoomImg:rm3,
-            RoomHeading:"Dr. Lindsey Slater Pavilliont",
+            RoomHeading:"Dr. Lindsey Slater Pavillion",
             RoomCount:'Twin Room',
             Des:"Enjoy an open-air experience with the Dr. Lindsey Slater Pavilion. Located next to Bellevue Farms, it’s equipped with electricity outlets and Wi-Fi, making it the ideal spot for outdoor events and celebrations.",
             Price:"$142",

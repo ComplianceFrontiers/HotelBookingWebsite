@@ -39,7 +39,7 @@ const menus = [
             {
                 id: 22,
                 title: 'Room Single',
-                link: '/room-single/Dr. Lindsey Slater Pavilliont'
+                link: '/room-single/Dr. Lindsey Slater Pavillion'
             }
         ]
     },

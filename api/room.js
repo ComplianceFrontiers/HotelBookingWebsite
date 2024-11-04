@@ -47,14 +47,7 @@ const Rooms = [
         Des:"Nestled within Bellevue Farms, our firepit is a unique venue for cozy gatherings, fireside storytelling, or small community events. It’s a rustic setting perfect for memorable moments under the open sky.",
         Price:"$50",
     },
-    // {
-    //     RoomImg:rm6,
-    //     RoomHeading:"Deluxe Contrast Room",
-    //     slug:'Deluxe-Contrasts',
-    //     RoomCount:'Single Room',
-    //     Des:"If you are going to use a passage Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
-    //     Price:"$142",
-    // },
+   
    
 ]
 export default Rooms;

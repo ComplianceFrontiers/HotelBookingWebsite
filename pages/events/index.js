@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,Fragment } from 'react';
 import axios from 'axios';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-
+import Navbar from '../../components/Navbar';
 const Events = () => {
   const [bookedDates, setBookedDates] = useState([]);
   const [bookingDetails, setBookingDetails] = useState({});
@@ -127,8 +127,11 @@ const Events = () => {
   };
 
   return (
+    <Fragment>           
+         <Navbar hclass={'wpo-header-style-3'}/>
+
     <div className="admin">
-      {/* <h1>Admin Panel</h1> */}
+
       <div className="admin-container">
         <div className="filter-section">
           <h2>Filter by Room Title</h2>
@@ -192,6 +195,7 @@ const Events = () => {
         </div>
       </div>
     </div>
+    </Fragment>
   );
 };
 

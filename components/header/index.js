@@ -42,11 +42,11 @@ const Header = (props) => {
                                         <li><Link onClick={ClickHandler} href="/room" title="">Rentals </Link>
                                             <ul>
                                                 <li><Link onClick={ClickHandler} href="/room" title="">Multi-Purpose Room</Link></li>
-                                                <li><Link onClick={ClickHandler} href="/room-single/Dr. Lindsey Slater Pavillion" title="">Gym</Link></li>
-                                                <li><Link onClick={ClickHandler} href="/room-single/Dr. Lindsey Slater Pavillion" title="">Conference Center</Link></li>
-                                                <li><Link onClick={ClickHandler} href="/room-single/Dr. Lindsey Slater Pavillion" title="">Auditorium</Link></li>
-                                                <li><Link onClick={ClickHandler} href="/room-single/Dr. Lindsey Slater Pavillion" title="">Pavilion</Link></li>
-                                                <li><Link onClick={ClickHandler} href="/room-single/Dr. Lindsey Slater Pavillion" title="">Firepit</Link></li>
+                                                <li><Link onClick={ClickHandler} href="/room-single/Gymnasium" title="">Gym</Link></li>
+                                                <li><Link onClick={ClickHandler} href="/room-single/Conference Center" title="">Conference Center</Link></li>
+                                                <li><Link onClick={ClickHandler} href="/room-single/Auditorium" title="">Auditorium</Link></li>
+                                                <li><Link onClick={ClickHandler} href="/room-single/Pavilion" title="">Pavilion</Link></li>
+                                                <li><Link onClick={ClickHandler} href="/room-single/Firepit" title="">Firepit</Link></li>
                                             </ul>
                                         </li>
                                         <li><Link onClick={ClickHandler} href="/destination" title="">sample</Link>

@@ -1,6 +1,6 @@
 // Gallery Component
 
-import React, { useState } from 'react';
+import React, { useState ,Fragment} from 'react';
 import g1 from '/public/images/Gallery/1.jpg';
 import g2 from '/public/images/Gallery/2.jpg';
 import g3 from '/public/images/Gallery/3.jpg';
@@ -16,6 +16,7 @@ import g12 from '/public/images/Gallery/12.jpg';
 import g13 from '/public/images/Gallery/13.jpg';
 import g14 from '/public/images/Gallery/14.jpg';
 import g15 from '/public/images/Gallery/15.jpg';
+import Navbar from '../../components/Navbar';
 
 const Gallery = () => {
   const images = [
@@ -55,6 +56,8 @@ const Gallery = () => {
   };
 
   return (
+    <Fragment>           
+         <Navbar hclass={'wpo-header-style-3'}/>
     <div className="gallery-container" onKeyDown={handleKeyDown} tabIndex="0">
       <div className="hero-section">
         <div className="hero-content">
@@ -80,6 +83,7 @@ const Gallery = () => {
 </div>
 
     </div>
+    </Fragment> 
   );
 };
 

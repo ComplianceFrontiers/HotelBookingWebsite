@@ -7,8 +7,8 @@ import Destinations from '../../api/destination'
 import Benefits from './benefits'
 import DestinationSidebar from './sidebar'
 import Footer from '../../components/footer';
-import dimg1 from '/public/images/destination-single/2.jpg'
-import dimg2 from '/public/images/destination-single/3.jpg'
+import dimg1 from '/public/images/destination-single/21.jpg'
+import dimg2 from '/public/images/destination-single/31.jpg'
 import Image from 'next/image';
 
 

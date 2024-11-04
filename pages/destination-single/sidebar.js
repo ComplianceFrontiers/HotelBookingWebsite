@@ -49,20 +49,10 @@ const DestinationSidebar = (props) => {
                     </form>
                     <span>Please review our <Link onClick={ClickHandler} href="/tandc">Terms and Conditions</Link></span>
                 </div>
-                <div className="wpo-instagram-widget widget">
-                    <h2>Instagram Shot</h2>
-                    <ul>
-                        <li><Image src={ins1} alt="" /></li>
-                        <li><Image src={ins2} alt="" /></li>
-                        <li><Image src={ins3} alt="" /></li>
-                        <li><Image src={ins4} alt="" /></li>
-                        <li><Image src={ins5} alt="" /></li>
-                        <li><Image src={ins6} alt="" /></li>
-                    </ul>
-                </div>
+              
                 <div className="wpo-contact-widget widget">
-                    <h2>How We Can <br /> Help You!</h2>
-                    <p>labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
+                    <h2>Have Questions?  <br /> We're Here to Help!!</h2>
+                    <p>Need more information or assistance with booking? Don’t hesitate to reach out. Our friendly team is ready to answer any questions and guide you through the reservation process to ensure your experience is seamless and enjoyable.</p>
                     <Link onClick={ClickHandler} href="/contact">Contact Us</Link>
                 </div>
             </div>

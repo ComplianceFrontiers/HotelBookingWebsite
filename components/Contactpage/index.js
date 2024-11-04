@@ -15,10 +15,10 @@ const Contactpage = () => {
                                         <i className="fi flaticon-internet"></i>
                                     </div>
                                     <div className="info-text">
-                                        <span>Hotel Address</span>
+                                        <span>Facilities Address</span>
                                     </div>
                                 </div>
-                                <h2>25 North Street,Dubai</h2>
+                                <h2>510 Duncan Rd, Wilmington, DE, United States, Delaware</h2>
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-6 col-sm-12 col-12">
@@ -31,7 +31,7 @@ const Contactpage = () => {
                                         <span>Official Mail</span>
                                     </div>
                                 </div>
-                                <h2>info@Bellevue Community Center .com</h2>
+                                <h2>info@bellevuecc.org</h2>
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-6 col-sm-12 col-12">
@@ -44,7 +44,7 @@ const Contactpage = () => {
                                         <span>Official Phone</span>
                                     </div>
                                 </div>
-                                <h2>+91 256-987-239</h2>
+                                <h2>(302) 762 - 1391</h2>
                             </div>
                         </div>
                     </div>

@@ -8686,40 +8686,37 @@ wpo-blog sidebar
 .info-item {
   text-align: center;
 }
-
 .wpo-contact-info .info-icon {
   width: 90px;
-  height: 90px;
+  height: 80px;
   background: #fff;
   line-height: 90px;
   border-radius: 50%;
-  -webkit-box-shadow: 0px 10px 40px 0px rgba(50, 50, 50, 0.1);
-  -moz-box-shadow: 0px 10px 40px 0px rgba(50, 50, 50, 0.1);
   box-shadow: 0px 10px 40px 0px rgba(50, 50, 50, 0.1);
   text-align: center;
-  margin-right: 20px;
-  align-items: center;
-  margin: auto;
-  margin-bottom: 20px;
+  margin: 0 auto 20px; /* Center horizontally and add bottom margin */
 }
 
 .info-item {
-  -webkit-box-shadow: 0px 10px 40px 0px rgba(50, 50, 50, 0.1);
-  -moz-box-shadow: 0px 10px 40px 0px rgba(50, 50, 50, 0.1);
-  box-shadow: 0px 10px 40px 0px rgba(50, 50, 50, 0.1);
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack children vertically */
+  justify-content: space-between; /* Distribute space evenly */
+  align-items: center; /* Center align items */
+  box-shadow: 0px 1px 18px 0px rgba(21, 44, 91, 0.1);
   padding: 33px 40px;
   margin-bottom: 30px;
   background: #fff;
-  box-shadow: 0px 1px 18px 0px rgba(21, 44, 91, 0.1);
   border-radius: 5px;
+  height: 90%; /* Make sure the item takes full height */
 }
 
 .info-item h2 {
   font-size: 24px;
   font-weight: 600;
-  margin-top: 0;
-  margin-bottom: 15px;
+  margin: 0 0 15px; /* Reset top margin for consistency */
   color: #283a5e;
+  flex-grow: 1; /* Allow h2 to grow */
+  text-align: center; /* Center text horizontally */
 }
 
 .info-icon .fi:before {
@@ -8733,7 +8730,9 @@ wpo-blog sidebar
   font-weight: 300;
   margin-bottom: 10px;
   display: block;
+  text-align: center; /* Center text horizontally */
 }
+
 
 @media (max-width: 590px) {
   .info-item h2 {

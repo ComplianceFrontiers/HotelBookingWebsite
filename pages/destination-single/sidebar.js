@@ -29,7 +29,7 @@ const DestinationSidebar = (props) => {
         <div className="col-lg-4 col-md-8">
             <div className="wpo-single-sidebar">
                 <div className="wpo-service-widget widget">
-                    <h2>All Destination</h2>
+                    <h2>Our Facilities</h2>
                     <ul>
                         {Destinations.slice(0, 5).map((destination, Sitem) => (
                             <li key={Sitem}>
@@ -44,7 +44,7 @@ const DestinationSidebar = (props) => {
                     <h2>Like Our Facility? Book Now!</h2>
                     <p>If you’re impressed with our gym and its offerings, why wait? Secure your spot today and bring your event to life at Bellevue Community Center. Click below to make your reservation and start planning your memorable gathering.</p>
                     <form className="form" onSubmit={SubmitHandler}>
-                        <input type="text" placeholder="Email Address" />
+                        {/* <input type="text" placeholder="Email Address" /> */}
                         <button type="submit">Book Now</button>
                     </form>
                     <span>Please review our <Link onClick={ClickHandler} href="/tandc">Terms and Conditions</Link></span>

@@ -17,7 +17,7 @@ const OtherRoom = (props) => {
             RoomCount:'Twin Room',
             Des:"Our newly renovated gym is equipped with air conditioning, eco-friendly features, and a convenient half-court divider. It’s perfect for sports events, fitness classes, or recreational activities for all ages.",
             Price:"$142",
-            Link:"/room-single",
+            Link:"/destination-single/Paris,France",
         },
         {
             RoomImg:rm2,

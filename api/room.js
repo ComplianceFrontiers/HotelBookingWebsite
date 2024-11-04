@@ -10,7 +10,7 @@ const Rooms = [
     {
         RoomImg:rm1,
         RoomHeading:"Gymnasium",
-        slug:'Lake-view-Room',
+        slug:'/destination-single/Paris,France',
         RoomCount:'',
         Des:"Our newly renovated gym is equipped with air conditioning, eco-friendly features, and a convenient half-court divider. It’s perfect for sports events, fitness classes, or recreational activities for all ages.",
         Price:"$50",

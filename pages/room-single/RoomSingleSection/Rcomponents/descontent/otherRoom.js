@@ -30,7 +30,7 @@ const OtherRoom = (props) => {
                                                     <span>{room.RoomCount}</span>
                                                     <p>{room.Des}</p>
                                                     <small>From: <span>{room.Price}</span> / Night</small>
-                                                    <Link className="theme-btn-s2" href="/room-single/[slug]" as={`/room-single/${room.slug}`}>Check Availability</Link>
+                                                    <Link className="theme-btn-s2" href="/[slug]" as={`/room-single/${room.slug}`}>Check Availability</Link>
                                                 </div>
                                             </div>
                                         </div>

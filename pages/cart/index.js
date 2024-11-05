@@ -55,8 +55,7 @@ const CartPage = (props) => {
                         <tr>
                           <th className="product-2">Room type</th>
                           <th className="pr">Capacity</th>
-                          <th className="ptice">Quantity</th>
-                          <th className="stock">Check-in</th>
+                           <th className="stock">Check-in</th>
                           <th className="stock">Check-out</th>
                           <th className="stock">Gross Total</th>
                           <th className="remove remove-b">Action</th>
@@ -78,14 +77,7 @@ const CartPage = (props) => {
                                 className="editable-input"
                               />
                             </td>
-                            <td className="ptice">
-                              <input
-                                type="number"
-                                value={catItem.qty}
-                                onChange={(e) => handleChange(crt, 'qty', e.target.value)}
-                                className="editable-input"
-                              />
-                            </td>
+                             
                             <td className="stock">
                               <input
                                 type="datetime-local"
@@ -125,9 +117,7 @@ const CartPage = (props) => {
                           Add Another{" "}
                         </Link>
                       </li>
-                      <li>
-                        <button type="submit">Update Cart</button>
-                      </li>
+                      
                     </ul>
                   </div>
                   <div className="cart-product-list">

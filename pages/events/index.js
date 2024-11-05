@@ -148,7 +148,7 @@ const Events = () => {
                 <p>No rooms available.</p>
               )}
               <button onClick={applyFilter}>Show availability</button>
-              <div>
+              <div style={{  marginTop: '10px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', fontWeight: 'bold', marginBottom: '8px' }}>
                   <span style={{ width: '12px', height: '12px', backgroundColor: 'red', display: 'inline-block', marginRight: '8px' }}></span>
                   <span>Facility Booked</span>

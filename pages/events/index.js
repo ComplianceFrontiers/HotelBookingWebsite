@@ -272,7 +272,7 @@ const Events = () => {
                                         </select>
                                     </div> */}
                                     <div className="select-sub">
-                                        <Link href='/events' className="theme-btn-s2" onClick={() =>  addToCartProduct(product, 1, 'red', 'large')} type="submit">Check Availability</Link>
+                                        <Link href='/events' className="theme-btn-s2" onClick={() =>  addToCartProduct(product, 1, 'red', 'large')} type="submit">Select This Iteam</Link>
                                     </div>
                                 </form>
                             </div>

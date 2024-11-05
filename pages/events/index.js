@@ -8,9 +8,12 @@ import Book1 from '/public/images/events/book1.png';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Link from "next/link";
+import { useDispatch } from 'react-redux';
+import { addToCart } from "../../store/actions/action";
 
 const Events = () => {
-  const [bookedDates, setBookedDates] = useState([]);
+  const dispatch = useDispatch();
+    const [bookedDates, setBookedDates] = useState([]);
   const [bookingDetails, setBookingDetails] = useState({});
   const [value, setValue] = useState(new Date()); // Current selected date
   const [selectedBooking, setSelectedBooking] = useState(null);
@@ -129,6 +132,26 @@ const Events = () => {
  }
  const [startDate,  setStartDate] = useState(new Date());
     const [startDates,  setStartDates] = useState(new Date());
+
+  const product = {
+    id: 1,
+    proImg: "/images/room/img-1.jpg",
+    title: "Gymnasium",
+    slug: "Lake-view-Room",
+    price: "200",
+    delPrice: "380",
+    Des: "Our newly renovated gym is equipped with air conditioning, eco-friendly features, and a convenient half-court divider. It’s perfect for sports events, fitness classes, or recreational activities for all ages.",
+    sqm: "52",
+    bedroom: "2",
+    bathroom: "1",
+    capacity: "2",
+    Children: "6"
+  };
+  const addToCartProduct = (product, qty = 1, color, size) => {
+    dispatch(addToCart(product, qty, color, size)); // Dispatch the action here
+    window.location.href = '/cart';
+  };
+
   return (
     <Fragment>
       <Navbar hclass={'wpo-header-style-3'} />
@@ -200,9 +223,6 @@ const Events = () => {
                 </ul>
               </div>
             )}
-            <button onClick={handleBookingRedirect} className="booking-button">
-              Go for Booking
-            </button>
             <div className="wpo-select-area">
                                 <form onSubmit={SubmitHandler} className="clearfix">
                                     <div className="select-sub">
@@ -252,7 +272,7 @@ const Events = () => {
                                         </select>
                                     </div> */}
                                     <div className="select-sub">
-                                        <Link href='/events' className="theme-btn-s2" type="submit">Check Availability</Link>
+                                        <Link href='/events' className="theme-btn-s2" onClick={() =>  addToCartProduct(product, 1, 'red', 'large')} type="submit">Check Availability</Link>
                                     </div>
                                 </form>
                             </div>

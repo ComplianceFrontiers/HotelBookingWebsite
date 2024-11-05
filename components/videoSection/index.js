@@ -36,7 +36,7 @@ const VideoSection = (props) => {
             <div className={`container ${props.vClass}`}>
                 <div className="row">
                     <div className="col-12">
-                        <div className="banner-img"  style={{ cursor: 'pointer' }}>
+                        <div className="banner-img" style={{ cursor: 'pointer' }} onClick={handleImageClick}>
                             <Image src={vdimg} alt="Click to play video" />
                         </div>
                     </div>
@@ -47,9 +47,8 @@ const VideoSection = (props) => {
             {showVideo && (
                 <div className="video-modal" onClick={closeVideo}>
                     <div className="video-content" onClick={(e) => e.stopPropagation()}>
-                        {/* <button className="close-button" onClick={(e) => { e.stopPropagation(); closeVideo(); }}>X</button> */}
                         <video width="100%" controls autoPlay>
-                            <source src="/vedios/bccved1.mp4" type="video/mp4" />
+                            <source src="/vedios/Bccved1.mp4" type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
                     </div>

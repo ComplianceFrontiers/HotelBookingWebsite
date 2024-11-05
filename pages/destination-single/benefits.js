@@ -16,7 +16,7 @@ const Benefits = (props) => {
 
     return (
         <div className="wpo-benefits-section">
-            <h2>Destination FAQ</h2>
+            <h2>FAQ</h2>
             <div className="row">
                 <div className="col-lg-12 col-12">
                     <div className="wpo-benefits-item">

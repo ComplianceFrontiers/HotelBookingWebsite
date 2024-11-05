@@ -1,6 +1,8 @@
 // Gallery Component
 
-import React, { useState ,Fragment} from 'react';
+import React, { useState, Fragment } from 'react';
+import Image from 'next/image'; // Ensure you import Image from next/image
+import dimg1 from '/public/images/destination/img-5.jpg';
 import g1 from '/public/images/Gallery/1.jpg';
 import g2 from '/public/images/Gallery/2.jpg';
 import g3 from '/public/images/Gallery/3.jpg';
@@ -56,34 +58,39 @@ const Gallery = () => {
   };
 
   return (
-    <Fragment>           
-         <Navbar hclass={'wpo-header-style-3'}/>
-    <div className="gallery-container" onKeyDown={handleKeyDown} tabIndex="0">
-      <div className="hero-section">
-        <div className="hero-content">
-          <h1>BCC Photo Gallery</h1>
+    <Fragment>
+      <Navbar hclass={'wpo-header-style-3'} />
+      <section className="page-title">
+            <div className="container">
+                <div className="row">
+                    <div className="col col-xs-12">
+                    <h2 style={{ fontSize: '50px' }}>BCC Photo Gallery</h2>
+
+      </div>
+      </div>
+     </div>
+      </section>
+      <div className="gallery-container" onKeyDown={handleKeyDown} tabIndex="0">
+       
+        <div className="masonry-gallery">
+          {images.map((src, index) => (
+            <div key={index} className="gallery-item" onClick={() => openModal(index)}>
+              <Image src={src} alt={`Gallery ${index + 1}`} layout="responsive" />
+            </div>
+          ))}
+        </div>
+
+        {/* Full-screen Modal */}
+        <div className={`modal ${modalActive ? 'active' : ''}`} onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <Image src={images[currentImageIndex]} alt={`Full-screen Gallery ${currentImageIndex + 1}`} layout="responsive" />
+            <div className="arrow left" onClick={prevImage} aria-label="Previous Image" role="button">&#10094;</div>
+            <div className="arrow right" onClick={nextImage} aria-label="Next Image" role="button">&#10095;</div>
+            <div className="close-button" onClick={closeModal} aria-label="Close" role="button">&#10006;</div>
+          </div>
         </div>
       </div>
-      <div className="masonry-gallery">
-        {images.map((src, index) => (
-          <div key={index} className="gallery-item" onClick={() => openModal(index)}>
-            <img src={src.src} alt={`Gallery ${index + 1}`} />
-          </div>
-        ))}
-      </div>
-
-     {/* Full-screen Modal */}
-<div className={`modal ${modalActive ? 'active' : ''}`} onClick={closeModal}>
-  <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-    <img src={images[currentImageIndex].src} alt={`Full-screen Gallery ${currentImageIndex + 1}`} />
-    <div className="arrow left" onClick={prevImage} aria-label="Previous Image" role="button">&#10094;</div>
-    <div className="arrow right" onClick={nextImage} aria-label="Next Image" role="button">&#10095;</div>
-    <div className="close-button" onClick={closeModal} aria-label="Close" role="button">&#10006;</div>
-  </div>
-</div>
-
-    </div>
-    </Fragment> 
+    </Fragment>
   );
 };
 

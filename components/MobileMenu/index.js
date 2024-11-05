@@ -104,18 +104,7 @@ const menus = [
         id: 4,
         title: 'Services',
         link: '/service',
-        submenu: [
-            {
-                id: 41,
-                title: 'Service',
-                link: '/service'
-            },
-            {
-                id: 42,
-                title: 'Service Single',
-                link: '/service-single/Delicious-Food'
-            }
-        ]
+       
     },
 
     {

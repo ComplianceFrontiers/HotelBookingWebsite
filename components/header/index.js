@@ -41,12 +41,12 @@ const Header = (props) => {
                                         </li>
                                         <li><Link onClick={ClickHandler} href="/room" title="">Rentals </Link>
                                             <ul>
-                                                <li><Link onClick={ClickHandler} href="/room" title="">Multi-Purpose Room</Link></li>
+                                                <li><Link  href="/" title="">Multi-Purpose Room</Link></li>
                                                 <li><Link onClick={ClickHandler} href="/destination-single/Paris,France" title="">Gym</Link></li>
-                                                <li><Link onClick={ClickHandler} href="/room-single/Conference Center" title="">Conference Center</Link></li>
-                                                <li><Link onClick={ClickHandler} href="/room-single/Auditorium" title="">Auditorium</Link></li>
-                                                <li><Link onClick={ClickHandler} href="/room-single/Pavilion" title="">Pavilion</Link></li>
-                                                <li><Link onClick={ClickHandler} href="/room-single/Firepit" title="">Firepit</Link></li>
+                                                <li><Link   href="/" title="">Conference Center</Link></li>
+                                                <li><Link   href="/" title="">Auditorium</Link></li>
+                                                <li><Link  href="/" title="">Pavilion</Link></li>
+                                                <li><Link   href="/" title="">Firepit</Link></li>
                                             </ul>
                                         </li>
                                         {/* <li><Link onClick={ClickHandler} href="/destination" title="">sample</Link>
@@ -57,10 +57,7 @@ const Header = (props) => {
                                         </li> */}
                                        
                                         <li><Link onClick={ClickHandler} href="/service" title="">Services </Link>
-                                            <ul>
-                                                <li><Link onClick={ClickHandler} href="/service" title="">Service</Link></li>
-                                                <li><Link onClick={ClickHandler} href="/service-single/Delicious-Food" title="">Service Single</Link></li>
-                                            </ul>
+                                           
                                         </li>
                                         <li><Link onClick={ClickHandler} href="/Gallery">Gallery </Link>
                                             

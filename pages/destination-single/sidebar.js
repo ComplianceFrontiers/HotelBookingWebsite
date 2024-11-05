@@ -31,13 +31,17 @@ const DestinationSidebar = (props) => {
                 <div className="wpo-service-widget widget">
                     <h2>Our Facilities</h2>
                     <ul>
-                        {Destinations.slice(0, 5).map((destination, Sitem) => (
-                            <li key={Sitem}>
-                                <Link onClick={ClickHandler} href="/destination-single/[slug]" as={`/destination-single/${destination.slug}`}>
-                                    {destination.title}
-                                </Link>
-                            </li>
-                        ))}
+                    {Destinations.slice(0, 5).map((destination, Sitem) => (
+    <li key={Sitem}>
+        <Link
+            href={Sitem === 0 ? "/destination-single/[slug]" : "#"}
+            as={Sitem === 0 ? `/destination-single/${destination.slug}` : undefined}
+            onClick={Sitem === 0 ? ClickHandler : (e) => e.preventDefault()} // Prevent default if not clickable
+        >
+            {destination.title}
+        </Link>
+    </li>
+))}
                     </ul>
                 </div>
                 <div className="wpo-newsletter-widget widget">

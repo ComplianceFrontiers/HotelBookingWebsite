@@ -59,14 +59,14 @@ const Testimonial = () => {
         {
             tsImg: ts2,
             Des: "“We hosted a family reunion at the pavilion, and it was a fantastic experience. The setup and cleanup services allowed us to focus on spending quality time with loved ones.”",
-            Title: 'Emily K., Dover, DE',
+            Title: 'Emily K.',
             Sub: "Wilmington, DE",
         },
         {
             tsImg: ts3,
             Des: "“From the spacious multi-purpose room to the friendly on-site support, everything exceeded our expectations. Bellevue Community Center made our event unforgettable!”",
             Title: 'Mark R.',
-            Sub: "Wilmington",
+            Sub: "Dover, DE",
         }
         
     ]

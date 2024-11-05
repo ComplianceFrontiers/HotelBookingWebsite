@@ -68,18 +68,28 @@
     .custom-calendar .tile-content {
       font-size: 10px; /* Smaller font size to fit content */
       color: #0b0b0b;
-      max-height: 3em; /* Prevent overflow within the tile */
+      max-height: 5em; /* Prevent overflow within the tile */
       overflow-wrap: break-word; /* Wrap long words if needed */
       white-space: normal; /* Allow text wrapping */
     }
   
     .room-title {
-      background-color: #e0410c; /* Green for booked titles */
+      background-color: #e0410c; /* Red background */
       color: white; /* Text color for visibility */
-      padding: 5px; /* Add some padding for better appearance */
-      border-radius: 4px; /* Rounded corners for better aesthetics */
+      padding: 5px; /* Padding for appearance */
+      border-radius: 4px; /* Rounded corners */
       margin: 2px 0; /* Space between titles */
+      width: 150px; /* Set fixed width */
+      height: 40px; /* Set fixed height */
+      text-align: center; /* Center text */
+      overflow: hidden; /* Hide overflow text */
+      white-space: nowrap; /* Prevent text wrapping */
+      display: flex; /* Center text vertically */
+      align-items: center; /* Center text vertically */
+      justify-content: center; /* Center text horizontally */
     }
+    
+    
   }
   
   .view-options {

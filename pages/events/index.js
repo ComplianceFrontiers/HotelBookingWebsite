@@ -28,7 +28,7 @@ const Events = () => {
         users.forEach(user => {
           const checkoutDetails = user.checkout_details;
           if (checkoutDetails) {
-            checkoutDetails.forEach((details) => {
+            checkoutDetails.forEach(details => {
               details.forEach(({ checkIn, checkOut, title }) => {
                 const startDate = new Date(checkIn);
                 const endDate = new Date(checkOut);
@@ -57,10 +57,12 @@ const Events = () => {
           }
         });
 
+        const roomArray = [...rooms];
         setBookedDates(Object.keys(booked));
         setBookingDetails(booked);
-        setRoomTitles([...rooms]);
-        setFilteredDates(Object.keys(booked)); // Set filtered dates to all booked dates initially
+        setRoomTitles(roomArray);
+        setRoomFilter(roomArray[0] || ''); // Set first room title as default filter
+        setFilteredDates(Object.keys(booked));
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -72,24 +74,8 @@ const Events = () => {
   const tileClassName = ({ date, view }) => {
     if (view === 'month' || view === 'week' || view === 'year') {
       const dateString = date.toDateString();
-      if (filteredDates.includes(dateString)) {
-        return 'booked';
-      }
-      return 'available';
+      return filteredDates.includes(dateString) ? 'booked' : 'available';
     }
-  };
-
-  const handleDayClick = (date) => {
-    const dateString = date.toDateString();
-    if (bookingDetails[dateString]) {
-      setSelectedBooking(bookingDetails[dateString]);
-    } else {
-      setSelectedBooking(null);
-    }
-  };
-
-  const handleViewChange = (newView) => {
-    setView(newView);
   };
 
   const handleFilterChange = (event) => {
@@ -103,12 +89,12 @@ const Events = () => {
       );
       setFilteredDates(newFilteredDates);
     } else {
-      setFilteredDates(bookedDates); // Show all booked dates if no specific room filter
+      setFilteredDates(bookedDates);
     }
   };
 
   useEffect(() => {
-    applyFilter(); // Apply filter automatically on initial load
+    applyFilter();
   }, [bookedDates, roomFilter]);
 
   const tileContent = ({ date, view }) => {

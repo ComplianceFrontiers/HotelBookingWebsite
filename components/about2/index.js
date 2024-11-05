@@ -27,7 +27,7 @@ special celebration, Bellevue Community Center (BCC) offers a range of beautiful
 eco-friendly facilities tailored to meet your needs. Located in the heart of Wilmington, Delaware,
 our center is a hub for community activities, events, and experiences that bring people together.</p>
                             <div className="btns">
-                                <Link onClick={ClickHandler} href="/destination" className="theme-btn-s2">Schedule Your Event</Link>
+                                <Link onClick={ClickHandler} href="/events" className="theme-btn-s2">Schedule Your Event</Link>
                             </div>
                         </div>
                     </div>

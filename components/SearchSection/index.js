@@ -68,7 +68,7 @@ const SearchSection = (props) => {
                                         </select>
                                     </div> */}
                                     <div className="select-sub">
-                                        <Link href='/destination' className="theme-btn-s2" type="submit">Check Availability</Link>
+                                        <Link href='/events' className="theme-btn-s2" type="submit">Check Availability</Link>
                                     </div>
                                 </form>
                             </div>

@@ -5,6 +5,9 @@ import 'react-calendar/dist/Calendar.css';
 import Navbar from '../../components/Navbar';
 import Book from '/public/images/events/book.png';
 import Book1 from '/public/images/events/book1.png';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import Link from "next/link";
 
 const Events = () => {
   const [bookedDates, setBookedDates] = useState([]);
@@ -121,7 +124,11 @@ const Events = () => {
   const ClickHandler = () => {
     window.scrollTo(10, 0);
   };
-
+  const SubmitHandler = (e) =>{
+    e.preventDefault()
+ }
+ const [startDate,  setStartDate] = useState(new Date());
+    const [startDates,  setStartDates] = useState(new Date());
   return (
     <Fragment>
       <Navbar hclass={'wpo-header-style-3'} />
@@ -196,8 +203,60 @@ const Events = () => {
             <button onClick={handleBookingRedirect} className="booking-button">
               Go for Booking
             </button>
+            <div className="wpo-select-area">
+                                <form onSubmit={SubmitHandler} className="clearfix">
+                                    <div className="select-sub">
+                                        <span><i className="fi flaticon-calendar"></i>Rental date</span>
+                                        <div className="form-group">
+                                            <div id="filterDate">
+                                                <div className="input-group date" data-date-format="dd.mm.yyyy">
+                                                    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+                                                    <div className="input-group-addon">
+                                                        <span className="ti-angle-down"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/* <div className="select-sub">
+                                        <span><i className="fi flaticon-calendar"></i>Check - out</span>
+                                        <div className="form-group">
+                                            <div id="filterDate2">
+                                                <div className="input-group date" data-date-format="dd.mm.yyyy">
+                                                    <DatePicker selected={startDates} onChange={(date) => setStartDates(date)} />
+                                                    <div className="input-group-addon">
+                                                        <span className="ti-angle-down"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> */}
+                                    <div className="select-sub">
+                                        <span> <i className="fi flaticon-user"></i> Guests</span>
+                                        <select className="select wide">
+                                            <option>25-50</option>
+                                            <option>50-75</option>
+                                            <option>75-100</option>
+                                            <option>100+</option>
+                                        </select>
+                                    </div>
+                                    {/* <div className="select-sub">
+                                        <span> <i className="fi flaticon-user"></i> CHILDREN</span>
+                                        <select className="select wide">
+                                            <option>01</option>
+                                            <option>02</option>
+                                            <option>03</option>
+                                            <option>04</option>
+                                            <option>05</option>
+                                            <option>06</option>
+                                        </select>
+                                    </div> */}
+                                    <div className="select-sub">
+                                        <Link href='/events' className="theme-btn-s2" type="submit">Check Availability</Link>
+                                    </div>
+                                </form>
+                            </div>
             <div className="image-section">
-              <img src='/images/events/book1.png' alt="Book 1" className="calendar-image" />
               <img src='/images/events/book.png' alt="Book 2" className="calendar-image" />
             </div>
           </div>

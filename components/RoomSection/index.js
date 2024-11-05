@@ -26,25 +26,34 @@ const RoomSection = (props) => {
                             </div>
                             <div className="gallery-container">
                                 <TabContent activeTab={activeTab}>
-                                    <TabPane tabId="1">
-                                        {Rooms.slice(0,5).map((room, rm) => (
-                                            <div className="grid" key={rm}>
-                                                <div className="room-item">
-                                                    <Image src={room.RoomImg} alt="" className="img img-responsive" />
-                                                    <div className="room-text-show">
-                                                        <h2>{room.RoomHeading}</h2>
-                                                    </div>
-                                                    <div className="room-text-hide">
-                                                        <h2>{room.RoomHeading}</h2>
-                                                        <span>{room.RoomCount}</span>
-                                                        <p>{room.Des}</p>
-                                                        <small>From: <span>{room.Price}</span> / Night</small>
-                                                        <Link className="theme-btn-s2" href="/destination-single/Paris,France" as={`/${room.slug}`}>Explore</Link>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </TabPane>
+                                <TabPane tabId="1">
+    {Rooms.slice(0, 5).map((room, rm) => (
+        <div className="grid" key={rm}>
+            <div className="room-item">
+                <Image src={room.RoomImg} alt="" className="img img-responsive" />
+                <div className="room-text-show">
+                    <h2>{room.RoomHeading}</h2>
+                </div>
+                <div className="room-text-hide">
+                    <h2>{room.RoomHeading}</h2>
+                    <span>{room.RoomCount}</span>
+                    <p>{room.Des}</p>
+                    <small>From: <span>{room.Price}</span> / Night</small>
+                    <Link
+                        className={`theme-btn-s2 ${rm !== 0 ? "unclickable-link" : ""}`}
+                        href={rm === 0 ? `/destination-single/Paris,France` : "#"}
+                        as={rm === 0 ? `/${room.slug}` : "#"}
+                        style={rm !== 0 ? { pointerEvents: 'none' } : {}}
+                    >
+                        Explore
+                    </Link>
+                </div>
+            </div>
+        </div>
+    ))}
+</TabPane>
+
+
                                     <TabPane tabId="2">
                                         {Rooms.slice(3,6).map((room, rm) => (
                                             <div className="grid" key={rm}>
@@ -58,7 +67,7 @@ const RoomSection = (props) => {
                                                         <span>{room.RoomCount}</span>
                                                         <p>{room.Des}</p>
                                                         <small>From: <span>{room.Price}</span> / Night</small>
-                                                        <Link className="theme-btn-s2" href="/events" as={`/room-single/${room.slug}`}>Explore</Link>
+                                                        <Link className="theme-btn-s2" href="#" as={`/room-single/${room.slug}`}>Explore</Link>
                                                     </div>
                                                 </div>
                                             </div>

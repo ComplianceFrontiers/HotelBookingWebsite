@@ -1,12 +1,12 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { useRouter } from 'next/router'
-import Navbar from '../../components/Navbar';
-import PageTitle from '../../components/pagetitle';
-import Scrollbar from '../../components/scrollbar'
-import Destinations from '../../api/destination'
-import Benefits from './benefits'
-import DestinationSidebar from './sidebar'
-import Footer from '../../components/footer';
+import Navbar from '../../../components/Navbar';
+import PageTitle from '../../../components/pagetitle';
+import Scrollbar from '../../../components/scrollbar'
+import Destinations from '../../../api/destination'
+import Benefits from '.././benefits'
+import DestinationSidebar from '.././sidebar'
+import Footer from '../../../components/footer';
 import dimg1 from '/public/images/destination-single/21.jpg'
 import dimg2 from '/public/images/destination-single/31.jpg'
 import Image from 'next/image';
@@ -15,8 +15,6 @@ import Image from 'next/image';
 const DestinationSinglePage = (props) => {
 
     const router = useRouter()
-
-    
 
     const destinationDetails = Destinations.find(item => item.slug === router.query.slug)
 

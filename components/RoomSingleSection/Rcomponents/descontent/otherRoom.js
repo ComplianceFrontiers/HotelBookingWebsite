@@ -17,7 +17,7 @@ const OtherRoom = (props) => {
             RoomCount:'Twin Room',
             Des:"Our newly renovated gym is equipped with air conditioning, eco-friendly features, and a convenient half-court divider. It’s perfect for sports events, fitness classes, or recreational activities for all ages.",
             Price:"$142",
-            Link:"/destination-single/Paris,France",
+            Link:"/destination-single/gymnasium",
         },
         {
             RoomImg:rm2,
@@ -25,7 +25,7 @@ const OtherRoom = (props) => {
             RoomCount:'Twin Room',
             Des:"This modern conference space features a 4K smart TV, adaptive video, and surround sound, creating a high-tech environment ideal for meetings, presentations, and professional gatherings.",
             Price:"$142",
-            Link:"/room-single",
+            Link:"/destination-single/conferenceCenter",
         },
         {
             RoomImg:rm3,
@@ -33,14 +33,14 @@ const OtherRoom = (props) => {
             RoomCount:'Twin Room',
             Des:"Enjoy an open-air experience with the Dr. Lindsey Slater Pavilion. Located next to Bellevue Farms, it’s equipped with electricity outlets and Wi-Fi, making it the ideal spot for outdoor events and celebrations.",
             Price:"$142",
-            Link:"/room-single",
+            Link:"/destination-single/pavillion",
         },{
             RoomImg:rm4,
             RoomHeading:"Multi-Purpose Room (MPR)",
             RoomCount:'Twin Room',
             Des:"Spacious and flexible, the MPR offers a stage, configurable seating, and dividers. This versatile room is perfect for workshops, family gatherings, and community events.",
             Price:"$142",
-            Link:"/room-single",
+            Link:"/destination-single/mpr",
         },
         {
             RoomImg:rm5,
@@ -48,7 +48,7 @@ const OtherRoom = (props) => {
             RoomCount:'Twin Room',
             Des:"Nestled within Bellevue Farms, our firepit is a unique venue for cozy gatherings, fireside storytelling, or small community events. It’s a rustic setting perfect for memorable moments under the open sky.",
             Price:"$142",
-            Link:"/room-single",
+            Link:"/destination-single/firepit",
         }
         
 

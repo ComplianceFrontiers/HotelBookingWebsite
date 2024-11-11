@@ -40,13 +40,37 @@ const RoomSection = (props) => {
                     <p>{room.Des}</p>
                     <small>From: <span>{room.Price}</span> / Night</small>
                     <Link
-                        className={`theme-btn-s2 ${rm !== 0 ? "unclickable-link" : ""}`}
-                        href={rm === 0 ? `/destination-single/Paris,France` : "#"}
-                        as={rm === 0 ? `/${room.slug}` : "#"}
-                        style={rm !== 0 ? { pointerEvents: 'none' } : {}}
-                    >
-                        Explore
-                    </Link>
+                            className="theme-btn-s2"
+                            href={
+                                rm === 0
+                                ? `/destination-single/gymnasium`
+                                : rm === 1
+                                ? `/destination-single/conferenceCenter`
+                                : rm === 2
+                                ? `/destination-single/pavillion`
+                                : rm === 3
+                                ? `/destination-single/mpr`
+                                : rm === 4
+                                ? `/destination-single/firepit`
+                                : "#"
+                            }
+                            as={
+                              rm === 0
+                                ? `/destination-single/gymnasium`
+                                : rm === 1
+                                ? `/destination-single/conferenceCenter`
+                                : rm === 2
+                                ? `/destination-single/pavillion`
+                                : rm === 3
+                                ? `/destination-single/mpr`
+                                : rm === 4
+                                ? `/destination-single/firepit`
+                                : "#"
+                            }
+                             >
+                            Explore
+                            </Link>
+
                 </div>
             </div>
         </div>

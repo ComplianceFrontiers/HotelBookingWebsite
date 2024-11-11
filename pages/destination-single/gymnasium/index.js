@@ -22,7 +22,7 @@ const DestinationSinglePage = (props) => {
     return (
         <Fragment>
             <Navbar hclass={'wpo-header-style-3'} />
-            <PageTitle pageTitle={destinationDetails?.title} pagesub={'destination'} />
+            <PageTitle  pagesub={'Gymnasium'} />
             <section className="wpo-destination-single-section section-padding">
   <div className="container">
     <div className="row">

@@ -9,7 +9,7 @@ const RoomPage =() => {
     return(
         <Fragment>
             <Navbar hclass={'wpo-header-style-3'}/>
-            <PageTitle pageTitle={'Rentals'} pagesub={'Room'}/> 
+            <PageTitle pageTitle={'Rentals'}/> 
             <RoomSection/>
             <Footer/>
             <Scrollbar/>

@@ -36,7 +36,7 @@ const DestinationSidebar = (props) => {
                             <Link
                             href={
                                 Sitem === 0
-                                ? "/destination-single/[slug]"
+                                ? "/destination-single/gymnasium"
                                 : Sitem === 1
                                 ? "/destination-single/conferenceCenter"
                                 : Sitem === 2

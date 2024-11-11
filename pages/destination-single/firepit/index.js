@@ -59,10 +59,25 @@ const DestinationSinglePage = (props) => {
                                         </ul>
 
                                         <div className="wpo-destination-single-sub-img">
-                                            <ul>
-                                                <li><Image src={dimg1} alt="Firepit Image 1" /></li>
-                                                <li><Image src={dimg2} alt="Firepit Image 2" /></li>
-                                            </ul>
+                                        <ul>
+                                            <li>
+                                                <Image
+                                                src="/images/destination/img-5.jpg"
+                                                width={500}
+                                                height={300}
+                                                alt="MPR Image 1"
+                                                />
+                                            </li>
+                                            <li>
+                                                <Image
+                                                src="/images/destination/img-5.jpg"
+                                                width={500}
+                                                height={300}
+                                                alt="MPR Image 2"
+                                                />
+                                            </li>
+                                        </ul>
+
                                         </div>
                                     </div>
                                 </div>

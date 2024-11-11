@@ -32,16 +32,41 @@ const DestinationSidebar = (props) => {
                     <h2>Our Facilities</h2>
                     <ul>
                     {Destinations.slice(0, 5).map((destination, Sitem) => (
-    <li key={Sitem}>
-        <Link
-            href={Sitem === 0 ? "/destination-single/[slug]" : "#"}
-            as={Sitem === 0 ? `/destination-single/${destination.slug}` : undefined}
-            onClick={Sitem === 0 ? ClickHandler : (e) => e.preventDefault()} // Prevent default if not clickable
-        >
-            {destination.title}
-        </Link>
-    </li>
-))}
+                        <li key={Sitem}>
+                            <Link
+                            href={
+                                Sitem === 0
+                                ? "/destination-single/[slug]"
+                                : Sitem === 1
+                                ? "/destination-single/conferenceCenter"
+                                : Sitem === 2
+                                ? "/destination-single/pavillion"
+                                : Sitem === 3
+                                ? "/destination-single/mpr"
+                                : Sitem === 4
+                                ? "/destination-single/firepit"
+                                : "#"
+                            }
+                            as={
+                                Sitem === 0
+                                ? `/destination-single/${destination.slug}`
+                                : Sitem === 1
+                                ? `/destination-single/conferenceCenter`
+                                : Sitem === 2
+                                ? `/destination-single/pavillion`
+                                : Sitem === 3
+                                ? `/destination-single/mpr`
+                                : Sitem === 4
+                                ? `/destination-single/firepit`
+                                : undefined
+                            }
+                            onClick={ClickHandler} // Always call the ClickHandler function
+                            >
+                            {destination.title}
+                            </Link>
+                        </li>
+                        ))}
+
                     </ul>
                 </div>
                 <div className="wpo-newsletter-widget widget">

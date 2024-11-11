@@ -25,7 +25,12 @@ const DestinationSinglePage = (props) => {
                         <div className="col-lg-8 col-md-12">
                             <div className="wpo-destination-single-wrap">
                                 <div className="wpo-destination-single-content">
-                                    <Image src={destinationDetails?.dSimg} alt="Conference Center Image" />
+                                <Image 
+              src="/images/destination/img-2.jpg" 
+              alt="cofff_center Image" 
+              width={500} 
+              height={300} 
+            />   
                                     <div className="wpo-destination-single-content-des">
                                         <h2>Experience Professional Excellence in Our Premier Conference Venue</h2>
                                         <p>

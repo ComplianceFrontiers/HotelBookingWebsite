@@ -25,7 +25,12 @@ const DestinationSinglePage = (props) => {
                         <div className="col-lg-8 col-md-12">
                             <div className="wpo-destination-single-wrap">
                                 <div className="wpo-destination-single-content">
-                                    <Image src={destinationDetails?.dSimg} alt="Pavilion Image" />
+                                <Image 
+              src="/images/destination/img-3.jpg" 
+              alt="pavillion Image" 
+              width={500} 
+              height={300} 
+            />   
                                     <div className="wpo-destination-single-content-des">
                                         <h2>Your Ideal Outdoor Venue for Unforgettable Gatherings</h2>
                                         <p>

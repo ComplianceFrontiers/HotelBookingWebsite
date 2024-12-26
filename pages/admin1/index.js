@@ -165,7 +165,7 @@ const Admin = () => {
   const product = {
     id: 1,
     proImg: "/images/room/img-1.jpg",
-    title: "Gymnasium",
+    title: roomFilter,
     slug: "Lake-view-Room",
     price: "200",
     delPrice: "380",

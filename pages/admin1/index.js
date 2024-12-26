@@ -3,8 +3,10 @@ import axios from 'axios';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import Link from "next/link";
+import { useDispatch } from 'react-redux';
 
 const Admin = () => {
+  const dispatch = useDispatch();
   const [bookedDates, setBookedDates] = useState([]);
   const [bookingDetails, setBookingDetails] = useState({});
   const [value, setValue] = useState(new Date()); // Current selected date

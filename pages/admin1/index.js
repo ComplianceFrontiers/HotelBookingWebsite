@@ -16,7 +16,7 @@ const Admin = () => {
   const [roomFilter, setRoomFilter] = useState('');
   const [roomTitles, setRoomTitles] = useState([]);
   const [filteredDates, setFilteredDates] = useState([]); // To hold dates based on the filter
-  const [selectedSlot, setSelectedSlot] = useState(null); // Track selected slot
+  const [selectedSlots, setSelectedSlots] = useState([]); // Track selected slots
 
   useEffect(() => {
     const fetchData = async () => {
@@ -120,11 +120,17 @@ const Admin = () => {
       });
     }
   
-    setSelectedSlot(null); // Reset selected slot on date change
+    setSelectedSlots([]); // Reset selected slots on date change
     console.log("Updated Selected Booking:", selectedBooking); // Log the selected booking state
   };
+
   const handleSlotClick = (slot) => {
-    setSelectedSlot(slot); // Set the clicked slot as selected
+    setSelectedSlots(prevState => {
+      if (prevState.includes(slot)) {
+        return prevState.filter(s => s !== slot); // Remove the slot if already selected
+      }
+      return [...prevState, slot]; // Add the slot if not selected
+    });
   };
   
   const calculateAvailableSlots = (dateString) => {
@@ -162,6 +168,7 @@ const Admin = () => {
     
     return availableSlots;
   };
+
   const product = {
     id: 1,
     proImg: "/images/room/img-1.jpg",
@@ -171,16 +178,16 @@ const Admin = () => {
     delPrice: "380",
     Des: "Our newly renovated gym is equipped with air conditioning, eco-friendly features, and a convenient half-court divider. It’s perfect for sports events, fitness classes, or recreational activities for all ages.",
     capacity: "1",
-    Children: "6"
+    Children: "6",
+    checkIn:"",
+    checkOut:"",
   };
-  
   
   const addToCartProduct = (product, qty = 1, color, size) => {
       dispatch(addToCart(product, qty, color, size)); // Dispatch the action here
       window.location.href = '/cart';
     };
 
- 
   const tileContent = ({ date, view }) => {
     const dateString = date.toDateString();
     if (filteredDates.includes(dateString)) {
@@ -287,7 +294,7 @@ const Admin = () => {
                         style={{
                           padding: '5px 10px',
                           backgroundColor:
-                            selectedSlot === slot ? '#d1ecf1' : '#f0f0f0',
+                            selectedSlots.includes(slot) ? '#d1ecf1' : '#f0f0f0',
                           border: '1px solid #ccc',
                           borderRadius: '5px',
                           cursor: 'pointer',
@@ -325,8 +332,8 @@ const Admin = () => {
                       >
                         Sold Out
                       </span>
-                    ) : selectedSlot ? (
-                      <Link
+                    ) : selectedSlots ? (
+              <Link
                         href="/cart"
                         className="theme-btn-s2"
                         onClick={() => addToCartProduct(product, 1, 'red', 'large')}

@@ -4,6 +4,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import Link from "next/link";
 import { useDispatch } from 'react-redux';
+import { addToCart } from "../../store/actions/action";
 
 const Admin = () => {
   const dispatch = useDispatch();
@@ -161,12 +162,23 @@ const Admin = () => {
     
     return availableSlots;
   };
+  const product = {
+    id: 1,
+    proImg: "/images/room/img-1.jpg",
+    title: "Gymnasium",
+    slug: "Lake-view-Room",
+    price: "200",
+    delPrice: "380",
+    Des: "Our newly renovated gym is equipped with air conditioning, eco-friendly features, and a convenient half-court divider. It’s perfect for sports events, fitness classes, or recreational activities for all ages.",
+    capacity: "1",
+    Children: "6"
+  };
   
   
   const addToCartProduct = (product, qty = 1, color, size) => {
-    dispatch(addToCart(product, qty, color, size)); // Dispatch the action here
-    window.location.href = '/cart';
-  };
+      dispatch(addToCart(product, qty, color, size)); // Dispatch the action here
+      window.location.href = '/cart';
+    };
 
  
   const tileContent = ({ date, view }) => {
@@ -317,7 +329,7 @@ const Admin = () => {
                       <Link
                         href="/cart"
                         className="theme-btn-s2"
-                        onClick={() => addToCartProduct('product', 1, 'red', 'large')}
+                        onClick={() => addToCartProduct(product, 1, 'red', 'large')}
                       >
                         Book Your Slot Now
                       </Link>

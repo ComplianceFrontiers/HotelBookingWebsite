@@ -17,6 +17,8 @@ import '../pages/cart/CartPage.scss';
 import '../pages/admin/admin.scss'; 
 import '../pages/tandc/tandc.scss'; 
 import '../pages/Gallery/gallery.scss';
+import '../pages/events1/events1.scss';
+
 
 function MyApp({ Component, pageProps }) {
   return (

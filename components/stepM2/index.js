@@ -129,126 +129,127 @@ const StepM2 = ({ setActiveStep, formData }) => {
           </select>
          </div>
 
-        {/* Recurring Fields (Only visible when 'Recurring' is selected) */}
-        {dateOption === "Recurring" && (
+         {dateOption === "Recurring" && (
+  <div>
+    {/* First Date */}
+    <div className="form-group">
+      <label>First Date *</label>
+      <input type="date" />
+    </div>
+
+    {/* Start Time and End Time */}
+    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem' }}>
+      <div className="form-group" style={{ flex: 1 }}>
+        <label>Start Time *</label>
+        <input type="time" style={{ width: '100%' }} />
+      </div>
+
+      <div className="form-group" style={{ flex: 1 }}>
+        <label>End Time *</label>
+        <input type="time" style={{ width: '100%' }} />
+      </div>
+    </div>
+
+    {/* Repeat Frequency */}
+    <div className="form-group">
+      <label>Repeat *</label>
+      <select value={repeatFrequency} onChange={handleRepeatFrequencyChange}>
+        <option value="">Select</option>
+        <option value="daily">Daily</option>
+        <option value="weekly">Weekly</option>
+        <option value="monthly">Monthly</option>
+      </select>
+    </div>
+
+    {/* Weekly Repeat Fields (Only visible when 'Weekly' is selected) */}
+    {repeatFrequency === "weekly" && (
+      <div>
+        <div className="form-group">
+          <label>Repeat On *</label>
           <div>
-            {/* First Date */}
-            <div className="form-group">
-              <label>First Date *</label>
-              <input type="date" />
-            </div>
+            {Object.keys(weeklyRepeatDays).map((day) => (
+              <label key={day}>
+                <input
+                  type="checkbox"
+                  checked={weeklyRepeatDays[day]}
+                  onChange={() => handleWeeklyRepeatDayChange(day)}
+                />
+                {day}
+              </label>
+            ))}
+          </div>
+        </div>
+        <div className="form-group">
+          <label>Repeat Every *</label>
+          <select>
+            <option>1 week(s)</option>
+            <option>2 week(s)</option>
+            <option>3 week(s)</option>
+            <option>4 week(s)</option>
+            <option>5 week(s)</option>
+          </select>
+        </div>
 
-            {/* Start Time */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem' }}>
-  {/* Start Time */}
-  <div className="form-group" style={{ flex: 1 }}>
-    <label>Start Time *</label>
-    <input type="time" style={{ width: '100%' }} />
-  </div>
+        {/* End By Field (Only for Weekly Repeat) */}
+        <div className="form-group">
+          <label>End By *</label>
+          <input type="date" />
+        </div>
+      </div>
+    )}
 
-  {/* End Time */}
-  <div className="form-group" style={{ flex: 1 }}>
-    <label>End Time *</label>
-    <input type="time" style={{ width: '100%' }} />
-  </div>
-</div>
-
-
-            {/* Repeat Frequency */}
-            <div className="form-group">
-              <label>Repeat *</label>
-              <select value={repeatFrequency} onChange={handleRepeatFrequencyChange}>
-                <option value="">Select</option>
-                <option value="daily">Daily</option>
-                <option value="weekly">Weekly</option>
-                <option value="monthly">Monthly</option>
-              </select>
-            </div>
-
-
-            {/* Weekly Repeat Fields (Only visible when 'Weekly' is selected) */}
-            {repeatFrequency === "weekly" && (
-              <div>
-                <div className="form-group">
-                  <label>Repeat On *</label>
-                  <div>
-                    {Object.keys(weeklyRepeatDays).map((day) => (
-                      <label key={day}>
-                        <input
-                          type="checkbox"
-                          checked={weeklyRepeatDays[day]}
-                          onChange={() => handleWeeklyRepeatDayChange(day)}
-                        />
-                        {day}
-                      </label>
-                    ))}
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label>Repeat Every *</label>
-                  <select>
-                    <option>1 week(s)</option>
-                    <option>2 week(s)</option>
-                    <option>3 week(s)</option>
-                    <option>4 week(s)</option>
-                    <option>5 week(s)</option>
-                  </select>
-                </div>
-                <div className="form-group">
-              <label>End By *</label>
-              <input type="date" />
-            </div>
-              </div>
-            )}
-
-            {/* Monthly Repeat Fields (Only visible when 'Monthly' is selected) */}
-            {repeatFrequency === "monthly" && (
-              <div>
-                <div className="form-group">
-                  <label>Repeat By *</label>
-                  <select value={monthlyRepeatBy} onChange={handleMonthlyRepeatByChange}>
-                    <option value="Day of Week">Day of Week</option>
-                    <option value="Day of Month">Day of Month</option>
-                  </select>
-                </div>
-                {monthlyRepeatBy === "Day of Week" && (
-                  <div className="form-group">
-                    <label>Repeat On *</label>
-                    <select>
-                      <option>First</option>
-                      <option>Second</option>
-                      <option>Third</option>
-                      <option>Fourth</option>
-                    </select>
-                    <select>
-                      <option>Sunday</option>
-                      <option>Monday</option>
-                      <option>Tuesday</option>
-                      <option>Wednesday</option>
-                      <option>Thursday</option>
-                      <option>Friday</option>
-                      <option>Saturday</option>
-                    </select>
-                  </div>
-                )}
-                <div className="form-group">
-                  <label>Repeat Every *</label>
-                  <select value={monthlyRepeatFrequency} onChange={handleMonthlyRepeatFrequencyChange}>
-                    <option value="1 month">1 month(s)</option>
-                    <option value="2 months">2 month(s)</option>
-                    <option value="3 months">3 month(s)</option>
-                    <option value="4 months">4 month(s)</option>
-                    <option value="5 months">5 month(s)</option>
-                  </select>
-                </div>
-              </div>
-            )}
-            <div className="form-group">
-              <label>End By *</label>
-              <input type="date" />
-            </div>
+    {/* Monthly Repeat Fields (Only visible when 'Monthly' is selected) */}
+    {repeatFrequency === "monthly" && (
+      <div>
+        <div className="form-group">
+          <label>Repeat By *</label>
+          <select value={monthlyRepeatBy} onChange={handleMonthlyRepeatByChange}>
+            <option value="Day of Week">Day of Week</option>
+            <option value="Day of Month">Day of Month</option>
+          </select>
+        </div>
+        {monthlyRepeatBy === "Day of Week" && (
+          <div className="form-group">
+            <label>Repeat On *</label>
+            <select>
+              <option>First</option>
+              <option>Second</option>
+              <option>Third</option>
+              <option>Fourth</option>
+            </select>
+            <select>
+              <option>Sunday</option>
+              <option>Monday</option>
+              <option>Tuesday</option>
+              <option>Wednesday</option>
+              <option>Thursday</option>
+              <option>Friday</option>
+              <option>Saturday</option>
+            </select>
           </div>
         )}
+        <div className="form-group">
+          <label>Repeat Every *</label>
+          <select value={monthlyRepeatFrequency} onChange={handleMonthlyRepeatFrequencyChange}>
+            <option value="1 month">1 month(s)</option>
+            <option value="2 months">2 month(s)</option>
+            <option value="3 months">3 month(s)</option>
+            <option value="4 months">4 month(s)</option>
+            <option value="5 months">5 month(s)</option>
+          </select>
+        </div>
+      </div>
+    )}
+
+    {/* End By Field (Only for Recurring Events, not specific to weekly) */}
+    {repeatFrequency !== "weekly" && (
+      <div className="form-group">
+        <label>End By *</label>
+        <input type="date" />
+      </div>
+    )}
+  </div>
+)}
 
         {/* Dynamic Date Table (Hidden when Recurring is selected) */}
         {dateOption === "One-Time" && (

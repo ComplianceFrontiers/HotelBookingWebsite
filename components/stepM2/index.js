@@ -16,6 +16,9 @@ const StepM2 = ({ setActiveStep, formData }) => {
   });
   const [monthlyRepeatBy, setMonthlyRepeatBy] = useState("Day of Week");
   const [monthlyRepeatFrequency, setMonthlyRepeatFrequency] = useState("1 month");
+  const [repeatOn, setRepeatOn] = useState("First");
+const [repeatDay, setRepeatDay] = useState("Sunday");
+
 
   // New state variables for first date and end by date
   const [firstDate, setFirstDate] = useState("");
@@ -186,13 +189,15 @@ const [endTime, setEndTime] = useState("");
                 {monthlyRepeatBy === "Day of Week" && (
                   <div className="form-group">
                     <label>Repeat On *</label>
-                    <select>
+                    <select value={repeatOn} onChange={(e) => setRepeatOn(e.target.value)}>
+
                       <option>First</option>
                       <option>Second</option>
                       <option>Third</option>
                       <option>Fourth</option>
                     </select>
-                    <select>
+                    <select value={repeatDay} onChange={(e) => setRepeatDay(e.target.value)}>
+
                       <option>Sunday</option>
                       <option>Monday</option>
                       <option>Tuesday</option>
@@ -273,18 +278,21 @@ const [endTime, setEndTime] = useState("");
       </div>
 
       <EventSummary
-        formData={formData}
-        dateOption={dateOption}
-        repeatFrequency={repeatFrequency}
-        weeklyRepeatDays={weeklyRepeatDays}
-        monthlyRepeatBy={monthlyRepeatBy}
-        monthlyRepeatFrequency={monthlyRepeatFrequency}
-        dateRows={dateRows}
-        firstDate={firstDate} // Pass firstDate to EventSummary
-        endByDate={endByDate} // Pass endByDate to EventSummary
-        startTime={startTime}
-        endTime={endTime}
-      />
+  formData={formData}
+  dateOption={dateOption}
+  repeatFrequency={repeatFrequency}
+  weeklyRepeatDays={weeklyRepeatDays}
+  monthlyRepeatBy={monthlyRepeatBy}
+  monthlyRepeatFrequency={monthlyRepeatFrequency}
+  dateRows={dateRows}
+  firstDate={firstDate}
+  endByDate={endByDate}
+  startTime={startTime}
+  endTime={endTime}
+  repeatOn={repeatOn}  // Pass repeatOn
+  repeatDay={repeatDay} // Pass repeatDay
+/>
+
 
       <div className="actions">
         <button onClick={() => setActiveStep(1)}>Back</button>

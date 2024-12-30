@@ -11,7 +11,10 @@ const EventSummary = ({
   firstDate,
   endByDate,
   startTime,
-  endTime
+  endTime,
+  repeatOn,
+  repeatDay
+
 }) => {
   // Function to render selected weekly repeat days
   const renderWeeklyRepeatDays = () => {
@@ -29,7 +32,10 @@ const EventSummary = ({
     }
     return "";
   };
-  const generateRecurringDates = (firstDate, endByDate, repeatFrequency, startTime, endTime, monthlyRepeatBy, monthlyRepeatFrequency) => {
+  const generateRecurringDates = (firstDate, endByDate, repeatFrequency, startTime, endTime, monthlyRepeatBy, monthlyRepeatFrequency,repeatOn,
+    repeatDay) => {
+        console.log(firstDate, endByDate, repeatFrequency, startTime, endTime, monthlyRepeatBy, monthlyRepeatFrequency,repeatOn,
+            repeatDay)
     const dates = [];
     let currentDate = new Date(firstDate);
     const endDate = new Date(endByDate);
@@ -71,7 +77,8 @@ const EventSummary = ({
   };
   
   // Generate recurring dates based on the input frequency
-  const recurringDates = generateRecurringDates(firstDate, endByDate, repeatFrequency, startTime, endTime,monthlyRepeatBy, monthlyRepeatFrequency);
+  const recurringDates = generateRecurringDates(firstDate, endByDate, repeatFrequency, startTime, endTime,monthlyRepeatBy, monthlyRepeatFrequency,repeatOn,
+    repeatDay);
 
 
   return (

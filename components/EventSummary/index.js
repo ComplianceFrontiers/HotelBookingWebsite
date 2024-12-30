@@ -14,7 +14,6 @@ const EventSummary = ({
   endTime,
   repeatOn,
   repeatDay
-
 }) => {
   // Function to render selected weekly repeat days
   const renderWeeklyRepeatDays = () => {
@@ -32,6 +31,7 @@ const EventSummary = ({
     }
     return "";
   };
+
   const generateRecurringDates = (
     firstDate,
     endByDate,
@@ -41,7 +41,8 @@ const EventSummary = ({
     monthlyRepeatBy,
     monthlyRepeatFrequency,
     repeatOn,
-    repeatDay
+    repeatDay,
+    weeklyRepeatDays
   ) => {
     console.log("firstDate:", firstDate);
     console.log("endByDate:", endByDate);
@@ -52,11 +53,12 @@ const EventSummary = ({
     console.log("monthlyRepeatFrequency:", monthlyRepeatFrequency);
     console.log("repeatOn:", repeatOn);
     console.log("repeatDay:", repeatDay);
-
+    console.log("weeklyRepeatDays:", weeklyRepeatDays);
+  
     const dates = [];
     let currentDate = new Date(firstDate);
     const endDate = new Date(endByDate);
-
+  
     // Helper function to get nth occurrence of a weekday in the month
     const getNthWeekdayOfMonth = (monthDate, weekday, nth) => {
       const firstDay = new Date(monthDate);
@@ -64,12 +66,12 @@ const EventSummary = ({
       const firstWeekday = firstDay.getDay(); // Day of the week for the first day
       let dayOffset = weekday - firstWeekday;
       if (dayOffset < 0) dayOffset += 7;
-
+  
       // Adjust for nth occurrence (e.g., first Sunday)
       firstDay.setDate(1 + dayOffset + (nth - 1) * 7);
       return firstDay;
     };
-
+  
     // Map weekday names to corresponding day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
     const dayOfWeekMap = {
       Sunday: 0,
@@ -80,10 +82,10 @@ const EventSummary = ({
       Friday: 5,
       Saturday: 6,
     };
-
+  
     // Parse repeatDay to get corresponding weekday number (e.g., "Sunday" -> 0)
     const repeatDayIndex = dayOfWeekMap[repeatDay];
-
+  
     // Parse repeatOn to get the nth occurrence (e.g., "First" -> 1)
     const nthOccurrenceMap = {
       First: 1,
@@ -93,10 +95,10 @@ const EventSummary = ({
       Fifth: 5,
     };
     const nthOccurrence = nthOccurrenceMap[repeatOn];
-
+  
     // Convert "2 months" to the numeric interval
     const repeatInterval = parseInt(monthlyRepeatFrequency.split(" ")[0]);
-
+  
     // Generate recurring dates based on the input frequency
     if (repeatFrequency === "daily") {
       // Daily recurrence logic
@@ -116,7 +118,7 @@ const EventSummary = ({
           repeatDayIndex,
           nthOccurrence
         );
-
+  
         // If the nth weekday is within the end date range, add it to the list
         if (nthWeekday <= endDate) {
           dates.push({
@@ -125,18 +127,40 @@ const EventSummary = ({
             endTime: endTime, // Use user-inputted end time
           });
         }
-
+  
         // Move to the next month based on the repeat interval
         currentDate.setMonth(currentDate.getMonth() + repeatInterval);
       }
+    } else if (repeatFrequency === "weekly") {
+      // Weekly recurrence logic
+      const selectedWeekdays = weeklyRepeatDays.map(day => dayOfWeekMap[day]); // Get the selected weekdays
+  
+      // Loop through each selected weekday and calculate the recurrence
+      selectedWeekdays.forEach(weekday => {
+        let nextOccurrence = new Date(currentDate);
+  
+        // Calculate the first occurrence of the selected weekday
+        const dayOffset = (weekday - nextOccurrence.getDay() + 7) % 7;
+        nextOccurrence.setDate(nextOccurrence.getDate() + dayOffset);
+  
+        // Add occurrences for each week within the range
+        while (nextOccurrence <= endDate) {
+          dates.push({
+            date: `${nextOccurrence.getDate()}-${nextOccurrence.getMonth() + 1}-${nextOccurrence.getFullYear()}`, // Format to DD-MM-YYYY
+            startTime: startTime, // Use user-inputted start time
+            endTime: endTime, // Use user-inputted end time
+          });
+          nextOccurrence.setDate(nextOccurrence.getDate() + 7); // Move to the next week
+        }
+      });
     }
   
     return dates;
   };
-  // Generate recurring dates based on the input frequency
-  const recurringDates = generateRecurringDates(firstDate, endByDate, repeatFrequency, startTime, endTime,monthlyRepeatBy, monthlyRepeatFrequency,repeatOn,
-    repeatDay);
+  
 
+  // Generate recurring dates based on the input frequency
+  const recurringDates = generateRecurringDates(firstDate, endByDate, repeatFrequency, startTime, endTime, monthlyRepeatBy, monthlyRepeatFrequency, repeatOn, repeatDay, weeklyRepeatDays);
 
   return (
     <div className="event-summary">

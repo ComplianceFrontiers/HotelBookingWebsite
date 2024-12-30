@@ -281,7 +281,7 @@ const [endTime, setEndTime] = useState("");
   formData={formData}
   dateOption={dateOption}
   repeatFrequency={repeatFrequency}
-  weeklyRepeatDays={weeklyRepeatDays}
+  weeklyRepeatDays={Object.keys(weeklyRepeatDays).filter((day) => weeklyRepeatDays[day])} // Pass selected weekdays
   monthlyRepeatBy={monthlyRepeatBy}
   monthlyRepeatFrequency={monthlyRepeatFrequency}
   dateRows={dateRows}
@@ -289,9 +289,10 @@ const [endTime, setEndTime] = useState("");
   endByDate={endByDate}
   startTime={startTime}
   endTime={endTime}
-  repeatOn={repeatOn}  // Pass repeatOn
+  repeatOn={repeatOn} // Pass repeatOn
   repeatDay={repeatDay} // Pass repeatDay
 />
+
 
 
       <div className="actions">

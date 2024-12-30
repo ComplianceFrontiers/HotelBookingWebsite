@@ -7,8 +7,23 @@ const EventSummary = ({
     weeklyRepeatDays,
     monthlyRepeatBy,
     monthlyRepeatFrequency,
-    dateRows,
+    dateRows,firstDate, endByDate 
   }) => {
+    const renderWeeklyRepeatDays = () => {
+      return Object.keys(weeklyRepeatDays)
+        .filter((day) => weeklyRepeatDays[day])
+        .join(", ");
+    };
+  
+    const renderMonthlyRepeatDetails = () => {
+      if (monthlyRepeatBy === "Day of Week") {
+        return `${monthlyRepeatFrequency} on the ${monthlyRepeatBy} (e.g., First Sunday)`;
+      } else if (monthlyRepeatBy === "Day of Month") {
+        return `${monthlyRepeatFrequency} on the ${monthlyRepeatBy}`;
+      }
+      return "";
+    };
+  
     return (
       <div className="event-summary">
         <h3>Event Summary</h3>
@@ -21,8 +36,20 @@ const EventSummary = ({
           <h4>Date & Time</h4>
           <p><strong>Option:</strong> {dateOption}</p>
           <p><strong>Repeat Frequency:</strong> {repeatFrequency}</p>
-          <p><strong>Weekly Days:</strong> {Object.keys(weeklyRepeatDays).filter(day => weeklyRepeatDays[day]).join(", ")}</p>
-          <p><strong>Monthly Repeat:</strong> {monthlyRepeatBy} every {monthlyRepeatFrequency}</p>
+  
+          {repeatFrequency === "weekly" && (
+            <p><strong>Weekly Repeat Days:</strong> {renderWeeklyRepeatDays()}</p>
+          )}
+  
+          {repeatFrequency === "monthly" && (
+            <p><strong>Monthly Repeat:</strong> {renderMonthlyRepeatDetails()}</p>
+          )}
+          {dateOption === "Recurring" && (
+        <>
+          <p><strong>First Date:</strong> {firstDate}</p>
+          <p><strong>End By:</strong> {endByDate}</p>
+        </>
+      )}
   
           {dateOption === "One-Time" && (
             <div>
@@ -34,9 +61,11 @@ const EventSummary = ({
               ))}
             </div>
           )}
+         
         </div>
       </div>
     );
   };
+  
 
 export default EventSummary;

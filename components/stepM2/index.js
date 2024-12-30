@@ -2,18 +2,9 @@ import React, { useState } from "react";
 import EventSummary from "../EventSummary";
 
 const StepM2 = ({ setActiveStep, formData }) => {
-  // State to manage additional date rows
-  const [dateRows, setDateRows] = useState([
-    { date: "", startTime: "", endTime: "" },
-  ]);
-
-  // State to manage the selected date option
+  const [dateRows, setDateRows] = useState([{ date: "", startTime: "", endTime: "" }]);
   const [dateOption, setDateOption] = useState("One-Time");
-
-  // State to manage the selected repeat frequency (weekly or monthly)
   const [repeatFrequency, setRepeatFrequency] = useState("");
-
-  // State for Weekly repeat days and Repeat Every weeks
   const [weeklyRepeatDays, setWeeklyRepeatDays] = useState({
     Sunday: false,
     Monday: false,
@@ -23,33 +14,30 @@ const StepM2 = ({ setActiveStep, formData }) => {
     Friday: false,
     Saturday: false,
   });
-
-  // State for Monthly repeat options
   const [monthlyRepeatBy, setMonthlyRepeatBy] = useState("Day of Week");
   const [monthlyRepeatFrequency, setMonthlyRepeatFrequency] = useState("1 month");
 
-  // Function to add a new row
+  // New state variables for first date and end by date
+  const [firstDate, setFirstDate] = useState("");
+  const [endByDate, setEndByDate] = useState("");
+
   const addAdditionalDate = () => {
     setDateRows([...dateRows, { date: "", startTime: "", endTime: "" }]);
   };
 
-  // Function to delete a specific row
   const deleteRow = (index) => {
     const updatedRows = dateRows.filter((_, i) => i !== index);
     setDateRows(updatedRows);
   };
 
-  // Function to update the value of a specific row
   const handleDateChange = (index, field, value) => {
     const updatedRows = [...dateRows];
     updatedRows[index][field] = value;
     setDateRows(updatedRows);
   };
 
-  // Function to handle the selection of date options
   const handleDateOptionChange = (e) => {
     setDateOption(e.target.value);
-    // Reset state when switching from recurring to one-time
     if (e.target.value === "One-Time") {
       setRepeatFrequency("");
       setWeeklyRepeatDays({
@@ -66,12 +54,10 @@ const StepM2 = ({ setActiveStep, formData }) => {
     }
   };
 
-  // Function to handle repeat frequency changes (weekly or monthly)
   const handleRepeatFrequencyChange = (e) => {
     setRepeatFrequency(e.target.value);
   };
 
-  // Function to handle weekly repeat day changes
   const handleWeeklyRepeatDayChange = (day) => {
     setWeeklyRepeatDays((prevState) => ({
       ...prevState,
@@ -79,38 +65,26 @@ const StepM2 = ({ setActiveStep, formData }) => {
     }));
   };
 
-  // Function to handle monthly repeat by changes
   const handleMonthlyRepeatByChange = (e) => {
     setMonthlyRepeatBy(e.target.value);
   };
 
-  // Function to handle monthly repeat frequency changes
   const handleMonthlyRepeatFrequencyChange = (e) => {
     setMonthlyRepeatFrequency(e.target.value);
   };
 
   return (
     <div className="step2-container">
-      {/* Event Review Section */}
       <div className="event-review">
         <h3>Event Review</h3>
         <div className="review-details">
-          <p>
-            <strong>Organization:</strong> Compliance Frontiers LLC
-          </p>
-          <p>
-            <strong>Room Type:</strong> {formData.roomType}
-          </p>
-          <p>
-            <strong>Event Name:</strong> {formData.eventName}
-          </p>
-          <p>
-            <strong>Anticipated Attendance:</strong> {formData.attendance}
-          </p>
+          <p><strong>Organization:</strong> Compliance Frontiers LLC</p>
+          <p><strong>Room Type:</strong> {formData.roomType}</p>
+          <p><strong>Event Name:</strong> {formData.eventName}</p>
+          <p><strong>Anticipated Attendance:</strong> {formData.attendance}</p>
         </div>
       </div>
 
-      {/* Event Location and Dates Section */}
       <div className="event-location">
         <h3>Event Location and Dates</h3>
         <div className="form-group">
@@ -121,7 +95,6 @@ const StepM2 = ({ setActiveStep, formData }) => {
           </select>
         </div>
 
-        {/* Date Option */}
         <div className="form-group">
           <label>Date Option *</label>
           <select value={dateOption} onChange={handleDateOptionChange}>
@@ -130,29 +103,23 @@ const StepM2 = ({ setActiveStep, formData }) => {
           </select>
         </div>
 
-        {/* Recurring Event Fields */}
         {dateOption === "Recurring" && (
           <div>
-    {/* First Date */}
-    <div className="form-group">
-      <label>First Date *</label>
-      <input type="date" />
-    </div>
+            <div className="form-group">
+              <label>First Date *</label>
+              <input type="date" value={firstDate} onChange={(e) => setFirstDate(e.target.value)} />
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem' }}>
+              <div className="form-group" style={{ flex: 1 }}>
+                <label>Start Time *</label>
+                <input type="time" />
+              </div>
+              <div className="form-group" style={{ flex: 1 }}>
+                <label>End Time *</label>
+                <input type="time" />
+              </div>
+            </div>
 
-    {/* Start Time and End Time */}
-    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem' }}>
-      <div className="form-group" style={{ flex: 1 }}>
-        <label>Start Time *</label>
-        <input type="time" style={{ width: '100%' }} />
-      </div>
-
-      <div className="form-group" style={{ flex: 1 }}>
-        <label>End Time *</label>
-        <input type="time" style={{ width: '100%' }} />
-      </div>
-    </div>
-
-            {/* Repeat Frequency */}
             <div className="form-group">
               <label>Repeat *</label>
               <select value={repeatFrequency} onChange={handleRepeatFrequencyChange}>
@@ -163,7 +130,6 @@ const StepM2 = ({ setActiveStep, formData }) => {
               </select>
             </div>
 
-            {/* Weekly Repeat Fields */}
             {repeatFrequency === "weekly" && (
               <div>
                 <div className="form-group">
@@ -191,16 +157,13 @@ const StepM2 = ({ setActiveStep, formData }) => {
                     <option>5 week(s)</option>
                   </select>
                 </div>
-
-                {/* End By Field */}
                 <div className="form-group">
                   <label>End By *</label>
-                  <input type="date" />
+                  <input type="date" value={endByDate} onChange={(e) => setEndByDate(e.target.value)} />
                 </div>
               </div>
             )}
 
-            {/* Monthly Repeat Fields */}
             {repeatFrequency === "monthly" && (
               <div>
                 <div className="form-group">
@@ -240,22 +203,18 @@ const StepM2 = ({ setActiveStep, formData }) => {
                     <option value="5 months">5 month(s)</option>
                   </select>
                 </div>
-              </div>
-            )}
-
-            {/* End By Field (Only for Recurring Events) */}
-            {repeatFrequency !== "weekly" && (
-              <div className="form-group">
-                <label>End By *</label>
-                <input type="date" />
+                <div className="form-group">
+                  <label>End By *</label>
+                  <input type="date" value={endByDate} onChange={(e) => setEndByDate(e.target.value)} />
+                </div>
               </div>
             )}
           </div>
         )}
 
-        {/* Dynamic Date Table for One-Time Events */}
         {dateOption === "One-Time" && (
           <div className="date-table">
+            {/* Table for one-time events */}
             <table>
               <thead>
                 <tr>
@@ -272,27 +231,21 @@ const StepM2 = ({ setActiveStep, formData }) => {
                       <input
                         type="date"
                         value={row.date}
-                        onChange={(e) =>
-                          handleDateChange(index, "date", e.target.value)
-                        }
+                        onChange={(e) => handleDateChange(index, "date", e.target.value)}
                       />
                     </td>
                     <td>
                       <input
                         type="time"
                         value={row.startTime}
-                        onChange={(e) =>
-                          handleDateChange(index, "startTime", e.target.value)
-                        }
+                        onChange={(e) => handleDateChange(index, "startTime", e.target.value)}
                       />
                     </td>
                     <td>
                       <input
                         type="time"
                         value={row.endTime}
-                        onChange={(e) =>
-                          handleDateChange(index, "endTime", e.target.value)
-                        }
+                        onChange={(e) => handleDateChange(index, "endTime", e.target.value)}
                       />
                     </td>
                     <td>
@@ -304,14 +257,11 @@ const StepM2 = ({ setActiveStep, formData }) => {
                 ))}
               </tbody>
             </table>
-            <button type="button" onClick={addAdditionalDate}>
-              Add Additional Date
-            </button>
+            <button type="button" onClick={addAdditionalDate}>Add Additional Date</button>
           </div>
         )}
       </div>
 
-      {/* Event Summary */}
       <EventSummary
         formData={formData}
         dateOption={dateOption}
@@ -320,12 +270,13 @@ const StepM2 = ({ setActiveStep, formData }) => {
         monthlyRepeatBy={monthlyRepeatBy}
         monthlyRepeatFrequency={monthlyRepeatFrequency}
         dateRows={dateRows}
+        firstDate={firstDate} // Pass firstDate to EventSummary
+        endByDate={endByDate} // Pass endByDate to EventSummary
       />
 
-      {/* Buttons for Navigation */}
-      <div className="button-container">
-        <button onClick={() => setActiveStep(0)}>Back</button>
-        <button onClick={() => setActiveStep(2)}>Next</button>
+      <div className="actions">
+        <button onClick={() => setActiveStep(1)}>Back</button>
+        <button onClick={() => setActiveStep(3)}>Next</button>
       </div>
     </div>
   );

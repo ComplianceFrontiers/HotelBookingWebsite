@@ -65,7 +65,7 @@ const EventSummary = ({
       let dayOffset = weekday - firstWeekday;
       if (dayOffset < 0) dayOffset += 7;
   
-      // Adjust for nth occurrence (e.g., third Monday)
+      // Adjust for nth occurrence (e.g., first Sunday)
       firstDay.setDate(1 + dayOffset + (nth - 1) * 7);
       return firstDay;
     };
@@ -81,10 +81,10 @@ const EventSummary = ({
       Saturday: 6,
     };
   
-    // Parse repeatDay to get corresponding weekday number (e.g., "Monday" -> 1)
+    // Parse repeatDay to get corresponding weekday number (e.g., "Sunday" -> 0)
     const repeatDayIndex = dayOfWeekMap[repeatDay];
   
-    // Parse repeatOn to get the nth occurrence (e.g., "Third" -> 3)
+    // Parse repeatOn to get the nth occurrence (e.g., "First" -> 1)
     const nthOccurrenceMap = {
       First: 1,
       Second: 2,
@@ -94,14 +94,17 @@ const EventSummary = ({
     };
     const nthOccurrence = nthOccurrenceMap[repeatOn];
   
+    // Convert "2 months" to the numeric interval
+    const repeatInterval = parseInt(monthlyRepeatFrequency.split(" ")[0]);
+  
     // Generate recurring dates based on the input frequency
     while (currentDate <= endDate) {
       if (
         repeatFrequency === "monthly" &&
         monthlyRepeatBy === "Day of Week" &&
-        monthlyRepeatFrequency === "1 month"
+        repeatInterval
       ) {
-        // Find the nth occurrence of the specified weekday (e.g., third Monday)
+        // Find the nth occurrence of the specified weekday (e.g., first Sunday)
         const nthWeekday = getNthWeekdayOfMonth(
           currentDate,
           repeatDayIndex,
@@ -111,14 +114,14 @@ const EventSummary = ({
         // If the nth weekday is within the end date range, add it to the list
         if (nthWeekday <= endDate) {
           dates.push({
-            date: nthWeekday.toISOString().split("T")[0], // Format to YYYY-MM-DD
+            date: `${nthWeekday.getDate()}-${nthWeekday.getMonth() + 1}-${nthWeekday.getFullYear()}`, // Format to DD-MM-YYYY
             startTime: startTime, // Use user-inputted start time
             endTime: endTime, // Use user-inputted end time
           });
         }
   
-        // Move to the next month
-        currentDate.setMonth(currentDate.getMonth() + 1);
+        // Move to the next month based on the repeat interval
+        currentDate.setMonth(currentDate.getMonth() + repeatInterval);
       } else {
         break;
       }

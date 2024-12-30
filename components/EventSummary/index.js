@@ -52,11 +52,11 @@ const EventSummary = ({
     console.log("monthlyRepeatFrequency:", monthlyRepeatFrequency);
     console.log("repeatOn:", repeatOn);
     console.log("repeatDay:", repeatDay);
-  
+
     const dates = [];
     let currentDate = new Date(firstDate);
     const endDate = new Date(endByDate);
-  
+
     // Helper function to get nth occurrence of a weekday in the month
     const getNthWeekdayOfMonth = (monthDate, weekday, nth) => {
       const firstDay = new Date(monthDate);
@@ -64,12 +64,12 @@ const EventSummary = ({
       const firstWeekday = firstDay.getDay(); // Day of the week for the first day
       let dayOffset = weekday - firstWeekday;
       if (dayOffset < 0) dayOffset += 7;
-  
+
       // Adjust for nth occurrence (e.g., first Sunday)
       firstDay.setDate(1 + dayOffset + (nth - 1) * 7);
       return firstDay;
     };
-  
+
     // Map weekday names to corresponding day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
     const dayOfWeekMap = {
       Sunday: 0,
@@ -80,10 +80,10 @@ const EventSummary = ({
       Friday: 5,
       Saturday: 6,
     };
-  
+
     // Parse repeatDay to get corresponding weekday number (e.g., "Sunday" -> 0)
     const repeatDayIndex = dayOfWeekMap[repeatDay];
-  
+
     // Parse repeatOn to get the nth occurrence (e.g., "First" -> 1)
     const nthOccurrenceMap = {
       First: 1,
@@ -93,24 +93,30 @@ const EventSummary = ({
       Fifth: 5,
     };
     const nthOccurrence = nthOccurrenceMap[repeatOn];
-  
+
     // Convert "2 months" to the numeric interval
     const repeatInterval = parseInt(monthlyRepeatFrequency.split(" ")[0]);
-  
+
     // Generate recurring dates based on the input frequency
-    while (currentDate <= endDate) {
-      if (
-        repeatFrequency === "monthly" &&
-        monthlyRepeatBy === "Day of Week" &&
-        repeatInterval
-      ) {
-        // Find the nth occurrence of the specified weekday (e.g., first Sunday)
+    if (repeatFrequency === "daily") {
+      // Daily recurrence logic
+      while (currentDate <= endDate) {
+        dates.push({
+          date: `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()}`, // Format to DD-MM-YYYY
+          startTime: startTime, // Use user-inputted start time
+          endTime: endTime, // Use user-inputted end time
+        });
+        currentDate.setDate(currentDate.getDate() + 1); // Increment by one day
+      }
+    } else if (repeatFrequency === "monthly" && monthlyRepeatBy === "Day of Week") {
+      // Monthly recurrence logic (nth weekday of the month)
+      while (currentDate <= endDate) {
         const nthWeekday = getNthWeekdayOfMonth(
           currentDate,
           repeatDayIndex,
           nthOccurrence
         );
-  
+
         // If the nth weekday is within the end date range, add it to the list
         if (nthWeekday <= endDate) {
           dates.push({
@@ -119,11 +125,9 @@ const EventSummary = ({
             endTime: endTime, // Use user-inputted end time
           });
         }
-  
+
         // Move to the next month based on the repeat interval
         currentDate.setMonth(currentDate.getMonth() + repeatInterval);
-      } else {
-        break;
       }
     }
   

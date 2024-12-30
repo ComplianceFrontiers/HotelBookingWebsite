@@ -1,6 +1,14 @@
 import React from 'react';
 
-const StepM1 = ({ setActiveStep }) => {
+const StepM1 = ({ setActiveStep, setFormData, formData }) => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   return (
     <div className="step-m1-container">
       <h2 className="step-title">Submit New Request</h2>
@@ -16,22 +24,47 @@ const StepM1 = ({ setActiveStep }) => {
               <span>Compliance Frontiers LLC</span>
             </div>
             <div className="form-group">
+              <label>Room Type *</label>
+              <select
+                name="roomType"
+                value={formData.roomType}
+                onChange={handleInputChange}
+                required
+              >
+                <option value="" disabled>
+                  Select room type
+                </option>
+                <option value="gym">Gym</option>
+                <option value="multi-purpose-room">Multi-Purpose Room</option>
+                <option value="conference-center">Conference Center</option>
+                <option value="auditorium">Auditorium</option>
+                <option value="pavilion">Pavilion</option>
+                <option value="firepit">Firepit</option>
+              </select>
+            </div>
+            <div className="form-group">
               <label>Event Name *</label>
-              <input type="text" placeholder="Enter event name" />
+              <input
+                type="text"
+                name="eventName"
+                placeholder="Enter event name"
+                value={formData.eventName}
+                onChange={handleInputChange}
+                required
+              />
             </div>
             <div className="form-group">
               <label>Anticipated Attendance *</label>
-              <input type="number" placeholder="Enter attendance" />
+              <input
+                type="number"
+                name="attendance"
+                placeholder="Enter attendance"
+                value={formData.attendance}
+                onChange={handleInputChange}
+                required
+              />
             </div>
-            <div className="form-group radio-group">
-              <label>Is Admission Fee Charged?</label>
-              <div>
-                <input type="radio" id="no" name="admission" value="no" defaultChecked />
-                <label htmlFor="no">No</label>
-                <input type="radio" id="yes" name="admission" value="yes" />
-                <label htmlFor="yes">Yes</label>
-              </div>
-            </div>
+
             <button
               type="button"
               className="btn-continue"

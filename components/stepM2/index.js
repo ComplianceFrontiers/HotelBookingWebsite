@@ -1,20 +1,23 @@
 import React from 'react';
 
-const StepM2 = ({ setActiveStep }) => {
+const StepM2 = ({ setActiveStep, formData }) => {
   return (
     <div className="step2-container">
       {/* Event Review Section */}
       <div className="event-review">
         <h3>Event Review</h3>
         <div className="review-details">
-          <p><strong>Organization:</strong> Compliance Frontiers LLC</p>
-          <p><strong>District:</strong> Christina</p>
-          <p><strong>Event Name:</strong> yoyo</p>
-          <p><strong>Event Description:</strong> thf</p>
           <p>
-            <strong>Anticipated Attendance:</strong> 34 
-            <input type="checkbox" id="admissionFee" />
-            <label htmlFor="admissionFee"> Is Admission Fee Charged?</label>
+            <strong>Organization:</strong> Compliance Frontiers LLC
+          </p>
+          <p>
+            <strong>Room Type:</strong> {formData.roomType}
+          </p>
+          <p>
+            <strong>Event Name:</strong> {formData.eventName}
+          </p>
+          <p>
+            <strong>Anticipated Attendance:</strong> {formData.attendance}
           </p>
         </div>
       </div>
@@ -35,7 +38,9 @@ const StepM2 = ({ setActiveStep }) => {
             <option>Recurring</option>
             <option>One-Time</option>
           </select>
-          <small>Please include any setup and cleanup time in event request.</small>
+          <small>
+            Please include any setup and cleanup time in event request.
+          </small>
         </div>
         <div className="date-table">
           <table>
@@ -44,20 +49,18 @@ const StepM2 = ({ setActiveStep }) => {
                 <th>Date *</th>
                 <th>Start Time *</th>
                 <th>End Time *</th>
-                <th>Room/Field(s) *</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><input type="date" /></td>
-                <td><input type="time" /></td>
-                <td><input type="time" /></td>
                 <td>
-                  <select>
-                    <option>Select A Room</option>
-                    <option>Room 101</option>
-                    <option>Room 102</option>
-                  </select>
+                  <input type="date" />
+                </td>
+                <td>
+                  <input type="time" />
+                </td>
+                <td>
+                  <input type="time" />
                 </td>
               </tr>
             </tbody>

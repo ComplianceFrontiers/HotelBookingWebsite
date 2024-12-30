@@ -6,14 +6,24 @@ import StepM4 from '../../components/stepM4';
 
 const Events1 = () => {
   const [activeStep, setActiveStep] = useState(1); // Tracks the active step
+  const [formData, setFormData] = useState({
+    organization: '',
+    roomType: '',
+    eventName: '',
+    attendance: '',
+  }); // Stores form data
 
   return (
     <div className="events-container">
       <div className="steps-content">
-        {activeStep === 1 && <StepM1 setActiveStep={setActiveStep} />}
-        {activeStep === 2 && <StepM2 setActiveStep={setActiveStep}/>}
-        {activeStep === 3 && <StepM3 setActiveStep={setActiveStep}/>}
-        {activeStep === 4 && <StepM4 setActiveStep={setActiveStep}/>}
+        {activeStep === 1 && (
+          <StepM1 setActiveStep={setActiveStep} setFormData={setFormData} formData={formData} />
+        )}
+        {activeStep === 2 && (
+          <StepM2 setActiveStep={setActiveStep} formData={formData} />
+        )}
+        {activeStep === 3 && <StepM3 setActiveStep={setActiveStep} />}
+        {activeStep === 4 && <StepM4 setActiveStep={setActiveStep} />}
       </div>
       <div className="steps-sidebar">
         <h3>Steps to Submit a Request:</h3>
@@ -27,4 +37,5 @@ const Events1 = () => {
     </div>
   );
 };
+
 export default Events1;

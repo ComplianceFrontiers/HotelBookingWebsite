@@ -131,8 +131,15 @@ const Admin = () => {
       }
       return [...prevState, slot]; // Add the slot if not selected
     });
+
+    // Update checkIn and checkOut for the product based on selected slot
+    const [start, end] = slot.split('-');
+    const checkInTime = `${value.toDateString()} ${start}`;
+    const checkOutTime = `${value.toDateString()} ${end}`;
+    product.checkIn = new Date(checkInTime).toISOString();
+    product.checkOut = new Date(checkOutTime).toISOString();
   };
-  
+
   const calculateAvailableSlots = (dateString) => {
     console.log("Calculating available slots for:", dateString); // Log the date for which available slots are being calculated
     
@@ -155,7 +162,7 @@ const Admin = () => {
     }, []);
   
     console.log("Booked Slots:", bookedSlots); // Log the booked slots for the selected date
-    
+  
     const availableSlots = allSlots.filter(slot => {
       const [start, end] = slot.split('-').map(time => parseInt(time.split(':')[0]));
       // Check if the current slot overlaps with any booked slot
@@ -165,7 +172,7 @@ const Admin = () => {
     });
     
     console.log("Available Slots:", availableSlots); // Log the available slots for the selected date
-    
+  
     return availableSlots;
   };
 
@@ -179,14 +186,14 @@ const Admin = () => {
     Des: "Our newly renovated gym is equipped with air conditioning, eco-friendly features, and a convenient half-court divider. It’s perfect for sports events, fitness classes, or recreational activities for all ages.",
     capacity: "1",
     Children: "6",
-    checkIn:"",
-    checkOut:"",
+    checkIn: "",
+    checkOut: "",
   };
-  
+
   const addToCartProduct = (product, qty = 1, color, size) => {
-      dispatch(addToCart(product, qty, color, size)); // Dispatch the action here
-      window.location.href = '/cart';
-    };
+    dispatch(addToCart(product, qty, color, size));
+    window.location.href = '/cart';
+  };
 
   const tileContent = ({ date, view }) => {
     const dateString = date.toDateString();

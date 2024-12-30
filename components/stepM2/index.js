@@ -53,6 +53,8 @@ const StepM2 = ({ setActiveStep, formData }) => {
       setMonthlyRepeatFrequency("1 month");
     }
   };
+  const [startTime, setStartTime] = useState("");
+const [endTime, setEndTime] = useState("");
 
   const handleRepeatFrequencyChange = (e) => {
     setRepeatFrequency(e.target.value);
@@ -112,12 +114,11 @@ const StepM2 = ({ setActiveStep, formData }) => {
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem' }}>
               <div className="form-group" style={{ flex: 1 }}>
                 <label>Start Time *</label>
-                <input type="time" />
+                <input   type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
               </div>
               <div className="form-group" style={{ flex: 1 }}>
                 <label>End Time *</label>
-                <input type="time" />
-              </div>
+                <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />              </div>
             </div>
 
             <div className="form-group">
@@ -281,6 +282,8 @@ const StepM2 = ({ setActiveStep, formData }) => {
         dateRows={dateRows}
         firstDate={firstDate} // Pass firstDate to EventSummary
         endByDate={endByDate} // Pass endByDate to EventSummary
+        startTime={startTime}
+        endTime={endTime}
       />
 
       <div className="actions">

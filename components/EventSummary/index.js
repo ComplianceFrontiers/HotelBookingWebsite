@@ -23,32 +23,45 @@ const EventSummary = ({
   // Function to render monthly repeat details
   const renderMonthlyRepeatDetails = () => {
     if (monthlyRepeatBy === "Day of Week") {
-      return `${monthlyRepeatFrequency} on the ${monthlyRepeatBy} (e.g., First Sunday)`;
+      return `${monthlyRepeatFrequency} on the ${monthlyRepeatBy} `;
     } else if (monthlyRepeatBy === "Day of Month") {
       return `${monthlyRepeatFrequency} on the ${monthlyRepeatBy}`;
     }
     return "";
   };
-
-  // Function to generate the recurring dates based on repeat frequency
-  const generateRecurringDates = (firstDate, endByDate, repeatFrequency, startTime, endTime) => {
+  const generateRecurringDates = (firstDate, endByDate, repeatFrequency, startTime, endTime, monthlyRepeatBy, monthlyRepeatFrequency) => {
     const dates = [];
     let currentDate = new Date(firstDate);
     const endDate = new Date(endByDate);
   
-    // Generate dates based on the frequency
-    while (currentDate <= endDate) {
-      dates.push({
-        date: currentDate.toISOString().split('T')[0], // Format to YYYY-MM-DD
-        startTime: startTime, // Use user-inputted start time
-        endTime: endTime, // Use user-inputted end time
-      });
+    const getFirstSundayAfterDate = (startDate) => {
+      const date = new Date(startDate);
+      // Set the date to the first day of the current month
+      date.setDate(1);
+      const day = date.getDay();
+      // Calculate how many days to add to get the first Sunday
+      const diff = (7 - day) % 7;
+      date.setDate(date.getDate() + diff);
+      return date;
+    };
   
-      // Increment date based on frequency
-      if (repeatFrequency === "daily") {
-        currentDate.setDate(currentDate.getDate() + 1); // Increment by 1 day for daily
-      } else if (repeatFrequency === "weekly") {
-        currentDate.setDate(currentDate.getDate() + 7); // Increment by 7 days for weekly
+    // Generate recurring dates based on the input frequency
+    while (currentDate <= endDate) {
+      if (repeatFrequency === "monthly" && monthlyRepeatBy === "Day of Week" && monthlyRepeatFrequency === "1 month") {
+        // Find the first Sunday of the current month after the `currentDate`
+        const firstSunday = getFirstSundayAfterDate(currentDate);
+  
+        // If the first Sunday is within the end date range, add it to the list
+        if (firstSunday <= endDate) {
+          dates.push({
+            date: firstSunday.toISOString().split('T')[0], // Format to YYYY-MM-DD
+            startTime: startTime, // Use user-inputted start time
+            endTime: endTime, // Use user-inputted end time
+          });
+        }
+  
+        // Move to the next month
+        currentDate.setMonth(currentDate.getMonth() + 1);
       } else {
         break;
       }
@@ -57,9 +70,8 @@ const EventSummary = ({
     return dates;
   };
   
-
   // Generate recurring dates based on the input frequency
-  const recurringDates = generateRecurringDates(firstDate, endByDate, repeatFrequency, startTime, endTime);
+  const recurringDates = generateRecurringDates(firstDate, endByDate, repeatFrequency, startTime, endTime,monthlyRepeatBy, monthlyRepeatFrequency);
 
 
   return (

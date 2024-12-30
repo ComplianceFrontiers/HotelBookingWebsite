@@ -129,6 +129,15 @@ const StepM2 = ({ setActiveStep, formData }) => {
                 <option value="monthly">Monthly</option>
               </select>
             </div>
+            {repeatFrequency === "daily" && (
+              <div>
+                 
+                <div className="form-group">
+                  <label>End By *</label>
+                  <input type="date" value={endByDate} onChange={(e) => setEndByDate(e.target.value)} />
+                </div>
+              </div>
+            )}
 
             {repeatFrequency === "weekly" && (
               <div>

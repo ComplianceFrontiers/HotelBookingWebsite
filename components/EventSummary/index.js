@@ -209,6 +209,7 @@ const EventSummary = ({
                     <th style={{ padding: "8px", textAlign: "left" }}>Date</th>
                     <th style={{ padding: "8px", textAlign: "left" }}>Start Time</th>
                     <th style={{ padding: "8px", textAlign: "left" }}>End Time</th>
+                    <th style={{ padding: "8px", textAlign: "left" }}>Conflicts</th> {/* New column */}
                   </tr>
                 </thead>
                 <tbody>
@@ -217,6 +218,7 @@ const EventSummary = ({
                       <td style={{ padding: "8px" }}>{row.date}</td>
                       <td style={{ padding: "8px" }}>{row.startTime}</td>
                       <td style={{ padding: "8px" }}>{row.endTime}</td>
+                      <td style={{ padding: "8px" }}></td> {/* Empty value for "Conflicts" */}
                     </tr>
                   ))}
                 </tbody>
@@ -234,6 +236,7 @@ const EventSummary = ({
                   <th style={{ padding: "8px", textAlign: "left" }}>Date</th>
                   <th style={{ padding: "8px", textAlign: "left" }}>Start Time</th>
                   <th style={{ padding: "8px", textAlign: "left" }}>End Time</th>
+                  <th style={{ padding: "8px", textAlign: "left" }}>Conflicts</th> {/* New column */}
                 </tr>
               </thead>
               <tbody>
@@ -242,6 +245,7 @@ const EventSummary = ({
                     <td style={{ padding: "8px" }}>{row.date}</td>
                     <td style={{ padding: "8px" }}>{row.startTime}</td>
                     <td style={{ padding: "8px" }}>{row.endTime}</td>
+                    <td style={{ padding: "8px" }}></td> {/* Empty value for "Conflicts" */}
                   </tr>
                 ))}
               </tbody>

@@ -80,12 +80,7 @@ const menus = [
     //             id: 87,
     //             title: 'Search Result',
     //             link: '/search-result'
-    //         },
-    //         {
-    //             id: 80,
-    //             title: 'Login Page',
-    //             link: '/404'
-    //         },
+    //         }, 
     //         {
     //             id: 81,
     //             title: 'Signup Page',

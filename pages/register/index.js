@@ -44,8 +44,7 @@ const SignUpPage = (props) => {
                 localStorage.setItem('user_details', JSON.stringify(userDetails));
 
                 toast.success('Registration complete!');
-
-                // Redirect to login page
+ 
                 router.push('/login');
             }
         } catch (error) {

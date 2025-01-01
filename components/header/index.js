@@ -1,20 +1,35 @@
-import React, { useState } from 'react'
-import Logo from '/public/images/logo-2.png'
-import Link from 'next/link'
+import React, { useState, useEffect } from 'react';
+import Logo from '/public/images/logo-2.png';
+import Link from 'next/link';
 import { connect } from "react-redux";
 import { removeFromCart } from "../../store/actions/action";
 import { totalPrice } from "../../utils";
-import MobileMenu from '../../components/MobileMenu'
-import Image from 'next/image'
+import MobileMenu from '../../components/MobileMenu';
+import Image from 'next/image';
 
 const Header = (props) => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        // Check if 'user-details' exists in localStorage and has an email
+        const userDetails = JSON.parse(localStorage.getItem('user_details'));
+        if (userDetails && userDetails.email) {
+            setIsLoggedIn(true);
+        }
+    }, []);
+
     const SubmitHandler = (e) => {
-        e.preventDefault()
-    }
+        e.preventDefault();
+    };
 
     const ClickHandler = () => {
         window.scrollTo(10, 0);
-    }
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('user-details');
+        setIsLoggedIn(false);
+    };
 
     const { carts } = props;
 
@@ -64,12 +79,29 @@ const Header = (props) => {
                                 </nav>
                             </div>
                             <div className="col-xl-3 action-buttons">
-                                    <div className="login-button">
+                                <div className="login-button">
+                                    {isLoggedIn ? (
+                                        <button 
+                                            onClick={handleLogout}
+                                            style={{
+                                                backgroundColor: 'red',
+                                                color: 'white',
+                                                padding: '10px 20px',
+                                                border: 'none',
+                                                borderRadius: '5px',
+                                                cursor: 'pointer',
+                                                fontSize: '16px',
+                                            }}
+                                            >
+                                            Logout
+                                            </button>
+                                    ) : (
                                         <Link href="/login">Login</Link>
-                                    </div>
-                                    <div className="contactus-button">
-                                        <Link href="/contact">Contact Us</Link>
-                                    </div>
+                                    )}
+                                </div>
+                                <div className="contactus-button">
+                                    <Link href="/contact">Contact Us</Link>
+                                </div>
                             </div>
 
 
@@ -143,7 +175,7 @@ const Header = (props) => {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 const mapStateToProps = (state) => {
@@ -151,4 +183,5 @@ const mapStateToProps = (state) => {
         carts: state.cartList.cart,
     };
 };
+
 export default connect(mapStateToProps, { removeFromCart })(Header);

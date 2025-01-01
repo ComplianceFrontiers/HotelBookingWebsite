@@ -11,7 +11,19 @@ const Events1 = () => {
     roomType: '',
     eventName: '',
     attendance: '',
-  }); // Stores form data
+    dateOption: '',
+    repeatFrequency: '',
+    weeklyRepeatDays: {},
+    monthlyRepeatBy: '',
+    monthlyRepeatFrequency: '',
+    dateRows: [],
+    firstDate: '',
+    endByDate: '',
+    startTime: '',
+    endTime: '',
+    repeatOn: '',
+    repeatDay: '',
+  });
 
   return (
     <div className="events-container">
@@ -20,9 +32,9 @@ const Events1 = () => {
           <StepM1 setActiveStep={setActiveStep} setFormData={setFormData} formData={formData} />
         )}
         {activeStep === 2 && (
-          <StepM2 setActiveStep={setActiveStep} formData={formData} />
+          <StepM2 setActiveStep={setActiveStep} setFormData={setFormData} formData={formData} />
         )}
-        {activeStep === 3 && <StepM3 setActiveStep={setActiveStep} />}
+        {activeStep === 3 && <StepM3 setActiveStep={setActiveStep} setFormData={setFormData} formData={formData} />}
         {activeStep === 4 && <StepM4 setActiveStep={setActiveStep} />}
       </div>
       <div className="steps-sidebar">

@@ -1,28 +1,19 @@
-import React, { useState } from "react";
-import EventSummary from "../EventSummary";
-
-const StepM2 = ({ setActiveStep, formData }) => {
-  const [dateRows, setDateRows] = useState([{ date: "", startTime: "", endTime: "" }]);
-  const [dateOption, setDateOption] = useState("One-Time");
-  const [repeatFrequency, setRepeatFrequency] = useState("");
-  const [weeklyRepeatDays, setWeeklyRepeatDays] = useState({
-    Sunday: false,
-    Monday: false,
-    Tuesday: false,
-    Wednesday: false,
-    Thursday: false,
-    Friday: false,
-    Saturday: false,
-  });
-  const [monthlyRepeatBy, setMonthlyRepeatBy] = useState("Day of Week");
-  const [monthlyRepeatFrequency, setMonthlyRepeatFrequency] = useState("1 month");
-  const [repeatOn, setRepeatOn] = useState("First");
-const [repeatDay, setRepeatDay] = useState("Sunday");
+import React, { useState } from 'react';
 
 
-  // New state variables for first date and end by date
-  const [firstDate, setFirstDate] = useState("");
-  const [endByDate, setEndByDate] = useState("");
+const StepM2 = ({ setActiveStep, formData, setFormData }) => {
+  const [dateRows, setDateRows] = useState(formData.dateRows);
+  const [dateOption, setDateOption] = useState(formData.dateOption);
+  const [repeatFrequency, setRepeatFrequency] = useState(formData.repeatFrequency);
+  const [weeklyRepeatDays, setWeeklyRepeatDays] = useState(formData.weeklyRepeatDays);
+  const [monthlyRepeatBy, setMonthlyRepeatBy] = useState(formData.monthlyRepeatBy);
+  const [monthlyRepeatFrequency, setMonthlyRepeatFrequency] = useState(formData.monthlyRepeatFrequency);
+  const [repeatOn, setRepeatOn] = useState(formData.repeatOn);
+  const [repeatDay, setRepeatDay] = useState(formData.repeatDay);
+  const [firstDate, setFirstDate] = useState(formData.firstDate);
+  const [endByDate, setEndByDate] = useState(formData.endByDate);
+  const [startTime, setStartTime] = useState(formData.startTime);
+  const [endTime, setEndTime] = useState(formData.endTime);
 
   const addAdditionalDate = () => {
     setDateRows([...dateRows, { date: "", startTime: "", endTime: "" }]);
@@ -40,8 +31,14 @@ const [repeatDay, setRepeatDay] = useState("Sunday");
   };
 
   const handleDateOptionChange = (e) => {
-    setDateOption(e.target.value);
-    if (e.target.value === "One-Time") {
+    const newDateOption = e.target.value;
+    setDateOption(newDateOption);
+    setFormData(prev => ({
+      ...prev,
+      dateOption: newDateOption,
+    }));
+
+    if (newDateOption === "One-Time") {
       setRepeatFrequency("");
       setWeeklyRepeatDays({
         Sunday: false,
@@ -56,26 +53,41 @@ const [repeatDay, setRepeatDay] = useState("Sunday");
       setMonthlyRepeatFrequency("1 month");
     }
   };
-  const [startTime, setStartTime] = useState("");
-const [endTime, setEndTime] = useState("");
 
   const handleRepeatFrequencyChange = (e) => {
-    setRepeatFrequency(e.target.value);
+    const value = e.target.value;
+    setRepeatFrequency(value);
+    setFormData(prev => ({
+      ...prev,
+      repeatFrequency: value,
+    }));
   };
 
   const handleWeeklyRepeatDayChange = (day) => {
-    setWeeklyRepeatDays((prevState) => ({
-      ...prevState,
-      [day]: !prevState[day],
+    const updatedWeeklyRepeatDays = { ...weeklyRepeatDays, [day]: !weeklyRepeatDays[day] };
+    setWeeklyRepeatDays(updatedWeeklyRepeatDays);
+    setFormData(prev => ({
+      ...prev,
+      weeklyRepeatDays: Object.keys(updatedWeeklyRepeatDays).filter(day => updatedWeeklyRepeatDays[day]),
     }));
   };
 
   const handleMonthlyRepeatByChange = (e) => {
-    setMonthlyRepeatBy(e.target.value);
+    const value = e.target.value;
+    setMonthlyRepeatBy(value);
+    setFormData(prev => ({
+      ...prev,
+      monthlyRepeatBy: value,
+    }));
   };
 
   const handleMonthlyRepeatFrequencyChange = (e) => {
-    setMonthlyRepeatFrequency(e.target.value);
+    const value = e.target.value;
+    setMonthlyRepeatFrequency(value);
+    setFormData(prev => ({
+      ...prev,
+      monthlyRepeatFrequency: value,
+    }));
   };
 
   return (
@@ -83,7 +95,7 @@ const [endTime, setEndTime] = useState("");
       <div className="event-review">
         <h3>Event Review</h3>
         <div className="review-details">
-          <p><strong>Organization:</strong> Compliance Frontiers LLC</p>
+          <p><strong>Organization:</strong> {formData.organization}</p>
           <p><strong>Room Type:</strong> {formData.roomType}</p>
           <p><strong>Event Name:</strong> {formData.eventName}</p>
           <p><strong>Anticipated Attendance:</strong> {formData.attendance}</p>
@@ -117,11 +129,12 @@ const [endTime, setEndTime] = useState("");
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem' }}>
               <div className="form-group" style={{ flex: 1 }}>
                 <label>Start Time *</label>
-                <input   type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
+                <input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
               </div>
               <div className="form-group" style={{ flex: 1 }}>
                 <label>End Time *</label>
-                <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />              </div>
+                <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
+              </div>
             </div>
 
             <div className="form-group">
@@ -135,7 +148,6 @@ const [endTime, setEndTime] = useState("");
             </div>
             {repeatFrequency === "daily" && (
               <div>
-                 
                 <div className="form-group">
                   <label>End By *</label>
                   <input type="date" value={endByDate} onChange={(e) => setEndByDate(e.target.value)} />
@@ -160,7 +172,7 @@ const [endTime, setEndTime] = useState("");
                     ))}
                   </div>
                 </div>
-                
+
                 <div className="form-group">
                   <label>End By *</label>
                   <input type="date" value={endByDate} onChange={(e) => setEndByDate(e.target.value)} />
@@ -173,42 +185,22 @@ const [endTime, setEndTime] = useState("");
                 <div className="form-group">
                   <label>Repeat By *</label>
                   <select value={monthlyRepeatBy} onChange={handleMonthlyRepeatByChange}>
-                    <option value="Day of Week">Day of Week</option>
-                    <option value="Date of Month">Date of Month</option>
+                    <option value="dayOfMonth">Day of Month</option>
+                    <option value="dayOfWeek">Day of Week</option>
                   </select>
                 </div>
-                {monthlyRepeatBy === "Day of Week" && (
-                  <div className="form-group">
-                    <label>Repeat On *</label>
-                    <select value={repeatOn} onChange={(e) => setRepeatOn(e.target.value)}>
-
-                      <option>First</option>
-                      <option>Second</option>
-                      <option>Third</option>
-                      <option>Fourth</option>
-                    </select>
-                    <select value={repeatDay} onChange={(e) => setRepeatDay(e.target.value)}>
-
-                      <option>Sunday</option>
-                      <option>Monday</option>
-                      <option>Tuesday</option>
-                      <option>Wednesday</option>
-                      <option>Thursday</option>
-                      <option>Friday</option>
-                      <option>Saturday</option>
-                    </select>
+                {monthlyRepeatBy === "dayOfWeek" && (
+                  <div>
+                    <div className="form-group">
+                      <label>Repeat Frequency (in months) *</label>
+                      <select value={monthlyRepeatFrequency} onChange={handleMonthlyRepeatFrequencyChange}>
+                        <option value="1">1 month</option>
+                        <option value="2">2 months</option>
+                        <option value="3">3 months</option>
+                      </select>
+                    </div>
                   </div>
                 )}
-                <div className="form-group">
-                  <label>Repeat Every *</label>
-                  <select value={monthlyRepeatFrequency} onChange={handleMonthlyRepeatFrequencyChange}>
-                    <option value="1 month">1 month(s)</option>
-                    <option value="2 months">2 month(s)</option>
-                    <option value="3 months">3 month(s)</option>
-                    <option value="4 months">4 month(s)</option>
-                    <option value="5 months">5 month(s)</option>
-                  </select>
-                </div>
                 <div className="form-group">
                   <label>End By *</label>
                   <input type="date" value={endByDate} onChange={(e) => setEndByDate(e.target.value)} />
@@ -224,10 +216,10 @@ const [endTime, setEndTime] = useState("");
             <table>
               <thead>
                 <tr>
-                  <th>Date *</th>
-                  <th>Start Time *</th>
-                  <th>End Time *</th>
-                  <th>Action</th>
+                  <th>Date</th>
+                  <th>Start Time</th>
+                  <th>End Time</th>
+                  <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
@@ -255,40 +247,38 @@ const [endTime, setEndTime] = useState("");
                       />
                     </td>
                     <td>
-                      <button type="button" onClick={() => deleteRow(index)}>
-                        Delete
-                      </button>
+                      <button onClick={() => deleteRow(index)}>Delete</button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            <button type="button" onClick={addAdditionalDate}>Add Additional Date</button>
           </div>
         )}
-      </div>
+        <button onClick={addAdditionalDate}>Add Date</button>
 
-      <EventSummary
-  formData={formData}
-  dateOption={dateOption}
-  repeatFrequency={repeatFrequency}
-  weeklyRepeatDays={Object.keys(weeklyRepeatDays).filter((day) => weeklyRepeatDays[day])} // Pass selected weekdays
-  monthlyRepeatBy={monthlyRepeatBy}
-  monthlyRepeatFrequency={monthlyRepeatFrequency}
-  dateRows={dateRows}
-  firstDate={firstDate}
-  endByDate={endByDate}
-  startTime={startTime}
-  endTime={endTime}
-  repeatOn={repeatOn} // Pass repeatOn
-  repeatDay={repeatDay} // Pass repeatDay
-/>
-
-
-
-      <div className="actions">
-        <button onClick={() => setActiveStep(1)}>Back</button>
-        <button onClick={() => setActiveStep(3)}>Next</button>
+        <button
+          onClick={() => {
+            setFormData({
+              ...formData,
+              dateRows: dateRows,
+              dateOption,
+              repeatFrequency,
+              firstDate,
+              endByDate,
+              startTime,
+              endTime,
+              weeklyRepeatDays,
+              monthlyRepeatBy,
+              monthlyRepeatFrequency,
+              repeatOn,
+              repeatDay,
+            });
+            setActiveStep(3);
+          }}
+        >
+          Next
+        </button>
       </div>
     </div>
   );

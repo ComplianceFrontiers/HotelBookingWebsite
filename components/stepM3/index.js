@@ -5,7 +5,8 @@ const StepM3 = ({ setActiveStep, formData }) => {
   console.log("Stepm33", formData);
   
   return (
-    <div className="step-m3-container">
+    <div className="step3-container">
+      
       <EventSummary
         formData={formData}
         dateOption={formData.dateOption}
@@ -21,7 +22,7 @@ const StepM3 = ({ setActiveStep, formData }) => {
         repeatOn={formData.repeatOn}
         repeatDay={formData.repeatDay}
       />
-
+ 
       <div className="navigation-buttons">
         <button onClick={() => setActiveStep(2)} className="btn-back">Back</button>
         <button onClick={() => setActiveStep(4)} className="btn-continue">Continue</button>

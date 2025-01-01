@@ -176,10 +176,10 @@ const EventSummary = ({
   const recurringDates = generateRecurringDates(firstDate, endByDate, repeatFrequency, startTime, endTime, monthlyRepeatBy, monthlyRepeatFrequency, repeatOn, repeatDay, weeklyRepeatDays);
 
   return (
-    <div className="event-summary">
+    <div className="step2-container">
       <h3>Event Summary</h3>
-      <div>
-         <p><strong>Event Name:</strong> {formData.eventName}</p>
+      <div className="event-location">
+        <p><strong>Event Name:</strong> {formData.eventName}</p>
         <p><strong>Attendance:</strong> {formData.attendance}</p>
         <p><strong>Room Type:</strong> {formData.roomType}</p>
 
@@ -200,15 +200,28 @@ const EventSummary = ({
             <p><strong>First Date:</strong> {firstDate}</p>
             <p><strong>End By:</strong> {endByDate}</p>
 
-            {/* Show booked recurring dates */}
+            {/* Display recurring dates in a table format */}
             <div>
               <h4>Recurring Dates:</h4>
               <p>These are the dates and times your event will occur:</p>
-              {recurringDates.map((row, index) => (
-                <div key={index}>
-                  <p>{row.date} from {row.startTime} to {row.endTime}</p>
-                </div>
-              ))}
+              <table className="date-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {recurringDates.map((row, index) => (
+                    <tr key={index}>
+                      <td>{row.date}</td>
+                      <td>{row.startTime}</td>
+                      <td>{row.endTime}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </>
         )}
@@ -216,11 +229,24 @@ const EventSummary = ({
         {dateOption === "One-Time" && (
           <div>
             <h4>One-Time Event Dates:</h4>
-            {dateRows.map((row, index) => (
-              <div key={index}>
-                <p>{row.date} from {row.startTime} to {row.endTime}</p>
-              </div>
-            ))}
+            <table className="date-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Start Time</th>
+                  <th>End Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {dateRows.map((row, index) => (
+                  <tr key={index}>
+                    <td>{row.date}</td>
+                    <td>{row.startTime}</td>
+                    <td>{row.endTime}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
       </div>

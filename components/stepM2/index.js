@@ -160,16 +160,7 @@ const [endTime, setEndTime] = useState("");
                     ))}
                   </div>
                 </div>
-                <div className="form-group">
-                  <label>Repeat Every *</label>
-                  <select>
-                    <option>1 week(s)</option>
-                    <option>2 week(s)</option>
-                    <option>3 week(s)</option>
-                    <option>4 week(s)</option>
-                    <option>5 week(s)</option>
-                  </select>
-                </div>
+                
                 <div className="form-group">
                   <label>End By *</label>
                   <input type="date" value={endByDate} onChange={(e) => setEndByDate(e.target.value)} />
@@ -183,7 +174,7 @@ const [endTime, setEndTime] = useState("");
                   <label>Repeat By *</label>
                   <select value={monthlyRepeatBy} onChange={handleMonthlyRepeatByChange}>
                     <option value="Day of Week">Day of Week</option>
-                    <option value="Day of Month">Day of Month</option>
+                    <option value="Date of Month">Date of Month</option>
                   </select>
                 </div>
                 {monthlyRepeatBy === "Day of Week" && (

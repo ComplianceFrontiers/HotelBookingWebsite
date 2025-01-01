@@ -26,7 +26,7 @@ const EventSummary = ({
   const renderMonthlyRepeatDetails = () => {
     if (monthlyRepeatBy === "Day of Week") {
       return `${monthlyRepeatFrequency} on the ${monthlyRepeatBy} `;
-    } else if (monthlyRepeatBy === "Day of Month") {
+    } else if (monthlyRepeatBy === "Date of Month") {
       return `${monthlyRepeatFrequency} on the ${monthlyRepeatBy}`;
     }
     return "";
@@ -110,33 +110,45 @@ const EventSummary = ({
         });
         currentDate.setDate(currentDate.getDate() + 1); // Increment by one day
       }
-    } else if (repeatFrequency === "monthly" && monthlyRepeatBy === "Day of Week") {
-      // Monthly recurrence logic (nth weekday of the month)
-      while (currentDate <= endDate) {
-        const nthWeekday = getNthWeekdayOfMonth(
-          currentDate,
-          repeatDayIndex,
-          nthOccurrence
-        );
-  
-        // If the nth weekday is within the end date range, add it to the list
-        if (nthWeekday <= endDate) {
+    } else if (repeatFrequency === "monthly") {
+      if (monthlyRepeatBy === "Date of Month") {
+        // Monthly recurrence by date of the month
+        while (currentDate <= endDate) {
           dates.push({
-            date: `${nthWeekday.getDate()}-${nthWeekday.getMonth() + 1}-${nthWeekday.getFullYear()}`, // Format to DD-MM-YYYY
+            date: `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()}`, // Format to DD-MM-YYYY
             startTime: startTime, // Use user-inputted start time
             endTime: endTime, // Use user-inputted end time
           });
+          currentDate.setMonth(currentDate.getMonth() + repeatInterval); // Move to the next month
         }
+      } else if (monthlyRepeatBy === "Day of Week") {
+        // Monthly recurrence logic (nth weekday of the month)
+        while (currentDate <= endDate) {
+          const nthWeekday = getNthWeekdayOfMonth(
+            currentDate,
+            repeatDayIndex,
+            nthOccurrence
+          );
   
-        // Move to the next month based on the repeat interval
-        currentDate.setMonth(currentDate.getMonth() + repeatInterval);
+          // If the nth weekday is within the end date range, add it to the list
+          if (nthWeekday <= endDate) {
+            dates.push({
+              date: `${nthWeekday.getDate()}-${nthWeekday.getMonth() + 1}-${nthWeekday.getFullYear()}`, // Format to DD-MM-YYYY
+              startTime: startTime, // Use user-inputted start time
+              endTime: endTime, // Use user-inputted end time
+            });
+          }
+  
+          // Move to the next month based on the repeat interval
+          currentDate.setMonth(currentDate.getMonth() + repeatInterval);
+        }
       }
     } else if (repeatFrequency === "weekly") {
       // Weekly recurrence logic
-      const selectedWeekdays = weeklyRepeatDays.map(day => dayOfWeekMap[day]); // Get the selected weekdays
+      const selectedWeekdays = weeklyRepeatDays.map((day) => dayOfWeekMap[day]); // Get the selected weekdays
   
       // Loop through each selected weekday and calculate the recurrence
-      selectedWeekdays.forEach(weekday => {
+      selectedWeekdays.forEach((weekday) => {
         let nextOccurrence = new Date(currentDate);
   
         // Calculate the first occurrence of the selected weekday
@@ -158,6 +170,7 @@ const EventSummary = ({
     return dates;
   };
   
+  
 
   // Generate recurring dates based on the input frequency
   const recurringDates = generateRecurringDates(firstDate, endByDate, repeatFrequency, startTime, endTime, monthlyRepeatBy, monthlyRepeatFrequency, repeatOn, repeatDay, weeklyRepeatDays);
@@ -166,8 +179,7 @@ const EventSummary = ({
     <div className="event-summary">
       <h3>Event Summary</h3>
       <div>
-        <h4>Event Information</h4>
-        <p><strong>Event Name:</strong> {formData.eventName}</p>
+         <p><strong>Event Name:</strong> {formData.eventName}</p>
         <p><strong>Attendance:</strong> {formData.attendance}</p>
         <p><strong>Room Type:</strong> {formData.roomType}</p>
 

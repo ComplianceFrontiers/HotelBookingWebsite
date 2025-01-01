@@ -115,6 +115,7 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
         <div className="form-group">
           <label>Date Option *</label>
           <select value={dateOption} onChange={handleDateOptionChange}>
+          <option>Select</option>
             <option>One-Time</option>
             <option>Recurring</option>
           </select>
@@ -255,7 +256,7 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
             </table>
           </div>
         )}
-        <button onClick={addAdditionalDate}>Add Date</button>
+        {dateOption === "One-Time" && (<button onClick={addAdditionalDate}>Add Date</button>)}
 
         <button
           onClick={() => {

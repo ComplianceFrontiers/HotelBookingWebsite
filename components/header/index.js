@@ -99,12 +99,14 @@ const Header = (props) => {
                                         <Link href="/login">Login</Link>
                                     )}
                                 </div>
-                                <div className="contactus-button">
-                                    <Link href="/contact">Contact Us</Link>
-                                </div>
+                                {isLoggedIn && (
+                                    <div className="contactus-button">
+                                        <Link href="/events1">Dashboard</Link>
+                                    </div>
+                                )}
                             </div>
 
-
+ 
                             <div className="col-xl-1 col-lg-1 col-md-6 col-sm-6 col-6">
                                 <div className="contact">
                                     <div className="cart-search-contact">

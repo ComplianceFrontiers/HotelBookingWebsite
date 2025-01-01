@@ -170,54 +170,53 @@ const EventSummary = ({
     return dates;
   };
   
-  
 
   // Generate recurring dates based on the input frequency
   const recurringDates = generateRecurringDates(firstDate, endByDate, repeatFrequency, startTime, endTime, monthlyRepeatBy, monthlyRepeatFrequency, repeatOn, repeatDay, weeklyRepeatDays);
 
   return (
     <div className="step2-container">
-      <h3>Event Summary</h3>
+      <h3 style={{ backgroundColor: "#0078d7", fontFamily: "Monster", fontSize: "1.2rem", padding: "10px", color: "#fff" }}>Event Summary</h3>
       <div className="event-location">
-        <p><strong>Event Name:</strong> {formData.eventName}</p>
-        <p><strong>Attendance:</strong> {formData.attendance}</p>
-        <p><strong>Room Type:</strong> {formData.roomType}</p>
+        <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Event Name:</strong> {formData.eventName}</p>
+        <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Attendance:</strong> {formData.attendance}</p>
+        <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Room Type:</strong> {formData.roomType}</p>
 
-        <h4>Date & Time</h4>
-        <p><strong>Option:</strong> {dateOption}</p>
-        <p><strong>Repeat Frequency:</strong> {repeatFrequency}</p>
+        <h4 style={{ fontFamily: "Monster", fontSize: "1rem" }}>Date & Time</h4>
+        <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Option:</strong> {dateOption}</p>
+        <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Repeat Frequency:</strong> {repeatFrequency}</p>
 
         {repeatFrequency === "weekly" && (
-          <p><strong>Weekly Repeat Days:</strong> {renderWeeklyRepeatDays()}</p>
+          <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Weekly Repeat Days:</strong> {renderWeeklyRepeatDays()}</p>
         )}
 
         {repeatFrequency === "monthly" && (
-          <p><strong>Monthly Repeat:</strong> {renderMonthlyRepeatDetails()}</p>
+          <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Monthly Repeat:</strong> {renderMonthlyRepeatDetails()}</p>
         )}
 
         {dateOption === "Recurring" && (
           <>
-            <p><strong>First Date:</strong> {firstDate}</p>
-            <p><strong>End By:</strong> {endByDate}</p>
+            <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>First Date:</strong> {firstDate}</p>
+            <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>End By:</strong> {endByDate}</p>
 
             {/* Display recurring dates in a table format */}
             <div>
-              <h4>Recurring Dates:</h4>
-              <p>These are the dates and times your event will occur:</p>
-              <table className="date-table">
+              <h4 style={{ fontFamily: "Monster", fontSize: "1rem" }}>Recurring Dates:</h4>
+              <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}>These are the dates and times your event will occur:</p>
+              <table style={{ fontFamily: "Monster", fontSize: "0.9rem", width: "100%", border: "1px solid #ddd", borderCollapse: "collapse" }}>
                 <thead>
                   <tr>
-                    <th>Date</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
+                    <th style={{ padding: "8px", textAlign: "left" }}>Date</th>
+                    <th style={{ padding: "8px", textAlign: "left" }}>Start Time</th>
+                    <th style={{ padding: "8px", textAlign: "left" }}>End Time</th>
                   </tr>
                 </thead>
                 <tbody>
                   {recurringDates.map((row, index) => (
                     <tr key={index}>
-                      <td>{row.date}</td>
-                      <td>{row.startTime}</td>
-                      <td>{row.endTime}</td>
+                      <td style={{ padding: "8px" }}>{row.date}</td>
+                      <td style={{ padding: "8px" }}>{row.startTime}</td>
+                      <td style={{ padding: "8px" }}>{row.endTime}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -228,21 +227,21 @@ const EventSummary = ({
 
         {dateOption === "One-Time" && (
           <div>
-            <h4>One-Time Event Dates:</h4>
-            <table className="date-table">
+            <h4 style={{ fontFamily: "Monster", fontSize: "1rem" }}>One-Time Event Dates:</h4>
+            <table style={{ fontFamily: "Monster", fontSize: "0.9rem", width: "100%", border: "1px solid #ddd", borderCollapse: "collapse" }}>
               <thead>
                 <tr>
-                  <th>Date</th>
-                  <th>Start Time</th>
-                  <th>End Time</th>
+                  <th style={{ padding: "8px", textAlign: "left" }}>Date</th>
+                  <th style={{ padding: "8px", textAlign: "left" }}>Start Time</th>
+                  <th style={{ padding: "8px", textAlign: "left" }}>End Time</th>
                 </tr>
               </thead>
               <tbody>
                 {dateRows.map((row, index) => (
                   <tr key={index}>
-                    <td>{row.date}</td>
-                    <td>{row.startTime}</td>
-                    <td>{row.endTime}</td>
+                    <td style={{ padding: "8px" }}>{row.date}</td>
+                    <td style={{ padding: "8px" }}>{row.startTime}</td>
+                    <td style={{ padding: "8px" }}>{row.endTime}</td>
                   </tr>
                 ))}
               </tbody>

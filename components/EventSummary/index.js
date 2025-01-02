@@ -19,7 +19,17 @@ const EventSummary = ({
   console.log(monthlyRepeatFrequency,monthlyRepeatBy)
   const userDetails = JSON.parse(localStorage.getItem("user_details"));
   const { email } = userDetails;
-
+  const formatDate = (date) => {
+    const formattedDate = new Date(date);
+    const day = String(formattedDate.getDate()).padStart(2, '0');
+    const month = String(formattedDate.getMonth() + 1).padStart(2, '0'); // months are 0-based
+    const year = formattedDate.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+  const formattedDateRows = dateRows.map((row) => ({
+    ...row,
+    date: formatDate(row.date),
+  }));
   // Function to render selected weekly repeat days
   const renderWeeklyRepeatDays = () => {
     return Object.keys(weeklyRepeatDays)
@@ -198,7 +208,7 @@ const EventSummary = ({
   const handleCheckout = async () => {
     const bookedDates = 
     recurringDates.length === 0 && dateOption === "One-Time" 
-      ? dateRows 
+      ? formattedDateRows 
       : recurringDates;
     const bookingDetails = {
       event_name: formData.eventName,

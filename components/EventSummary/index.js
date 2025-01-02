@@ -33,15 +33,6 @@ const EventSummary = ({
     ...row,
     date: formatDate(row.date),
   }));
-  // Add this utility function to format the date fetched from the server
-const formatDateFromAPI = (date) => {
-  const formattedDate = new Date(date);
-  const day = String(formattedDate.getDate()).padStart(2, '0');
-  const month = String(formattedDate.getMonth() + 1).padStart(2, '0');
-  const year = formattedDate.getFullYear();
-  return `${day}-${month}-${year}`;
-};
-
 const fetchBookedDates = async () => {
   try {
     const response = await axios.get("https://hotel-website-backend-eosin.vercel.app/users/already_booked_dates");

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const EventSummary = ({
+  setActiveStep,
   formData,
   dateOption,
   repeatFrequency,
@@ -274,6 +275,7 @@ const fetchBookedDates = async () => {
         email,
         booked_details: bookingDetails,
       });
+      setActiveStep(4)
       alert(response.data.message);
     } catch (error) {
       console.error("Error during checkout:", error.response.data);
@@ -372,8 +374,11 @@ const fetchBookedDates = async () => {
           </div>
         )}
       </div>
-      <button onClick={handleCheckout}>Proceed to Checkout</button>
-    </div>
+      <div className="navigation-buttons">
+        <button onClick={() => setActiveStep(2)} className="btn-back">Back</button>
+        <button onClick={handleCheckout} className="btn-continue">Continue</button>
+      </div>
+     </div>
   );
 };
 

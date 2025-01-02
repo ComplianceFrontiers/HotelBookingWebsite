@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 const EventSummary = ({
   formData,
@@ -13,19 +14,22 @@ const EventSummary = ({
   startTime,
   endTime,
   repeatOn,
-  repeatDay
+  repeatDay,
 }) => {
+  const userDetails = JSON.parse(localStorage.getItem("user_details"));
+  const { email } = userDetails;
+
   // Function to render selected weekly repeat days
   const renderWeeklyRepeatDays = () => {
     return Object.keys(weeklyRepeatDays)
-      .filter((day) => weeklyRepeatDays[day]) // Filter selected days
+      .filter((day) => weeklyRepeatDays[day])
       .join(", ");
   };
 
   // Function to render monthly repeat details
   const renderMonthlyRepeatDetails = () => {
     if (monthlyRepeatBy === "Day of Week") {
-      return `${monthlyRepeatFrequency} on the ${monthlyRepeatBy} `;
+      return `${monthlyRepeatFrequency} on the ${monthlyRepeatBy}`;
     } else if (monthlyRepeatBy === "Date of Month") {
       return `${monthlyRepeatFrequency} on the ${monthlyRepeatBy}`;
     }
@@ -58,7 +62,7 @@ const EventSummary = ({
     const dates = [];
     let currentDate = new Date(firstDate);
     const endDate = new Date(endByDate);
-  
+
     // Helper function to get nth occurrence of a weekday in the month
     const getNthWeekdayOfMonth = (monthDate, weekday, nth) => {
       const firstDay = new Date(monthDate);
@@ -82,11 +86,7 @@ const EventSummary = ({
       Friday: 5,
       Saturday: 6,
     };
-  
-    // Parse repeatDay to get corresponding weekday number (e.g., "Sunday" -> 0)
     const repeatDayIndex = dayOfWeekMap[repeatDay];
-  
-    // Parse repeatOn to get the nth occurrence (e.g., "First" -> 1)
     const nthOccurrenceMap = {
       First: 1,
       Second: 2,
@@ -95,13 +95,9 @@ const EventSummary = ({
       Fifth: 5,
     };
     const nthOccurrence = nthOccurrenceMap[repeatOn];
-  
-    // Convert "2 months" to the numeric interval
     const repeatInterval = parseInt(monthlyRepeatFrequency.split(" ")[0]);
-  
-    // Generate recurring dates based on the input frequency
+
     if (repeatFrequency === "daily") {
-      // Daily recurrence logic
       while (currentDate <= endDate) {
         dates.push({
           date: `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()}`, // Format to DD-MM-YYYY
@@ -122,15 +118,12 @@ const EventSummary = ({
           currentDate.setMonth(currentDate.getMonth() + repeatInterval); // Move to the next month
         }
       } else if (monthlyRepeatBy === "Day of Week") {
-        // Monthly recurrence logic (nth weekday of the month)
         while (currentDate <= endDate) {
           const nthWeekday = getNthWeekdayOfMonth(
             currentDate,
             repeatDayIndex,
             nthOccurrence
           );
-  
-          // If the nth weekday is within the end date range, add it to the list
           if (nthWeekday <= endDate) {
             dates.push({
               date: `${nthWeekday.getDate()}-${nthWeekday.getMonth() + 1}-${nthWeekday.getFullYear()}`, // Format to DD-MM-YYYY
@@ -138,8 +131,6 @@ const EventSummary = ({
               endTime: endTime, // Use user-inputted end time
             });
           }
-  
-          // Move to the next month based on the repeat interval
           currentDate.setMonth(currentDate.getMonth() + repeatInterval);
         }
       }
@@ -157,22 +148,56 @@ const EventSummary = ({
   
         // Add occurrences for each week within the range
         while (nextOccurrence <= endDate) {
-          dates.push({
+            dates.push({
             date: `${nextOccurrence.getDate()}-${nextOccurrence.getMonth() + 1}-${nextOccurrence.getFullYear()}`, // Format to DD-MM-YYYY
             startTime: startTime, // Use user-inputted start time
             endTime: endTime, // Use user-inputted end time
-          });
+        });
           nextOccurrence.setDate(nextOccurrence.getDate() + 7); // Move to the next week
-        }
+      }
       });
     }
   
     return dates;
   };
-  
 
-  // Generate recurring dates based on the input frequency
-  const recurringDates = generateRecurringDates(firstDate, endByDate, repeatFrequency, startTime, endTime, monthlyRepeatBy, monthlyRepeatFrequency, repeatOn, repeatDay, weeklyRepeatDays);
+  const recurringDates = generateRecurringDates(
+    firstDate,
+    endByDate,
+    repeatFrequency,
+    startTime,
+    endTime,
+    monthlyRepeatBy,
+    monthlyRepeatFrequency,
+    repeatOn,
+    repeatDay,
+    weeklyRepeatDays
+  );
+
+  const handleCheckout = async () => {
+    const bookedDates = 
+    recurringDates.length === 0 && dateOption === "One-Time" 
+      ? dateRows 
+      : recurringDates;
+    const bookingDetails = {
+      event_name: formData.eventName,
+      attendance: formData.attendance,
+      room_type: formData.roomType,
+      date_option: dateOption,
+      booked_dates: bookedDates,
+    };
+
+    try {
+      const response = await axios.post("https://hotel-website-backend-eosin.vercel.app/checkout", {
+        email,
+        booked_details: bookingDetails,
+      });
+      alert(response.data.message);
+    } catch (error) {
+      console.error("Error during checkout:", error.response.data);
+      alert("Error: " + error.response.data.error);
+    }
+  };
 
   return (
     <div className="step2-container">
@@ -219,7 +244,7 @@ const EventSummary = ({
                       <td style={{ padding: "8px" }}>{row.endTime}</td>
                       <td style={{ padding: "8px" }}></td> {/* Empty value for "Conflicts" */}
                     </tr>
-                  ))}
+              ))}
                 </tbody>
               </table>
             </div>
@@ -252,6 +277,7 @@ const EventSummary = ({
           </div>
         )}
       </div>
+      <button onClick={handleCheckout}>Proceed to Checkout</button>
     </div>
   );
 };

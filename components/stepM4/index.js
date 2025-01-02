@@ -6,13 +6,13 @@ const StepM4 = ({ setActiveStep }) => {
       <h2 className="step-title">Event Location and Dates</h2>
       <div className="event-form">
         <form>
-          {/* School Dropdown */}
+          {/* School Dropdown
           <div className="form-group">
             <label htmlFor="school">School *</label>
             <select id="school" name="school" required>
               <option>Kathleen H. Wilbur Elementary</option>
             </select>
-          </div>
+          </div> */}
 
           {/* Date Option Dropdown */}
           <div className="form-group">

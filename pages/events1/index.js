@@ -38,14 +38,91 @@ const Events1 = () => {
         {activeStep === 4 && <StepM4 setActiveStep={setActiveStep} />}
       </div>
       <div className="steps-sidebar">
-        <h3>Steps to Submit a Request:</h3>
-        <ul>
-          <li onClick={() => setActiveStep(1)}>Step 1: Gather Event Information</li>
-          <li onClick={() => setActiveStep(2)}>Step 2: Select Event Location and Dates</li>
-          <li onClick={() => setActiveStep(3)}>Step 3: Confirm Event Dates</li>
-          <li onClick={() => setActiveStep(4)}>Step 4: Add Additional Items and Submit for District Approval</li>
-        </ul>
-      </div>
+    <h3>Steps to Submit a Request:</h3>
+    <ul>
+        <li 
+            onClick={() => setActiveStep(1)} 
+            style={{
+                fontWeight: 'bold', // Step 1 in bold
+                fontSize: '12px',   // Small font for the <li>
+                cursor: 'pointer',
+            }}
+        >
+            Step 1: 
+            <span 
+                style={{
+                    fontSize: '14px',            // Slightly larger font for the <span>
+                    textDecoration: 'underline', // Underline for <span> text
+                }}
+                onMouseEnter={(e) => e.target.style.color = 'blue'}  // Change to blue on hover
+                onMouseLeave={(e) => e.target.style.color = 'black'} // Revert to black on hover out
+            >
+                Gather Event Information
+            </span>
+        </li>
+        <li 
+            onClick={() => setActiveStep(2)} 
+            style={{
+                fontWeight: 'bold',
+                fontSize: '12px',
+                cursor: 'pointer',
+            }}
+        >
+            Step 2: 
+            <span 
+                style={{
+                    fontSize: '14px',
+                    textDecoration: 'underline',
+                }}
+                onMouseEnter={(e) => e.target.style.color = 'blue'}
+                onMouseLeave={(e) => e.target.style.color = 'black'}
+            >
+                Select Event Location and Dates
+            </span>
+        </li>
+        <li 
+            onClick={() => setActiveStep(3)} 
+            style={{
+                fontWeight: 'bold',
+                fontSize: '12px',
+                cursor: 'pointer',
+            }}
+        >
+            Step 3: 
+            <span 
+                style={{
+                    fontSize: '14px',
+                    textDecoration: 'underline',
+                }}
+                onMouseEnter={(e) => e.target.style.color = 'blue'}
+                onMouseLeave={(e) => e.target.style.color = 'black'}
+            >
+                Confirm Event Dates
+            </span>
+        </li>
+        <li 
+            onClick={() => setActiveStep(4)} 
+            style={{
+                fontWeight: 'bold',
+                fontSize: '12px',
+                cursor: 'pointer',
+            }}
+        >
+            Step 4: 
+            <span 
+                style={{
+                    fontSize: '14px',
+                    textDecoration: 'underline',
+                }}
+                onMouseEnter={(e) => e.target.style.color = 'blue'}
+                onMouseLeave={(e) => e.target.style.color = 'black'}
+            >
+                Add Additional Items and Submit for District Approval
+            </span>
+        </li>
+    </ul>
+</div>
+
     </div>
   );
 };

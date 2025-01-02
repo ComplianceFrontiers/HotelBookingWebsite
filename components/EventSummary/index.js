@@ -182,9 +182,8 @@ const EventSummary = ({
         <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Attendance:</strong> {formData.attendance}</p>
         <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Room Type:</strong> {formData.roomType}</p>
 
-        <h4 style={{ fontFamily: "Monster", fontSize: "1rem" }}>Date & Time</h4>
-        <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Option:</strong> {dateOption}</p>
-        <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Repeat Frequency:</strong> {repeatFrequency}</p>
+         <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Date Option:</strong> {dateOption}</p>
+        {/* <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Repeat Frequency:</strong> {repeatFrequency}</p> */}
 
         {repeatFrequency === "weekly" && (
           <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Weekly Repeat Days:</strong> {renderWeeklyRepeatDays()}</p>

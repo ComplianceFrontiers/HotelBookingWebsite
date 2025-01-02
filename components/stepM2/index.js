@@ -103,14 +103,14 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
       </div>
 
       <div className="event-location">
-        <h3>Event Location and Dates</h3>
-        <div className="form-group">
+        <h3>Event Dates</h3>
+        {/* <div className="form-group">
           <label>School *</label>
           <select>
             <option>Leasure Elementary</option>
             <option>Other School</option>
           </select>
-        </div>
+        </div> */}
 
         <div className="form-group">
           <label>Date Option *</label>

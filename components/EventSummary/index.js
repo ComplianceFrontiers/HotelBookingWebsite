@@ -29,7 +29,7 @@ const EventSummary = ({
 
   // Function to render monthly repeat details
   const renderMonthlyRepeatDetails = () => {
-    if (monthlyRepeatBy === "Day of Week") {
+    if (monthlyRepeatBy === "dayOfWeek") {
       return `${monthlyRepeatFrequency} on the ${monthlyRepeatBy}`;
     } else if (monthlyRepeatBy === "dateOfMonth") {
       return `${monthlyRepeatBy}`;
@@ -87,7 +87,7 @@ const EventSummary = ({
       friday: 5,
       saturday: 6
     };
-    
+  
     const repeatDayIndex = dayOfWeekMap[repeatDay];
     const nthOccurrenceMap = {
       First: 1,
@@ -98,7 +98,7 @@ const EventSummary = ({
     };
     const nthOccurrence = nthOccurrenceMap[repeatOn];
     const repeatInterval = parseInt(monthlyRepeatFrequency.split(" ")[0]);
-
+  
     if (repeatFrequency === "daily") {
       while (currentDate <= endDate) {
         dates.push({
@@ -113,18 +113,21 @@ const EventSummary = ({
     else if (repeatFrequency === "monthly") {
       if (monthlyRepeatBy === "dateOfMonth") {
         // Monthly recurrence by date of the month
+        const monthlyRepeatFrequency = 1;
+        const repeatInterval = monthlyRepeatFrequency;
+
         while (currentDate <= endDate) {
+          console.log("Adding date:", `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()}`);
           dates.push({
-            date: `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()}`, // Format to DD-MM-YYYY
-            startTime: startTime, // Use user-inputted start time
-            endTime: endTime, // Use user-inputted end time
+            date: `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()}`,
+            startTime: startTime,
+            endTime: endTime,
           });
-          currentDate.setMonth(currentDate.getMonth() + repeatInterval); // Move to the next month
-        }
+          currentDate.setMonth(currentDate.getMonth() + repeatInterval);
+                
       } 
-      
-      
-      else if (monthlyRepeatBy === "Day of Week") {
+    }
+      else if (monthlyRepeatBy === "dayOfWeek") {
         while (currentDate <= endDate) {
           const nthWeekday = getNthWeekdayOfMonth(
             currentDate,
@@ -142,8 +145,9 @@ const EventSummary = ({
         }
       }
     }
-
+  
     else if (repeatFrequency === "weekly") {
+      console.log(weeklyRepeatDays,currentDate,endDate)
       const selectedWeekdays = Object.keys(weeklyRepeatDays)
         .filter((day) => weeklyRepeatDays[day]) // Get the selected weekdays
         .map((day) => dayOfWeekMap[day]); // Map to corresponding day of the week
@@ -171,6 +175,7 @@ const EventSummary = ({
           nextOccurrence.setDate(nextOccurrence.getDate() + 7); // Move to the next week
         }
       });
+      console.log(dates)
     }
   
     return dates;

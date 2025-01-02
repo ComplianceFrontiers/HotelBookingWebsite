@@ -57,7 +57,7 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
         Friday: false,
         Saturday: false,
       });
-      setMonthlyRepeatBy("Day of Week");
+      setMonthlyRepeatBy("dayOfWeek");
       setMonthlyRepeatFrequency("1 month");
     }
   };
@@ -191,7 +191,7 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
                   <option value="">Select</option>
 
                     <option value="dateOfMonth">Date of Month</option>
-                    <option value="dayOfWeek">Day of Week</option>
+                    <option value="dayOfWeek">dayOfWeek</option>
                   </select>
                 </div>
                 {monthlyRepeatBy === "dayOfWeek" && (

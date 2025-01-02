@@ -48,10 +48,22 @@ const fetchBookedDates = async () => {
    
     
     // Extract and format the booked dates
-    const bookedDates = response.data[0].booked_dates;
-    console.log("bbbbb",bookedDates)
+    const bookedDates = response.data[0].booked_dates; 
+    const datesToCheck = recurringDates.length > 0 ? recurringDates : dateRows.map(row => {
+      // Check if the date is already in the "DD-MM-YYYY" format
+      const isFormatted = /^\d{1,2}-\d{1,2}-\d{4}$/.test(row.date);
+    
+      if (isFormatted) {
+        return row; // If already in the desired format, return the row as it is
+      }
+    
+      const date = new Date(row.date);
+      const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+      return { ...row, date: formattedDate };
+    });
+    
  
-    const conflicts = recurringDates.filter((recDate) => {
+    const conflicts = datesToCheck.filter((recDate) => {
       return bookedDates.some((bookedDate) => {
         if (bookedDate.date === recDate.date) {
           // Compare time intervals
@@ -282,7 +294,12 @@ const fetchBookedDates = async () => {
     
     fetchBookedDates();
   }, []);
-console.log("conflictDates",conflictDates,"recurringDates",recurringDates)
+  const formattedDateRows1 = dateRows.map(row => {
+    const date = new Date(row.date);
+    const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+    return { ...row, date: formattedDate };
+  });
+  
   return (
     <div className="step2-container">
       <h3 style={{ backgroundColor: "#0078d7", fontFamily: "Monster", fontSize: "1.2rem", padding: "10px", color: "#fff" }}>Event Summary</h3>
@@ -349,13 +366,15 @@ console.log("conflictDates",conflictDates,"recurringDates",recurringDates)
                 </tr>
               </thead>
               <tbody>
-                {dateRows.map((row, index) => (
+                {formattedDateRows1.map((row, index) => (
                   <tr key={index}>
                     <td style={{ padding: "8px" }}>{row.date}</td>
                     <td style={{ padding: "8px" }}>{row.startTime}</td>
-                    <td style={{ padding: "8px" }}>{row.endTime}</td>
-                    <td style={{ padding: "8px" }}></td> {/* Empty value for "Conflicts" */}
-                  </tr>
+                    <td style={{ padding: "8px" }}>{row.endTime}</td>          
+                    <td style={{ padding: "8px", color: conflictDates.some(conflict => conflict.date === row.date) ? 'red' : 'green' }}>
+                      {conflictDates.some(conflict => conflict.date === row.date) ? 'Conflict' : 'Available'}
+                    </td>
+                </tr>
                 ))}
               </tbody>
             </table>

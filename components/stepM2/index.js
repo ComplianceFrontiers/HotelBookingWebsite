@@ -260,8 +260,9 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
           </div>
         )}
         {dateOption === "One-Time" && (<button onClick={addAdditionalDate}>Add Date</button>)}
-
-        <button
+       
+        <div className="navigation-buttons">
+         <button
           onClick={() => {
             setFormData({
               ...formData,
@@ -280,10 +281,11 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
             });
             setActiveStep(3);
           }}
-        >
+          className="btn-add"        >
           Next
         </button>
-      </div>
+        </div>
+       </div>
     </div>
   );
 };

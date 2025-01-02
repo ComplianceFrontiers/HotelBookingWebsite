@@ -373,11 +373,12 @@ const fetchBookedDates = async () => {
             </table>
           </div>
         )}
-      </div>
+      
       <div className="navigation-buttons">
-        <button onClick={() => setActiveStep(2)} className="btn-back">Back</button>
-        <button onClick={handleCheckout} className="btn-continue">Continue</button>
+        <button onClick={() => setActiveStep(2)} className="btn-add">Back</button>
+        <button onClick={handleCheckout} className="btn-add">Continue</button>
       </div>
+     </div>
      </div>
   );
 };

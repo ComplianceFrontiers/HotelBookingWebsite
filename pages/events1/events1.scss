@@ -193,28 +193,44 @@
       }
     }
 
-    .buttons {
-      margin-top: 15px;
+    .navigation-buttons {
       display: flex;
-      gap: 8px;
-
-      button {
+      justify-content: space-between;
+      margin-top: 15px;
+    
+      .btn-add {
+        background-color: #007bff;
+        color: #fff;
         padding: 8px 12px;
-        background-color: #0078d7;
-        color: white;
         border: none;
-        border-radius: 3px;
+        border-radius: 4px;
         cursor: pointer;
-        font-size: 14px;
-
+        font-size: 12px;
+        transition: background-color 0.3s ease;
+    
         &:hover {
-          background-color: #005bb5;
+          background-color: #0056b3;
+        }
+      }
+    
+      .btn-next {
+        margin-left: auto; /* Moves the button to the right */
+        background-color: #28a745;
+        color: #fff;
+        padding: 8px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: background-color 0.3s ease;
+    
+        &:hover {
+          background-color: #218838;
         }
       }
     }
-  }
+    
 }
-
 .step3-container {
   padding: 15px;
 
@@ -365,26 +381,53 @@
       }
     }
   }
-
+ 
   .navigation-buttons {
-    margin-top: 15px;
     display: flex;
     justify-content: space-between;
-
-    .btn-back, .btn-continue {
-      padding: 8px 16px;
-      font-size: 14px;
+    margin-top: 15px;
+    .btn-add {
       background-color: #007bff;
       color: #fff;
+      padding: 8px 12px;
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      font-size: 12px;
+      transition: background-color 0.3s ease;
 
       &:hover {
         background-color: #0056b3;
       }
     }
-  }
+    .btn-back,
+    .btn-submit {
+      padding: 8px 16px;
+      font-size: 14px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &.btn-back {
+        background-color: #6c757d;
+        color: #fff;
+
+        &:hover {
+          background-color: #5a6268;
+        }
+      }
+
+      &.btn-submit {
+        background-color: #28a745;
+        color: #fff;
+
+        &:hover {
+          background-color: #218838;
+        }
+      }
+    }
+  }}
 }
 
 .step-m4-container {

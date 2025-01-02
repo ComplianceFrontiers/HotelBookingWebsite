@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-
 const StepM2 = ({ setActiveStep, formData, setFormData }) => {
   const [dateRows, setDateRows] = useState(formData.dateRows);
   const [dateOption, setDateOption] = useState(formData.dateOption);
@@ -89,6 +88,7 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
       monthlyRepeatBy: value,
     }));
   };
+  
 
   const handleMonthlyRepeatFrequencyChange = (e) => {
     const value = e.target.value;
@@ -113,18 +113,10 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
 
       <div className="event-location">
         <h3>Event Dates</h3>
-        {/* <div className="form-group">
-          <label>School *</label>
-          <select>
-            <option>Leasure Elementary</option>
-            <option>Other School</option>
-          </select>
-        </div> */}
-
         <div className="form-group">
           <label>Date Option *</label>
           <select value={dateOption} onChange={handleDateOptionChange}>
-          <option>Select</option>
+            <option>Select</option>
             <option>One-Time</option>
             <option>Recurring</option>
           </select>
@@ -156,6 +148,7 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
                 <option value="monthly">Monthly</option>
               </select>
             </div>
+
             {repeatFrequency === "daily" && (
               <div>
                 <div className="form-group">
@@ -195,6 +188,8 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
                 <div className="form-group">
                   <label>Repeat By *</label>
                   <select value={monthlyRepeatBy} onChange={handleMonthlyRepeatByChange}>
+                  <option value="">Select</option>
+
                     <option value="dateOfMonth">Date of Month</option>
                     <option value="dayOfWeek">Day of Week</option>
                   </select>
@@ -222,7 +217,6 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
 
         {dateOption === "One-Time" && (
           <div className="date-table">
-            {/* Table for one-time events */}
             <table>
               <thead>
                 <tr>

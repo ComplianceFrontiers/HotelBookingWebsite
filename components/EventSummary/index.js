@@ -16,6 +16,7 @@ const EventSummary = ({
   repeatOn,
   repeatDay,
 }) => {
+  console.log(monthlyRepeatFrequency,monthlyRepeatBy)
   const userDetails = JSON.parse(localStorage.getItem("user_details"));
   const { email } = userDetails;
 
@@ -30,8 +31,8 @@ const EventSummary = ({
   const renderMonthlyRepeatDetails = () => {
     if (monthlyRepeatBy === "Day of Week") {
       return `${monthlyRepeatFrequency} on the ${monthlyRepeatBy}`;
-    } else if (monthlyRepeatBy === "Date of Month") {
-      return `${monthlyRepeatFrequency} on the ${monthlyRepeatBy}`;
+    } else if (monthlyRepeatBy === "dateOfMonth") {
+      return `${monthlyRepeatBy}`;
     }
     return "";
   };
@@ -62,7 +63,7 @@ const EventSummary = ({
     const dates = [];
     let currentDate = new Date(firstDate);
     const endDate = new Date(endByDate);
-
+  
     // Helper function to get nth occurrence of a weekday in the month
     const getNthWeekdayOfMonth = (monthDate, weekday, nth) => {
       const firstDay = new Date(monthDate);
@@ -108,6 +109,7 @@ const EventSummary = ({
         currentDate.setDate(currentDate.getDate() + 1); // Increment by one day
       }
     } 
+    // Handling monthly recurrence
     else if (repeatFrequency === "monthly") {
       if (monthlyRepeatBy === "dateOfMonth") {
         // Monthly recurrence by date of the month
@@ -140,11 +142,12 @@ const EventSummary = ({
         }
       }
     }
+
     else if (repeatFrequency === "weekly") {
       const selectedWeekdays = Object.keys(weeklyRepeatDays)
         .filter((day) => weeklyRepeatDays[day]) // Get the selected weekdays
         .map((day) => dayOfWeekMap[day]); // Map to corresponding day of the week
-    
+  
       selectedWeekdays.forEach((weekday) => {
         let nextOccurrence = new Date(currentDate);
     
@@ -172,6 +175,7 @@ const EventSummary = ({
   
     return dates;
   };
+  
 
   const recurringDates = generateRecurringDates(
     firstDate,

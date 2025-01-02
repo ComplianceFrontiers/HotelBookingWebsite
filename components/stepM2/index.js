@@ -5,8 +5,17 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
   const [dateRows, setDateRows] = useState(formData.dateRows);
   const [dateOption, setDateOption] = useState(formData.dateOption);
   const [repeatFrequency, setRepeatFrequency] = useState(formData.repeatFrequency);
-  const [weeklyRepeatDays, setWeeklyRepeatDays] = useState(formData.weeklyRepeatDays);
-  const [monthlyRepeatBy, setMonthlyRepeatBy] = useState(formData.monthlyRepeatBy);
+  const [weeklyRepeatDays, setWeeklyRepeatDays] = useState(
+    formData.weeklyRepeatDays || {
+      Sunday: false,
+      Monday: false,
+      Tuesday: false,
+      Wednesday: false,
+      Thursday: false,
+      Friday: false,
+      Saturday: false,
+    }
+  );  const [monthlyRepeatBy, setMonthlyRepeatBy] = useState(formData.monthlyRepeatBy);
   const [monthlyRepeatFrequency, setMonthlyRepeatFrequency] = useState(formData.monthlyRepeatFrequency);
   const [repeatOn, setRepeatOn] = useState(formData.repeatOn);
   const [repeatDay, setRepeatDay] = useState(formData.repeatDay);
@@ -186,7 +195,7 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
                 <div className="form-group">
                   <label>Repeat By *</label>
                   <select value={monthlyRepeatBy} onChange={handleMonthlyRepeatByChange}>
-                    <option value="dayOfMonth">Day of Month</option>
+                    <option value="dateOfMonth">Date of Month</option>
                     <option value="dayOfWeek">Day of Week</option>
                   </select>
                 </div>

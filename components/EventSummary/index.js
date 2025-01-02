@@ -78,14 +78,15 @@ const EventSummary = ({
   
     // Map weekday names to corresponding day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
     const dayOfWeekMap = {
-      Sunday: 0,
-      Monday: 1,
-      Tuesday: 2,
-      Wednesday: 3,
-      Thursday: 4,
-      Friday: 5,
-      Saturday: 6,
+      sunday: 0,
+      monday: 1,
+      tuesday: 2,
+      wednesday: 3,
+      thursday: 4,
+      friday: 5,
+      saturday: 6
     };
+    
     const repeatDayIndex = dayOfWeekMap[repeatDay];
     const nthOccurrenceMap = {
       First: 1,
@@ -106,8 +107,9 @@ const EventSummary = ({
         });
         currentDate.setDate(currentDate.getDate() + 1); // Increment by one day
       }
-    } else if (repeatFrequency === "monthly") {
-      if (monthlyRepeatBy === "Date of Month") {
+    } 
+    else if (repeatFrequency === "monthly") {
+      if (monthlyRepeatBy === "dateOfMonth") {
         // Monthly recurrence by date of the month
         while (currentDate <= endDate) {
           dates.push({
@@ -117,7 +119,10 @@ const EventSummary = ({
           });
           currentDate.setMonth(currentDate.getMonth() + repeatInterval); // Move to the next month
         }
-      } else if (monthlyRepeatBy === "Day of Week") {
+      } 
+      
+      
+      else if (monthlyRepeatBy === "Day of Week") {
         while (currentDate <= endDate) {
           const nthWeekday = getNthWeekdayOfMonth(
             currentDate,
@@ -134,27 +139,34 @@ const EventSummary = ({
           currentDate.setMonth(currentDate.getMonth() + repeatInterval);
         }
       }
-    } else if (repeatFrequency === "weekly") {
-      // Weekly recurrence logic
-      const selectedWeekdays = weeklyRepeatDays.map((day) => dayOfWeekMap[day]); // Get the selected weekdays
-  
-      // Loop through each selected weekday and calculate the recurrence
+    }
+    else if (repeatFrequency === "weekly") {
+      const selectedWeekdays = Object.keys(weeklyRepeatDays)
+        .filter((day) => weeklyRepeatDays[day]) // Get the selected weekdays
+        .map((day) => dayOfWeekMap[day]); // Map to corresponding day of the week
+    
       selectedWeekdays.forEach((weekday) => {
         let nextOccurrence = new Date(currentDate);
-  
+    
         // Calculate the first occurrence of the selected weekday
-        const dayOffset = (weekday - nextOccurrence.getDay() + 7) % 7;
-        nextOccurrence.setDate(nextOccurrence.getDate() + dayOffset);
-  
+        let dayOffset = (weekday - nextOccurrence.getDay() + 7) % 7;
+    
+        // If dayOffset is 0, don't skip to next week, instead, use the current date
+        if (dayOffset === 0) {
+          nextOccurrence = new Date(currentDate); // Use the current day as the first occurrence
+        } else {
+          nextOccurrence.setDate(nextOccurrence.getDate() + dayOffset); // Otherwise, move to the next occurrence
+        }
+    
         // Add occurrences for each week within the range
         while (nextOccurrence <= endDate) {
-            dates.push({
-            date: `${nextOccurrence.getDate()}-${nextOccurrence.getMonth() + 1}-${nextOccurrence.getFullYear()}`, // Format to DD-MM-YYYY
-            startTime: startTime, // Use user-inputted start time
-            endTime: endTime, // Use user-inputted end time
-        });
+          dates.push({
+            date: `${nextOccurrence.getDate()}-${nextOccurrence.getMonth() + 1}-${nextOccurrence.getFullYear()}`,
+            startTime: startTime,
+            endTime: endTime,
+          });
           nextOccurrence.setDate(nextOccurrence.getDate() + 7); // Move to the next week
-      }
+        }
       });
     }
   
@@ -237,14 +249,14 @@ const EventSummary = ({
                   </tr>
                 </thead>
                 <tbody>
-                  {recurringDates.map((row, index) => (
-                    <tr key={index}>
+      {recurringDates.map((row, index) => (
+        <tr key={index}>
                       <td style={{ padding: "8px" }}>{row.date}</td>
                       <td style={{ padding: "8px" }}>{row.startTime}</td>
                       <td style={{ padding: "8px" }}>{row.endTime}</td>
                       <td style={{ padding: "8px" }}></td> {/* Empty value for "Conflicts" */}
-                    </tr>
-              ))}
+        </tr>
+      ))}
                 </tbody>
               </table>
             </div>

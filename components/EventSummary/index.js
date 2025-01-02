@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const EventSummary = ({
@@ -16,20 +16,68 @@ const EventSummary = ({
   repeatOn,
   repeatDay,
 }) => {
-  console.log(monthlyRepeatFrequency,monthlyRepeatBy)
   const userDetails = JSON.parse(localStorage.getItem("user_details"));
   const { email } = userDetails;
+  
+  const [conflictDates, setConflictDates] = useState([]); // To hold conflicting dates
+
   const formatDate = (date) => {
     const formattedDate = new Date(date);
     const day = String(formattedDate.getDate()).padStart(2, '0');
-    const month = String(formattedDate.getMonth() + 1).padStart(2, '0'); // months are 0-based
+    const month = String(formattedDate.getMonth() + 1).padStart(2, '0');
     const year = formattedDate.getFullYear();
     return `${day}-${month}-${year}`;
   };
+
   const formattedDateRows = dateRows.map((row) => ({
     ...row,
     date: formatDate(row.date),
   }));
+  // Add this utility function to format the date fetched from the server
+const formatDateFromAPI = (date) => {
+  const formattedDate = new Date(date);
+  const day = String(formattedDate.getDate()).padStart(2, '0');
+  const month = String(formattedDate.getMonth() + 1).padStart(2, '0');
+  const year = formattedDate.getFullYear();
+  return `${day}-${month}-${year}`;
+};
+
+const fetchBookedDates = async () => {
+  try {
+    const response = await axios.get("https://hotel-website-backend-eosin.vercel.app/users/already_booked_dates");
+   
+    
+    // Extract and format the booked dates
+    const bookedDates = response.data[0].booked_dates;
+    console.log("bbbbb",bookedDates)
+ 
+    const conflicts = recurringDates.filter((recDate) => {
+      return bookedDates.some((bookedDate) => {
+        if (bookedDate.date === recDate.date) {
+          // Compare time intervals
+          const recStartTime = new Date(`1970-01-01T${recDate.startTime}:00`);
+          const recEndTime = new Date(`1970-01-01T${recDate.endTime}:00`);
+          const bookedStartTime = new Date(`1970-01-01T${bookedDate.startTime}:00`);
+          const bookedEndTime = new Date(`1970-01-01T${bookedDate.endTime}:00`);
+
+          // Check for time overlap
+          return (
+            (recStartTime < bookedEndTime && recEndTime > bookedStartTime) // Overlap condition
+          );
+        }
+        return false;
+      });
+    });
+    console.log("ccccc", conflicts);
+    
+
+    setConflictDates(conflicts); // Set the conflicts
+  } catch (error) {
+    console.error("Error fetching booked dates:", error);
+  }
+};
+
+
   // Function to render selected weekly repeat days
   const renderWeeklyRepeatDays = () => {
     return Object.keys(weeklyRepeatDays)
@@ -206,10 +254,10 @@ const EventSummary = ({
   );
 
   const handleCheckout = async () => {
-    const bookedDates = 
-    recurringDates.length === 0 && dateOption === "One-Time" 
-      ? formattedDateRows 
-      : recurringDates;
+    const bookedDates =
+      recurringDates.length === 0 && dateOption === "One-Time"
+        ? formattedDateRows
+        : recurringDates;
     const bookingDetails = {
       event_name: formData.eventName,
       attendance: formData.attendance,
@@ -230,6 +278,11 @@ const EventSummary = ({
     }
   };
 
+  useEffect(() => {
+    
+    fetchBookedDates();
+  }, []);
+console.log("conflictDates",conflictDates,"recurringDates",recurringDates)
   return (
     <div className="step2-container">
       <h3 style={{ backgroundColor: "#0078d7", fontFamily: "Monster", fontSize: "1.2rem", padding: "10px", color: "#fff" }}>Event Summary</h3>
@@ -254,7 +307,6 @@ const EventSummary = ({
             <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>First Date:</strong> {firstDate}</p>
             <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>End By:</strong> {endByDate}</p>
 
-            {/* Display recurring dates in a table format */}
             <div>
               <h4 style={{ fontFamily: "Monster", fontSize: "1rem" }}>Recurring Dates:</h4>
               <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}>These are the dates and times your event will occur:</p>
@@ -264,18 +316,20 @@ const EventSummary = ({
                     <th style={{ padding: "8px", textAlign: "left" }}>Date</th>
                     <th style={{ padding: "8px", textAlign: "left" }}>Start Time</th>
                     <th style={{ padding: "8px", textAlign: "left" }}>End Time</th>
-                    <th style={{ padding: "8px", textAlign: "left" }}>Conflicts</th> {/* New column */}
+                    <th style={{ padding: "8px", textAlign: "left" }}>Conflicts</th>
                   </tr>
                 </thead>
                 <tbody>
-      {recurringDates.map((row, index) => (
-        <tr key={index}>
+                  {recurringDates.map((row, index) => (
+                    <tr key={index}>
                       <td style={{ padding: "8px" }}>{row.date}</td>
                       <td style={{ padding: "8px" }}>{row.startTime}</td>
                       <td style={{ padding: "8px" }}>{row.endTime}</td>
-                      <td style={{ padding: "8px" }}></td> {/* Empty value for "Conflicts" */}
-        </tr>
-      ))}
+                      <td style={{ padding: "8px", color: conflictDates.some(conflict => conflict.date === row.date) ? 'red' : 'green' }}>
+                        {conflictDates.some(conflict => conflict.date === row.date) ? 'Conflict' : 'Available'}
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>

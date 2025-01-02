@@ -2,7 +2,6 @@ import React from 'react';
 import EventSummary from '../EventSummary';
 
 const StepM3 = ({ setActiveStep, formData }) => {
-  console.log("Stepm33", formData);
   
   return (
     <div className="step3-container">

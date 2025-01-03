@@ -48,11 +48,7 @@ const Header = (props) => {
                                 <nav>
                                     <ul>
                                         <li><Link onClick={ClickHandler}  href="/home" title="">Home </Link>
-                                            {/* <ul>
-                                                <li><Link onClick={ClickHandler} href="/home">Home style 1</Link></li>
-                                                <li><Link onClick={ClickHandler} href="/home2">Home style 2</Link></li>
-                                                <li><Link onClick={ClickHandler} href="/home3">Home style 3</Link></li>
-                                            </ul> */}
+                                          
                                         </li>
                                         <li><Link onClick={ClickHandler} href="/room" title="">Rentals </Link>
                                             <ul>

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const BookingTable = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedBooking, setSelectedBooking] = useState(null); // State for selected booking
-  const [isOverlayOpen, setIsOverlayOpen] = useState(false); // State for overlay visibility
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,13 +36,8 @@ const BookingTable = () => {
   );
 
   const handleBookingClick = (booking) => {
-    setSelectedBooking(booking);
-    setIsOverlayOpen(true);
-  };
-
-  const closeOverlay = () => {
-    setIsOverlayOpen(false);
-    setSelectedBooking(null);
+    const queryString = new URLSearchParams(booking).toString();
+    router.push(`/overlay?${queryString}`);
   };
 
   return (
@@ -78,26 +73,6 @@ const BookingTable = () => {
           ))}
         </tbody>
       </table>
-
-      {isOverlayOpen && selectedBooking && (
-        <div className="overlay">
-          <div className="overlay-content">
-            <h3>Booking Details</h3>
-            <p><strong>Booking ID:</strong> {selectedBooking.booking_id}</p>
-            <p><strong>Event Name:</strong> {selectedBooking.event_name}</p>
-            <p><strong>Room Type:</strong> {selectedBooking.room_type}</p>
-            <p><strong>Date Option:</strong> {selectedBooking.date_option}</p>
-            <p><strong>Attendance:</strong> {selectedBooking.attendance}</p>
-            <p><strong>Booked Dates:</strong></p>
-            {selectedBooking.booked_dates.map((date, idx) => (
-              <div key={idx}>
-                <strong>Date:</strong> {date.date}, <strong>Start Time:</strong> {date.startTime}, <strong>End Time:</strong> {date.endTime}
-              </div>
-            ))}
-            <button onClick={closeOverlay}>Close</button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

@@ -20,7 +20,7 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
           <h3 className="section-title">Event Information</h3>
           <form className="event-form">
             <div className="form-group">
-              <label>Organization</label>
+              <label>Full Name</label>
               <span>Compliance Frontiers LLC</span>
             </div>
             <div className="form-group">

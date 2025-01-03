@@ -8,13 +8,13 @@ import axios from 'axios'; // Import axios
 import { toast } from "react-toastify";
 
 const SignUpPage = (props) => {
-
     const router = useRouter();
 
     const [value, setValue] = useState({
         email: '',
         full_name: '',
         phone: '',
+        password: '' // Add password field to state
     });
 
     const changeHandler = (e) => {
@@ -30,6 +30,7 @@ const SignUpPage = (props) => {
                 email: value.email,
                 full_name: value.full_name,
                 phone: value.phone,
+                password: value.password // Send password to the API
             });
 
             // Handle the response
@@ -105,6 +106,23 @@ const SignUpPage = (props) => {
                                 variant="outlined"
                                 name="phone"
                                 label="Phone"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                onBlur={changeHandler}
+                                onChange={changeHandler}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                className="inputOutline"
+                                fullWidth
+                                placeholder="Password"
+                                value={value.password} // Bind password field to state
+                                variant="outlined"
+                                name="password"
+                                label="Password"
+                                type="password" // Ensure input type is password
                                 InputLabelProps={{
                                     shrink: true,
                                 }}

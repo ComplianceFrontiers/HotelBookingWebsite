@@ -11,7 +11,8 @@ const LoginPage = () => {
     const router = useRouter();
 
     const [value, setValue] = useState({
-        email: ''
+        email: '',
+        password: '', // Added password to state
     });
 
     const changeHandler = (e) => {
@@ -47,7 +48,7 @@ const LoginPage = () => {
                 if (response.ok) {
                     // Handle successful login
                     toast.success(data.message);
-                    
+
                     // Store user details in local storage
                     localStorage.setItem('user_details', JSON.stringify(data.user_details));
 
@@ -88,6 +89,24 @@ const LoginPage = () => {
                                 onChange={(e) => changeHandler(e)}
                             />
                             {validator.message('email', value.email, 'required|email')}
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                className="inputOutline"
+                                fullWidth
+                                type="password" // Added password field
+                                placeholder="Password"
+                                value={value.password}
+                                variant="outlined"
+                                name="password"
+                                label="Password"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                onBlur={(e) => changeHandler(e)}
+                                onChange={(e) => changeHandler(e)}
+                            />
+                            {validator.message('password', value.password, 'required|min:6')}
                         </Grid>
                         <Grid item xs={12}>
                             <Grid className="formFooter">

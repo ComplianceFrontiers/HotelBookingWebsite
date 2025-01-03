@@ -107,12 +107,11 @@ const Header = (props) => {
                             </div>
 
  
-                            <div className="col-xl-1 col-lg-1 col-md-6 col-sm-6 col-6">
+                            {/* <div className="col-xl-1 col-lg-1 col-md-6 col-sm-6 col-6">
                                 <div className="contact">
                                     <div className="cart-search-contact">
                                         <div className="header-search-form-wrapper">
-                                            {/* <button className="search-toggle-btn"><i className="fi flaticon-search"></i></button> */}
-                                            <div className="header-search-form">
+                                             <div className="header-search-form">
                                                 <form onSubmit={SubmitHandler}>
                                                     <div>
                                                         <input type="text" className="form-control" placeholder="Search here..." />
@@ -165,7 +164,7 @@ const Header = (props) => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="col-md-2 col-sm-2 col-2">
                                 <MobileMenu />
                             </div>

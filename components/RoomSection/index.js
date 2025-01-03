@@ -38,7 +38,7 @@ const RoomSection = (props) => {
                     <h2>{room.RoomHeading}</h2>
                     <span>{room.RoomCount}</span>
                     <p>{room.Des}</p>
-                    <small>From: <span>{room.Price}</span> / Night</small>
+                    {/* <small>From: <span>{room.Price}</span> / Night</small> */}
                     <Link
                             className="theme-btn-s2"
                             href={

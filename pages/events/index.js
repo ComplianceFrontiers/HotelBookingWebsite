@@ -1,70 +1,135 @@
 import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import axios from 'axios';
-import { useRouter } from 'next/router'; // For navigation
+import { useRouter } from 'next/router';
 
 const Events = () => {
   const [events, setEvents] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState('');
   const [filteredEvents, setFilteredEvents] = useState([]);
-  const router = useRouter(); // Initialize router for navigation
+  const [selectedDate, setSelectedDate] = useState(null); // State for selected date
+  const [timeSlots, setTimeSlots] = useState([]); // State for time slots
+  const router = useRouter();
 
   useEffect(() => {
-    // Fetch data from the API
     axios
       .get('https://hotel-website-backend-eosin.vercel.app/users')
       .then((response) => {
-        const eventData = response.data[0]?.booked_details || []; // Adjusted based on your API structure
-        setEvents(eventData); // Set the fetched event data
-        setFilteredEvents(eventData); // Initialize filtered events
+        const eventData = response.data[0]?.booked_details || [];
+        setEvents(eventData);
+        setFilteredEvents(eventData);
       })
       .catch((error) => console.error('Error fetching events:', error));
   }, []);
 
   useEffect(() => {
-    // Filter events by room type selection
     if (selectedRoom === '') {
-      setFilteredEvents(events); // Show all events if no room is selected
+      setFilteredEvents(events);
     } else {
       const filtered = events.filter((detail) => detail.room_type === selectedRoom);
-      setFilteredEvents(filtered); // Update filtered events based on selected room
+      setFilteredEvents(filtered);
     }
   }, [selectedRoom, events]);
 
-  // Utility function to parse API date format (DD-MM-YYYY)
   const parseApiDate = (apiDate) => {
     const [day, month, year] = apiDate.split('-');
     return new Date(`${year}-${month}-${day}`);
   };
 
+  // Function to generate time slots every 30 minutes (00:00, 00:30, 01:00, etc.)
+  const generateTimeSlots = () => {
+    const slots = [];
+    for (let hour = 0; hour < 24; hour++) {
+      for (let minute = 0; minute < 60; minute += 30) {
+        const slot = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+        slots.push(slot);
+      }
+    }
+    return slots;
+  };
+
   const tileClassName = ({ date, view }) => {
     if (view === 'month') {
-      // Check if this date is booked for the selected room type
       const isBooked = filteredEvents.some((detail) =>
         detail.booked_dates.some(
           (booking) => parseApiDate(booking.date).toLocaleDateString() === date.toLocaleDateString()
         )
       );
-
-      // Add custom styles based on availability or booking status
       return isBooked ? 'booked' : 'available';
     }
-    return null; // No class for other views
+    return null;
   };
-
+  const handleDateClick = (date) => {
+    setSelectedDate(date);
+  
+    // Fetch booked slots for the selected date
+    const bookedSlots = filteredEvents
+      .flatMap((event) =>
+        event.booked_dates
+          .filter((booking) => parseApiDate(booking.date).toLocaleDateString() === date.toLocaleDateString())
+          .map((booking) => {
+            console.log('Booking Object:', booking);
+  
+            const startTime = booking.startTime ? booking.startTime : null;
+            const endTime = booking.endTime ? booking.endTime : null;
+  
+            console.log(`Booking Date: ${booking.date}, Start Time: ${startTime}, End Time: ${endTime}`);
+  
+            return { startTime, endTime };
+          })
+      )
+      .flat();
+  
+    console.log(`Booked Slots for Selected Date:`, bookedSlots);
+  
+    const allSlots = generateTimeSlots();  // Generate all available time slots
+    const updatedSlots = allSlots.map((slot) => {
+      const isBooked = bookedSlots.some((booked) => {
+        if (booked.startTime && booked.endTime) {
+          const [startHours, startMinutes] = booked.startTime.split(':').map(Number);
+          const [endHours, endMinutes] = booked.endTime.split(':').map(Number);
+  
+          const slotHours = Number(slot.split(':')[0]);
+          const slotMinutes = Number(slot.split(':')[1]);
+  
+          const slotTime = slotHours * 60 + slotMinutes;  // Convert slot to minutes
+          const startTime = startHours * 60 + startMinutes;  // Convert start time to minutes
+          const endTime = endHours * 60 + endMinutes;  // Convert end time to minutes
+  
+          console.log(`Checking Slot: ${slot} (Slot Time: ${slotTime} minutes)`);
+          console.log(`Booking Start Time: ${startTime}, Booking End Time: ${endTime}`);
+  
+          // Check if slot is between startTime and endTime inclusively
+          const isSlotBooked = slotTime+ 30 >= startTime && slotTime < endTime + 30;  // +30 because the booking ends at 16:27, not 16:30 exactly.
+  
+          console.log(`Is Slot ${slot} booked? ${isSlotBooked}`);
+          return isSlotBooked;
+        }
+        return false;
+      });
+  
+      return { time: slot, status: isBooked ? 'booked' : 'available' }; // Mark slot as booked or available
+    });
+  
+    console.log(`Updated Slots for Selected Date:`, updatedSlots);
+    setTimeSlots(updatedSlots); // Update the state with the slot statuses
+  };
+  
+  
+  
   const handleBookNow = () => {
-    const userDetails = localStorage.getItem('user_details'); // Check for user details in local storage
+    const userDetails = localStorage.getItem('user_details');
     if (userDetails) {
-      router.push('/events1'); // Redirect to /events1 if user details are present
+      router.push('/events1');
     } else {
-      router.push('/login'); // Redirect to /login if user details are missing
+      router.push('/login');
     }
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
+    <div style={{ padding: '20px' }}>
       {/* Sidebar Filter for Room Types */}
-      <div style={{ display: 'flex', marginBottom: '20px' }}>
+      <div style={{ marginBottom: '20px' }}>
         <select onChange={(e) => setSelectedRoom(e.target.value)} value={selectedRoom}>
           <option value="">ALL</option>
           <option value="gym">Gym</option>
@@ -79,16 +144,43 @@ const Events = () => {
       {/* Calendar Component */}
       <div>
         <Calendar
-          tileClassName={tileClassName} // Apply custom class based on availability
+          tileClassName={tileClassName}
           className="custom-calendar"
+          onClickDay={handleDateClick}
         />
       </div>
+
+      {/* Display Selected Date and Time Slots */}
+      {selectedDate && (
+        <div style={{ marginTop: '20px' }}>
+          <h3>Time Slots for {selectedDate.toLocaleDateString()}</h3>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+            {timeSlots.map((slot, index) => (
+              <div
+                key={index}
+                style={{
+                  padding: '5px 10px',
+                  backgroundColor: slot.status === 'booked' ? 'red' : 'green',
+                  color: '#fff',
+                  borderRadius: '5px',
+                  textAlign: 'center',
+                  opacity: slot.status === 'booked' ? 0.5 : 1, // Optional: make booked slots look less clickable
+                }}
+              >
+                {slot.time}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Book Now Button */}
       <button
         onClick={handleBookNow}
         style={{
           marginTop: '20px',
+          marginLeft: 'auto',
+          display: 'block',
           padding: '10px 20px',
           backgroundColor: '#4caf50',
           color: '#fff',

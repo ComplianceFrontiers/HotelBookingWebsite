@@ -6,14 +6,19 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useRouter } from 'next/router';
 import Link from "next/link";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
 
 const LoginPage = () => {
     const router = useRouter();
 
     const [value, setValue] = useState({
         email: '',
-        password: '', // Added password to state
+        password: '',
     });
+
+    const [showPassword, setShowPassword] = useState(false);
 
     const changeHandler = (e) => {
         setValue({ ...value, [e.target.name]: e.target.value });
@@ -27,14 +32,12 @@ const LoginPage = () => {
     const submitForm = async (e) => {
         e.preventDefault();
         if (validator.allValid()) {
-            // Create the payload for login
             const payload = {
                 email: value.email,
                 password: value.password,
             };
 
             try {
-                // Make the API call
                 const response = await fetch('https://hotel-website-backend-eosin.vercel.app/login', {
                     method: 'POST',
                     headers: {
@@ -46,15 +49,10 @@ const LoginPage = () => {
                 const data = await response.json();
 
                 if (response.ok) {
-                    // Handle successful login
                     toast.success(data.message);
-
-                    // Store user details in local storage
                     localStorage.setItem('user_details', JSON.stringify(data.user_details));
-
-                    router.push('/');  // Redirect to the home page after successful login
+                    router.push('/');
                 } else {
-                    // Handle errors
                     toast.error(data.error);
                 }
             } catch (error) {
@@ -64,6 +62,10 @@ const LoginPage = () => {
             validator.showMessages();
             toast.error('Empty field is not allowed!');
         }
+    };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword((prevShowPassword) => !prevShowPassword);
     };
 
     return (
@@ -94,7 +96,7 @@ const LoginPage = () => {
                             <TextField
                                 className="inputOutline"
                                 fullWidth
-                                type="password" // Added password field
+                                type={showPassword ? "text" : "password"}
                                 placeholder="Password"
                                 value={value.password}
                                 variant="outlined"
@@ -102,6 +104,15 @@ const LoginPage = () => {
                                 label="Password"
                                 InputLabelProps={{
                                     shrink: true,
+                                }}
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton onClick={togglePasswordVisibility} edge="end">
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    ),
                                 }}
                                 onBlur={(e) => changeHandler(e)}
                                 onChange={(e) => changeHandler(e)}

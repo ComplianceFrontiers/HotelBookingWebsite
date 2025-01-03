@@ -15,6 +15,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Head from "next/head";
 import '../pages/cart/CartPage.scss'; 
 import '../pages/admin/admin.scss'; 
+import '../pages/admin2/admin2.scss';
 import '../pages/tandc/tandc.scss'; 
 import '../pages/Gallery/gallery.scss';
 import '../pages/events1/events1.scss';

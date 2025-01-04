@@ -21,7 +21,7 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
           <form className="event-form">
             <div className="form-group">
               <label>Full Name</label>
-              <span>Compliance Frontiers LLC</span>
+              <span>{formData.full_name}</span>
             </div>
             <div className="form-group">
               <label>Room Type *</label>

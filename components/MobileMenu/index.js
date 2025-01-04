@@ -7,23 +7,7 @@ const menus = [
         id: 1,
         title: 'Home',
         link: '/home',
-        submenu: [
-            {
-                id: 11,
-                title: 'Home style 1',
-                link: '/home'
-            },
-            {
-                id: 12,
-                title: 'Home style 2',
-                link: '/home2'
-            },
-            {
-                id: 13,
-                title: 'Home style 3',
-                link: '/home3'
-            },
-        ]
+       
     },
 
     {
@@ -31,70 +15,45 @@ const menus = [
         title: 'Rentals',
         link: '/room',
         submenu: [
+
             {
                 id: 21,
-                title: 'Room',
-                link: '/room'
+                title: 'Gym',
+                link: '/destination-single/gymnasium'
             },
             {
                 id: 22,
-                title: 'Room Single',
-                link: '/room-single/Dr. Lindsey Slater Pavillion'
+                title: 'Multi-Purpose Room',
+                link: '/destination-single/mpr'
+            }, {
+                id: 23,
+                title: 'Conference Center',
+                link: '/destination-single/conferenceCenter'
+            },
+            {
+                id: 24,
+                title: 'Auditorium',
+                link: '/destination-single/gymnasium'
+            },
+            {
+                id: 25,
+                title: 'Pavilion',
+                link: '/destination-single/pavilion'
+            },{
+                id: 26,
+                title: 'Firepit',
+                link: '/destination-single/firepit'
             }
         ]
     },
     {
         id: 3,
         title: 'Scheduling',
-        link: '/destination',
-        submenu: [
-            {
-                id: 21,
-                title: 'Destination',
-                link: '/destination'
-            },
-            {
-                id: 22,
-                title: 'Destination Single',
-                link: '/destination-single/Paris,France'
-            }
-        ]
+        link: '/events',
+        
     },
     
-    // {
-    //     id: 7,
-    //     title: 'Pages',
-    //     link: '/',
-    //     submenu: [
-    //         {
-    //             id: 71,
-    //             title: 'About',
-    //             link: '/about'
-    //         },
-    //         {
-    //             id: 79,
-    //             title: 'Error 404',
-    //             link: '/404'
-    //         },
-    //         {
-    //             id: 87,
-    //             title: 'Search Result',
-    //             link: '/search-result'
-    //         }, 
-    //         {
-    //             id: 81,
-    //             title: 'Signup Page',
-    //             link: '/register'
-    //         },
-    //         {
-    //             id: 82,
-    //             title: 'Forgot Password',
-    //             link: '/forgot-password'
-    //         },
-
-    //     ]
-    // },
-
+   
     {
         id: 4,
         title: 'Services',
@@ -106,38 +65,7 @@ const menus = [
         id: 5,
         title: 'Gallery',
         link: '/Gallery',
-        // submenu: [
-        //     {
-        //         id: 51,
-        //         title: 'Blog',
-        //         link: '/blog'
-        //     },
-        //     {
-        //         id: 52,
-        //         title: 'Blog Left sidebar',
-        //         link: '/blog-left-sidebar'
-        //     },
-        //     {
-        //         id: 53,
-        //         title: 'Blog full width',
-        //         link: '/blog-fullwidth'
-        //     },
-        //     {
-        //         id: 54,
-        //         title: 'Blog single',
-        //         link: '/blog-single/You’re-In-Dubai'
-        //     },
-        //     {
-        //         id: 55,
-        //         title: 'Blog single Left sidebar',
-        //         link: '/blog-single-left-sidebar/You’re-In-Dubai'
-        //     },
-        //     {
-        //         id: 56,
-        //         title: 'Blog single Left sidebar',
-        //         link: '/blog-single-fullwidth/You’re-In-Dubai'
-        //     },
-        // ]
+        
     },
     {
         id: 88,

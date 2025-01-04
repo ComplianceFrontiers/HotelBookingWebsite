@@ -1,79 +1,29 @@
 import React from 'react';
+import EventSummary from '../EventSummary';
 
-const StepM4 = ({ setActiveStep }) => {
+const StepM4 = ({ setActiveStep, formData = {} }) => {
   return (
     <div className="step-m4-container">
       <h2 className="step-title">Event Location and Dates</h2>
       <div className="event-form">
         <form>
-          {/* School Dropdown
-          <div className="form-group">
-            <label htmlFor="school">School *</label>
-            <select id="school" name="school" required>
-              <option>Kathleen H. Wilbur Elementary</option>
-            </select>
-          </div> */}
-
-          {/* Date Option Dropdown */}
-          <div className="form-group">
-            <label htmlFor="date-option">Date Option *</label>
-            <select id="date-option" name="dateOption" required>
-              <option>Recurring</option>
-            </select>
-            <small>Please include any setup and cleanup time in the event request.</small>
-          </div>
-
-          {/* Room/Field Input */}
-          <div className="form-group">
-            <label htmlFor="room-field">Room/Field(s) *</label>
-            <input type="text" id="room-field" value="Blue/Orange Gymnasium" readOnly />
-          </div>
-
-          {/* First Date */}
-          <div className="form-group">
-            <label htmlFor="first-date">First Date *</label>
-            <input type="date" id="first-date" value="2024-12-28" readOnly />
-          </div>
-
-          {/* Start Time and End Time */}
-          <div className="form-group time-group">
-            <label htmlFor="start-time">Start Time *</label>
-            <input type="time" id="start-time" value="07:15" readOnly />
-            <label htmlFor="end-time">End Time *</label>
-            <input type="time" id="end-time" value="08:00" readOnly />
-          </div>
-
-          {/* Repeat Options */}
-          <div className="form-group">
-            <label htmlFor="repeats">Repeats *</label>
-            <select id="repeats" name="repeats">
-              <option>Weekly</option>
-            </select>
-          </div>
-
-          {/* Repeat On */}
-          <div className="form-group repeat-days">
-            <label>Repeat On *</label>
-            {['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map((day, index) => (
-              <div key={index} className="checkbox">
-                <input type="checkbox" id={day.toLowerCase()} defaultChecked={day === 'Friday'} />
-                <label htmlFor={day.toLowerCase()}>{day}</label>
-              </div>
-            ))}
-          </div>
-
-          {/* Repeat Every */}
-          <div className="form-group">
-            <label htmlFor="repeat-every">Repeat Every *</label>
-            <select id="repeat-every">
-              <option>2 week(s)</option>
-            </select>
-          </div>
-
-          {/* End By */}
-          <div className="form-group">
-            <label htmlFor="end-by">End By *</label>
-            <input type="date" id="end-by" value="2025-03-14" readOnly />
+          <div className="step3-container">
+            <EventSummary
+              setActiveStep={setActiveStep}
+              formData={formData}
+              dateOption={formData?.dateOption}
+              repeatFrequency={formData?.repeatFrequency}
+              weeklyRepeatDays={formData?.weeklyRepeatDays}
+              monthlyRepeatBy={formData?.monthlyRepeatBy}
+              monthlyRepeatFrequency={formData?.monthlyRepeatFrequency}
+              dateRows={formData?.dateRows}
+              firstDate={formData?.firstDate}
+              endByDate={formData?.endByDate}
+              startTime={formData?.startTime}
+              endTime={formData?.endTime}
+              repeatOn={formData?.repeatOn}
+              repeatDay={formData?.repeatDay}
+            />
           </div>
         </form>
       </div>

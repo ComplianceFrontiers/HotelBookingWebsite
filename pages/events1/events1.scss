@@ -510,29 +510,30 @@
   }
 
   .additional-title {
-    font-size: 18px;
+    font-size: 16px; /* Reduced font size */
     font-weight: 500;
     color: #444;
     margin-bottom: 8px;
   }
-
+  
   .additional-items {
+    font-size: 14px;
     background-color: #fff;
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 6px;
     margin-bottom: 20px;
-
+  
     form {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-
+  
       .form-group {
         flex: 1;
         min-width: 180px;
       }
-
+  
       .btn-add {
         background-color: #007bff;
         color: #fff;
@@ -540,100 +541,106 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        font-size: 12px;
+        font-size: 10px; /* Reduced font size */
         transition: background-color 0.3s ease;
-
+  
         &:hover {
           background-color: #0056b3;
         }
       }
     }
   }
-
+  
   .estimates-title {
-    font-size: 18px;
+    font-size: 16px; /* Reduced font size */
     font-weight: 500;
     color: #444;
     margin-bottom: 10px;
   }
-
+  
   .estimates-table {
+    font-size: 14px;
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
-
+  
     thead {
+      font-size: 14px;
       background-color: #007bff;
       color: #fff;
-
+  
       th {
+        font-size: 14px;
         padding: 8px;
         text-align: left;
         font-weight: 500;
         border: 1px solid #ddd;
       }
     }
-
+  
     tbody {
       td {
+        font-size: 14px;
         padding: 8px;
         border: 1px solid #ddd;
         color: #555;
-
+  
         &:nth-child(1) {
-          font-weight: 500;
+          font-size: 14px;
+          font-weight: 400;
         }
       }
     }
-
+  
     tfoot {
       td {
+        font-size: 14px;
         padding: 8px;
         text-align: right;
         font-weight: 500;
         border: 1px solid #ddd;
-
+  
         &:last-child {
           color: #007bff;
         }
       }
     }
   }
-
+  
   .navigation-buttons {
     display: flex;
     justify-content: space-between;
     margin-top: 15px;
-
+  
     .btn-back,
     .btn-submit {
       padding: 8px 16px;
-      font-size: 14px;
+      font-size: 12px; /* Reduced font size */
       border: none;
       border-radius: 4px;
       cursor: pointer;
       transition: background-color 0.3s ease;
-
+  
       &.btn-back {
         background-color: #6c757d;
         color: #fff;
-
+  
         &:hover {
           background-color: #5a6268;
         }
       }
-
+  
       &.btn-submit {
         background-color: #28a745;
         color: #fff;
-
+  
         &:hover {
           background-color: #218838;
         }
       }
     }
-  }
-}
+  }}
+  
 
 .events-container {
   display: flex;

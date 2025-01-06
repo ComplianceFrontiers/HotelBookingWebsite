@@ -10,6 +10,7 @@ const EventSummary = ({
   monthlyRepeatBy,
   monthlyRepeatFrequency,
   dateRows,
+  recurringDates,
   firstDate,
   endByDate,
   startTime,
@@ -244,7 +245,7 @@ const fetchBookedDates = async () => {
   };
   
 
-  const recurringDates = generateRecurringDates(
+  recurringDates = generateRecurringDates(
     firstDate,
     endByDate,
     repeatFrequency,
@@ -258,30 +259,43 @@ const fetchBookedDates = async () => {
   );
 
   const handleCheckout = async () => {
+    // Prepare `bookedDates` based on the recurring or one-time selection
     const bookedDates =
       recurringDates.length === 0 && dateOption === "One-Time"
-        ? formattedDateRows
-        : recurringDates;
+        ? formattedDateRows1 // Use formattedDateRows1 for One-Time events
+        : recurringDates; // Use recurringDates otherwise
+  
+    // Add `formattedDateRows1` and `recurringDates` to `formData`
     const bookingDetails = {
       event_name: formData.eventName,
       attendance: formData.attendance,
       room_type: formData.roomType,
       date_option: dateOption,
       booked_dates: bookedDates,
+      formatted_dates: formattedDateRows1, // Include formatted dates in the payload
+      recurring_dates: recurringDates, // Include recurring dates in the payload
     };
-
+  
     try {
-      const response = await axios.post("https://hotel-website-backend-eosin.vercel.app/checkout", {
-        email,
-        booked_details: bookingDetails,
-      });
-      setActiveStep(4)
+      // Make the API call for booking
+      const response = await axios.post(
+        "https://hotel-website-backend-eosin.vercel.app/checkout",
+        {
+          email, // Add user email from local storage
+          booked_details: bookingDetails,
+        }
+      );
+  
+      // Proceed to the next step if successful
+      setActiveStep(4);
       alert(response.data.message);
     } catch (error) {
-      console.error("Error during checkout:", error.response.data);
-      alert("Error: " + error.response.data.error);
+      // Handle errors during the booking process
+      console.error("Error during checkout:", error.response?.data);
+      alert("Error: " + error.response?.data?.error || "Something went wrong");
     }
   };
+  
 
   useEffect(() => {
     
@@ -293,6 +307,7 @@ const fetchBookedDates = async () => {
     return { ...row, date: formattedDate };
   });
   
+  
   return (
     <div className="step2-container">
       <h3 style={{ backgroundColor: "#0078d7", fontFamily: "Monster", fontSize: "1.2rem", padding: "10px", color: "#fff" }}>Event Summary</h3>
@@ -302,7 +317,6 @@ const fetchBookedDates = async () => {
         <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Room Type:</strong> {formData.roomType}</p>
 
          <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Date Option:</strong> {dateOption}</p>
-        {/* <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Repeat Frequency:</strong> {repeatFrequency}</p> */}
 
         {repeatFrequency === "weekly" && (
           <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Weekly Repeat Days:</strong> {renderWeeklyRepeatDays()}</p>

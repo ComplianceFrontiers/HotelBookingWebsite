@@ -25,6 +25,7 @@ const Events1 = () => {
     monthlyRepeatBy: '',
     monthlyRepeatFrequency: '',
     dateRows: [],
+    recurringDates:[],
     firstDate: '',
     endByDate: '',
     startTime: '',

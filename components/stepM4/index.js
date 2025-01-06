@@ -1,33 +1,88 @@
 import React from 'react';
-import EventSummary from '../EventSummary';
 
-const StepM4 = ({ setActiveStep, formData = {} }) => {
+const StepM4 = ({ setActiveStep, formData }) => {
+  console.log("hhhh",formData)
+
+  // Extract relevant fields from formData
+  const { dateRows, dateOption, weeklyRepeatDays, monthlyRepeatFrequency,recurringDates } = formData;
+  // Format `formattedDateRows1`
+  const formattedDateRows1 = dateRows?.map((row, index) => {
+    return `${row.date} (${row.startTime} - ${row.endTime})`;
+  }) || [];
+
+  // Create `recurringDates1` if applicable
+  const recurringDates1 = [];
+  if (dateOption === "Recurring") {
+    const days = Object.entries(weeklyRepeatDays)
+      .filter(([day, isActive]) => isActive)
+      .map(([day]) => day);
+
+    if (days.length) {
+      recurringDates1.push(`Repeats Weekly on: ${days.join(", ")}`);
+    }
+
+    if (monthlyRepeatFrequency) {
+      recurringDates1.push(`Repeats: ${monthlyRepeatFrequency}`);
+    }
+  }
+
+  const hasFormattedDateRows1 = formattedDateRows1.length > 0;
+  const hasRecurringDates = recurringDates1.length > 0;
+
   return (
     <div className="step-m4-container">
-      <h2 className="step-title">Event Location and Dates</h2>
-      <div className="event-form">
-        <form>
-          <div className="step3-container">
-            <EventSummary
-              setActiveStep={setActiveStep}
-              formData={formData}
-              dateOption={formData?.dateOption}
-              repeatFrequency={formData?.repeatFrequency}
-              weeklyRepeatDays={formData?.weeklyRepeatDays}
-              monthlyRepeatBy={formData?.monthlyRepeatBy}
-              monthlyRepeatFrequency={formData?.monthlyRepeatFrequency}
-              dateRows={formData?.dateRows}
-              firstDate={formData?.firstDate}
-              endByDate={formData?.endByDate}
-              startTime={formData?.startTime}
-              endTime={formData?.endTime}
-              repeatOn={formData?.repeatOn}
-              repeatDay={formData?.repeatDay}
-            />
-          </div>
-        </form>
-      </div>
+<h2 className="step-title">Event Location and Dates</h2>
 
+      {/* Display a message if both arrays are empty */}
+      {!hasFormattedDateRows1 && !hasRecurringDates && (
+        <p>No dates available to display.</p>
+      )}
+
+      {/* Display formattedDateRows1 table if not empty */}
+      {hasFormattedDateRows1 && (
+        <div>
+          <h3>Formatted Date Rows</h3>
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Formatted Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {formattedDateRows1.map((date, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{date}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* Display recurringDates1 table if not empty */}
+      {hasRecurringDates && (
+        <div>
+          <h3>Recurring Dates</h3>
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Recurring Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {recurringDates1.map((date, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{date}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
       <h2 className="additional-title">Additional Items</h2>
       <div className="additional-items">
         <form>
@@ -94,6 +149,7 @@ const StepM4 = ({ setActiveStep, formData = {} }) => {
         <button onClick={() => setActiveStep(3)} className="btn-back">Back</button>
         <button className="btn-submit">Submit Request</button>
       </div>
+
     </div>
   );
 };

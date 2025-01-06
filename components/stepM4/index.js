@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from "axios";
 
-
 const StepM4 = ({ setActiveStep, formData }) => {
   const { dateRows, dateOption, recurringDates } = formData; 
   const userDetails = JSON.parse(localStorage.getItem("user_details"));
@@ -41,8 +40,16 @@ const StepM4 = ({ setActiveStep, formData }) => {
     const diffMinutes = endTotalMinutes - startTotalMinutes;
     return diffMinutes / 60; // Return the difference in hours
   };
+
+  const totalEstimation = [...formattedDateRows1, ...formattedDateRows2].reduce(
+    (total, row) => {
+      const totalHours = calculateHours(row.startTime, row.endTime);
+      return total + totalHours * 50; // Assuming $50/hour rate
+    },
+    0
+  );
+
   const handleCheckout = async () => {
-    // Check if the date arrays are not undefined or empty
     const bookedDates =
       dateOption === "One-Time"
         ? formattedDateRows1 && formattedDateRows1.length > 0
@@ -54,20 +61,17 @@ const StepM4 = ({ setActiveStep, formData }) => {
   
     console.log("bookedDates", bookedDates); // Log bookedDates for debugging
   
-    // Add `formattedDateRows1` and `formattedDateRows2` to `formData`
     const bookingDetails = {
       event_name: formData.eventName,
       attendance: formData.attendance,
       room_type: formData.roomType,
       date_option: formData.dateOption,
       booked_dates: bookedDates,
-    
     };
   
     console.log("bookingDetails", bookingDetails); // Log the booking details
   
     try {
-      // Make the API call for booking
       const response = await axios.post(
         "https://hotel-website-backend-eosin.vercel.app/checkout",
         {
@@ -77,49 +81,96 @@ const StepM4 = ({ setActiveStep, formData }) => {
       );
       
       console.log("API Response:", response); // Log the API response for debugging
-  
-      // Proceed to the next step if successful
       alert(response.data.message);
     } catch (error) {
-      // Handle errors during the booking process
       console.error("Error during checkout:", error);
       alert("Error: " + (error.response?.data?.error || "Something went wrong"));
     }
   };
-  
-  
-  
- 
+
+  const [additionalItems, setAdditionalItems] = useState([]);
+  const [newItem, setNewItem] = useState({ item: '', quantity: '', dates: '' });
+
+  const handleAddItem = () => {
+    setAdditionalItems([...additionalItems, newItem]);
+    setNewItem({ item: '', quantity: '', dates: '' });
+  };
 
   return (
     <div className="step-m4-container">
-       <div className="step2-container">
-      <h3 style={{ backgroundColor: "#0078d7", fontFamily: "Monster", fontSize: "1.2rem", padding: "10px", color: "#fff" }}>Event Summary</h3>
-      <div className="event-location">
-        <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Event Name:</strong> {formData.eventName}</p>
-        <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Attendance:</strong> {formData.attendance}</p>
-        <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Room Type:</strong> {formData.roomType}</p>
+      <div className="step2-container">
+        <h3 style={{ backgroundColor: "#0078d7", fontFamily: "Monster", fontSize: "1.2rem", padding: "10px", color: "#fff" }}>Event Summary</h3>
+        <div className="event-location">
+          <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Event Name:</strong> {formData.eventName}</p>
+          <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Attendance:</strong> {formData.attendance}</p>
+          <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Room Type:</strong> {formData.roomType}</p>
+          <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Date Option:</strong> {dateOption}</p>
+        </div>
+      </div>
 
-         <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Date Option:</strong> {dateOption}</p>
+      <div style={{ border: "1px solid #0078d7", padding: "15px", borderRadius: "8px", marginTop: "20px", fontSize: "0.8rem" }}>
+        <h3 style={{ fontFamily: "Monster", fontSize: "1rem", marginBottom: "10px" }}>Additional Items</h3>
+        <div>
+          <label>Item *</label>
+          <input
+            type="text"
+            value={newItem.item}
+            onChange={(e) => setNewItem({ ...newItem, item: e.target.value })}
+            style={{ display: "block", marginBottom: "10px" }}
+          />
+          <label>Quantity *</label>
+          <input
+            type="number"
+            value={newItem.quantity}
+            onChange={(e) => setNewItem({ ...newItem, quantity: e.target.value })}
+            style={{ display: "block", marginBottom: "10px" }}
+          />
+          <label>Date(s) *</label>
+          <input
+            type="date"
+            value={newItem.dates}
+            onChange={(e) => setNewItem({ ...newItem, dates: e.target.value })}
+            style={{ display: "block", marginBottom: "10px" }}
+          />
+          <button onClick={handleAddItem} style={{ marginTop: "10px", padding: "5px 10px" }}>Add Item</button>
+        </div>
 
-</div>
-</div>
+        <table style={{ width: "100%", marginTop: "15px", borderCollapse: "collapse", fontSize: "0.8rem" }}>
+          <thead>
+            <tr style={{ borderBottom: "1px solid #0078d7" }}>
+              <th style={{ textAlign: "left", padding: "5px" }}>Item</th>
+              <th style={{ textAlign: "left", padding: "5px" }}>Quantity</th>
+              <th style={{ textAlign: "left", padding: "5px" }}>Date(s)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {additionalItems.map((item, index) => (
+              <tr key={index}>
+                <td style={{ padding: "5px" }}>{item.item}</td>
+                <td style={{ padding: "5px" }}>{item.quantity}</td>
+                <td style={{ padding: "5px" }}>{item.dates}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
       <h2 className="step-title">Event Location and Dates</h2>
 
       {hasFormattedDateRows1 && (
         <div>
-        <h3 className="estimates-title">Estimates for Request</h3>
-        <table className="estimates-table"> 
+          <h3 className="estimates-title">Estimates for Request</h3>
+          <table className="estimates-table"> 
             <thead>
               <tr>
                 <th>#</th>
                 <th>Request Date</th>
-            <th>Item</th>
-            <th>Quantity</th>
-            <th>Total Hours</th>
-            <th>Estimated Base</th>
-            <th>Rate</th>
-            <th>Estimated Total</th>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Total Hours</th>
+                <th>Estimated Base</th>
+                <th>Rate</th>
+                <th>Estimated Total</th>
               </tr>
             </thead>
             <tbody>
@@ -132,7 +183,6 @@ const StepM4 = ({ setActiveStep, formData }) => {
                     <td>{row.date}</td>
                     <td>1</td>
                     <td>1</td>
-                    
                     <td>{totalHours.toFixed(2)}</td>
                     <td>50$</td>
                     <td>Per Hour</td>
@@ -147,18 +197,18 @@ const StepM4 = ({ setActiveStep, formData }) => {
 
       {hasRecurringDates && (
         <div>
-        <h3 className="estimates-title">Estimates for Request</h3>
-        <table className="estimates-table"> 
+          <h3 className="estimates-title">Estimates for Request</h3>
+          <table className="estimates-table"> 
             <thead>
               <tr>
                 <th>#</th>
                 <th>Request Date</th>
-            <th>Item</th>
-            <th>Quantity</th>
-            <th>Total Hours</th>
-            <th>Estimated Base</th>
-            <th>Rate</th>
-            <th>Estimated Total</th>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Total Hours</th>
+                <th>Estimated Base</th>
+                <th>Rate</th>
+                <th>Estimated Total</th>
               </tr>
             </thead>
             <tbody>
@@ -171,7 +221,6 @@ const StepM4 = ({ setActiveStep, formData }) => {
                     <td>{row.date}</td>
                     <td>1</td>
                     <td>1</td>
-                    
                     <td>{totalHours.toFixed(2)}</td>
                     <td>50$</td>
                     <td>Per Hour</td>
@@ -183,10 +232,20 @@ const StepM4 = ({ setActiveStep, formData }) => {
           </table>
         </div>
       )}
- 
+    
+      <div className="total-estimation-container">
+        <h4 className="total-estimation-text">Total Estimation: ${totalEstimation.toFixed(2)}</h4>
+      </div>
+
       <div className="navigation-buttons">
         <button onClick={() => setActiveStep(3)} className="btn-add">Back</button>
-        <button onClick={handleCheckout} className="btn-add">Submit Request</button>
+        <button 
+          onClick={() => setActiveStep(5)} 
+          className="btn-add"
+          disabled={totalEstimation === 0} // Disable button if total estimation is 0
+        >
+          Proceed for Payment
+        </button>
       </div>
     </div>
   );

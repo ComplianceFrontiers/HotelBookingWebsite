@@ -681,3 +681,125 @@
   font-size: 28px;
   font-weight: bold;
 }
+.total-estimation-container {
+  display: flex;
+  justify-content: flex-end; /* Aligns content to the right */
+  margin-top: 20px; /* Adds space above the total estimation */
+}
+
+.total-estimation-text {
+  font-family: "Monster", sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #0078d7; /* Matches the color theme */
+  padding: 10px 10px;
+  border-radius: 5px; /* Rounded corners for a polished look */
+}
+
+
+
+
+
+
+
+
+
+.step-m5-container {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin-top: 20px;
+}
+
+.step-m5-popup-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #000000;
+  color: #fff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  &.show {
+    opacity: 1;
+    transform: translate(-50%, -60%);
+  }
+}
+
+.step-m5-popup-message {
+  margin: 0;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.step-m5-container {
+  margin-left: 25%;
+  width:50%;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin-top: 20px;
+}
+
+.step-m5-popup-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #000000;
+  color: #fff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  &.show {
+    opacity: 1;
+    transform: translate(-100%, -60%);
+  }
+}
+
+.step-m5-popup-message {
+  margin: 0;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.step-m5-select-container {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column; /* Ensure items are stacked vertically */
+  align-items: center; /* Center align the content */
+  gap: 20px; /* Add space between the select and button */
+}
+
+.step-m5-select {
+  width: 50%;
+  padding: 10px;
+  font-size: 1.2rem;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.step-m5-continue-btn {
+  padding: 10px 10px;
+  font-size: 1rem;
+  background-color: #4a8ce2;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.step-m5-continue-btn:hover {
+  background-color: #13709b;
+}

@@ -10,7 +10,6 @@ const EventSummary = ({
   monthlyRepeatBy,
   monthlyRepeatFrequency,
   dateRows,
-  recurringDates,
   firstDate,
   endByDate,
   startTime,
@@ -42,7 +41,7 @@ const fetchBookedDates = async () => {
     
     // Extract and format the booked dates
     const bookedDates = response.data[0].booked_dates; 
-    const datesToCheck = recurringDates.length > 0 ? recurringDates : dateRows.map(row => {
+    const datesToCheck = recurringDates1.length > 0 ? recurringDates1 : dateRows.map(row => {
       // Check if the date is already in the "DD-MM-YYYY" format
       const isFormatted = /^\d{1,2}-\d{1,2}-\d{4}$/.test(row.date);
     
@@ -100,7 +99,7 @@ const fetchBookedDates = async () => {
     return "";
   };
 
-  const generateRecurringDates = (
+  const generaterecurringDates1 = (
     firstDate,
     endByDate,
     repeatFrequency,
@@ -245,7 +244,7 @@ const fetchBookedDates = async () => {
   };
   
 
-  recurringDates = generateRecurringDates(
+  const recurringDates1 = generaterecurringDates1(
     firstDate,
     endByDate,
     repeatFrequency,
@@ -257,15 +256,16 @@ const fetchBookedDates = async () => {
     repeatDay,
     weeklyRepeatDays
   );
-
+  formData.recurringDates = recurringDates1;
+  console.log("tttt",formData)
   const handleCheckout = async () => {
     // Prepare `bookedDates` based on the recurring or one-time selection
     const bookedDates =
-      recurringDates.length === 0 && dateOption === "One-Time"
+      recurringDates1.length === 0 && dateOption === "One-Time"
         ? formattedDateRows1 // Use formattedDateRows1 for One-Time events
-        : recurringDates; // Use recurringDates otherwise
+        : recurringDates1; // Use recurringDates1 otherwise
   
-    // Add `formattedDateRows1` and `recurringDates` to `formData`
+    // Add `formattedDateRows1` and `recurringDates1` to `formData`
     const bookingDetails = {
       event_name: formData.eventName,
       attendance: formData.attendance,
@@ -273,7 +273,7 @@ const fetchBookedDates = async () => {
       date_option: dateOption,
       booked_dates: bookedDates,
       formatted_dates: formattedDateRows1, // Include formatted dates in the payload
-      recurring_dates: recurringDates, // Include recurring dates in the payload
+      recurring_dates: recurringDates1, // Include recurring dates in the payload
     };
   
     try {
@@ -344,7 +344,7 @@ const fetchBookedDates = async () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {recurringDates.map((row, index) => (
+                  {recurringDates1.map((row, index) => (
                     <tr key={index}>
                       <td style={{ padding: "8px" }}>{row.date}</td>
                       <td style={{ padding: "8px" }}>{row.startTime}</td>

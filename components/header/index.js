@@ -27,6 +27,7 @@ const Header = (props) => {
     };
 
     const handleLogout = () => {
+        localStorage.clear();
         localStorage.removeItem('user-details');
         setIsLoggedIn(false);
     };

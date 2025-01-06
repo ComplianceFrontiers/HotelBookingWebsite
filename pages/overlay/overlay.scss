@@ -1,4 +1,5 @@
-.container {
+/* Container styling */
+.booking-overlay-container {
   margin: 20px auto;
   padding: 20px;
   max-width: 800px;
@@ -6,55 +7,54 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: auto; /* Full viewport height */
 }
 
+/* Headings */
 h1 {
   text-align: center;
   margin-bottom: 20px;
   color: #333;
 }
 
-.table {
+/* Table styling */
+.booking-overlay-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
 
-.table th,
-.table td {
+.booking-overlay-table th,
+.booking-overlay-table td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
 }
 
-.table th {
+.booking-overlay-table th {
   background-color: #f4f4f4;
   color: #333;
   font-weight: bold;
 }
 
-.table tr:nth-child(even) {
+.booking-overlay-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-.table tr:hover {
+.booking-overlay-table tr:hover {
   background-color: #f1f1f1;
 }
 
-.button-container {
+/* Buttons container */
+.booking-overlay-buttons {
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-top: auto; /* Push buttons to the bottom */
-  padding: 20px;
+  margin-top: 20px;
 }
 
-.back-button,
-.print-button {
+/* Buttons */
+.booking-overlay-back-button,
+.booking-overlay-print-button {
   padding: 10px 20px;
   font-size: 16px;
   color: #fff;
@@ -64,18 +64,30 @@ h1 {
   transition: background-color 0.3s;
 }
 
-.back-button {
+.booking-overlay-back-button {
   background-color: #6c757d;
 }
 
-.back-button:hover {
+.booking-overlay-back-button:hover {
   background-color: #5a6268;
 }
 
-.print-button {
+.booking-overlay-print-button {
   background-color: #007bff;
 }
 
-.print-button:hover {
+.booking-overlay-print-button:hover {
   background-color: #0056b3;
+}
+
+/* Loading and error messages */
+.booking-overlay-loading,
+.booking-overlay-error {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+}
+
+.booking-overlay-error {
+  color: #ff4d4d;
 }

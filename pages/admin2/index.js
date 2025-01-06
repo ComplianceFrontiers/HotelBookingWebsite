@@ -26,12 +26,12 @@ const BookingTable = () => {
     fetchData();
   }, []);
 
-  if (loading) return <div className="loading">Loading...</div>;
-  if (error) return <div className="error">Error: {error}</div>;
+  if (loading) return <div className="booking-loading">Loading...</div>;
+  if (error) return <div className="booking-error">Error: {error}</div>;
 
   const flattenedData = data.flatMap((user) =>
     user.booked_details.map((booking) => ({
-      ...booking, // Include all details in booking object
+      ...booking,
     }))
   );
 
@@ -41,7 +41,7 @@ const BookingTable = () => {
   };
 
   return (
-    <div className="table-container">
+    <div className="booking-table-container">
       <h2>Booking Details</h2>
       <table className="booking-table">
         <thead>
@@ -56,7 +56,10 @@ const BookingTable = () => {
           {flattenedData.map((booking, index) => (
             <tr key={index}>
               <td>
-                <button onClick={() => handleBookingClick(booking)}>
+                <button
+                  className="booking-id-button"
+                  onClick={() => handleBookingClick(booking)}
+                >
                   {booking.booking_id}
                 </button>
               </td>
@@ -65,7 +68,9 @@ const BookingTable = () => {
               <td>
                 {booking.booked_dates.map((date, idx) => (
                   <div key={idx}>
-                    <strong>Date:</strong> {date.date}, <strong>Start Time:</strong> {date.startTime}, <strong>End Time:</strong> {date.endTime}
+                    <strong>Date:</strong> {date.date},{" "}
+                    <strong>Start Time:</strong> {date.startTime},{" "}
+                    <strong>End Time:</strong> {date.endTime}
                   </div>
                 ))}
               </td>

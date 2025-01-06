@@ -1,7 +1,7 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const Overlay = () => {
+const BookingOverlay = () => {
   const searchParams = useSearchParams();
   const bookingId = searchParams.get("booking_id");
 
@@ -50,19 +50,19 @@ const Overlay = () => {
   };
 
   if (loading) {
-    return <div>Loading booking details...</div>;
+    return <div className="booking-overlay-loading">Loading booking details...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="booking-overlay-error">Error: {error}</div>;
   }
 
   return (
-    <div className="container">
+    <div className="booking-overlay-container">
       <h1>Booking Details</h1>
       {bookingDetails ? (
         <div>
-          <table className="table">
+          <table className="booking-overlay-table">
             <tbody>
               <tr>
                 <th>Booking ID</th>
@@ -89,7 +89,7 @@ const Overlay = () => {
           <h2>Booked Dates</h2>
           {Array.isArray(bookingDetails.booked_dates) &&
           bookingDetails.booked_dates.length > 0 ? (
-            <table className="table">
+            <table className="booking-overlay-table">
               <thead>
                 <tr>
                   <th>Date</th>
@@ -114,17 +114,16 @@ const Overlay = () => {
       ) : (
         <p>No booking details found.</p>
       )}
-      <div className="button-container">
-        <button className="back-button" onClick={handleBack}>
+      <div className="booking-overlay-buttons">
+        <button className="booking-overlay-back-button" onClick={handleBack}>
           Back
         </button>
-        <button className="print-button" onClick={handlePrint}>
+        <button className="booking-overlay-print-button" onClick={handlePrint}>
           Print
         </button>
       </div>
     </div>
   );
-  
 };
 
-export default Overlay;
+export default BookingOverlay;

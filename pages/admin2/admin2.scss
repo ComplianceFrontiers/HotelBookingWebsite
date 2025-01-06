@@ -1,5 +1,5 @@
 /* General styling */
-.table-container {
+.booking-table-container {
   margin: 20px;
   padding: 10px;
   font-family: Arial, sans-serif;
@@ -14,7 +14,7 @@ h2 {
   text-align: center;
   color: #333;
   margin-bottom: 20px;
-  font-size: 26px; /* Increased font size */
+  font-size: 26px;
 }
 
 /* Table styling */
@@ -22,7 +22,7 @@ h2 {
   width: 100%;
   border-collapse: collapse;
   background-color: #fff;
-  font-size: 16px; /* Increased font size */
+  font-size: 16px;
 }
 
 .booking-table thead {
@@ -45,31 +45,31 @@ h2 {
   background-color: #f1f9ff;
 }
 
-.booking-table td button {
+.booking-id-button {
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 8px 14px; /* Increased padding */
+  padding: 8px 14px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px; /* Increased font size for button */
+  font-size: 16px;
   transition: background-color 0.3s ease;
 }
 
-.booking-table td button:hover {
+.booking-id-button:hover {
   background-color: #0056b3;
 }
 
 /* Loading and error states */
-.loading,
-.error {
+.booking-loading,
+.booking-error {
   text-align: center;
-  font-size: 18px; /* Increased font size */
+  font-size: 18px;
   color: #555;
   padding: 20px;
 }
 
-.error {
+.booking-error {
   color: #ff4d4d;
 }
 
@@ -78,53 +78,6 @@ h2 {
   .booking-table th,
   .booking-table td {
     padding: 12px 10px;
-    font-size: 14px; /* Slightly increased font size for smaller screens */
+    font-size: 14px;
   }
-}
-
-/* Overlay styling */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.overlay-content {
-  background: white;
-  padding: 30px;
-  border-radius: 8px;
-  width: 420px; /* Slightly increased width */
-  text-align: left;
-  font-size: 16px; /* Increased font size */
-}
-
-.overlay h3 {
-  font-size: 22px; /* Increased font size for heading */
-  margin-bottom: 15px;
-}
-
-.overlay p {
-  margin: 12px 0; /* Increased margin */
-}
-
-.overlay button {
-  margin-top: 15px;
-  padding: 10px 14px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px; /* Increased font size */
-  transition: background-color 0.3s ease;
-}
-
-.overlay button:hover {
-  background-color: #0056b3;
 }

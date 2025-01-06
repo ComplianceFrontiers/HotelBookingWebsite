@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import StepM4 from '../../components/stepM4';
 const EventSummary = ({
   setActiveStep,
   formData,
@@ -258,44 +258,7 @@ const fetchBookedDates = async () => {
   );
   formData.recurringDates = recurringDates1;
   console.log("tttt",formData)
-  const handleCheckout = async () => {
-    // Prepare `bookedDates` based on the recurring or one-time selection
-    const bookedDates =
-      recurringDates1.length === 0 && dateOption === "One-Time"
-        ? formattedDateRows1 // Use formattedDateRows1 for One-Time events
-        : recurringDates1; // Use recurringDates1 otherwise
-  
-    // Add `formattedDateRows1` and `recurringDates1` to `formData`
-    const bookingDetails = {
-      event_name: formData.eventName,
-      attendance: formData.attendance,
-      room_type: formData.roomType,
-      date_option: dateOption,
-      booked_dates: bookedDates,
-      formatted_dates: formattedDateRows1, // Include formatted dates in the payload
-      recurring_dates: recurringDates1, // Include recurring dates in the payload
-    };
-  
-    try {
-      // Make the API call for booking
-      const response = await axios.post(
-        "https://hotel-website-backend-eosin.vercel.app/checkout",
-        {
-          email, // Add user email from local storage
-          booked_details: bookingDetails,
-        }
-      );
-  
-      // Proceed to the next step if successful
-      setActiveStep(4);
-      alert(response.data.message);
-    } catch (error) {
-      // Handle errors during the booking process
-      console.error("Error during checkout:", error.response?.data);
-      alert("Error: " + error.response?.data?.error || "Something went wrong");
-    }
-  };
-  
+   
 
   useEffect(() => {
     
@@ -390,7 +353,7 @@ const fetchBookedDates = async () => {
       
       <div className="navigation-buttons">
         <button onClick={() => setActiveStep(2)} className="btn-add">Back</button>
-        <button onClick={handleCheckout} className="btn-add">Continue</button>
+        <button onClick={() => setActiveStep(4)} className="btn-add">Continue</button>
       </div>
      </div>
      </div>

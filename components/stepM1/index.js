@@ -12,9 +12,7 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
   return (
     <div className="step-m1-container">
       <h2 className="step-title">Submit New Request</h2>
-      <p className="step-info">
-        You will receive an email notification once your request has been approved.
-      </p>
+      
       <div className="step-content">
         <div className="event-info">
           <h3 className="section-title">Event Information</h3>
@@ -23,25 +21,50 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
               <label>Full Name</label>
               <span>{formData.full_name}</span>
             </div>
-            <div className="form-group">
-              <label>Room Type *</label>
-              <select
-                name="roomType"
-                value={formData.roomType}
-                onChange={handleInputChange}
-                required
-              >
-                <option value="" disabled>
-                  Select room type
-                </option>
-                <option value="gym">Gym</option>
-                <option value="multi-purpose-room">Multi-Purpose Room</option>
-                <option value="conference-center">Conference Center</option>
-                <option value="auditorium">Auditorium</option>
-                <option value="pavilion">Pavilion</option>
-                <option value="firepit">Firepit</option>
-              </select>
-            </div>
+            <div
+  className="form-group"
+  style={{
+    marginBottom: '15px',
+    display: 'flex',
+    flexDirection: 'column',
+  }}
+>
+  <label
+    style={{
+      marginBottom: '5px',
+      fontWeight: 'bold',
+      fontSize: '13px',
+      color: '#333',
+    }}
+  >
+    Room Type *
+  </label>
+  <select
+    name="roomType"
+    value={formData.roomType}
+    onChange={handleInputChange}
+    required
+    style={{
+      padding: '10px',
+      fontSize: '13px',
+      border: '1px solid #ccc',
+      borderRadius: '4px',
+      backgroundColor: '#fff',
+      color: '#333',
+    }}
+  >
+    <option value="" disabled>
+      Select room type
+    </option>
+    <option value="gym">Gym</option>
+    <option value="multi-purpose-room">Multi-Purpose Room</option>
+    <option value="conference-center">Conference Center</option>
+    <option value="auditorium">Auditorium</option>
+    <option value="pavilion">Pavilion</option>
+    <option value="firepit">Firepit</option>
+  </select>
+</div>
+
             <div className="form-group">
               <label>Event Name *</label>
               <input

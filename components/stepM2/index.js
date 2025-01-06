@@ -259,7 +259,7 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
             </table>
           </div>
         )}
-        {dateOption === "One-Time" && (<button onClick={addAdditionalDate}>Add Date</button>)}
+        {dateOption === "One-Time" && (<button onClick={addAdditionalDate} className="btn-add"  >Add Date</button>)}
        
         <div className="navigation-buttons">
          <button

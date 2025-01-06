@@ -79,7 +79,7 @@ const Events1 = () => {
             Step 1:
             <span
               style={{
-                fontSize: '14px',
+                fontSize: '13px',
                 textDecoration: 'underline',
               }}
               onMouseEnter={(e) => (e.target.style.color = 'blue')}
@@ -99,7 +99,7 @@ const Events1 = () => {
             Step 2:
             <span
               style={{
-                fontSize: '14px',
+                fontSize: '13px',
                 textDecoration: 'underline',
               }}
               onMouseEnter={(e) => (e.target.style.color = 'blue')}
@@ -119,7 +119,7 @@ const Events1 = () => {
             Step 3:
             <span
               style={{
-                fontSize: '14px',
+                fontSize: '13px',
                 textDecoration: 'underline',
               }}
               onMouseEnter={(e) => (e.target.style.color = 'blue')}
@@ -139,7 +139,7 @@ const Events1 = () => {
             Step 4:
             <span
               style={{
-                fontSize: '14px',
+                fontSize: '13px',
                 textDecoration: 'underline',
               }}
               onMouseEnter={(e) => (e.target.style.color = 'blue')}
@@ -159,7 +159,7 @@ const Events1 = () => {
             {/* Step 5: */}
             <span
               style={{
-                fontSize: '14px',
+                fontSize: '13px',
                 textDecoration: 'underline',
               }}
               onMouseEnter={(e) => (e.target.style.color = 'blue')}

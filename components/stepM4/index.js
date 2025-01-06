@@ -79,14 +79,13 @@ const StepM4 = ({ setActiveStep, formData }) => {
           booked_details: bookingDetails,
         }
       );
-      
-      console.log("API Response:", response); // Log the API response for debugging
-      alert(response.data.message);
+      setActiveStep(5);
     } catch (error) {
       console.error("Error during checkout:", error);
       alert("Error: " + (error.response?.data?.error || "Something went wrong"));
     }
   };
+  
 
   const [additionalItems, setAdditionalItems] = useState([]);
   const [newItem, setNewItem] = useState({ item: '', quantity: '', dates: '' });
@@ -240,7 +239,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
       <div className="navigation-buttons">
         <button onClick={() => setActiveStep(3)} className="btn-add">Back</button>
         <button 
-          onClick={() => setActiveStep(5)} 
+          onClick={handleCheckout} 
           className="btn-add"
           disabled={totalEstimation === 0} // Disable button if total estimation is 0
         >

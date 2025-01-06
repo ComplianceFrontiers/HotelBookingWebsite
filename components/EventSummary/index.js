@@ -187,7 +187,7 @@ const fetchBookedDates = async () => {
           });
           currentDate.setMonth(currentDate.getMonth() + repeatInterval);
                 
-      } 
+        }
     }
       else if (monthlyRepeatBy === "dayOfWeek") {
         while (currentDate <= endDate) {
@@ -216,7 +216,7 @@ const fetchBookedDates = async () => {
   
       selectedWeekdays.forEach((weekday) => {
         let nextOccurrence = new Date(currentDate);
-    
+  
         // Calculate the first occurrence of the selected weekday
         let dayOffset = (weekday - nextOccurrence.getDay() + 7) % 7;
     
@@ -226,7 +226,7 @@ const fetchBookedDates = async () => {
         } else {
           nextOccurrence.setDate(nextOccurrence.getDate() + dayOffset); // Otherwise, move to the next occurrence
         }
-    
+  
         // Add occurrences for each week within the range
         while (nextOccurrence <= endDate) {
           dates.push({
@@ -243,7 +243,7 @@ const fetchBookedDates = async () => {
     return dates;
   };
   
-
+  
   const recurringDates1 = generaterecurringDates1(
     firstDate,
     endByDate,

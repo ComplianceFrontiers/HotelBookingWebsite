@@ -29,6 +29,17 @@ const StepM4 = ({ setActiveStep, formData }) => {
 
   return (
     <div className="step-m4-container">
+       <div className="step2-container">
+      <h3 style={{ backgroundColor: "#0078d7", fontFamily: "Monster", fontSize: "1.2rem", padding: "10px", color: "#fff" }}>Event Summary</h3>
+      <div className="event-location">
+        <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Event Name:</strong> {formData.eventName}</p>
+        <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Attendance:</strong> {formData.attendance}</p>
+        <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Room Type:</strong> {formData.roomType}</p>
+
+         <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Date Option:</strong> {dateOption}</p>
+
+</div>
+</div>
       <h2 className="step-title">Event Location and Dates</h2>
 
       {hasFormattedDateRows1 && (
@@ -110,8 +121,8 @@ const StepM4 = ({ setActiveStep, formData }) => {
       )}
  
       <div className="navigation-buttons">
-        <button onClick={() => setActiveStep(3)} className="btn-back">Back</button>
-        <button className="btn-submit">Submit Request</button>
+        <button onClick={() => setActiveStep(3)} className="btn-add">Back</button>
+        <button className="btn-add">Submit Request</button>
       </div>
     </div>
   );

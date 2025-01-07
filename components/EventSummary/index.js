@@ -54,28 +54,33 @@ const fetchBookedDates = async () => {
       return { ...row, date: formattedDate };
     });
     
- 
-    const conflicts = datesToCheck.filter((recDate) => {
-      return bookedDates.some((bookedDate) => {
-        if (bookedDate.date === recDate.date) {
-          // Compare time intervals
-          const recStartTime = new Date(`1970-01-01T${recDate.startTime}:00`);
-          const recEndTime = new Date(`1970-01-01T${recDate.endTime}:00`);
-          const bookedStartTime = new Date(`1970-01-01T${bookedDate.startTime}:00`);
-          const bookedEndTime = new Date(`1970-01-01T${bookedDate.endTime}:00`);
+    console.log("datestocheck", datesToCheck);
+    console.log("bookedDates", bookedDates);
+   // Helper function to normalize date to "dd-MM-yyyy"
+function normalizeDate(date) {
+  const [day, month, year] = date.split("-").map((val) => val.padStart(2, "0"));
+  return `${day}-${month}-${year}`;
+}
 
-          // Check for time overlap
-          return (
-            (recStartTime < bookedEndTime && recEndTime > bookedStartTime) // Overlap condition
-          );
-        }
-        return false;
-      });
-    });
-    console.log("ccccc", conflicts);
-    
+const conflicts = datesToCheck.filter((recDate) => {
+  return bookedDates.some((bookedDate) => {
+    if (normalizeDate(bookedDate.date) === normalizeDate(recDate.date)) {
+      // Convert time to Date objects for comparison
+      const recStartTime = new Date(`1970-01-01T${recDate.startTime}:00`);
+      const recEndTime = new Date(`1970-01-01T${recDate.endTime}:00`);
+      const bookedStartTime = new Date(`1970-01-01T${bookedDate.startTime}:00`);
+      const bookedEndTime = new Date(`1970-01-01T${bookedDate.endTime}:00`);
 
-    setConflictDates(conflicts); // Set the conflicts
+      // Check for time overlap
+      return (
+        recStartTime < bookedEndTime && recEndTime > bookedStartTime
+      );
+    }
+    return false;
+  });
+});
+    setConflictDates(conflicts);
+    console.log("Conflicts:", conflicts);
   } catch (error) {
     console.error("Error fetching booked dates:", error);
   }
@@ -269,6 +274,7 @@ const fetchBookedDates = async () => {
     const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
     return { ...row, date: formattedDate };
   });
+  console.log("formattedDateRows1",recurringDates1,conflictDates)
   
   
   return (

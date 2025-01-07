@@ -5,7 +5,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
   const { dateRows, dateOption, recurringDates } = formData; 
   const userDetails = JSON.parse(localStorage.getItem("user_details"));
   const { email } = userDetails;
-
+console.log("dateRows, dateOption, recurringDates ",dateRows, recurringDates )
   const formatDate = (date) => {
     const d = new Date(date);
     const day = d.getDate().toString().padStart(2, '0'); // Adds leading zero if day is less than 10
@@ -20,19 +20,23 @@ const StepM4 = ({ setActiveStep, formData }) => {
       date: formatDate(row.date), // Format the date
     };
   }) || [];
-  
   const formattedDateRows2 = recurringDates?.map((row) => {
-    const date = new Date(row.date);
-   
-    const formattedDate = `${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}-${date.getFullYear()}`;
+    // Split the date into day, month, year
+    const [day, month, year] = row.date.split('-');
+  
+    // Create a valid date object (in YYYY-MM-DD format)
+    const date = new Date(`${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`);
+  
+    // Format the date to DD-MM-YYYY
+    const formattedDate = `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
   
     return {
       ...row,
-      date: formattedDate, // Format the date
+      date: formattedDate, // Set the formatted date
     };
   }) || [];
   
-  
+  console.log("formattedDateRows2, recurringDates", formattedDateRows2, recurringDates);
   
   const hasFormattedDateRows1 = dateOption === 'One-Time' && formattedDateRows1.length > 0;
   const hasRecurringDates = dateOption === 'Recurring' && formattedDateRows2.length > 0;
@@ -100,7 +104,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
     setAdditionalItems([...additionalItems, newItem]);
     setNewItem({ item: '', quantity: '', dates: '' });
   };
-
+console.log("frrr",formattedDateRows2)
   return (
     <div className="step-m4-container">
       <div className="step2-container">

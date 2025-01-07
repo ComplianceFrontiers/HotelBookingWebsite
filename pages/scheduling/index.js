@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import 'react-calendar/dist/Calendar.css';
 
 const Events = () => {
   const [events, setEvents] = useState([]);
@@ -127,75 +128,80 @@ const Events = () => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      {/* Sidebar Filter for Room Types */}
-      <div style={{ marginBottom: '20px' }}>
-        <select onChange={(e) => setSelectedRoom(e.target.value)} value={selectedRoom}>
-          <option value="">ALL</option>
-          <option value="gym">Gym</option>
-          <option value="multi-purpose-room">Multi-Purpose Room</option>
-          <option value="conference-center">Conference Center</option>
-          <option value="auditorium">Auditorium</option>
-          <option value="pavilion">Pavilion</option>
-          <option value="firepit">Firepit</option>
-        </select>
-      </div>
+    <div className="admin">
+      <div className="admin-container">
 
-      {/* Calendar Component */}
-      <div>
-        <Calendar
-          tileClassName={tileClassName}
-          className="custom-calendar"
-          onClickDay={handleDateClick}
-        />
-      </div>
+              <div className="filter-section">
+                <div className='filter-data'>
+                <h2 className="heading">Filter by Room Title</h2>
+                <select onChange={(e) => setSelectedRoom(e.target.value)} value={selectedRoom}>
+                <option value="">ALL</option>
+                <option value="gym">Gym</option>
+                <option value="multi-purpose-room">Multi-Purpose Room</option>
+                <option value="conference-center">Conference Center</option>
+                <option value="auditorium">Auditorium</option>
+                <option value="pavilion">Pavilion</option>
+                <option value="firepit">Firepit</option>
+              </select>
+                <button    onClick={handleBookNow}>Book Now</button> {/* Filter button */}
+                <div>
+                      <div style={{ display: 'flex', alignItems: 'center', fontWeight: 'bold', marginBottom: '8px' }}>
+                        <span style={{ width: '12px', height: '12px', backgroundColor: 'red', display: 'inline-block', marginRight: '8px' }}></span>
+                        <span>Facility Booked</span>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', fontWeight: 'bold' }}>
+                        <span style={{ width: '12px', height: '12px', backgroundColor: 'white', border: '1px solid black', display: 'inline-block', marginRight: '8px' }}></span>
+                        <span>Facility Available</span>
+                      </div>
+                    </div>
+                </div>
 
-      {/* Display Selected Date and Time Slots */}
-      {selectedDate && (
-        <div style={{ marginTop: '20px' }}>
-          <h3>Time Slots for {selectedDate.toLocaleDateString()}</h3>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-            {timeSlots.map((slot, index) => (
-              <div
-                key={index}
-                style={{
-                  padding: '5px 10px',
-                  backgroundColor: slot.status === 'booked' ? 'red' : 'green',
-                  color: '#fff',
-                  borderRadius: '5px',
-                  textAlign: 'center',
-                  opacity: slot.status === 'booked' ? 0.5 : 1, // Optional: make booked slots look less clickable
-                }}
-              >
-                {slot.time}
+                <div className="questions">
+                          <h2 className="heading">How we can  <br /> Help You!</h2>
+                          <p>Need more information or assistance with booking? Don’t hesitate to reach out. Our friendly team is ready to answer any questions and guide you through the reservation process to ensure your experience is seamless and enjoyable.</p>
+                          <button class="contact-button" href="/contact" >
+                            Contact Us
+                          </button>
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
-      )}
+        
+            <div className="calendar-section">
+            <div>
+              <Calendar
+                tileClassName={tileClassName}
+                className="custom-calendar"
+                onClickDay={handleDateClick}
+              />
+            </div>
+          
 
-      {/* Book Now Button */}
-      <button
-        onClick={handleBookNow}
-        style={{
-          marginTop: '20px',
-          marginLeft: 'auto',
-          display: 'block',
-          padding: '10px 20px',
-          backgroundColor: '#4caf50',
-          color: '#fff',
-          border: 'none',
-          borderRadius: '5px',
-          fontSize: '16px',
-          cursor: 'pointer',
-          transition: 'background-color 0.2s ease',
-        }}
-        onMouseOver={(e) => (e.target.style.backgroundColor = '#45a049')}
-        onMouseOut={(e) => (e.target.style.backgroundColor = '#4caf50')}
-      >
-        Book Now
-      </button>
-    </div>
+            {/* Display Selected Date and Time Slots */}
+            {selectedDate && (
+              <div style={{ marginTop: '20px' }}>
+                <h3>Time Slots for {selectedDate.toLocaleDateString()}</h3>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                  {timeSlots.map((slot, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        padding: '5px 10px',
+                        backgroundColor: slot.status === 'booked' ? 'red' : 'green',
+                        color: '#fff',
+                        borderRadius: '5px',
+                        textAlign: 'center',
+                        opacity: slot.status === 'booked' ? 0.5 : 1, // Optional: make booked slots look less clickable
+                      }}
+                    >
+                      {slot.time}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+      
+          </div> 
+      </div>
+    </div> 
   );
 };
 

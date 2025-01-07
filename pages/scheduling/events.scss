@@ -1,51 +1,114 @@
-.custom-calendar {
-  margin: 20px auto; /* Center the calendar horizontally */
-  width: 80%;
-  max-width: 800px; /* Set a maximum width for responsiveness */
-  background-color: #f9f9f9; /* Light background for the calendar */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for a modern look */
-  border-radius: 10px; /* Rounded corners */
+.admin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
-
-  .react-calendar {
-    border: none; /* Remove default border */
-  }
-
-  .react-calendar__tile {
-    height: 50px; /* Uniform tile height */
-    font-size: 1rem; /* Slightly larger text for readability */
-    transition: transform 0.2s ease; /* Smooth hover animation */
-
-    &:hover {
-      transform: scale(1.05); /* Slight zoom effect */
-      background-color: #e0e0e0; /* Light grey background on hover */
-    }
-  }
-
-  .react-calendar__tile--active {
-    background-color: #4caf50; /* Green background for active date */
-    color: white; /* White text */
-    font-weight: bold; /* Make it stand out */
-  }
-
-  .react-calendar__tile--active:focus,
-  .react-calendar__tile--active:hover {
-    background-color: #45a049; /* Slightly darker green on hover */
-  }
-
-  .booked {
-    color: red !important;
-    font-weight: bold;
-    text-decoration: underline;
-  }
-
-  .available {
-    color: green !important;
-    background-color: white;
-    font-weight: bold;
-  }
 }
 
+
+
+.admin-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.filter-section {
+  width: 20%;
+  margin-right: 20px;
+}
+
+.calendar-section {
+  margin-left: 80px;
+  width: 80%;
+}
+
+.view-options {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px 16px;
+  margin: 0 5px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #095ab0;
+}
+
+button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.booked {
+  color: white;
+  background-color: #eb6010 !important; /* Red for available dates */
+
+}
+
+.available {
+  background-color: #f0f0f0;
+  color: rgb(17, 16, 16) !important;
+}
+
+.booking-details {
+  margin-top: 20px;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.calendar-section {
+  width: 90%;
+  position: relative; // Ensure absolute positioning works
+
+  .custom-calendar {
+    width: 800px; // Set your desired width
+    height: auto; // Set your desired height
+    .react-calendar__tile--active {
+      color: black; // Change text color to black
+      background-color: #fff; // Adjust background color if needed
+    }
+
+    // Additional styling for hover or focus states
+    .react-calendar__tile--active:focus,
+    .react-calendar__tile--active:hover {
+      color: black; // Ensure it remains black on hover/focus
+    }
+  }
+}
+.custom-calendar .react-calendar__tile {
+  height: 110px; /* Increased height for more content space */
+   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.custom-calendar .tile-content {
+  font-size: 10px; /* Smaller font size to fit content */
+  color: #0b0b0b;
+  max-height: 3em; /* Prevent overflow within the tile */
+  overflow-wrap: break-word; /* Wrap long words if needed */
+  white-space: normal; /* Allow text wrapping */
+}
+ 
+ 
 .sidebar {
   margin-right: 20px;
   padding: 20px;

@@ -22,11 +22,17 @@ const StepM4 = ({ setActiveStep, formData }) => {
   }) || [];
   
   const formattedDateRows2 = recurringDates?.map((row) => {
+    const date = new Date(row.date);
+   
+    const formattedDate = `${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}-${date.getFullYear()}`;
+  
     return {
       ...row,
-      date: formatDate(row.date), // Format the date
+      date: formattedDate, // Format the date
     };
   }) || [];
+  
+  
   
   const hasFormattedDateRows1 = dateOption === 'One-Time' && formattedDateRows1.length > 0;
   const hasRecurringDates = dateOption === 'Recurring' && formattedDateRows2.length > 0;

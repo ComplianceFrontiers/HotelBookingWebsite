@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"; 
 import { useRouter } from "next/navigation";
 
 const BookingTable = () => {
@@ -30,9 +30,11 @@ const BookingTable = () => {
   if (error) return <div className="booking-error">Error: {error}</div>;
 
   const flattenedData = data.flatMap((user) =>
-    user.booked_details.map((booking) => ({
-      ...booking,
-    }))
+    Array.isArray(user.booked_details)
+      ? user.booked_details.map((booking) => ({
+          ...booking,
+        }))
+      : []
   );
 
   const handleBookingClick = (booking) => {
@@ -66,13 +68,13 @@ const BookingTable = () => {
               <td>{booking.event_name}</td>
               <td>{booking.room_type}</td>
               <td>
-                {booking.booked_dates.map((date, idx) => (
+                {booking.booked_dates?.map((date, idx) => (
                   <div key={idx}>
                     <strong>Date:</strong> {date.date},{" "}
                     <strong>Start Time:</strong> {date.startTime},{" "}
                     <strong>End Time:</strong> {date.endTime}
                   </div>
-                ))}
+                )) || "No dates available"}
               </td>
             </tr>
           ))}

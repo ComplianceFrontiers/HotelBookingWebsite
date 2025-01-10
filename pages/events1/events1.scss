@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
 
 .step-m1-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
   font-family: 'Montserrat', sans-serif;
   padding: 15px;
 
@@ -15,13 +19,28 @@
     color: green;
     margin-bottom: 20px;
   }
-
+  .booking-details h3{
+    font-size: 20px;
+  }
+  .booking-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .booking-table th, .booking-table td {
+    font-size: 14px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
   .step-content {
+    flex-direction: column;
+  gap: 20px; /* Adjust the gap between sections */
     display: flex;
     justify-content: space-between;
 
     .event-info {
-      flex: 3;
+      flex: 1;
       padding: 15px;
       border: 1px solid #ccc;
       border-radius: 5px;

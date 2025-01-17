@@ -104,11 +104,11 @@ console.log("dateRows, dateOption, recurringDates ",dateRows, recurringDates )
     setAdditionalItems([...additionalItems, newItem]);
     setNewItem({ item: '', quantity: '', dates: '' });
   };
-console.log("frrr",formattedDateRows2)
+
   return (
     <div className="step-m4-container">
       <div className="step2-container">
-        <h3 style={{ backgroundColor: "#3498db", fontFamily: "Monster", fontSize: "1.2rem", padding: "10px", color: "#fff" }}>Event Summary</h3>
+        <h3 style={{ backgroundColor: "#3498db" , fontSize: "0.8rem", padding: "10px", color: "#fff" }}>Event Summary</h3>
         <div className="event-location">
           <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Event Name:</strong> {formData.eventName}</p>
           <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Attendance:</strong> {formData.attendance}</p>
@@ -160,19 +160,21 @@ console.log("frrr",formattedDateRows2)
     />
   </div>
   <button
-    onClick={handleAddItem}
-    style={{
-      marginTop: "22px",
-      padding: "5px 10px",
-      backgroundColor: "#3498db",
-      color: "#fff",
-      border: "none",
-      borderRadius: "4px",
-      cursor: "pointer",
-    }}
-  >
-    Add Item
-  </button>
+  onClick={handleAddItem}
+  style={{
+    marginTop: "22px",
+    padding: "6px 20px",
+    backgroundColor: "#3498db",
+    color: "#fff",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
+  }}
+  disabled={!newItem.item || !newItem.dates} // Disable button if item or date is not selected
+>
+  Add
+</button>
+
 </div>
 
 

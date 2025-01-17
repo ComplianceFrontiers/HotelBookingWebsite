@@ -27,11 +27,15 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
 
   useEffect(() => {
     // Validation logic for enabling "Next" button
+    const isStartEndTimeValid =
+      startTime && endTime && startTime < endTime; // Ensure start time is less than end time
+
     const isValidRecurring =
       dateOption === "Recurring" &&
       firstDate &&
       startTime &&
       endTime &&
+      isStartEndTimeValid && // Check if start time is less than end time
       repeatFrequency &&
       ((repeatFrequency === "weekly" && Object.values(weeklyRepeatDays).some(Boolean)) ||
         (repeatFrequency === "monthly" && monthlyRepeatBy && monthlyRepeatFrequency) ||
@@ -40,9 +44,18 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
 
     const isValidOneTime =
       dateOption === "One-Time" &&
-      dateRows.every((row) => row.date && row.startTime && row.endTime);
+      dateRows.every(
+        (row) =>
+          row.date &&
+          row.startTime &&
+          row.endTime &&
+          row.startTime < row.endTime // Ensure each start time is less than end time
+      );
 
-    setIsNextEnabled((dateOption === "Recurring" && isValidRecurring) || (dateOption === "One-Time" && isValidOneTime));
+    setIsNextEnabled(
+      (dateOption === "Recurring" && isValidRecurring) ||
+        (dateOption === "One-Time" && isValidOneTime)
+    );
   }, [
     dateOption,
     dateRows,
@@ -68,6 +81,13 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
   const handleDateChange = (index, field, value) => {
     const updatedRows = [...dateRows];
     updatedRows[index][field] = value;
+
+    // Validate start time and end time
+    if (updatedRows[index].startTime && updatedRows[index].endTime && updatedRows[index].startTime >= updatedRows[index].endTime) {
+      alert("Start time must be earlier than End time.");
+      return;
+    }
+
     setDateRows(updatedRows);
   };
 
@@ -92,6 +112,22 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
       });
       setMonthlyRepeatBy("");
       setMonthlyRepeatFrequency("");
+    }
+  };
+
+  const handleStartTimeChange = (e) => {
+    const value = e.target.value;
+    setStartTime(value);
+    if (endTime && value >= endTime) {
+      alert("Start time must be earlier than End time.");
+    }
+  };
+
+  const handleEndTimeChange = (e) => {
+    const value = e.target.value;
+    setEndTime(value);
+    if (startTime && value <= startTime) {
+      alert("End time must be later than Start time.");
     }
   };
 
@@ -127,17 +163,17 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem' }}>
               <div className="form-group" style={{ flex: 1 }}>
                 <label>Start Time *</label>
-                <input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
+                <input type="time" value={startTime} onChange={handleStartTimeChange} />
               </div>
               <div className="form-group" style={{ flex: 1 }}>
                 <label>End Time *</label>
-                <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
+                <input type="time" value={endTime} onChange={handleEndTimeChange} />
               </div>
             </div>
 
             <div className="form-group">
               <label>Repeat *</label>
-              <select value={repeatFrequency} onChange={handleRepeatFrequencyChange}>
+              <select value={repeatFrequency} onChange={(e) => setRepeatFrequency(e.target.value)}>
                 <option value="">Select</option>
                 <option value="daily">Daily</option>
                 <option value="weekly">Weekly</option>
@@ -183,9 +219,8 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
               <div>
                 <div className="form-group">
                   <label>Repeat By *</label>
-                  <select value={monthlyRepeatBy} onChange={handleMonthlyRepeatByChange}>
-                  <option value="">Select</option>
-
+                  <select value={monthlyRepeatBy} onChange={(e) => setMonthlyRepeatBy(e.target.value)}>
+                    <option value="">Select</option>
                     <option value="dateOfMonth">Date of Month</option>
                     <option value="dayOfWeek">dayOfWeek</option>
                   </select>
@@ -194,7 +229,7 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
                   <div>
                     <div className="form-group">
                       <label>Repeat Frequency (in months) *</label>
-                      <select value={monthlyRepeatFrequency} onChange={handleMonthlyRepeatFrequencyChange}>
+                      <select value={monthlyRepeatFrequency} onChange={(e) => setMonthlyRepeatFrequency(e.target.value)}>
                         <option value="1">1 month</option>
                         <option value="2">2 months</option>
                         <option value="3">3 months</option>
@@ -255,41 +290,41 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
             </table>
           </div>
         )}
-        {dateOption === "One-Time" && (<button onClick={addAdditionalDate} className="btn-add"  >Add Date</button>)}
+        {dateOption === "One-Time" && (<button onClick={addAdditionalDate} className="btn-add" >Add Date</button>)}
        
         <div className="navigation-buttons">
-        <button
-    onClick={() => setActiveStep(1)}
-    className="btn-back"
-  >
-    Back
-  </button>
-        <button
-          onClick={() => {
-            setFormData({
-              ...formData,
-              dateRows,
-              dateOption,
-              repeatFrequency,
-              firstDate,
-              endByDate,
-              startTime,
-              endTime,
-              weeklyRepeatDays,
-              monthlyRepeatBy,
-              monthlyRepeatFrequency,
-              repeatOn,
-              repeatDay,
-            });
-            setActiveStep(3);
-          }}
-          className="btn-add"
-          disabled={!isNextEnabled} // Button is disabled if validation fails
-        >
-          Next
-        </button>
+          <button
+            onClick={() => setActiveStep(1)}
+            className="btn-back"
+          >
+            Back
+          </button>
+          <button
+            onClick={() => {
+              setFormData({
+                ...formData,
+                dateRows,
+                dateOption,
+                repeatFrequency,
+                firstDate,
+                endByDate,
+                startTime,
+                endTime,
+                weeklyRepeatDays,
+                monthlyRepeatBy,
+                monthlyRepeatFrequency,
+                repeatOn,
+                repeatDay,
+              });
+              setActiveStep(3);
+            }}
+            className="btn-add"
+            disabled={!isNextEnabled} // Button is disabled if validation fails
+          >
+            Next
+          </button>
+        </div>
       </div>
-       </div>
     </div>
   );
 };

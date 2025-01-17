@@ -15,10 +15,8 @@ const DestinationSidebar = (props) => {
 
     const SubmitHandler = (e) => {
         e.preventDefault();
-        // Optionally, you can add form validation or other logic here
-
-        // Redirect to /events after form submission
-        router.push('/events');
+        // Redirect to /scheduling after form submission
+        router.push('/scheduling');
     };
 
     const ClickHandler = () => {
@@ -34,7 +32,7 @@ const DestinationSidebar = (props) => {
                     {Destinations.slice(0, 5).map((destination, Sitem) => (
                         <li key={Sitem}>
                             <Link
-                            href={
+                            href={ 
                                 Sitem === 0
                                 ? "/destination-single/gymnasium"
                                 : Sitem === 1
@@ -47,7 +45,7 @@ const DestinationSidebar = (props) => {
                                 ? "/destination-single/firepit"
                                 : "#"
                             }
-                            as={
+                            as={ 
                                 Sitem === 0
                                 ? `/destination-single/${destination.slug}`
                                 : Sitem === 1
@@ -65,15 +63,13 @@ const DestinationSidebar = (props) => {
                             {destination.title}
                             </Link>
                         </li>
-                        ))}
-
+                    ))}
                     </ul>
                 </div>
                 <div className="wpo-newsletter-widget widget">
                     <h2>Like Our Facility? Book Now!</h2>
                     <p>If you’re impressed with our gym and its offerings, why wait? Secure your spot today and bring your event to life at Bellevue Community Center. Click below to make your reservation and start planning your memorable gathering.</p>
                     <form className="form" onSubmit={SubmitHandler}>
-                        {/* <input type="text" placeholder="Email Address" /> */}
                         <button type="submit">Book Now</button>
                     </form>
                     <span>Please review our <Link onClick={ClickHandler} href="/tandc">Terms and Conditions</Link></span>

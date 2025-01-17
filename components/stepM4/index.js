@@ -96,7 +96,14 @@ console.log("dateRows, dateOption, recurringDates ",dateRows, recurringDates )
     }
   };
   
-
+  const handleDeleteItem = (index) => {
+    // Create a new array excluding the item at the given index
+    const updatedItems = additionalItems.filter((_, i) => i !== index);
+    
+    // Update the state with the new list of items
+    setAdditionalItems(updatedItems);
+  };
+  
   const [additionalItems, setAdditionalItems] = useState([]);
   const [newItem, setNewItem] = useState({ item: '', quantity: '', dates: '' });
 
@@ -178,22 +185,37 @@ console.log("dateRows, dateOption, recurringDates ",dateRows, recurringDates )
 </div>
 
 
-        <table style={{ width: "100%", marginTop: "15px", borderCollapse: "collapse", fontSize: "0.8rem" }}>
-          <thead>
-            <tr style={{ borderBottom: "1px solid #3498db" }}>
-              <th style={{ textAlign: "left", padding: "5px" }}>Item</th>
-              <th style={{ textAlign: "left", padding: "5px" }}>Date(s)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {additionalItems.map((item, index) => (
-              <tr key={index}>
-                <td style={{ padding: "5px" }}>{item.item}</td>
-                <td style={{ padding: "5px" }}>{item.dates}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+<table style={{ width: "100%", marginTop: "15px", borderCollapse: "collapse", fontSize: "0.8rem" }}>
+  <thead>
+    <tr style={{ borderBottom: "1px solid #3498db" }}>
+      <th style={{ textAlign: "left", padding: "5px" }}>Item</th>
+      <th style={{ textAlign: "left", padding: "5px" }}>Date(s)</th>
+      <th style={{ textAlign: "left", padding: "5px" }}>Action</th> {/* Add a new column for the delete button */}
+    </tr>
+  </thead>
+  <tbody>
+    {additionalItems.map((item, index) => (
+      <tr key={index}>
+        <td style={{ padding: "5px" }}>{item.item}</td>
+        <td style={{ padding: "5px" }}>{item.dates}</td>
+        <td style={{ padding: "5px" }}>
+          <p
+            onClick={() => handleDeleteItem(index)} // Call the delete function on click
+            style={{ 
+              color: "#e74c3c",
+              border: "none", 
+              cursor: "pointer",
+              fontSize: "1rem"
+            }}
+          >
+            - 
+          </p>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
       </div>
 
       <h2 className="step-title">Event Location and Dates</h2>

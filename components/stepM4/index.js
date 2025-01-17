@@ -119,15 +119,37 @@ console.log("frrr",formattedDateRows2)
 
       <div style={{ border: "1px solid #3498db", padding: "15px", borderRadius: "8px", marginTop: "20px", fontSize: "0.8rem" }}>
         <h3 style={{ fontFamily: "Monster", fontSize: "1rem", marginBottom: "10px" }}>Additional Items</h3>
-        <div style={{ display: "flex", alignItems: "center", gap: "280px", marginBottom: "20px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "300px", marginBottom: "20px" }}>
   <div style={{ display: "flex", flexDirection: "column" }}>
-    <label>Item *</label>
-    <input
-      type="text"
-      value={newItem.item}
-      onChange={(e) => setNewItem({ ...newItem, item: e.target.value })}
-    />
-  </div>
+  <label>Item *</label>
+  <select
+    value={newItem.item}
+    onChange={(e) => setNewItem({ ...newItem, item: e.target.value })}
+    style={{
+      padding: "5px",
+      border: "1px solid #ccc",
+      borderRadius: "4px",
+      fontSize: "0.9rem",
+    }}
+  >
+    <option value="" disabled>
+      Select an item
+    </option>
+    <option value="Pantry and Refreshment Services">
+      Pantry and Refreshment Services
+    </option>
+    <option value="A/V Equipment Rental">A/V Equipment Rental</option>
+    <option value="Setup and Teardown Assistance">
+      Setup and Teardown Assistance
+    </option>
+    <option value="On-Site Event Support">On-Site Event Support</option>
+    <option value="Cleanup and Maintenance Services">
+      Cleanup and Maintenance Services
+    </option>
+    <option value="Customized Event Decor">Customized Event Decor</option>
+  </select>
+</div>
+
   
   <div style={{ display: "flex", flexDirection: "column" }}>
     <label>Date(s) *</label>

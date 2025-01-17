@@ -57,7 +57,7 @@
     .custom-checkbox {
       width: 20px; // Width of custom checkbox
       height: 20px; // Height of custom checkbox
-      border: 2px solid #007bff; // Border color
+      border: 2px solid #3498db; // Border color
       border-radius: 4px; // Rounded corners
       position: relative; // Positioning for the checkmark
       cursor: pointer; // Pointer on hover
@@ -67,7 +67,7 @@
         position: absolute;
         width: 10px; // Width of checkmark
         height: 10px; // Height of checkmark
-        background-color: #007bff; // Checkmark color
+        background-color: #3498db; // Checkmark color
         left: 50%; // Center checkmark
         top: 50%; // Center checkmark
         transform: translate(-50%, -50%) scale(0); // Scale down initially

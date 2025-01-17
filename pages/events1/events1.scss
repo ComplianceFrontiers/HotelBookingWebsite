@@ -1,11 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
 
+
+.step-m1-container,
+.step2-container,
+.step3-container,
+.step-m4-container,
+.step-m5-container {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
 .step-m1-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   height: 100%;
-  font-family: 'Montserrat', sans-serif;
   padding: 15px;
 
   .step-title {
@@ -48,7 +55,7 @@
       .section-title {
         font-size: 16px;
         margin-bottom: 15px;
-        background: #007bff;
+        background: #3498db;
         color: #fff;
         padding: 8px;
         border-radius: 3px;
@@ -90,7 +97,7 @@
         }
 
         .btn-continue {
-          background-color: #007bff;
+          background-color: #3498db;
           color: white;
           border: none;
           padding: 8px 16px;
@@ -132,18 +139,17 @@
 }
 
 .step2-container {
-  font-family: 'Montserrat', sans-serif;
 
   .event-review,
   .event-location {
-    border: 2px solid #0078d7;
+    border: 2px solid #3498db;
     padding: 15px;
     margin-bottom: 15px;
     border-radius: 5px;
 
     h3 {
       color: white;
-      background-color: #0078d7;
+      background-color: #3498db;
       padding: 8px;
       margin: -15px -15px 8px -15px;
       border-radius: 5px 5px 0 0;
@@ -212,7 +218,7 @@
       }
     }
     .btn-add {
-      background-color: #007bff;
+      background-color: #3498db;
       color: #fff;
       padding: 8px 12px;
       border: none;
@@ -231,7 +237,7 @@
       margin-top: 15px;
     
       .btn-add {
-        background-color: #007bff;
+        background-color: #3498db;
         color: #fff;
         padding: 8px 12px;
         border: none;
@@ -273,14 +279,14 @@
 
   .event-review,
   .event-location {
-    border: 2px solid #0078d7;
+    border: 2px solid #3498db;
     padding: 15px;
     margin-bottom: 15px;
     border-radius: 5px;
 
     h3 {
       color: white;
-      background-color: #0078d7;
+      background-color: #3498db;
       padding: 8px;
       margin: -15px -15px 8px -15px;
       border-radius: 5px 5px 0 0;
@@ -356,7 +362,7 @@
 
       button {
         padding: 8px 12px;
-        background-color: #0078d7;
+        background-color: #3498db;
         color: white;
         border: none;
         border-radius: 3px;
@@ -419,7 +425,7 @@
     justify-content: space-between;
     margin-top: 15px;
     .btn-add {
-      background-color: #007bff;
+      background-color: #3498db;
       color: #fff;
       padding: 8px 12px;
       border: none;
@@ -467,7 +473,6 @@
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 8px;
-  font-family: 'Montserrat', sans-serif;
 
   .step-title {
     font-size: 20px;
@@ -567,7 +572,7 @@
       }
   
       .btn-add {
-        background-color: #007bff;
+        background-color: #3498db;
         color: #fff;
         padding: 8px 12px;
         border: none;
@@ -598,7 +603,7 @@
   
     thead {
       font-size: 14px;
-      background-color: #007bff;
+      background-color: #3498db;
       color: #fff;
   
       th {
@@ -633,7 +638,7 @@
         border: 1px solid #ddd;
   
         &:last-child {
-          color: #007bff;
+          color: #3498db;
         }
       }
     }
@@ -644,7 +649,7 @@
     justify-content: space-between;
     margin-top: 15px;
     .btn-add {
-      background-color: #007bff;
+      background-color: #3498db;
       color: #fff;
       padding: 8px 12px;
       border: none;
@@ -723,7 +728,7 @@
   font-family: "Monster", sans-serif;
   font-size: 1rem;
   font-weight: bold;
-  color: #0078d7; /* Matches the color theme */
+  color: #3498db; /* Matches the color theme */
   padding: 10px 10px;
   border-radius: 5px; /* Rounded corners for a polished look */
 }

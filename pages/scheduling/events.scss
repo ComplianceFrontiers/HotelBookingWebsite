@@ -44,7 +44,7 @@ button:hover {
 }
 
 button.active {
-  background-color: #007bff;
+  background-color: #3498db;
   color: white;
 }
 
@@ -79,6 +79,12 @@ button.active {
     }
   }
 }
+.book-now-btn {
+   align-items: center;
+   margin-left: 30px;
+  display: block;    /* Ensure the button behaves like a block-level element */
+}
+
 .custom-calendar .react-calendar__tile {
   height: 110px; /* Increased height for more content space */
    display: flex;

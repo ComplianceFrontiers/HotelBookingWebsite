@@ -108,7 +108,7 @@ console.log("frrr",formattedDateRows2)
   return (
     <div className="step-m4-container">
       <div className="step2-container">
-        <h3 style={{ backgroundColor: "#0078d7", fontFamily: "Monster", fontSize: "1.2rem", padding: "10px", color: "#fff" }}>Event Summary</h3>
+        <h3 style={{ backgroundColor: "#3498db", fontFamily: "Monster", fontSize: "1.2rem", padding: "10px", color: "#fff" }}>Event Summary</h3>
         <div className="event-location">
           <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Event Name:</strong> {formData.eventName}</p>
           <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Attendance:</strong> {formData.attendance}</p>
@@ -117,7 +117,7 @@ console.log("frrr",formattedDateRows2)
         </div>
       </div>
 
-      <div style={{ border: "1px solid #0078d7", padding: "15px", borderRadius: "8px", marginTop: "20px", fontSize: "0.8rem" }}>
+      <div style={{ border: "1px solid #3498db", padding: "15px", borderRadius: "8px", marginTop: "20px", fontSize: "0.8rem" }}>
         <h3 style={{ fontFamily: "Monster", fontSize: "1rem", marginBottom: "10px" }}>Additional Items</h3>
         <div>
           <label>Item *</label>
@@ -146,7 +146,7 @@ console.log("frrr",formattedDateRows2)
 
         <table style={{ width: "100%", marginTop: "15px", borderCollapse: "collapse", fontSize: "0.8rem" }}>
           <thead>
-            <tr style={{ borderBottom: "1px solid #0078d7" }}>
+            <tr style={{ borderBottom: "1px solid #3498db" }}>
               <th style={{ textAlign: "left", padding: "5px" }}>Item</th>
               <th style={{ textAlign: "left", padding: "5px" }}>Quantity</th>
               <th style={{ textAlign: "left", padding: "5px" }}>Date(s)</th>

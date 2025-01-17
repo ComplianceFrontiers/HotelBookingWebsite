@@ -139,8 +139,8 @@ const Events = () => {
                 <option value="pavilion">Pavilion</option>
                 <option value="firepit">Firepit</option>
               </select>
-                <button    onClick={handleBookNow}>Book Now</button> {/* Filter button */}
-                <div>
+              <button className="book-now-btn" onClick={handleBookNow}>Book Now</button>
+              <div>
                        
                     
                     
@@ -169,7 +169,7 @@ const Events = () => {
             {/* Display Selected Date and Time Slots */}
             {selectedDate && (
               <div style={{ marginTop: '20px' }}>
-                <h3>Time Slots for {selectedDate.toLocaleDateString()}</h3>
+                <h3>Available Time Slots for {selectedDate.toLocaleDateString()}</h3>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                   {timeSlots.map((slot, index) => (
                     <div

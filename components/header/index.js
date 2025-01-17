@@ -79,7 +79,7 @@ const Header = (props) => {
                                
                                 {isLoggedIn && (
                                     <div className="contactus-button">
-                                        <Link href="/events1">Dashboard</Link>
+                                        <Link href="/events1">My Dashboard</Link>
                                     </div>
                                 )}
                                  <div className="login-button">

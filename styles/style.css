@@ -964,7 +964,7 @@ ul.smothscroll a:hover {
   .wpo-site-footer .wpo-upper-footer .col,
   .wpo-site-footer-2 .wpo-upper-footer .col {
     min-height: 200px;
-    margin-bottom:20px;
+    margin-bottom: 20px;
   }
 }
 
@@ -1067,7 +1067,7 @@ ul.smothscroll a:hover {
 }
 
 .wpo-footer-top ul li {
-  margin-top:20px;
+  margin-top: 20px;
   margin-right: 5px;
 }
 
@@ -1166,7 +1166,7 @@ ul.smothscroll a:hover {
 
 .wpo-site-footer .contact-ft ul,
 .wpo-site-footer-2 .contact-ft ul {
-  list-style-type: none; 
+  list-style-type: none;
   padding: 0;
   margin: 0;
   display: block;
@@ -1189,7 +1189,6 @@ ul.smothscroll a:hover {
 .wpo-site-footer-2 .contact-ft {
   margin-top: 1px;
 }
-
 
 .wpo-site-footer .wpo-lower-footer,
 .wpo-site-footer-2 .wpo-lower-footer {
@@ -1386,10 +1385,9 @@ ul.smothscroll a:hover {
   color: #283a5e;
 }
 
-
 .page-title h2 {
   font-size: 90px;
-  
+
   margin-bottom: 0.3em;
   text-transform: capitalize;
   font-weight: 700;
@@ -2102,31 +2100,30 @@ header.fixed .header-content {
 
   .login-button,
   .contactus-button {
-      a {
-          display: inline-block;
-          padding: 8px 16px;
-          border-radius: 4px;
-          font-size: 16px;
-          font-weight: 500;
-          color: #fff;
-          text-decoration: none;
-          transition: background-color 0.3s ease;
+    a {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #fff;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
 
-          &:hover {
-              background-color: darken(#007bff, 10%);
-          }
+      &:hover {
+        background-color: darken(#3498db, 10%);
       }
+    }
   }
 
   .login-button a {
-      background-color: #007bff; 
+    background-color: #3498db;
   }
 
   .contactus-button a {
-      background-color: #28a745;
+    background-color: #28a745;
   }
 }
-
 
 @media (max-width: 1199px) {
   .get-q {
@@ -3505,9 +3502,8 @@ hero-style3
   margin: 0;
   display: inline-block;
   position: relative;
-  line-height:40px;
+  line-height: 40px;
 }
-
 
 .wpo-section-title {
   margin-bottom: 35px;
@@ -3936,7 +3932,7 @@ hero-style3
   height: 93%;
   width: 90%;
   z-index: 999;
-  padding:15px;
+  padding: 15px;
   background: rgba(255, 255, 255, 0.9);
   transition: all 0.5s;
   opacity: 0;
@@ -8734,7 +8730,6 @@ wpo-blog sidebar
   display: block;
   text-align: center; /* Center text horizontally */
 }
-
 
 @media (max-width: 590px) {
   .info-item h2 {

@@ -83,47 +83,50 @@
     .event-form {
       display: flex;
       flex-direction: column;
-      gap: 15px;
-
-      .form-group {
-        margin-bottom: 10px;
-
-        label {
-          font-weight: bold;
-          margin-bottom: 5px;
-          font-size: 12px;
-          margin-right: 70px;
-        }
-
-        input,
-        select {
-          width: 50%;
-          padding: 6px;
-          border: 1px solid #ccc;
-          border-radius: 3px;
-          font-size: 12px;
-        }
-
-        textarea {
-          height: 60px;
-        }
-      }
-
-      .btn-continue {
-        background-color: #3498db;
-        color: white;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 3px;
-        cursor: pointer;
-        font-size: 13px;
-        align-self: flex-end; /* Align button to the right */
-      }
-
-      .btn-continue:hover {
-        background-color: #0056b3;
-      }
     }
+    
+    .form-group {
+      margin-bottom: 10px;
+      display: flex; /* Make label and input appear horizontally */
+      align-items: center; /* Vertically align label and input */
+    }
+    
+    label {
+      font-weight: bold;
+      margin-right: 20px; /* Adjust this to create space between label and input */
+      font-size: 12px;
+      width: 30%; /* Adjust label width */
+    }
+    
+    input,
+    select {
+      width: 70%; /* Adjust width of input to fill the remaining space */
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+    
+    textarea {
+      width: 70%; /* Make textarea take up the remaining space */
+      height: 60px;
+    }
+    
+    .btn-continue {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 13px;
+      align-self: flex-end; /* Align button to the right */
+    }
+    
+    .btn-continue:hover {
+      background-color: #0056b3;
+    }
+    
   }
 
   .steps-sidebar {

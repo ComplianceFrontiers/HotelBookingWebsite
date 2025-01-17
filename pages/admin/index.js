@@ -1,210 +1,87 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import React, { useEffect, useState } from "react"; 
+import { useRouter } from "next/navigation";
 
-const Admin = () => {
-  const [bookedDates, setBookedDates] = useState([]);
-  const [bookingDetails, setBookingDetails] = useState({});
-  const [value, setValue] = useState(new Date()); // Current selected date
-  const [selectedBooking, setSelectedBooking] = useState(null);
-  const [view, setView] = useState('month');
-  const [roomFilter, setRoomFilter] = useState('');
-  const [roomTitles, setRoomTitles] = useState([]);
-  const [filteredDates, setFilteredDates] = useState([]); // To hold dates based on the filter
+const BookingTable = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get('https://hotel-website-backend-eosin.vercel.app/users');
-        const users = result.data;
-
-        const booked = {};
-        const rooms = new Set();
-
-        users.forEach(user => {
-          const checkoutDetails = user.checkout_details;
-          if (checkoutDetails) {
-            checkoutDetails.forEach((details) => {
-              details.forEach(({ checkIn, checkOut, title }) => {
-                const startDate = new Date(checkIn);
-                const endDate = new Date(checkOut);
-                rooms.add(title);
-
-                for (
-                  let date = startDate;
-                  date <= endDate;
-                  date.setDate(date.getDate() + 1)
-                ) {
-                  const dateString = date.toDateString();
-                  if (!booked[dateString]) {
-                    booked[dateString] = [];
-                  }
-                  booked[dateString].push({
-                    title,
-                    checkIn,
-                    checkOut,
-                    email: user.email,
-                    fullName: user.full_name,
-                    price: user.price || 'N/A',
-                  });
-                }
-              });
-            });
-          }
-        });
-
-        setBookedDates(Object.keys(booked));
-        setBookingDetails(booked);
-        setRoomTitles([...rooms]);
-        setFilteredDates(Object.keys(booked));
+        const response = await fetch("https://hotel-website-backend-eosin.vercel.app/users");
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const result = await response.json();
+        setData(result);
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        setError(error.message);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
-  const tileClassName = ({ date, view }) => {
-    if (view === 'month' || view === 'week' || view === 'year') {
-      const dateString = date.toDateString();
-      // Check if the date is booked
-      if (filteredDates.includes(dateString)) {
-        return 'booked';
-      }
-      return 'available';
-    }
+  if (loading) return <div className="booking-loading">Loading...</div>;
+  if (error) return <div className="booking-error">Error: {error}</div>;
+
+  const flattenedData = data.flatMap((user) =>
+    Array.isArray(user.booked_details)
+      ? user.booked_details.map((booking) => ({
+          ...booking,
+        }))
+      : []
+  );
+
+  const handleBookingClick = (booking) => {
+    const queryString = new URLSearchParams(booking).toString();
+    router.push(`/overlay?${queryString}`);
   };
 
-  const handleDayClick = (date) => {
-    const dateString = date.toDateString();
-    if (bookingDetails[dateString]) {
-      setSelectedBooking(bookingDetails[dateString]);
-    } else {
-      setSelectedBooking(null);
-    }
-  };
-
-  const handleViewChange = (newView) => {
-    setView(newView);
-  };
-
-  const handleFilterChange = (event) => {
-    setRoomFilter(event.target.value);
-  };
-
-  const applyFilter = () => {
-    if (roomFilter) {
-      const newFilteredDates = bookedDates.filter(dateString => 
-        bookingDetails[dateString]?.some(booking => booking.title === roomFilter)
-      );
-      setFilteredDates(newFilteredDates);
-    } else {
-      setFilteredDates(bookedDates); // Reset to all booked dates if no filter is applied
-    }
-  };
-
-  const tileContent = ({ date, view }) => {
-    const dateString = date.toDateString();
-    if (filteredDates.includes(dateString)) {
-      const bookings = bookingDetails[dateString];
-      return (
-        <div className="tile-content">
-          {bookings.map((booking, index) => (
-            <div key={index} className="room-title">
-              {booking.title}
-            </div>
-          ))}
-        </div>
-      );
-    }
-    return null;
-  };
-
-  const ClickHandler = () => {
-    window.scrollTo(10, 0);
-};
   return (
-    <div className="admin">
-      <div className="admin-container">
-
-        <div className="filter-section">
-          <div className='filter-data'>
-          <h2 className="heading">Filter by Room Title</h2>
-          {roomTitles.length > 0 ? (
-            roomTitles.map((title, index) => (
-              <div key={index}>
-                <label>
-                  <input
-                    type="checkbox"
-                    value={title}
-                    checked={roomFilter === title}
-                    onChange={handleFilterChange}
-                  />
-                  {title}
-                </label>
-              </div>
-            ))
-          ) : (
-            <p>No rooms available.</p>
-          )}
-          <button onClick={applyFilter}>Show availability</button> {/* Filter button */}
-          <div>
-                <div style={{ display: 'flex', alignItems: 'center', fontWeight: 'bold', marginBottom: '8px' }}>
-                  <span style={{ width: '12px', height: '12px', backgroundColor: 'red', display: 'inline-block', marginRight: '8px' }}></span>
-                  <span>Facility Booked</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', fontWeight: 'bold' }}>
-                  <span style={{ width: '12px', height: '12px', backgroundColor: 'white', border: '1px solid black', display: 'inline-block', marginRight: '8px' }}></span>
-                  <span>Facility Available</span>
-                </div>
-              </div>
-          </div>
-
-          <div className="questions">
-                    <h2 className="heading">How we can  <br /> Help You!</h2>
-                    <p>Need more information or assistance with booking? Don’t hesitate to reach out. Our friendly team is ready to answer any questions and guide you through the reservation process to ensure your experience is seamless and enjoyable.</p>
-                    <button class="contact-button" href="/contact" onClick={ClickHandler}>
-                      Contact Us
-                    </button>
-          </div>
-        </div>
-
-        
-
-        <div className="calendar-section">
-          <Calendar
-            onChange={setValue}
-            value={value}
-            view={view}
-            tileClassName={tileClassName}
-            tileContent={tileContent}
-            onClickDay={handleDayClick}
-            className="custom-calendar"
-          />
-
-          {selectedBooking && (
-            <div className="booking-details">
-              <h2>Booking Details</h2>
-              <ul>
-                {selectedBooking.map((booking, index) => (
-                  <li key={index}>
-                    <strong>Room Title:</strong> {booking.title} <br />
-                    <strong>Check-In:</strong> {new Date(booking.checkIn).toLocaleString()} <br />
-                    <strong>Check-Out:</strong> {new Date(booking.checkOut).toLocaleString()} <br />
-                    <strong>Email:</strong> {booking.email} <br />
-                    <strong>Full Name:</strong> {booking.fullName} <br />
-                    <strong>Price:</strong> ${booking.price}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      </div>
+    <div className="booking-table-container">
+      <h2>Booking Details</h2>
+      <table className="booking-table">
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Event Name</th>
+            <th>Room Type</th>
+            <th>Booked Dates</th>
+          </tr>
+        </thead>
+        <tbody>
+          {flattenedData.map((booking, index) => (
+            <tr key={index}>
+              <td>
+                <button
+                  className="booking-id-button"
+                  onClick={() => handleBookingClick(booking)}
+                >
+                  {booking.booking_id}
+                </button>
+              </td>
+              <td>{booking.event_name}</td>
+              <td>{booking.room_type}</td>
+              <td>
+                {booking.booked_dates?.map((date, idx) => (
+                  <div key={idx}>
+                    <strong>Date:</strong> {date.date},{" "}
+                    <strong>Start Time:</strong> {date.startTime},{" "}
+                    <strong>End Time:</strong> {date.endTime}
+                  </div>
+                )) || "No dates available"}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
 
-export default Admin;
+export default BookingTable;

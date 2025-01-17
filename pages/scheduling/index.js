@@ -63,13 +63,11 @@ const Events = () => {
   const handleDateClick = (date) => {
     setSelectedDate(date);
   
-    // Fetch booked slots for the selected date
     const bookedSlots = filteredEvents
       .flatMap((event) =>
         event.booked_dates
           .filter((booking) => parseApiDate(booking.date).toLocaleDateString() === date.toLocaleDateString())
-          .map((booking) => {
-            console.log('Booking Object:', booking);
+          .map((booking) => { 
   
             const startTime = booking.startTime ? booking.startTime : null;
             const endTime = booking.endTime ? booking.endTime : null;
@@ -80,8 +78,7 @@ const Events = () => {
           })
       )
       .flat();
-  
-    console.log(`Booked Slots for Selected Date:`, bookedSlots);
+   
   
     const allSlots = generateTimeSlots();  // Generate all available time slots
     const updatedSlots = allSlots.map((slot) => {
@@ -111,8 +108,7 @@ const Events = () => {
   
       return { time: slot, status: isBooked ? 'booked' : 'available' }; // Mark slot as booked or available
     });
-  
-    console.log(`Updated Slots for Selected Date:`, updatedSlots);
+   
     setTimeSlots(updatedSlots); // Update the state with the slot statuses
   };
   
@@ -135,7 +131,7 @@ const Events = () => {
                 <div className='filter-data'>
                 <h2 className="heading">Filter by Room Title</h2>
                 <select onChange={(e) => setSelectedRoom(e.target.value)} value={selectedRoom}>
-                <option value="">ALL</option>
+                <option value="">Select Room</option>
                 <option value="gym">Gym</option>
                 <option value="multi-purpose-room">Multi-Purpose Room</option>
                 <option value="conference-center">Conference Center</option>
@@ -145,14 +141,9 @@ const Events = () => {
               </select>
                 <button    onClick={handleBookNow}>Book Now</button> {/* Filter button */}
                 <div>
-                      <div style={{ display: 'flex', alignItems: 'center', fontWeight: 'bold', marginBottom: '8px' }}>
-                        <span style={{ width: '12px', height: '12px', backgroundColor: 'red', display: 'inline-block', marginRight: '8px' }}></span>
-                        <span>Facility Booked</span>
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', fontWeight: 'bold' }}>
-                        <span style={{ width: '12px', height: '12px', backgroundColor: 'white', border: '1px solid black', display: 'inline-block', marginRight: '8px' }}></span>
-                        <span>Facility Available</span>
-                      </div>
+                       
+                    
+                    
                     </div>
                 </div>
 

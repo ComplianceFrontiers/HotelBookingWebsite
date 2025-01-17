@@ -80,7 +80,7 @@ const Events1 = () => {
             <span
               style={{
                 fontSize: '13px',
-                textDecoration: 'underline',
+                
               }}
               onMouseEnter={(e) => (e.target.style.color = 'blue')}
               onMouseLeave={(e) => (e.target.style.color = 'black')}
@@ -100,7 +100,7 @@ const Events1 = () => {
             <span
               style={{
                 fontSize: '13px',
-                textDecoration: 'underline',
+                
               }}
               onMouseEnter={(e) => (e.target.style.color = 'blue')}
               onMouseLeave={(e) => (e.target.style.color = 'black')}
@@ -120,7 +120,7 @@ const Events1 = () => {
             <span
               style={{
                 fontSize: '13px',
-                textDecoration: 'underline',
+                
               }}
               onMouseEnter={(e) => (e.target.style.color = 'blue')}
               onMouseLeave={(e) => (e.target.style.color = 'black')}
@@ -140,7 +140,7 @@ const Events1 = () => {
             <span
               style={{
                 fontSize: '13px',
-                textDecoration: 'underline',
+                
               }}
               onMouseEnter={(e) => (e.target.style.color = 'blue')}
               onMouseLeave={(e) => (e.target.style.color = 'black')}
@@ -160,7 +160,7 @@ const Events1 = () => {
             <span
               style={{
                 fontSize: '13px',
-                textDecoration: 'underline',
+                
               }}
               onMouseEnter={(e) => (e.target.style.color = 'blue')}
               onMouseLeave={(e) => (e.target.style.color = 'black')}

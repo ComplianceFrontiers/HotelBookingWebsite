@@ -84,7 +84,7 @@ const VideoSection = (props) => {
                     color: #fff;
                     border: none;
                     cursor: pointer;
-                    font-size: 13px;
+                    font-size: 18px;
                     padding: 5px 10px;
                     border-radius: 50%;
                 }

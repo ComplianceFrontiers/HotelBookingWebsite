@@ -74,7 +74,7 @@ html {
 body {
   font-family: "Nunito Sans", sans-serif !important;
   background-color: #fff;
-  font-size: 13px;
+  font-size: 18px;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -186,7 +186,7 @@ button:focus {
 }
 
 .back-to-top i {
-  font-size: 13px;
+  font-size: 18px;
   font-size: 1.125rem;
   color: #fff;
   position: absolute;
@@ -291,7 +291,7 @@ button:focus {
 
 @media (max-width: 991px) {
   .topbar ul li {
-    font-size: 13px;
+    font-size: 18px;
   }
 
   .topbar {
@@ -308,7 +308,7 @@ button:focus {
     float: left;
     border: none;
     padding: 8px 6px;
-    font-size: 13px;
+    font-size: 18px;
   }
 }
 
@@ -327,7 +327,7 @@ button:focus {
 
   .topbar .theme-btn-s2 {
     padding: 15px 6px;
-    font-size: 13px;
+    font-size: 18px;
   }
 }
 
@@ -354,7 +354,7 @@ button:focus {
 
 @media (max-width: 991px) {
   .topbar ul li {
-    font-size: 13px;
+    font-size: 18px;
   }
 
   .topbar {
@@ -639,7 +639,7 @@ button:focus {
 }
 
 .section-title span {
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 500;
   color: #00d690;
   display: block;
@@ -1786,7 +1786,7 @@ header.fixed .header-content {
 
 .header-style-2 .cart-search-contact .header-search-form-wrapper .fi:before,
 .header-style-3 .cart-search-contact .header-search-form-wrapper .fi:before {
-  font-size: 13px;
+  font-size: 18px;
 }
 
 .header-style-2 .cart-search-contact form div,
@@ -1984,7 +1984,7 @@ header.fixed .header-content {
   .mini-cart-content
   .mini-cart-item-des
   .mini-cart-item-price {
-  font-size: 13px;
+  font-size: 18px;
   font-size: 0.86667rem;
   color: #888;
   display: block;
@@ -2043,7 +2043,7 @@ header.fixed .header-content {
   .mini-cart-content
   .mini-cart-action
   .mini-checkout-price {
-  font-size: 13px;
+  font-size: 18px;
   font-size: 1.2rem;
   font-weight: 600;
   color: #233d62;
@@ -3510,7 +3510,7 @@ hero-style3
 }
 
 .wpo-section-title span {
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 400;
   color: #00d690;
   display: block;
@@ -3968,7 +3968,7 @@ hero-style3
 }
 
 .room-text-hide span {
-  font-size: 13px;
+  font-size: 18px;
   color: #727171;
   margin-bottom: 20px;
   display: block;
@@ -4688,7 +4688,7 @@ hero-style3
 
 .wpo-counter-area .wpo-counter-grids .grid p,
 .counter-style-2 .wpo-counter-grids .grid p {
-  font-size: 13px;
+  font-size: 18px;
   font-weight: normal;
   color: #e4e4e4;
   padding-top: 5px;
@@ -5235,7 +5235,7 @@ hero-style3
 }
 
 .wpo-single-sidebar .wpo-newsletter-widget p {
-  font-size: 13px;
+  font-size: 18px;
   color: #303443;
   text-align: left;
 }
@@ -5334,14 +5334,14 @@ hero-style3
 
 .wpo-single-sidebar .wpo-contact-widget p {
   color: #fff;
-  font-size: 13px;
+  font-size: 18px;
 }
 
 .wpo-single-sidebar .wpo-contact-widget a {
   display: inline-block;
   padding: 10px 20px;
   border: 1px solid #fff;
-  font-size: 13px;
+  font-size: 18px;
   color: #fff;
   padding-right: 90px;
   position: relative;
@@ -5351,7 +5351,7 @@ hero-style3
 .wpo-single-sidebar .wpo-contact-widget a::before {
   font-family: "themify";
   content: "\e628";
-  font-size: 13px;
+  font-size: 18px;
   position: absolute;
   right: 15px;
   top: 50%;
@@ -5368,7 +5368,7 @@ hero-style3
 }
 
 .wpo-select-section-3 .select-sub span {
-  font-size: 13px;
+  font-size: 18px;
 }
 
 .wpo-select-section-3 .select-sub:first-child {
@@ -5386,7 +5386,7 @@ hero-style3
 
 .wpo-select-section-3 .select-sub h5 {
   margin-top: 0;
-  font-size: 13px;
+  font-size: 18px;
   color: #687693;
   margin-bottom: 10px;
   line-height: 0;
@@ -5646,7 +5646,7 @@ hero-style3
 
 @media (max-width: 1200px) {
   .wpo-select-section-3 .select-sub span {
-    font-size: 13px;
+    font-size: 18px;
   }
 
   .select-sub h2 {
@@ -6217,7 +6217,7 @@ hero-style3
   justify-content: space-between;
   padding: 0px 30px;
   font-weight: 300;
-  font-size: 13px;
+  font-size: 18px;
   line-height: 21px;
   color: #414141;
   padding-bottom: 30px;
@@ -6271,7 +6271,7 @@ body .container {
 .checkoutWrapper .checkoutCard button.collapseBtn {
   color: #272424;
   height: 50px;
-  font-size: 13px;
+  font-size: 18px;
   letter-spacing: 0;
   display: block;
   text-align: left;
@@ -6305,7 +6305,7 @@ body .container {
   font-weight: 400;
   letter-spacing: 0;
   color: #555;
-  font-size: 13px;
+  font-size: 18px;
 }
 
 .checkoutWrapper .checkoutCard .chCardBody .checkBox span {
@@ -6333,7 +6333,7 @@ body .container {
 }
 
 .checkoutWrapper .checkoutCard .chCardBody .paymentMethod label span {
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 500;
 }
 
@@ -6353,7 +6353,7 @@ body .container {
   font-weight: 500;
   letter-spacing: 0;
   color: #444444;
-  font-size: 13px;
+  font-size: 18px;
 }
 
 .checkoutWrapper .checkoutCard .chCardBody p {
@@ -6467,7 +6467,7 @@ body .container {
 }
 
 .loginWrapper .loginForm > p {
-  font-size: 13px;
+  font-size: 18px;
   margin-bottom: 30px;
   text-align: center;
   font-weight: 500;
@@ -6481,7 +6481,7 @@ body .container {
 }
 
 .loginWrapper .loginForm form .inputOutline input {
-  font-size: 13px;
+  font-size: 18px;
   letter-spacing: 0;
 }
 
@@ -6528,7 +6528,7 @@ body .container {
 .loginWrapper .loginForm .formAction a {
   display: block;
   letter-spacing: 0;
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 500;
   color: #246fea;
   cursor: pointer;
@@ -6590,7 +6590,7 @@ body .container {
 .loginWrapper .loginForm .noteHelp {
   text-align: center;
   margin-top: 20px;
-  font-size: 13px;
+  font-size: 18px;
   letter-spacing: 0;
   font-weight: 500;
 }
@@ -6599,7 +6599,7 @@ body .container {
   display: inline-block;
   color: #0077b5;
   margin-left: 10px;
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 500;
   cursor: pointer;
 }
@@ -6667,7 +6667,7 @@ body .container {
 
 .cart-recived-section .order-top h2 span {
   display: block;
-  font-size: 13px;
+  font-size: 18px;
   color: #888;
   margin-top: 10px;
   font-weight: 500;
@@ -6824,7 +6824,7 @@ body .container {
 }
 
 .category-sidebar .widget h3 {
-  font-size: 13px;
+  font-size: 18px;
   font-size: 1.125rem;
   font-weight: 600;
   border-bottom: 1px solid #ebebeb;
@@ -6983,7 +6983,7 @@ wpo-blog sidebar
 }
 
 .wpo-blog-sidebar .widget h3 {
-  font-size: 13px;
+  font-size: 18px;
   font-size: 1.125rem;
   font-weight: 700;
   position: relative;
@@ -7531,7 +7531,7 @@ wpo-blog sidebar
 
 .wpo-blog-pg-section .post p {
   margin-bottom: 1.5em;
-  font-size: 13px;
+  font-size: 18px;
 }
 
 @media (max-width: 991px) {
@@ -7763,7 +7763,7 @@ wpo-blog sidebar
 }
 
 .entry-bottom ul li .fi:before {
-  font-size: 13px;
+  font-size: 18px;
   margin-right: 10px;
   color: #9298a4;
 }
@@ -7937,7 +7937,7 @@ wpo-blog sidebar
 }
 
 .wpo-blog-single-section .entry-meta ul li i.fi:before {
-  font-size: 13px;
+  font-size: 18px;
 }
 
 .wpo-blog-single-section .entry-meta ul li + li {
@@ -8184,7 +8184,7 @@ wpo-blog sidebar
 @media (max-width: 767px) {
   .wpo-blog-single-section .tag-share .tag a,
   .wpo-blog-single-section .tag-share-s2 .tag a {
-    font-size: 13px;
+    font-size: 18px;
     font-size: 0.86667rem;
   }
 }
@@ -8266,7 +8266,7 @@ wpo-blog sidebar
 
 .wpo-blog-single-section .author-box .social-link a {
   display: block;
-  font-size: 13px;
+  font-size: 18px;
   font-size: 0.86667rem;
   color: #303443;
 }
@@ -8518,7 +8518,7 @@ wpo-blog sidebar
 }
 
 .wpo-blog-single-section .comments-area .comment-reply-link {
-  font-size: 13px;
+  font-size: 18px;
   font-size: 0.86667rem;
   font-weight: 600;
   color: #303443;
@@ -8724,7 +8724,7 @@ wpo-blog sidebar
 
 .info-text span {
   color: #666666;
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 300;
   margin-bottom: 10px;
   display: block;
@@ -9252,7 +9252,7 @@ wpo-blog sidebar
     .feature-grids
     .grid
     h3 {
-    font-size: 13px;
+    font-size: 18px;
   }
 }
 
@@ -9382,7 +9382,7 @@ wpo-blog sidebar
 }
 
 .service-single-section .service-single-content .tab-area .tablinks a {
-  font-size: 13px;
+  font-size: 18px;
   color: #787878;
   padding: 25px 0;
   display: block;

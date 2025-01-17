@@ -50,18 +50,21 @@ h1 {
   justify-content: center;
   gap: 10px;
   margin-top: 20px;
+  flex-wrap: wrap;
 }
 
 /* Buttons */
 .booking-overlay-back-button,
-.booking-overlay-print-button {
+.booking-overlay-print-button,
+.booking-overlay-approve-button,
+.booking-overlay-reject-button {
   padding: 10px 20px;
   font-size: 16px;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .booking-overlay-back-button {
@@ -70,6 +73,7 @@ h1 {
 
 .booking-overlay-back-button:hover {
   background-color: #5a6268;
+  transform: scale(1.05);
 }
 
 .booking-overlay-print-button {
@@ -78,16 +82,37 @@ h1 {
 
 .booking-overlay-print-button:hover {
   background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.booking-overlay-approve-button {
+  background-color: #48a85e;
+}
+
+.booking-overlay-approve-button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.booking-overlay-reject-button {
+  background-color: #d34d5b;
+}
+
+.booking-overlay-reject-button:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
 }
 
 /* Loading and error messages */
 .booking-overlay-loading,
 .booking-overlay-error {
   text-align: center;
-  font-size: 18px;
+  font-size: 14px;
   color: #555;
+  margin-top: 20px;
 }
 
 .booking-overlay-error {
-  color: #ff4d4d;
+  color: #bb3939;
+  font-weight: bold;
 }

@@ -41,6 +41,14 @@ const BookingOverlay = () => {
     }
   };
 
+  const handleApprove = () => {
+    alert("Booking Approved!");
+  };
+
+  const handleReject = () => {
+    alert("Booking Rejected!");
+  };
+
   const handlePrint = () => {
     window.print();
   };
@@ -117,6 +125,12 @@ const BookingOverlay = () => {
       <div className="booking-overlay-buttons">
         <button className="booking-overlay-back-button" onClick={handleBack}>
           Back
+        </button>
+        <button className="booking-overlay-approve-button" onClick={handleApprove}>
+          Approve
+        </button>
+        <button className="booking-overlay-reject-button" onClick={handleReject}>
+          Reject
         </button>
         <button className="booking-overlay-print-button" onClick={handlePrint}>
           Print

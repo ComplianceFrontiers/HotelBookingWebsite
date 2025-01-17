@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const StepM2 = ({ setActiveStep, formData, setFormData }) => {
-  const [dateRows, setDateRows] = useState(formData.dateRows);
-  const [dateOption, setDateOption] = useState(formData.dateOption);
-  const [repeatFrequency, setRepeatFrequency] = useState(formData.repeatFrequency);
+  const [dateRows, setDateRows] = useState(formData.dateRows || []);
+  const [dateOption, setDateOption] = useState(formData.dateOption || "");
+  const [repeatFrequency, setRepeatFrequency] = useState(formData.repeatFrequency || "");
   const [weeklyRepeatDays, setWeeklyRepeatDays] = useState(
     formData.weeklyRepeatDays || {
       Sunday: false,
@@ -14,14 +14,47 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
       Friday: false,
       Saturday: false,
     }
-  );  const [monthlyRepeatBy, setMonthlyRepeatBy] = useState(formData.monthlyRepeatBy);
-  const [monthlyRepeatFrequency, setMonthlyRepeatFrequency] = useState(formData.monthlyRepeatFrequency);
-  const [repeatOn, setRepeatOn] = useState(formData.repeatOn);
-  const [repeatDay, setRepeatDay] = useState(formData.repeatDay);
-  const [firstDate, setFirstDate] = useState(formData.firstDate);
-  const [endByDate, setEndByDate] = useState(formData.endByDate);
-  const [startTime, setStartTime] = useState(formData.startTime);
-  const [endTime, setEndTime] = useState(formData.endTime);
+  );
+  const [monthlyRepeatBy, setMonthlyRepeatBy] = useState(formData.monthlyRepeatBy || "");
+  const [monthlyRepeatFrequency, setMonthlyRepeatFrequency] = useState(formData.monthlyRepeatFrequency || "");
+  const [repeatOn, setRepeatOn] = useState(formData.repeatOn || "");
+  const [repeatDay, setRepeatDay] = useState(formData.repeatDay || "");
+  const [firstDate, setFirstDate] = useState(formData.firstDate || "");
+  const [endByDate, setEndByDate] = useState(formData.endByDate || "");
+  const [startTime, setStartTime] = useState(formData.startTime || "");
+  const [endTime, setEndTime] = useState(formData.endTime || "");
+  const [isNextEnabled, setIsNextEnabled] = useState(false);
+
+  useEffect(() => {
+    // Validation logic for enabling "Next" button
+    const isValidRecurring =
+      dateOption === "Recurring" &&
+      firstDate &&
+      startTime &&
+      endTime &&
+      repeatFrequency &&
+      ((repeatFrequency === "weekly" && Object.values(weeklyRepeatDays).some(Boolean)) ||
+        (repeatFrequency === "monthly" && monthlyRepeatBy && monthlyRepeatFrequency) ||
+        repeatFrequency === "daily") &&
+      endByDate;
+
+    const isValidOneTime =
+      dateOption === "One-Time" &&
+      dateRows.every((row) => row.date && row.startTime && row.endTime);
+
+    setIsNextEnabled((dateOption === "Recurring" && isValidRecurring) || (dateOption === "One-Time" && isValidOneTime));
+  }, [
+    dateOption,
+    dateRows,
+    firstDate,
+    startTime,
+    endTime,
+    repeatFrequency,
+    weeklyRepeatDays,
+    monthlyRepeatBy,
+    monthlyRepeatFrequency,
+    endByDate,
+  ]);
 
   const addAdditionalDate = () => {
     setDateRows([...dateRows, { date: "", startTime: "", endTime: "" }]);
@@ -41,7 +74,7 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
   const handleDateOptionChange = (e) => {
     const newDateOption = e.target.value;
     setDateOption(newDateOption);
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       dateOption: newDateOption,
     }));
@@ -57,46 +90,9 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
         Friday: false,
         Saturday: false,
       });
-      setMonthlyRepeatBy("dayOfWeek");
-      setMonthlyRepeatFrequency("1 month");
+      setMonthlyRepeatBy("");
+      setMonthlyRepeatFrequency("");
     }
-  };
-
-  const handleRepeatFrequencyChange = (e) => {
-    const value = e.target.value;
-    setRepeatFrequency(value);
-    setFormData(prev => ({
-      ...prev,
-      repeatFrequency: value,
-    }));
-  };
-
-  const handleWeeklyRepeatDayChange = (day) => {
-    const updatedWeeklyRepeatDays = { ...weeklyRepeatDays, [day]: !weeklyRepeatDays[day] };
-    setWeeklyRepeatDays(updatedWeeklyRepeatDays);
-    setFormData(prev => ({
-      ...prev,
-      weeklyRepeatDays: Object.keys(updatedWeeklyRepeatDays).filter(day => updatedWeeklyRepeatDays[day]),
-    }));
-  };
-
-  const handleMonthlyRepeatByChange = (e) => {
-    const value = e.target.value;
-    setMonthlyRepeatBy(value);
-    setFormData(prev => ({
-      ...prev,
-      monthlyRepeatBy: value,
-    }));
-  };
-  
-
-  const handleMonthlyRepeatFrequencyChange = (e) => {
-    const value = e.target.value;
-    setMonthlyRepeatFrequency(value);
-    setFormData(prev => ({
-      ...prev,
-      monthlyRepeatFrequency: value,
-    }));
   };
 
   return (
@@ -262,11 +258,17 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
         {dateOption === "One-Time" && (<button onClick={addAdditionalDate} className="btn-add"  >Add Date</button>)}
        
         <div className="navigation-buttons">
-         <button
+        <button
+    onClick={() => setActiveStep(1)}
+    className="btn-back"
+  >
+    Back
+  </button>
+        <button
           onClick={() => {
             setFormData({
               ...formData,
-              dateRows: dateRows,
+              dateRows,
               dateOption,
               repeatFrequency,
               firstDate,
@@ -281,10 +283,12 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
             });
             setActiveStep(3);
           }}
-          className="btn-add"        >
+          className="btn-add"
+          disabled={!isNextEnabled} // Button is disabled if validation fails
+        >
           Next
         </button>
-        </div>
+      </div>
        </div>
     </div>
   );

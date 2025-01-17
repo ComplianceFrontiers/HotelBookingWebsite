@@ -57,8 +57,8 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
       <h3 className="section-title">Event Information</h3>
       <form className="event-form">
         <div className="form-group">
-          <label>Full Name</label>
-          <span>{formData.full_name || 'N/A'}</span>
+          <label>Full Name</label>   {formData.full_name || 'N/A'} 
+         
         </div>
         <div className="form-group">
           <label>Room Type *</label>

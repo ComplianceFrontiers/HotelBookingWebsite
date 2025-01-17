@@ -119,36 +119,45 @@ console.log("frrr",formattedDateRows2)
 
       <div style={{ border: "1px solid #3498db", padding: "15px", borderRadius: "8px", marginTop: "20px", fontSize: "0.8rem" }}>
         <h3 style={{ fontFamily: "Monster", fontSize: "1rem", marginBottom: "10px" }}>Additional Items</h3>
-        <div>
-          <label>Item *</label>
-          <input
-            type="text"
-            value={newItem.item}
-            onChange={(e) => setNewItem({ ...newItem, item: e.target.value })}
-            style={{ display: "block", marginBottom: "10px" }}
-          />
-          <label>Quantity *</label>
-          <input
-            type="number"
-            value={newItem.quantity}
-            onChange={(e) => setNewItem({ ...newItem, quantity: e.target.value })}
-            style={{ display: "block", marginBottom: "10px" }}
-          />
-          <label>Date(s) *</label>
-          <input
-            type="date"
-            value={newItem.dates}
-            onChange={(e) => setNewItem({ ...newItem, dates: e.target.value })}
-            style={{ display: "block", marginBottom: "10px" }}
-          />
-          <button onClick={handleAddItem} style={{ marginTop: "10px", padding: "5px 10px" }}>Add Item</button>
-        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: "280px", marginBottom: "20px" }}>
+  <div style={{ display: "flex", flexDirection: "column" }}>
+    <label>Item *</label>
+    <input
+      type="text"
+      value={newItem.item}
+      onChange={(e) => setNewItem({ ...newItem, item: e.target.value })}
+    />
+  </div>
+  
+  <div style={{ display: "flex", flexDirection: "column" }}>
+    <label>Date(s) *</label>
+    <input
+      type="date"
+      value={newItem.dates}
+      onChange={(e) => setNewItem({ ...newItem, dates: e.target.value })}
+    />
+  </div>
+  <button
+    onClick={handleAddItem}
+    style={{
+      marginTop: "22px",
+      padding: "5px 10px",
+      backgroundColor: "#3498db",
+      color: "#fff",
+      border: "none",
+      borderRadius: "4px",
+      cursor: "pointer",
+    }}
+  >
+    Add Item
+  </button>
+</div>
+
 
         <table style={{ width: "100%", marginTop: "15px", borderCollapse: "collapse", fontSize: "0.8rem" }}>
           <thead>
             <tr style={{ borderBottom: "1px solid #3498db" }}>
               <th style={{ textAlign: "left", padding: "5px" }}>Item</th>
-              <th style={{ textAlign: "left", padding: "5px" }}>Quantity</th>
               <th style={{ textAlign: "left", padding: "5px" }}>Date(s)</th>
             </tr>
           </thead>
@@ -156,7 +165,6 @@ console.log("frrr",formattedDateRows2)
             {additionalItems.map((item, index) => (
               <tr key={index}>
                 <td style={{ padding: "5px" }}>{item.item}</td>
-                <td style={{ padding: "5px" }}>{item.quantity}</td>
                 <td style={{ padding: "5px" }}>{item.dates}</td>
               </tr>
             ))}

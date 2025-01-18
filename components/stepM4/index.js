@@ -5,8 +5,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
   const { dateRows, dateOption, recurringDates } = formData; 
   const userDetails = JSON.parse(localStorage.getItem("user_details"));
   const { email } = userDetails;
-console.log("dateRows, dateOption, recurringDates ",dateRows, recurringDates )
-  const formatDate = (date) => {
+   const formatDate = (date) => {
     const d = new Date(date);
     const day = d.getDate().toString().padStart(2, '0'); // Adds leading zero if day is less than 10
     const month = (d.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-based, so add 1
@@ -36,8 +35,7 @@ console.log("dateRows, dateOption, recurringDates ",dateRows, recurringDates )
     };
   }) || [];
   
-  console.log("formattedDateRows2, recurringDates", formattedDateRows2, recurringDates);
-  
+   
   const hasFormattedDateRows1 = dateOption === 'One-Time' && formattedDateRows1.length > 0;
   const hasRecurringDates = dateOption === 'Recurring' && formattedDateRows2.length > 0;
 
@@ -89,7 +87,7 @@ console.log("dateRows, dateOption, recurringDates ",dateRows, recurringDates )
           booked_details: bookingDetails,
         }
       );
-      setActiveStep(5);
+      setActiveStep(1);
     } catch (error) {
       console.error("Error during checkout:", error);
       alert("Error: " + (error.response?.data?.error || "Something went wrong"));
@@ -117,17 +115,17 @@ console.log("dateRows, dateOption, recurringDates ",dateRows, recurringDates )
       <div className="step2-container">
         <h3 style={{ backgroundColor: "#3498db" , fontSize: "0.8rem", padding: "10px", color: "#fff" }}>Event Summary</h3>
         <div className="event-location">
-          <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Event Name:</strong> {formData.eventName}</p>
-          <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Attendance:</strong> {formData.attendance}</p>
-          <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Room Type:</strong> {formData.roomType}</p>
-          <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Date Option:</strong> {dateOption}</p>
+          <p><strong>Event Name:</strong> {formData.eventName}</p>
+          <p><strong>Attendance:</strong> {formData.attendance}</p>
+          <p><strong>Room Type:</strong> {formData.roomType}</p>
+          <p><strong>Date Option:</strong> {dateOption}</p>
         </div>
       </div>
 
-      <div style={{ border: "1px solid #3498db", padding: "15px", borderRadius: "8px", marginTop: "20px", fontSize: "0.8rem" }}>
-        <h3 style={{ fontFamily: "Monster", fontSize: "1rem", marginBottom: "10px" }}>Additional Items</h3>
+      <div className="step2-container">
+        <h3 style={{ fontSize: "1rem", marginBottom: "10px" }}>Additional Items</h3>
         <div style={{ display: "flex", alignItems: "center", gap: "300px", marginBottom: "20px" }}>
-  <div style={{ display: "flex", flexDirection: "column" }}>
+        <div className="event-location">
   <label>Item *</label>
   <select
     value={newItem.item}
@@ -155,7 +153,7 @@ console.log("dateRows, dateOption, recurringDates ",dateRows, recurringDates )
     </option>
     <option value="Customized Event Decor">Customized Event Decor</option>
   </select>
-</div>
+
 
   
   <div style={{ display: "flex", flexDirection: "column" }}>
@@ -185,12 +183,11 @@ console.log("dateRows, dateOption, recurringDates ",dateRows, recurringDates )
 </div>
 
 
-<table style={{ width: "100%", marginTop: "15px", borderCollapse: "collapse", fontSize: "0.8rem" }}>
-  <thead>
-    <tr style={{ borderBottom: "1px solid #3498db" }}>
-      <th style={{ textAlign: "left", padding: "5px" }}>Item</th>
-      <th style={{ textAlign: "left", padding: "5px" }}>Date(s)</th>
-      <th style={{ textAlign: "left", padding: "5px" }}>Action</th> {/* Add a new column for the delete button */}
+<table className="estimates-table">   <thead>
+    <tr  >
+      <th  >Item</th>
+      <th  >Date(s)</th>
+      <th  >Action</th> {/* Add a new column for the delete button */}
     </tr>
   </thead>
   <tbody>
@@ -215,15 +212,14 @@ console.log("dateRows, dateOption, recurringDates ",dateRows, recurringDates )
     ))}
   </tbody>
 </table>
-
+</div>
       </div>
-
-      <h2 className="step-title">Event Location and Dates</h2>
-
+ 
       {hasFormattedDateRows1 && (
         <div>
-          <h3 className="estimates-title">Estimates for Request</h3>
-          <table className="estimates-table"> 
+                <h2 >Estimates for Request</h2>
+
+           <table className="estimates-table"> 
             <thead>
               <tr>
                 <th>#</th>
@@ -260,7 +256,7 @@ console.log("dateRows, dateOption, recurringDates ",dateRows, recurringDates )
 
       {hasRecurringDates && (
         <div>
-          <h3 className="estimates-title">Estimates for Request</h3>
+          <h2  >Estimates for Request</h2>
           <table className="estimates-table"> 
             <thead>
               <tr>
@@ -307,7 +303,7 @@ console.log("dateRows, dateOption, recurringDates ",dateRows, recurringDates )
           className="btn-add"
           disabled={totalEstimation === 0} // Disable button if total estimation is 0
         >
-          Proceed for Payment
+          Submit Request
         </button>
       </div>
     </div>

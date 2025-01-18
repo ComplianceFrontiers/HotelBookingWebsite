@@ -17,6 +17,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
     return {
       ...row,
       date: formatDate(row.date), // Format the date
+      approved:false,
     };
   }) || [];
   const formattedDateRows2 = recurringDates?.map((row) => {
@@ -32,6 +33,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
     return {
       ...row,
       date: formattedDate, // Set the formatted date
+      approved:false,
     };
   }) || [];
   
@@ -74,6 +76,8 @@ const StepM4 = ({ setActiveStep, formData }) => {
       attendance: formData.attendance,
       room_type: formData.roomType,
       date_option: formData.dateOption,
+      estimatedTotal:totalEstimation.toFixed(2),
+      paid:false,
       booked_dates: bookedDates,
     };
   

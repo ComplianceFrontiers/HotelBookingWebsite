@@ -53,9 +53,9 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
                 return eventDate >= today;
               });
   
-              // Check if booking has Invoice Pending
-              const pendingInvoices = booking.booked_dates.filter((date) => {
-                return date.invoice_status === 'Invoice Pending';
+              // Filter for unpaid invoices where paid is false
+              const unpaid = booking.booked_dates.filter((date) => {
+                return  !date.paid; // Ensure paid is false
               });
   
               if (pastDates.length > 0) {
@@ -66,8 +66,8 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
                 upcomingBookings.push({ ...booking, booked_dates: futureDates });
               }
   
-              if (pendingInvoices.length > 0) {
-                unpaidInvoices.push({ ...booking, booked_dates: pendingInvoices });
+              if (unpaid.length > 0) {
+                unpaidInvoices.push({ ...booking, booked_dates: unpaid });
               }
             });
   

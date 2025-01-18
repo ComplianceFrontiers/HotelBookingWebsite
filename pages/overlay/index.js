@@ -8,6 +8,8 @@ const BookingOverlay = () => {
   const [bookingDetails, setBookingDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isPaid, setIsPaid] = useState(false); // Track payment status
+  const [isApproved, setIsApproved] = useState(false); // Track approval status
 
   useEffect(() => {
     if (bookingId) {
@@ -34,7 +36,8 @@ const BookingOverlay = () => {
 
       const data = await response.json();
       setBookingDetails(data); // Store entire response in state
-      
+      setIsApproved(data.booking_details.approved); // Update approval status
+      setIsPaid(data.booking_details.paid); // Update payment status
     } catch (err) {
       setError(err.message);
     } finally {
@@ -42,8 +45,56 @@ const BookingOverlay = () => {
     }
   };
 
-  const handleApprove = () => {
-    alert("Booking Approved!");
+  const handleApprove = async () => {
+    try {
+      const response = await fetch("https://hotel-website-backend-eosin.vercel.app/update-booking-status", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: bookingDetails.email,
+          booking_id: bookingDetails.booking_details.booking_id,
+          paid: false,
+          approved: true,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update booking status");
+      }
+
+      setIsApproved(true); // Mark as approved
+      alert("Booking Approved!");
+    } catch (err) {
+      alert(`Error: ${err.message}`);
+    }
+  };
+
+  const handlePaid = async () => {
+    try {
+      const response = await fetch("https://hotel-website-backend-eosin.vercel.app/update-booking-status", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: bookingDetails.email,
+          booking_id: bookingDetails.booking_details.booking_id,
+          paid: true,
+          approved: true,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update booking status");
+      }
+
+      setIsPaid(true); // Mark as paid
+      alert("Payment Completed!");
+    } catch (err) {
+      alert(`Error: ${err.message}`);
+    }
   };
 
   const handleReject = () => {
@@ -138,16 +189,31 @@ const BookingOverlay = () => {
       ) : (
         <p>No booking details found.</p>
       )}
+
       <div className="booking-overlay-buttons">
         <button className="booking-overlay-back-button" onClick={handleBack}>
           Back
         </button>
-        <button className="booking-overlay-approve-button" onClick={handleApprove}>
-          Approve
-        </button>
-        <button className="booking-overlay-reject-button" onClick={handleReject}>
-          Reject
-        </button>
+
+        {/* Check if booking is approved but not paid */}
+        {isApproved && !isPaid ? (
+          <button className="booking-overlay-paid-button" onClick={handlePaid} disabled={isPaid}>
+            Mark as Paid
+          </button>
+        ) : (
+          // Show Approve and Reject buttons if not approved
+          !isApproved && (
+            <>
+              <button className="booking-overlay-approve-button" onClick={handleApprove}>
+                Approve
+              </button>
+              <button className="booking-overlay-reject-button" onClick={handleReject}>
+                Reject
+              </button>
+            </>
+          )
+        )}
+
         <button className="booking-overlay-print-button" onClick={handlePrint}>
           Print
         </button>

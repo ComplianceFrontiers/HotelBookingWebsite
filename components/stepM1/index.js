@@ -122,10 +122,9 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
 
         {loading && <p>Loading booking details...</p>}
         {error && <p className="error-message">{error}</p>}
-        
-    {!loading && bookingDetails.length > 0 && (
+        {!loading && bookingDetails.length > 0 && (
       <div className="booking-details">
-        <h3>Already Booked Slots  </h3>
+        <h3>Unpaid Invoices </h3>
         <table className="booking-table">
           <thead>
             <tr>
@@ -157,7 +156,8 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
           </tbody>
         </table>
       </div>
-    )}
+    )}    
+   
     {!loading && bookingDetails.length > 0 && (
       <div className="booking-details">
         <h3>Upcoming Events  </h3>
@@ -228,76 +228,8 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
         </table>
       </div>
     )}
-    {!loading && bookingDetails.length > 0 && (
-      <div className="booking-details">
-        <h3>Unpaid Invoices </h3>
-        <table className="booking-table">
-          <thead>
-            <tr>
-              <th>Booking ID</th>
-              <th>Event Name</th>
-              <th>Room Type</th>
-              <th>Date Option</th>
-              <th>Attendance</th>
-              <th>Booked Dates</th>
-            </tr>
-          </thead>
-          <tbody>
-            {bookingDetails.map((booking) => (
-              <tr key={booking.booking_id}>
-                <td>{booking.booking_id}</td>
-                <td>{booking.event_name}</td>
-                <td>{booking.room_type}</td>
-                <td>{booking.date_option}</td>
-                <td>{booking.attendance}</td>
-                <td>
-                  {booking.booked_dates.map((date, index) => (
-                    <div key={index}>
-                      {date.date} ({date.startTime} - {date.endTime})
-                    </div>
-                  ))}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    )}
-    {!loading && bookingDetails.length > 0 && (
-      <div className="booking-details">
-        <h3>paid Invoices </h3>
-        <table className="booking-table">
-          <thead>
-            <tr>
-              <th>Booking ID</th>
-              <th>Event Name</th>
-              <th>Room Type</th>
-              <th>Date Option</th>
-              <th>Attendance</th>
-              <th>Booked Dates</th>
-            </tr>
-          </thead>
-          <tbody>
-            {bookingDetails.map((booking) => (
-              <tr key={booking.booking_id}>
-                <td>{booking.booking_id}</td>
-                <td>{booking.event_name}</td>
-                <td>{booking.room_type}</td>
-                <td>{booking.date_option}</td>
-                <td>{booking.attendance}</td>
-                <td>
-                  {booking.booked_dates.map((date, index) => (
-                    <div key={index}>
-                      {date.date} ({date.startTime} - {date.endTime})
-                    </div>
-                  ))}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    )}
+   
+   
   </div>
 </div>
   );

@@ -19,7 +19,6 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
       })
     );
   };
-
   useEffect(() => {
     const userDetails = JSON.parse(localStorage.getItem('user_details'));
     if (userDetails) {
@@ -35,8 +34,8 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
           .get(`https://hotel-website-backend-eosin.vercel.app/booking-details_wrt_email?email=${email}`)
           .then((response) => {
             const allBookings = response.data.booked_details;
+            console.log("All Bookings:", allBookings);
   
-            // Separate bookings into upcoming, previous, and unpaid invoices based on today's date and invoice status
             const today = new Date();
             const previousBookings = [];
             const upcomingBookings = [];
@@ -53,11 +52,11 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
                 return eventDate >= today;
               });
   
-              // Filter for unpaid invoices where paid is false
+              // Filter for unpaid invoices where paid is false and approved is true
               const unpaid = booking.booked_dates.filter((date) => {
-                return  !date.paid; // Ensure paid is false
+                return booking.paid === false && booking.approved === true;
               });
-  
+              
               if (pastDates.length > 0) {
                 previousBookings.push({ ...booking, booked_dates: pastDates });
               }
@@ -70,6 +69,8 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
                 unpaidInvoices.push({ ...booking, booked_dates: unpaid });
               }
             });
+  
+            console.log("Filtered Unpaid Invoices:", unpaidInvoices);
   
             setBookingDetails({
               previous: previousBookings,
@@ -91,6 +92,7 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
       console.warn('userDetails not found in localStorage.');
     }
   }, [setFormData]);
+  
   
   const renderBookingTable = (bookings, showMore, setShowMore) => {
     // Limit displayed rows to 5 if showMore is false

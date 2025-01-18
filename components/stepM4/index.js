@@ -75,12 +75,13 @@ const StepM4 = ({ setActiveStep, formData }) => {
       room_type: formData.roomType,
       date_option: formData.dateOption,
       estimatedTotal:totalEstimation.toFixed(2),
+      additionalItems:additionalItems,
       approved:false,
       paid:false,
       booked_dates: bookedDates,
     };
   
-    console.log("bookingDetails", bookingDetails); // Log the booking details
+    console.log("bookingDetails52", bookingDetails); // Log the booking details
   
     try {
       const response = await axios.post(
@@ -106,12 +107,16 @@ const StepM4 = ({ setActiveStep, formData }) => {
   };
   
   const [additionalItems, setAdditionalItems] = useState([]);
-  const [newItem, setNewItem] = useState({ item: '', quantity: '', dates: '' });
+  const [newItem, setNewItem] = useState({ item: '', quantity: 1, dates: '' });
 
   const handleAddItem = () => {
-    setAdditionalItems([...additionalItems, newItem]);
-    setNewItem({ item: '', quantity: '', dates: '' });
+    // Format the date before adding it to the additionalItems
+    const formattedDate = formatDate(newItem.dates);
+  
+    setAdditionalItems([...additionalItems, { ...newItem, dates: formattedDate }]);
+    setNewItem({ item: '', quantity: 1, dates: '' });
   };
+  
 
   return (
     <div className="step-m4-container">

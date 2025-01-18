@@ -9,24 +9,74 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
   const [showMoreUpcoming, setShowMoreUpcoming] = useState(false);
   const [showMorePrevious, setShowMorePrevious] = useState(false);
 
+  const today = new Date();
+
+  const filterBookings = (bookings, isUpcoming) => {
+    return bookings.filter((booking) =>
+      booking.booked_dates.some((date) => {
+        const bookedDate = new Date(date.date);
+        return isUpcoming ? bookedDate >= today : bookedDate < today;
+      })
+    );
+  };
+
   useEffect(() => {
-    // Fetch user details from localStorage
     const userDetails = JSON.parse(localStorage.getItem('user_details'));
     if (userDetails) {
       const { email, full_name } = userDetails;
-
-      // Prefill full_name in formData if available
+  
       if (full_name) {
         setFormData((prev) => ({ ...prev, full_name }));
       }
-
+  
       if (email) {
         setLoading(true);
-        // Fetch booking details from the API using the email
         axios
           .get(`https://hotel-website-backend-eosin.vercel.app/booking-details_wrt_email?email=${email}`)
           .then((response) => {
-            setBookingDetails(response.data.booked_details);
+            const allBookings = response.data.booked_details;
+  
+            // Separate bookings into upcoming, previous, and unpaid invoices based on today's date and invoice status
+            const today = new Date();
+            const previousBookings = [];
+            const upcomingBookings = [];
+            const unpaidInvoices = [];
+  
+            allBookings.forEach((booking) => {
+              const pastDates = booking.booked_dates.filter((date) => {
+                const eventDate = new Date(date.date.split('-').reverse().join('-')); // Convert to `YYYY-MM-DD`
+                return eventDate < today;
+              });
+  
+              const futureDates = booking.booked_dates.filter((date) => {
+                const eventDate = new Date(date.date.split('-').reverse().join('-')); // Convert to `YYYY-MM-DD`
+                return eventDate >= today;
+              });
+  
+              // Check if booking has Invoice Pending
+              const pendingInvoices = booking.booked_dates.filter((date) => {
+                return date.invoice_status === 'Invoice Pending';
+              });
+  
+              if (pastDates.length > 0) {
+                previousBookings.push({ ...booking, booked_dates: pastDates });
+              }
+  
+              if (futureDates.length > 0) {
+                upcomingBookings.push({ ...booking, booked_dates: futureDates });
+              }
+  
+              if (pendingInvoices.length > 0) {
+                unpaidInvoices.push({ ...booking, booked_dates: pendingInvoices });
+              }
+            });
+  
+            setBookingDetails({
+              previous: previousBookings,
+              upcoming: upcomingBookings,
+              unpaidInvoices,
+            });
+  
             setLoading(false);
           })
           .catch((err) => {
@@ -41,10 +91,11 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
       console.warn('userDetails not found in localStorage.');
     }
   }, [setFormData]);
-
+  
   const renderBookingTable = (bookings, showMore, setShowMore) => {
-    // Limit records to 5 if not 'showMore'
+    // Limit displayed rows to 5 if showMore is false
     const displayedBookings = showMore ? bookings : bookings.slice(0, 5);
+  
     return (
       <>
         <table className="booking-table">
@@ -57,8 +108,8 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
               <th>Attendance</th>
               <th>Booked Date</th>
               <th>Time</th>
-              <th>Status</th> {/* New column for Status */}
-              <th>Invoice Status</th> {/* New column for Invoice Status */}
+              <th>Status</th>
+              <th>Invoice Status</th>
             </tr>
           </thead>
           <tbody>
@@ -74,20 +125,23 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
                   <td>
                     {date.startTime} - {date.endTime}
                   </td>
-                  <td>{booking.status || 'N/A'}</td> {/* Render status or default to 'N/A' */}
-                  <td>{booking.invoice_status || 'N/A'}</td> {/* Render invoice status or default to 'N/A' */}
+                  <td>{booking.approved ? 'Request Approved' : 'Request Pending'}</td>
+                  <td>{booking.paid ? 'Invoice Paid' : 'Invoice Pending'}</td>
                 </tr>
               ));
             })}
           </tbody>
         </table>
   
-        {/* Display View More button only if there are more than 5 records */}
+        {/* Show the View More button if there are more than 5 rows */}
         {bookings.length > 5 && (
-          <button className="view-more-btn" onClick={() => setShowMore(!showMore)}>
-            {showMore ? 'Show Less' : 'View More'}
-          </button>
-        )}
+        <button
+          className="view-more-btn"
+          onClick={() => setShowMore(!showMore)}
+        >
+          {showMore ? 'Show Less' : 'View More'}
+        </button>
+      )}
       </>
     );
   };
@@ -160,28 +214,31 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
         {error && <p className="error-message">{error}</p>}
 
         {/* Render Unpaid Invoices */}
-        {!loading && bookingDetails.length > 0 && (
-          <div className="booking-details">
-            <h3>Unpaid Invoices</h3>
-            {renderBookingTable(bookingDetails, showMoreUnpaid, setShowMoreUnpaid)}
-          </div>
-        )}
+       {/* Render Unpaid Invoices */}
+{!loading && bookingDetails.unpaidInvoices?.length > 0 && (
+  <div className="booking-details">
+    <h3>Unpaid Invoices</h3>
+    {renderBookingTable(bookingDetails.unpaidInvoices, showMoreUnpaid, setShowMoreUnpaid)}
+  </div>
+)}
+
 
         {/* Render Upcoming Events */}
-        {!loading && bookingDetails.length > 0 && (
-          <div className="booking-details">
-            <h3>Upcoming Events</h3>
-            {renderBookingTable(bookingDetails, showMoreUpcoming, setShowMoreUpcoming)}
-          </div>
-        )}
+        {!loading && bookingDetails.upcoming?.length > 0 && (
+  <div className="booking-details">
+    <h3>Upcoming Events</h3>
+    {renderBookingTable(bookingDetails.upcoming, showMoreUpcoming, setShowMoreUpcoming)}
+  </div>
+)}
 
-        {/* Render Previous Events */}
-        {!loading && bookingDetails.length > 0 && (
-          <div className="booking-details">
-            <h3>Previous Events</h3>
-            {renderBookingTable(bookingDetails, showMorePrevious, setShowMorePrevious)}
-          </div>
-        )}
+        {!loading && bookingDetails.previous?.length > 0 && (
+  <div className="booking-details">
+    <h3>Previous Events</h3>
+    {renderBookingTable(bookingDetails.previous, showMorePrevious, setShowMorePrevious)}
+  </div>
+)}
+
+
       </div>
     </div>
   );

@@ -119,6 +119,7 @@ const BookingOverlay = () => {
 
   // Destructure to get the values from the response
   const { booking_details, email, name, phone } = bookingDetails || {};
+  const additionalItems = booking_details?.additionalItems  || []; // Assuming additional items are part of booking details
 
   return (
     <div className="booking-overlay-container">
@@ -161,9 +162,9 @@ const BookingOverlay = () => {
               </tr>
             </tbody>
           </table>
+
           <h2>Booked Dates</h2>
-          {Array.isArray(booking_details.booked_dates) &&
-          booking_details.booked_dates.length > 0 ? (
+          {Array.isArray(booking_details.booked_dates) && booking_details.booked_dates.length > 0 ? (
             <table className="booking-overlay-table">
               <thead>
                 <tr>
@@ -185,6 +186,31 @@ const BookingOverlay = () => {
           ) : (
             <p>No booked dates available.</p>
           )}
+
+          {/* Additional Items Table */}
+          <h2>Additional Items</h2>
+          {additionalItems.length > 0 ? (
+            <table className="booking-overlay-table">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Date(s)</th>
+                  <th>Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+                {additionalItems.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.item || "N/A"}</td>
+                    <td>{item.dates || "N/A"}</td>
+                    <td>{item.quantity || "N/A"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p>No additional items available.</p>
+          )}
         </div>
       ) : (
         <p>No booking details found.</p>
@@ -195,13 +221,11 @@ const BookingOverlay = () => {
           Back
         </button>
 
-        {/* Check if booking is approved but not paid */}
         {isApproved && !isPaid ? (
           <button className="booking-overlay-paid-button" onClick={handlePaid} disabled={isPaid}>
             Mark as Paid
           </button>
         ) : (
-          // Show Approve and Reject buttons if not approved
           !isApproved && (
             <>
               <button className="booking-overlay-approve-button" onClick={handleApprove}>
@@ -223,4 +247,3 @@ const BookingOverlay = () => {
 };
 
 export default BookingOverlay;
-

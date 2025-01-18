@@ -33,7 +33,8 @@ const BookingOverlay = () => {
       }
 
       const data = await response.json();
-      setBookingDetails(data.booking_details);
+      setBookingDetails(data); // Store entire response in state
+      
     } catch (err) {
       setError(err.message);
     } finally {
@@ -65,6 +66,9 @@ const BookingOverlay = () => {
     return <div className="booking-overlay-error">Error: {error}</div>;
   }
 
+  // Destructure to get the values from the response
+  const { booking_details, email, name, phone } = bookingDetails || {};
+
   return (
     <div className="booking-overlay-container">
       <h1>Booking Details</h1>
@@ -73,30 +77,42 @@ const BookingOverlay = () => {
           <table className="booking-overlay-table">
             <tbody>
               <tr>
+                <th>Name</th>
+                <td>{name || "N/A"}</td>
+              </tr>
+              <tr>
+                <th>Email</th>
+                <td>{email || "N/A"}</td>
+              </tr>
+              <tr>
+                <th>Phone</th>
+                <td>{phone || "N/A"}</td>
+              </tr>
+              <tr>
                 <th>Booking ID</th>
-                <td>{bookingDetails.booking_id || "N/A"}</td>
+                <td>{booking_details.booking_id || "N/A"}</td>
               </tr>
               <tr>
                 <th>Event Name</th>
-                <td>{bookingDetails.event_name || "N/A"}</td>
+                <td>{booking_details.event_name || "N/A"}</td>
               </tr>
               <tr>
                 <th>Room Type</th>
-                <td>{bookingDetails.room_type || "N/A"}</td>
+                <td>{booking_details.room_type || "N/A"}</td>
               </tr>
               <tr>
                 <th>Date Option</th>
-                <td>{bookingDetails.date_option || "N/A"}</td>
+                <td>{booking_details.date_option || "N/A"}</td>
               </tr>
               <tr>
                 <th>Attendance</th>
-                <td>{bookingDetails.attendance || "N/A"}</td>
+                <td>{booking_details.attendance || "N/A"}</td>
               </tr>
             </tbody>
           </table>
           <h2>Booked Dates</h2>
-          {Array.isArray(bookingDetails.booked_dates) &&
-          bookingDetails.booked_dates.length > 0 ? (
+          {Array.isArray(booking_details.booked_dates) &&
+          booking_details.booked_dates.length > 0 ? (
             <table className="booking-overlay-table">
               <thead>
                 <tr>
@@ -106,7 +122,7 @@ const BookingOverlay = () => {
                 </tr>
               </thead>
               <tbody>
-                {bookingDetails.booked_dates.map((date, index) => (
+                {booking_details.booked_dates.map((date, index) => (
                   <tr key={index}>
                     <td>{date.date || "N/A"}</td>
                     <td>{date.startTime || "N/A"}</td>
@@ -141,3 +157,4 @@ const BookingOverlay = () => {
 };
 
 export default BookingOverlay;
+

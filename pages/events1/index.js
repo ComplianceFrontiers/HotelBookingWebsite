@@ -66,110 +66,117 @@ const Events1 = () => {
         )}
       </div>
       <div className="steps-sidebar">
-        <h3>Steps to Submit a Request:</h3>
-        <ul>
-          <li
-            onClick={() => setActiveStep(1)}
-            style={{
-              fontWeight: 'bold',
-              fontSize: '12px',
-              cursor: 'pointer',
-            }}
-          >
-            Step 1:
-            <span
-              style={{
-                fontSize: '13px',
-                
-              }}
-              onMouseEnter={(e) => (e.target.style.color = 'blue')}
-              onMouseLeave={(e) => (e.target.style.color = 'black')}
-            >
-              Gather Event Information
-            </span>
-          </li>
-          <li
-            onClick={() => setActiveStep(2)}
-            style={{
-              fontWeight: 'bold',
-              fontSize: '12px',
-              cursor: 'pointer',
-            }}
-          >
-            Step 2:
-            <span
-              style={{
-                fontSize: '13px',
-                
-              }}
-              onMouseEnter={(e) => (e.target.style.color = 'blue')}
-              onMouseLeave={(e) => (e.target.style.color = 'black')}
-            >
-              Select Event Location and Dates
-            </span>
-          </li>
-          <li
-            onClick={() => setActiveStep(3)}
-            style={{
-              fontWeight: 'bold',
-              fontSize: '12px',
-              cursor: 'pointer',
-            }}
-          >
-            Step 3:
-            <span
-              style={{
-                fontSize: '13px',
-                
-              }}
-              onMouseEnter={(e) => (e.target.style.color = 'blue')}
-              onMouseLeave={(e) => (e.target.style.color = 'black')}
-            >
-              Confirm Event Dates
-            </span>
-          </li>
-          <li
-            onClick={() => setActiveStep(4)}
-            style={{
-              fontWeight: 'bold',
-              fontSize: '12px',
-              cursor: 'pointer',
-            }}
-          >
-            Step 4:
-            <span
-              style={{
-                fontSize: '13px',
-                
-              }}
-              onMouseEnter={(e) => (e.target.style.color = 'blue')}
-              onMouseLeave={(e) => (e.target.style.color = 'black')}
-            >
-              Add Additional Items and Submit for District Approval
-            </span>
-          </li>
-          <li
-            onClick={() => setActiveStep(5)}
-            style={{
-              fontWeight: 'bold',
-              fontSize: '12px',
-              cursor: 'pointer',
-            }}
-          >
-            {/* Step 5: */}
-            <span
-              style={{
-                fontSize: '13px',
-                
-              }}
-              onMouseEnter={(e) => (e.target.style.color = 'blue')}
-              onMouseLeave={(e) => (e.target.style.color = 'black')}
-            >
-              {/* Review and Finalize */}
-            </span>
-          </li>
-        </ul>
-      </div>
+  <h3>Steps to Submit a Request:</h3>
+  <ul>
+    <li
+      onClick={() => setActiveStep(1)}
+      style={{
+        fontWeight: 'bold',
+        fontSize: '12px',
+        cursor: activeStep === 1 || activeStep > 1 ? 'pointer' : 'not-allowed',
+        color: activeStep === 1 || activeStep > 1 ? 'black' : 'gray',
+        pointerEvents: activeStep === 1 || activeStep > 1 ? 'auto' : 'none', // Allow click only for current and previous steps
+      }}
+    >
+      Step 1:
+      <span
+        style={{
+          fontSize: '13px',
+        }}
+        onMouseEnter={(e) => (e.target.style.color = 'blue')}
+        onMouseLeave={(e) => (e.target.style.color = 'black')}
+      >
+        Gather Event Information
+      </span>
+    </li>
+    <li
+      onClick={() => setActiveStep(2)}
+      style={{
+        fontWeight: 'bold',
+        fontSize: '12px',
+        cursor: activeStep >= 2 ? 'pointer' : 'not-allowed',
+        color: activeStep >= 2 ? 'black' : 'gray',
+        pointerEvents: activeStep >= 2 ? 'auto' : 'none', // Allow click only for current and previous steps
+      }}
+    >
+      Step 2:
+      <span
+        style={{
+          fontSize: '13px',
+        }}
+        onMouseEnter={(e) => (e.target.style.color = 'blue')}
+        onMouseLeave={(e) => (e.target.style.color = 'black')}
+      >
+        Select Event Location and Dates
+      </span>
+    </li>
+    <li
+      onClick={() => setActiveStep(3)}
+      style={{
+        fontWeight: 'bold',
+        fontSize: '12px',
+        cursor: activeStep >= 3 ? 'pointer' : 'not-allowed',
+        color: activeStep >= 3 ? 'black' : 'gray',
+        pointerEvents: activeStep >= 3 ? 'auto' : 'none', // Allow click only for current and previous steps
+      }}
+    >
+      Step 3:
+      <span
+        style={{
+          fontSize: '13px',
+        }}
+        onMouseEnter={(e) => (e.target.style.color = 'blue')}
+        onMouseLeave={(e) => (e.target.style.color = 'black')}
+      >
+        Confirm Event Dates
+      </span>
+    </li>
+    <li
+      onClick={() => setActiveStep(4)}
+      style={{
+        fontWeight: 'bold',
+        fontSize: '12px',
+        cursor: activeStep >= 4 ? 'pointer' : 'not-allowed',
+        color: activeStep >= 4 ? 'black' : 'gray',
+        pointerEvents: activeStep >= 4 ? 'auto' : 'none', // Allow click only for current and previous steps
+      }}
+    >
+      Step 4:
+      <span
+        style={{
+          fontSize: '13px',
+        }}
+        onMouseEnter={(e) => (e.target.style.color = 'blue')}
+        onMouseLeave={(e) => (e.target.style.color = 'black')}
+      >
+        Add Additional Items and Submit for District Approval
+      </span>
+    </li>
+    <li
+      onClick={() => setActiveStep(5)}
+      style={{
+        fontWeight: 'bold',
+        fontSize: '12px',
+        cursor: activeStep >= 5 ? 'pointer' : 'not-allowed',
+        color: activeStep >= 5 ? 'black' : 'gray',
+        pointerEvents: activeStep >= 5 ? 'auto' : 'none', // Allow click only for current and previous steps
+      }}
+    >
+      {/* Step 5: */}
+      <span
+        style={{
+          fontSize: '13px',
+        }}
+        onMouseEnter={(e) => (e.target.style.color = 'blue')}
+        onMouseLeave={(e) => (e.target.style.color = 'black')}
+      >
+        {/* Review and Finalize */}
+      </span>
+    </li>
+  </ul>
+</div>
+
+
     </div>
   );
 };

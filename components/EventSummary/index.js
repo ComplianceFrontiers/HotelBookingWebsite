@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import StepM4 from '../../components/stepM4';
+
 const EventSummary = ({
   setActiveStep,
   formData,
@@ -19,8 +20,9 @@ const EventSummary = ({
 }) => {
   const userDetails = JSON.parse(localStorage.getItem("user_details"));
   const { email } = userDetails;
-  
+
   const [conflictDates, setConflictDates] = useState([]); // To hold conflicting dates
+  const [isContinueDisabled, setIsContinueDisabled] = useState(true); // Track button state
 
   const formatDate = (date) => {
     const formattedDate = new Date(date);
@@ -34,57 +36,57 @@ const EventSummary = ({
     ...row,
     date: formatDate(row.date),
   }));
-const fetchBookedDates = async () => {
-  try {
-    const response = await axios.get("https://hotel-website-backend-eosin.vercel.app/users/already_booked_dates");
+  const fetchBookedDates = async () => {
+    try {
+      const response = await axios.get("https://hotel-website-backend-eosin.vercel.app/users/already_booked_dates");
    
     
     // Extract and format the booked dates
-    const bookedDates = response.data[0].booked_dates; 
-    const datesToCheck = recurringDates1.length > 0 ? recurringDates1 : dateRows.map(row => {
+      const bookedDates = response.data[0].booked_dates; 
+      const datesToCheck = recurringDates1.length > 0 ? recurringDates1 : dateRows.map(row => {
       // Check if the date is already in the "DD-MM-YYYY" format
-      const isFormatted = /^\d{1,2}-\d{1,2}-\d{4}$/.test(row.date);
+        const isFormatted = /^\d{1,2}-\d{1,2}-\d{4}$/.test(row.date);
     
-      if (isFormatted) {
+        if (isFormatted) {
         return row; // If already in the desired format, return the row as it is
-      }
+        }
     
-      const date = new Date(row.date);
-      const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
-      return { ...row, date: formattedDate };
-    });
-    
-    console.log("datestocheck", datesToCheck);
-    console.log("bookedDates", bookedDates);
-   // Helper function to normalize date to "dd-MM-yyyy"
-function normalizeDate(date) {
-  const [day, month, year] = date.split("-").map((val) => val.padStart(2, "0"));
-  return `${day}-${month}-${year}`;
-}
+        const date = new Date(row.date);
+        const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+        return { ...row, date: formattedDate };
+      });
 
-const conflicts = datesToCheck.filter((recDate) => {
-  return bookedDates.some((bookedDate) => {
-    if (normalizeDate(bookedDate.date) === normalizeDate(recDate.date)) {
-      // Convert time to Date objects for comparison
-      const recStartTime = new Date(`1970-01-01T${recDate.startTime}:00`);
-      const recEndTime = new Date(`1970-01-01T${recDate.endTime}:00`);
-      const bookedStartTime = new Date(`1970-01-01T${bookedDate.startTime}:00`);
-      const bookedEndTime = new Date(`1970-01-01T${bookedDate.endTime}:00`);
+      function normalizeDate(date) {
+        const [day, month, year] = date.split("-").map((val) => val.padStart(2, "0"));
+        return `${day}-${month}-${year}`;
+      }
+
+      const conflicts = datesToCheck.filter((recDate) => {
+        return bookedDates.some((bookedDate) => {
+          if (normalizeDate(bookedDate.date) === normalizeDate(recDate.date)) {
+            const recStartTime = new Date(`1970-01-01T${recDate.startTime}:00`);
+            const recEndTime = new Date(`1970-01-01T${recDate.endTime}:00`);
+            const bookedStartTime = new Date(`1970-01-01T${bookedDate.startTime}:00`);
+            const bookedEndTime = new Date(`1970-01-01T${bookedDate.endTime}:00`);
 
       // Check for time overlap
       return (
         recStartTime < bookedEndTime && recEndTime > bookedStartTime
       );
+          }
+          return false;
+        });
+      });
+
+      setConflictDates(conflicts);
+      setIsContinueDisabled(conflicts.length > 0); // Disable the Continue button if there are conflicts
+      if (conflicts.length > 0) {
+        alert("There are conflicts with some of the dates! Please review the conflicting dates.");
+      }
+    } catch (error) {
+      console.error("Error fetching booked dates:", error);
     }
-    return false;
-  });
-});
-    setConflictDates(conflicts);
-    console.log("Conflicts:", conflicts);
-  } catch (error) {
-    console.error("Error fetching booked dates:", error);
-  }
-};
+  };
 
 
   // Function to render selected weekly repeat days
@@ -266,17 +268,15 @@ const conflicts = datesToCheck.filter((recDate) => {
    
 
   useEffect(() => {
-    
     fetchBookedDates();
   }, []);
+
   const formattedDateRows1 = dateRows.map(row => {
     const date = new Date(row.date);
     const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
     return { ...row, date: formattedDate };
   });
-  console.log("formattedDateRows1",recurringDates1,conflictDates)
-  
-  
+
   return (
     <div className="step2-container">
       <h3 style={{ backgroundColor: "#3498db", fontFamily: "Monster", fontSize: "1.2rem", padding: "10px", color: "#fff" }}>Event Summary</h3>
@@ -284,9 +284,9 @@ const conflicts = datesToCheck.filter((recDate) => {
         <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Event Name:</strong> {formData.eventName}</p>
         <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Attendance:</strong> {formData.attendance}</p>
         <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Room Type:</strong> {formData.roomType}</p>
+        <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Date Option:</strong> {dateOption}</p>
 
-         <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Date Option:</strong> {dateOption}</p>
-
+        {/* Additional information for repeat frequencies */}
         {repeatFrequency === "weekly" && (
           <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Weekly Repeat Days:</strong> {renderWeeklyRepeatDays()}</p>
         )}
@@ -299,7 +299,6 @@ const conflicts = datesToCheck.filter((recDate) => {
           <>
             <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>First Date:</strong> {firstDate}</p>
             <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>End By:</strong> {endByDate}</p>
-
             <div>
               <h4 style={{ fontFamily: "Monster", fontSize: "1rem" }}>Recurring Dates:</h4>
               <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}>These are the dates and times your event will occur:</p>
@@ -338,7 +337,7 @@ const conflicts = datesToCheck.filter((recDate) => {
                   <th style={{ padding: "8px", textAlign: "left" }}>Date</th>
                   <th style={{ padding: "8px", textAlign: "left" }}>Start Time</th>
                   <th style={{ padding: "8px", textAlign: "left" }}>End Time</th>
-                  <th style={{ padding: "8px", textAlign: "left" }}>Conflicts</th> {/* New column */}
+                  <th style={{ padding: "8px", textAlign: "left" }}>Conflicts</th> 
                 </tr>
               </thead>
               <tbody>
@@ -359,10 +358,10 @@ const conflicts = datesToCheck.filter((recDate) => {
       
       <div className="navigation-buttons">
         <button onClick={() => setActiveStep(2)} className="btn-add">Back</button>
-        <button onClick={() => setActiveStep(4)} className="btn-add">Continue</button>
+        <button onClick={() => setActiveStep(4)} className="btn-add" disabled={isContinueDisabled}>Continue</button>
       </div>
      </div>
-     </div>
+    </div>
   );
 };
 

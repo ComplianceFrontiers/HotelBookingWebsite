@@ -57,6 +57,8 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
               <th>Attendance</th>
               <th>Booked Date</th>
               <th>Time</th>
+              <th>Status</th> {/* New column for Status */}
+              <th>Invoice Status</th> {/* New column for Invoice Status */}
             </tr>
           </thead>
           <tbody>
@@ -69,13 +71,17 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
                   <td>{booking.date_option}</td>
                   <td>{booking.attendance}</td>
                   <td>{date.date}</td>
-                  <td>{date.startTime} - {date.endTime}</td>
+                  <td>
+                    {date.startTime} - {date.endTime}
+                  </td>
+                  <td>{booking.status || 'N/A'}</td> {/* Render status or default to 'N/A' */}
+                  <td>{booking.invoice_status || 'N/A'}</td> {/* Render invoice status or default to 'N/A' */}
                 </tr>
               ));
             })}
           </tbody>
         </table>
-
+  
         {/* Display View More button only if there are more than 5 records */}
         {bookings.length > 5 && (
           <button className="view-more-btn" onClick={() => setShowMore(!showMore)}>
@@ -85,6 +91,7 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
       </>
     );
   };
+  
 
   return (
     <div className="step-m1-container">

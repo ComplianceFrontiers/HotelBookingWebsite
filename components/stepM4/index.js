@@ -52,15 +52,17 @@ const StepM4 = ({ setActiveStep, formData }) => {
         additionalEstimation += hours * 50; // Assume $50 per hour
       }
     });
-   
   
     return { additionalEstimation, totalhrs };
   };
-  
-  const totalEstimation = [...formattedDateRows1, ...formattedDateRows2].reduce((total, row) => {
-    const totalHours = calculateHours(row.startTime, row.endTime);
-    return total + totalHours * 50;
-  }, 0);
+
+  const [additionalItems, setAdditionalItems] = useState([]);
+  const [newItem, setNewItem] = useState({ item: '', quantity: 1, dates: '' });
+
+  const totalEstimation = [
+    ...formattedDateRows1.map((row) => calculateHours(row.startTime, row.endTime) * 50),
+    ...additionalItems.map((item) => item.estimatedTotal)
+  ].reduce((total, value) => total + value, 0);
 
   const handleCheckout = async () => {
     const bookedDates =
@@ -103,9 +105,6 @@ const StepM4 = ({ setActiveStep, formData }) => {
     const updatedItems = additionalItems.filter((_, i) => i !== index);
     setAdditionalItems(updatedItems);
   };
-
-  const [additionalItems, setAdditionalItems] = useState([]);
-  const [newItem, setNewItem] = useState({ item: '', quantity: 1, dates: '' });
 
   const handleAddItem = () => {
     const formattedDate = formatDate(newItem.dates);
@@ -233,7 +232,6 @@ const StepM4 = ({ setActiveStep, formData }) => {
                 );
               })}
               {additionalItems.map((item, index) => {
-                
                 return (
                   <tr key={`additional-${index}`}>
                     <td>{index + 1}</td>

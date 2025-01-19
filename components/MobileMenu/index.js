@@ -49,7 +49,7 @@ const menus = [
     {
         id: 3,
         title: 'Scheduling',
-        link: '/events',
+        link: '/scheduling',
         
     },
     

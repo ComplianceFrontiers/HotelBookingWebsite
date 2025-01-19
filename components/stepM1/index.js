@@ -169,7 +169,7 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
                 required
               >
                 <option value="" disabled>Select room type</option>
-                <option value="gym">Gym</option>
+                <option value="Gym">Gym</option>
                 <option value="multi-purpose-room">Multi-Purpose Room</option>
                 <option value="conference-center">Conference Center</option>
                 <option value="auditorium">Auditorium</option>

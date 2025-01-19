@@ -8,8 +8,8 @@ const Events = () => {
   const [events, setEvents] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState('');
   const [filteredEvents, setFilteredEvents] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(null); // State for selected date
-  const [timeSlots, setTimeSlots] = useState([]); // State for time slots
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [timeSlots, setTimeSlots] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const Events = () => {
       .then((response) => {
         const eventData = response.data[0]?.booked_details || [];
         setEvents(eventData);
-        setFilteredEvents(eventData);
+        setFilteredEvents(eventData); // No filter initially
       })
       .catch((error) => console.error('Error fetching events:', error));
   }, []);
@@ -37,11 +37,11 @@ const Events = () => {
     return new Date(`${year}-${month}-${day}`);
   };
 
-  // Function to generate time slots every 30 minutes (00:00, 00:30, 01:00, etc.)
   const generateTimeSlots = () => {
     const slots = [];
-    for (let hour = 0; hour < 24; hour++) {
+    for (let hour = 9; hour <= 23; hour++) {
       for (let minute = 0; minute < 60; minute += 30) {
+        if (hour === 23 && minute > 0) break;
         const slot = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
         slots.push(slot);
       }
@@ -60,60 +60,53 @@ const Events = () => {
     }
     return null;
   };
+
   const handleDateClick = (date) => {
+    if (!selectedRoom) {
+      alert('Please select a room type first!');
+      setSelectedDate(null)
+      return;
+    }
+
     setSelectedDate(date);
-  
+
     const bookedSlots = filteredEvents
       .flatMap((event) =>
         event.booked_dates
           .filter((booking) => parseApiDate(booking.date).toLocaleDateString() === date.toLocaleDateString())
-          .map((booking) => { 
-  
-            const startTime = booking.startTime ? booking.startTime : null;
-            const endTime = booking.endTime ? booking.endTime : null;
-  
-            console.log(`Booking Date: ${booking.date}, Start Time: ${startTime}, End Time: ${endTime}`);
-  
+          .map((booking) => {
+            const startTime = booking.startTime || null;
+            const endTime = booking.endTime || null;
             return { startTime, endTime };
           })
       )
       .flat();
-   
-  
-    const allSlots = generateTimeSlots();  // Generate all available time slots
+
+    const allSlots = generateTimeSlots();
     const updatedSlots = allSlots.map((slot) => {
       const isBooked = bookedSlots.some((booked) => {
         if (booked.startTime && booked.endTime) {
           const [startHours, startMinutes] = booked.startTime.split(':').map(Number);
           const [endHours, endMinutes] = booked.endTime.split(':').map(Number);
-  
+
           const slotHours = Number(slot.split(':')[0]);
           const slotMinutes = Number(slot.split(':')[1]);
-  
-          const slotTime = slotHours * 60 + slotMinutes;  // Convert slot to minutes
-          const startTime = startHours * 60 + startMinutes;  // Convert start time to minutes
-          const endTime = endHours * 60 + endMinutes;  // Convert end time to minutes
-  
-          console.log(`Checking Slot: ${slot} (Slot Time: ${slotTime} minutes)`);
-          console.log(`Booking Start Time: ${startTime}, Booking End Time: ${endTime}`);
-  
-          // Check if slot is between startTime and endTime inclusively
-          const isSlotBooked = slotTime+ 30 >= startTime && slotTime < endTime + 30;  // +30 because the booking ends at 16:27, not 16:30 exactly.
-  
-          console.log(`Is Slot ${slot} booked? ${isSlotBooked}`);
-          return isSlotBooked;
+
+          const slotTime = slotHours * 60 + slotMinutes;
+          const startTime = startHours * 60 + startMinutes;
+          const endTime = endHours * 60 + endMinutes;
+
+          return slotTime + 30 >= startTime && slotTime < endTime + 30;
         }
         return false;
       });
-  
-      return { time: slot, status: isBooked ? 'booked' : 'available' }; // Mark slot as booked or available
+
+      return { time: slot, status: isBooked ? 'booked' : 'available' };
     });
-   
-    setTimeSlots(updatedSlots); // Update the state with the slot statuses
+
+    setTimeSlots(updatedSlots);
   };
-  
-  
-  
+
   const handleBookNow = () => {
     const userDetails = localStorage.getItem('user_details');
     if (userDetails) {
@@ -126,73 +119,64 @@ const Events = () => {
   return (
     <div className="admin">
       <div className="admin-container">
+        <div className="filter-section">
+          <div className="filter-data">
+            <h2 className="heading">Filter by Room Title</h2>
+            <select onChange={(e) => setSelectedRoom(e.target.value)} value={selectedRoom}>
+              <option value="">Select Room</option>
+              <option value="Gym">Gym</option>
+              <option value="multi-purpose-room">Multi-Purpose Room</option>
+              <option value="conference-center">Conference Center</option>
+              <option value="auditorium">Auditorium</option>
+              <option value="pavilion">Pavilion</option>
+              <option value="firepit">Firepit</option>
+            </select>
+            <button className="book-now-btn" onClick={handleBookNow}>Book Now</button>
+          </div>
+          <div className="questions">
+            <h2 className="heading">How we can <br /> Help You!</h2>
+            <p>
+              Need more information or assistance with booking? Don’t hesitate to reach out.
+              Our friendly team is ready to answer any questions and guide you through the reservation process.
+            </p>
+            <button className="contact-button" onClick={() => router.push('/contact')}>
+              Contact Us
+            </button>
+          </div>
+        </div>
 
-              <div className="filter-section">
-                <div className='filter-data'>
-                <h2 className="heading">Filter by Room Title</h2>
-                <select onChange={(e) => setSelectedRoom(e.target.value)} value={selectedRoom}>
-                <option value="">Select Room</option>
-                <option value="gym">Gym</option>
-                <option value="multi-purpose-room">Multi-Purpose Room</option>
-                <option value="conference-center">Conference Center</option>
-                <option value="auditorium">Auditorium</option>
-                <option value="pavilion">Pavilion</option>
-                <option value="firepit">Firepit</option>
-              </select>
-              <button className="book-now-btn" onClick={handleBookNow}>Book Now</button>
-              <div>
-                       
-                    
-                    
-                    </div>
-                </div>
-
-                <div className="questions">
-                          <h2 className="heading">How we can  <br /> Help You!</h2>
-                          <p>Need more information or assistance with booking? Don’t hesitate to reach out. Our friendly team is ready to answer any questions and guide you through the reservation process to ensure your experience is seamless and enjoyable.</p>
-                          <button class="contact-button" href="/contact" >
-                            Contact Us
-                          </button>
-                </div>
+        <div className="calendar-section">
+ 
+          <Calendar
+            tileClassName={tileClassName}
+            className="custom-calendar"
+            onClickDay={handleDateClick}
+          />
+          {selectedDate && selectedRoom && (
+            <div style={{ marginTop: '20px' }}>
+              <h3>Available Time Slots for {selectedDate.toLocaleDateString()}</h3>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                {timeSlots.map((slot, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      padding: '5px 10px',
+                      backgroundColor: slot.status === 'booked' ? 'red' : 'green',
+                      color: '#fff',
+                      borderRadius: '5px',
+                      textAlign: 'center',
+                      opacity: slot.status === 'booked' ? 0.5 : 1,
+                    }}
+                  >
+                    {slot.time}
+                  </div>
+                ))}
               </div>
-        
-            <div className="calendar-section">
-            <div>
-              <Calendar
-                tileClassName={tileClassName}
-                className="custom-calendar"
-                onClickDay={handleDateClick}
-              />
             </div>
-          
-
-            {/* Display Selected Date and Time Slots */}
-            {selectedDate && (
-              <div style={{ marginTop: '20px' }}>
-                <h3>Available Time Slots for {selectedDate.toLocaleDateString()}</h3>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-                  {timeSlots.map((slot, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        padding: '5px 10px',
-                        backgroundColor: slot.status === 'booked' ? 'red' : 'green',
-                        color: '#fff',
-                        borderRadius: '5px',
-                        textAlign: 'center',
-                        opacity: slot.status === 'booked' ? 0.5 : 1, // Optional: make booked slots look less clickable
-                      }}
-                    >
-                      {slot.time}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-      
-          </div> 
+          )}
+        </div>
       </div>
-    </div> 
+    </div>
   );
 };
 

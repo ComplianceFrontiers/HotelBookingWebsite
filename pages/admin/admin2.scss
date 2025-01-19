@@ -160,6 +160,10 @@ button.active {
     .react-calendar__tile--active:hover {
       color: black; // Ensure it remains black on hover/focus
     }
+    .react-calendar__month-view__days__day--weekend {
+      color: inherit; /* Resets to the default text color */
+  }
+  
   }
 }
 .custom-calendar .react-calendar__tile {

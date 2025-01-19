@@ -227,7 +227,7 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
                   <select value={monthlyRepeatBy} onChange={(e) => setMonthlyRepeatBy(e.target.value)}>
                     <option value="">Select</option>
                     <option value="dateOfMonth">Date of Month</option>
-                    <option value="dayOfWeek">day Of Week</option>
+                    <option value="dayOfWeek">Day Of Week</option>
                   </select>
                 </div>
                 {monthlyRepeatBy === "dayOfWeek" && (

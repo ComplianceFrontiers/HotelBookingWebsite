@@ -166,7 +166,7 @@ const EventSummary = ({
       saturday: 6
     };
   
-    const repeatDayIndex = dayOfWeekMap[repeatDay];
+    const repeatDayIndex = dayOfWeekMap[repeatDay.toLowerCase()];  // Convert repeatDay to lowercase
     const nthOccurrenceMap = {
       First: 1,
       Second: 2,
@@ -180,52 +180,44 @@ const EventSummary = ({
     if (repeatFrequency === "daily") {
       while (currentDate <= endDate) {
         dates.push({
-          date: `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()}`, // Format to DD-MM-YYYY
-          startTime: startTime, // Use user-inputted start time
-          endTime: endTime, // Use user-inputted end time
+          date: `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()}`,
+          startTime: startTime,
+          endTime: endTime,
         });
         currentDate.setDate(currentDate.getDate() + 1); // Increment by one day
       }
-    } 
+    }
     // Handling monthly recurrence
     else if (repeatFrequency === "monthly") {
       if (monthlyRepeatBy === "dateOfMonth") {
-        // Monthly recurrence by date of the month
-        const monthlyRepeatFrequency = 1;
-        const repeatInterval = monthlyRepeatFrequency;
-
         while (currentDate <= endDate) {
-          console.log("Adding date:", `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()}`);
           dates.push({
             date: `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()}`,
             startTime: startTime,
             endTime: endTime,
           });
-          currentDate.setMonth(currentDate.getMonth() + repeatInterval);
-                
+          currentDate.setMonth(currentDate.getMonth() + repeatInterval); // Increment by one month
         }
-    }
+      }
       else if (monthlyRepeatBy === "dayOfWeek") {
-      while (currentDate <= endDate) {
-        const nthWeekday = getNthWeekdayOfMonth(
-          currentDate,
-          repeatDayIndex,
-          nthOccurrence
-        );
-        if (nthWeekday <= endDate) {
-          dates.push({
-            date: `${nthWeekday.getDate()}-${nthWeekday.getMonth() + 1}-${nthWeekday.getFullYear()}`, // Format to DD-MM-YYYY
-            startTime: startTime, // Use user-inputted start time
-            endTime: endTime, // Use user-inputted end time
-          });
+        while (currentDate <= endDate) {
+          const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+  
+          const nthWeekday = getNthWeekdayOfMonth(firstDayOfMonth, repeatDayIndex, nthOccurrence);
+  
+          if (nthWeekday <= endDate) {
+            dates.push({
+              date: `${nthWeekday.getDate()}-${nthWeekday.getMonth() + 1}-${nthWeekday.getFullYear()}`,
+              startTime: startTime,
+              endTime: endTime,
+            });
+          }
+  
+          currentDate.setMonth(currentDate.getMonth() + repeatInterval); // Increment by one month
         }
-        currentDate.setMonth(currentDate.getMonth() + repeatInterval);
       }
     }
-  } 
-  
     else if (repeatFrequency === "weekly") {
-      console.log(weeklyRepeatDays,currentDate,endDate)
       const selectedWeekdays = Object.keys(weeklyRepeatDays)
         .filter((day) => weeklyRepeatDays[day]) // Get the selected weekdays
         .map((day) => dayOfWeekMap[day]); // Map to corresponding day of the week
@@ -235,7 +227,7 @@ const EventSummary = ({
   
         // Calculate the first occurrence of the selected weekday
         let dayOffset = (weekday - nextOccurrence.getDay() + 7) % 7;
-    
+  
         // If dayOffset is 0, don't skip to next week, instead, use the current date
         if (dayOffset === 0) {
           nextOccurrence = new Date(currentDate); // Use the current day as the first occurrence
@@ -253,10 +245,16 @@ const EventSummary = ({
           nextOccurrence.setDate(nextOccurrence.getDate() + 7); // Move to the next week
         }
       });
-      console.log(dates)
     }
   
-    return dates;
+    const filteredDates = dates.filter(dateObj => {
+      const [day, month, year] = dateObj.date.split('-');
+      const formattedDate = new Date(`${year}-${month}-${day}`); // Format to YYYY-MM-DD
+      return formattedDate >= new Date(firstDate); // Compare with firstDate
+    });
+   
+    console.log("Final dates array:", filteredDates);
+    return filteredDates;
   };
   
   

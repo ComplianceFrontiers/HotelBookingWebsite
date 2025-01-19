@@ -13,6 +13,7 @@ const Events = () => {
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [timeSlots, setTimeSlots] = useState([]);
+  const [currentDate, setCurrentDate] = useState(new Date()); 
   const router = useRouter();
 
   useEffect(() => {
@@ -157,33 +158,60 @@ const Events = () => {
             tileClassName={tileClassName}
             className="custom-calendar"
             onClickDay={handleDateClick}
+            value={currentDate}
           />
-          {selectedDate && selectedRoom ? (
-              <div className="custom-calendar">
-                <h3>Available Time Slots for {selectedDate.toLocaleDateString()}</h3>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-                  {timeSlots.map((slot, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        padding: '5px 10px',
-                        backgroundColor: slot.status === 'booked' ? 'red' : 'green',
-                        color: '#fff',
-                        borderRadius: '5px',
-                        textAlign: 'center',
-                        opacity: slot.status === 'booked' ? 0.5 : 1,
-                      }}
-                    >
-                      {slot.time}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : !selectedDate ? (
-              <div >
-                <h3 style={{ marginTop: '20px', color: 'red' }}>* Select a date to check availability</h3>
-              </div>
-            ) : null}
+       {selectedDate && selectedRoom ? (
+  <div className="custom-calendar">
+    <h3>Available Time Slots for {selectedDate.toLocaleDateString()}</h3>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+      {timeSlots.map((slot, index) => (
+        <div
+          key={index}
+          style={{
+            padding: '5px 10px',
+            backgroundColor: slot.status === 'booked' ? 'red' : 'green',
+            color: '#fff',
+            borderRadius: '5px',
+            textAlign: 'center',
+           }}
+        >
+          {slot.time}
+        </div>
+      ))}
+    </div>
+    
+    {/* Legends Section */}
+    <div style={{ marginTop: '20px', display: 'flex', gap: '20px' }}>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div
+          style={{
+            width: '20px',
+            height: '20px',
+            backgroundColor: 'green',
+            marginRight: '5px',
+          }}
+        ></div>
+        <span>Available</span>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div
+          style={{
+            width: '20px',
+            height: '20px',
+            backgroundColor: 'red',
+            marginRight: '5px',
+          }}
+        ></div>
+        <span>Not Available</span>
+      </div>
+    </div>
+  </div>
+) : !selectedDate ? (
+  <div >
+    <h3 style={{ marginTop: '20px', color: 'red' }}>* Select a date to check availability</h3>
+  </div>
+) : null}
+
 
         </div>
       </div>

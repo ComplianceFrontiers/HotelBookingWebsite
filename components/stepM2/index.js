@@ -16,7 +16,7 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
     }
   );
   const [monthlyRepeatBy, setMonthlyRepeatBy] = useState(formData.monthlyRepeatBy || "");
-  const [monthlyRepeatFrequency, setMonthlyRepeatFrequency] = useState(formData.monthlyRepeatFrequency || "");
+  const [monthlyRepeatFrequency, setMonthlyRepeatFrequency] = useState(formData.monthlyRepeatFrequency || "1 month");
   const [repeatOn, setRepeatOn] = useState(formData.repeatOn || "");
   const [repeatDay, setRepeatDay] = useState(formData.repeatDay || "");
   const [firstDate, setFirstDate] = useState(formData.firstDate || "");
@@ -68,7 +68,7 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
     monthlyRepeatFrequency,
     endByDate,
   ]);
-
+ 
   const addAdditionalDate = () => {
     setDateRows([...dateRows, { date: "", startTime: "", endTime: "" }]);
   };
@@ -207,7 +207,7 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
                     ))}
                   </div>
                 </div>
-
+                
                 <div className="form-group">
                   <label>End By *</label>
                   <input type="date" value={endByDate} onChange={(e) => setEndByDate(e.target.value)} />
@@ -222,19 +222,30 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
                   <select value={monthlyRepeatBy} onChange={(e) => setMonthlyRepeatBy(e.target.value)}>
                     <option value="">Select</option>
                     <option value="dateOfMonth">Date of Month</option>
-                    <option value="dayOfWeek">dayOfWeek</option>
+                    <option value="dayOfWeek">day Of Week</option>
                   </select>
                 </div>
                 {monthlyRepeatBy === "dayOfWeek" && (
-                  <div>
-                    <div className="form-group">
-                      <label>Repeat Frequency (in months) *</label>
-                      <select value={monthlyRepeatFrequency} onChange={(e) => setMonthlyRepeatFrequency(e.target.value)}>
-                        <option value="1">1 month</option>
-                        <option value="2">2 months</option>
-                        <option value="3">3 months</option>
-                      </select>
-                    </div>
+                  <div className="form-group">
+                    <label>Repeat On *</label>
+                    <select value={repeatOn} onChange={(e) => setRepeatOn(e.target.value)}>
+                    <option>Select</option>
+                      <option>First</option>
+                      <option>Second</option>
+                      <option>Third</option>
+                      <option>Fourth</option>
+                    </select>
+                    <select value={repeatDay} onChange={(e) => setRepeatDay(e.target.value)}>
+                    <option>Select</option>
+
+                      <option>Sunday</option>
+                      <option>Monday</option>
+                      <option>Tuesday</option>
+                      <option>Wednesday</option>
+                      <option>Thursday</option>
+                      <option>Friday</option>
+                      <option>Saturday</option>
+                    </select> 
                   </div>
                 )}
                 <div className="form-group">
@@ -258,34 +269,34 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
                 </tr>
               </thead>
               <tbody>
-                {dateRows.map((row, index) => (
+            {dateRows.map((row, index) => (
                   <tr key={index}>
                     <td>
-                      <input
-                        type="date"
-                        value={row.date}
-                        onChange={(e) => handleDateChange(index, "date", e.target.value)}
-                      />
+                  <input
+                    type="date"
+                    value={row.date}
+                    onChange={(e) => handleDateChange(index, "date", e.target.value)}
+                  />
                     </td>
                     <td>
-                      <input
-                        type="time"
-                        value={row.startTime}
-                        onChange={(e) => handleDateChange(index, "startTime", e.target.value)}
-                      />
+                    <input
+                      type="time"
+                      value={row.startTime}
+                      onChange={(e) => handleDateChange(index, "startTime", e.target.value)}
+                    />
                     </td>
                     <td>
-                      <input
-                        type="time"
-                        value={row.endTime}
-                        onChange={(e) => handleDateChange(index, "endTime", e.target.value)}
-                      />
+                    <input
+                      type="time"
+                      value={row.endTime}
+                      onChange={(e) => handleDateChange(index, "endTime", e.target.value)}
+                    />
                     </td>
                     <td>
                       <button onClick={() => deleteRow(index)}>Delete</button>
                     </td>
                   </tr>
-                ))}
+            ))}
               </tbody>
             </table>
           </div>

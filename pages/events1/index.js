@@ -86,7 +86,7 @@ const Events1 = () => {
         onMouseEnter={(e) => (e.target.style.color = 'blue')}
         onMouseLeave={(e) => (e.target.style.color = 'black')}
       >
-        Gather Event Information
+       Event Information
       </span>
     </li>
     <li
@@ -107,7 +107,7 @@ const Events1 = () => {
         onMouseEnter={(e) => (e.target.style.color = 'blue')}
         onMouseLeave={(e) => (e.target.style.color = 'black')}
       >
-        Select Event Location and Dates
+        Event Dates
       </span>
     </li>
     <li
@@ -149,7 +149,7 @@ const Events1 = () => {
         onMouseEnter={(e) => (e.target.style.color = 'blue')}
         onMouseLeave={(e) => (e.target.style.color = 'black')}
       >
-        Add Additional Items and Submit for District Approval
+       Additional Services
       </span>
     </li>
     <li

@@ -71,8 +71,7 @@ const LoginPage = () => {
     return (
         <Grid className="loginWrapper">
             <Grid className="loginForm"> 
-            <img src='/images/logo.png' alt="Bellevue Community Center Logo" className="logo1" />
-             
+                <img src='/images/logo.png' alt="Bellevue Community Center Logo" className="logo1" />
                 <p>Sign in to your account</p>
                 <form onSubmit={submitForm}>
                     <Grid container spacing={3}>
@@ -118,7 +117,8 @@ const LoginPage = () => {
                                 onBlur={(e) => changeHandler(e)}
                                 onChange={(e) => changeHandler(e)}
                             />
-                            {validator.message('password', value.password, 'required|min:6')}
+                            {/* Removed min:6 validation, now only checking 'required' */}
+                            {validator.message('password', value.password, 'required')}
                         </Grid>
                         <Grid item xs={12}>
                             <Grid className="formFooter">

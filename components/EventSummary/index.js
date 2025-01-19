@@ -206,23 +206,23 @@ const EventSummary = ({
         }
     }
       else if (monthlyRepeatBy === "dayOfWeek") {
-        while (currentDate <= endDate) {
-          const nthWeekday = getNthWeekdayOfMonth(
-            currentDate,
-            repeatDayIndex,
-            nthOccurrence
-          );
-          if (nthWeekday <= endDate) {
-            dates.push({
-              date: `${nthWeekday.getDate()}-${nthWeekday.getMonth() + 1}-${nthWeekday.getFullYear()}`, // Format to DD-MM-YYYY
-              startTime: startTime, // Use user-inputted start time
-              endTime: endTime, // Use user-inputted end time
-            });
-          }
-          currentDate.setMonth(currentDate.getMonth() + repeatInterval);
+      while (currentDate <= endDate) {
+        const nthWeekday = getNthWeekdayOfMonth(
+          currentDate,
+          repeatDayIndex,
+          nthOccurrence
+        );
+        if (nthWeekday <= endDate) {
+          dates.push({
+            date: `${nthWeekday.getDate()}-${nthWeekday.getMonth() + 1}-${nthWeekday.getFullYear()}`, // Format to DD-MM-YYYY
+            startTime: startTime, // Use user-inputted start time
+            endTime: endTime, // Use user-inputted end time
+          });
         }
+        currentDate.setMonth(currentDate.getMonth() + repeatInterval);
       }
     }
+  } 
   
     else if (repeatFrequency === "weekly") {
       console.log(weeklyRepeatDays,currentDate,endDate)

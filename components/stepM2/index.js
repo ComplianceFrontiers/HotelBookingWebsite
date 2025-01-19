@@ -77,7 +77,12 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
     const updatedRows = dateRows.filter((_, i) => i !== index);
     setDateRows(updatedRows);
   };
-
+  const handleWeeklyRepeatDayChange = (day) => {
+    setWeeklyRepeatDays((prevState) => ({
+      ...prevState,
+      [day]: !prevState[day],
+    }));
+  };
   const handleDateChange = (index, field, value) => {
     const updatedRows = [...dateRows];
     updatedRows[index][field] = value;

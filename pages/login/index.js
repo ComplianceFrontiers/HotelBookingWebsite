@@ -70,8 +70,9 @@ const LoginPage = () => {
 
     return (
         <Grid className="loginWrapper">
-            <Grid className="loginForm">
-                <h2>Sign In</h2>
+            <Grid className="loginForm"> 
+            <img src='/images/logo.png' alt="Bellevue Community Center Logo" className="logo1" />
+             
                 <p>Sign in to your account</p>
                 <form onSubmit={submitForm}>
                     <Grid container spacing={3}>

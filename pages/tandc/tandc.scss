@@ -13,7 +13,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative; /* Required for pseudo-element positioning */
+    position: relative; 
   }
   
   .terms-and-conditions::before {

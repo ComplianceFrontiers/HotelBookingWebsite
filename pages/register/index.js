@@ -61,7 +61,7 @@ const SignUpPage = (props) => {
     return (
         <Grid className="loginWrapper">
             <Grid className="loginForm">
-                <h2>Signup</h2>
+            <img src='/images/logo.png' alt="Bellevue Community Center Logo" className="logo1" />
                 <p>Signup your account</p>
                 <form onSubmit={submitForm}>
                     <Grid container spacing={3}>
@@ -79,6 +79,7 @@ const SignUpPage = (props) => {
                                 }}
                                 onBlur={changeHandler}
                                 onChange={changeHandler}
+                                required  
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -95,6 +96,7 @@ const SignUpPage = (props) => {
                                 }}
                                 onBlur={changeHandler}
                                 onChange={changeHandler}
+                                required  
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -111,6 +113,7 @@ const SignUpPage = (props) => {
                                 }}
                                 onBlur={changeHandler}
                                 onChange={changeHandler}
+                                required  // Make phone field mandatory
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -128,6 +131,7 @@ const SignUpPage = (props) => {
                                 }}
                                 onBlur={changeHandler}
                                 onChange={changeHandler}
+                                required  // Make password field mandatory
                             />
                         </Grid>
                         <Grid item xs={12}>

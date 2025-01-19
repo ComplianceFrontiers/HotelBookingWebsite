@@ -1473,7 +1473,16 @@ ul.smothscroll a:hover {
 /* ===================== HEADER ======================*/
 
 .logo {
-  max-width: 180px;
+  width: 150px; /* Set your desired width */
+  height: auto; /* Ensure the aspect ratio is maintained */
+  display: block;
+  margin: 0 auto; /* Center the image horizontally */
+}
+.logo1 {
+  width: 150px; /* Set your desired width */
+  height: auto; /* Ensure the aspect ratio is maintained */
+  display: block;
+  margin: 0 auto; /* Center the image horizontally */
 }
 
 .logo img {

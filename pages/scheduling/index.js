@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,Fragment } from 'react';
 import Calendar from 'react-calendar';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import 'react-calendar/dist/Calendar.css';
-
+import 'react-calendar/dist/Calendar.css'; 
+import PageTitle from '../../components/pagetitle';
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/footer'
+import Scrollbar from '../../components/scrollbar'
 const Events = () => {
   const [events, setEvents] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState('');
@@ -117,6 +120,9 @@ const Events = () => {
   };
 
   return (
+    <Fragment>
+    <Navbar hclass={'wpo-header-style-3'} />
+ 
     <div className="admin">
       <div className="admin-container">
         <div className="filter-section">
@@ -152,31 +158,38 @@ const Events = () => {
             className="custom-calendar"
             onClickDay={handleDateClick}
           />
-          {selectedDate && selectedRoom && (
-            <div style={{ marginTop: '20px' }}>
-              <h3>Available Time Slots for {selectedDate.toLocaleDateString()}</h3>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-                {timeSlots.map((slot, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      padding: '5px 10px',
-                      backgroundColor: slot.status === 'booked' ? 'red' : 'green',
-                      color: '#fff',
-                      borderRadius: '5px',
-                      textAlign: 'center',
-                      opacity: slot.status === 'booked' ? 0.5 : 1,
-                    }}
-                  >
-                    {slot.time}
-                  </div>
-                ))}
+          {selectedDate && selectedRoom ? (
+              <div className="custom-calendar">
+                <h3>Available Time Slots for {selectedDate.toLocaleDateString()}</h3>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                  {timeSlots.map((slot, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        padding: '5px 10px',
+                        backgroundColor: slot.status === 'booked' ? 'red' : 'green',
+                        color: '#fff',
+                        borderRadius: '5px',
+                        textAlign: 'center',
+                        opacity: slot.status === 'booked' ? 0.5 : 1,
+                      }}
+                    >
+                      {slot.time}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            ) : !selectedDate ? (
+              <div >
+                <h3 style={{ marginTop: '20px', color: 'red' }}>* Select a date to check availability</h3>
+              </div>
+            ) : null}
+
         </div>
       </div>
     </div>
+    <Footer/>
+         </Fragment>
   );
 };
 

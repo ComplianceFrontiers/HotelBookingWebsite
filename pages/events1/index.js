@@ -78,7 +78,7 @@ const Events1 = () => {
         pointerEvents: activeStep === 1 || activeStep > 1 ? 'auto' : 'none', // Allow click only for current and previous steps
       }}
     >
-      Step 1:
+     
       <span
         style={{
           fontSize: '13px',
@@ -86,7 +86,7 @@ const Events1 = () => {
         onMouseEnter={(e) => (e.target.style.color = 'blue')}
         onMouseLeave={(e) => (e.target.style.color = 'black')}
       >
-       Event Information
+       Step 1: Event Information
       </span>
     </li>
     <li
@@ -99,7 +99,7 @@ const Events1 = () => {
         pointerEvents: activeStep >= 2 ? 'auto' : 'none', // Allow click only for current and previous steps
       }}
     >
-      Step 2:
+     
       <span
         style={{
           fontSize: '13px',
@@ -107,7 +107,7 @@ const Events1 = () => {
         onMouseEnter={(e) => (e.target.style.color = 'blue')}
         onMouseLeave={(e) => (e.target.style.color = 'black')}
       >
-        Event Dates
+        Step 2: Event Dates
       </span>
     </li>
     <li
@@ -120,7 +120,7 @@ const Events1 = () => {
         pointerEvents: activeStep >= 3 ? 'auto' : 'none', // Allow click only for current and previous steps
       }}
     >
-      Step 3:
+   
       <span
         style={{
           fontSize: '13px',
@@ -128,7 +128,7 @@ const Events1 = () => {
         onMouseEnter={(e) => (e.target.style.color = 'blue')}
         onMouseLeave={(e) => (e.target.style.color = 'black')}
       >
-        Confirm Event Dates
+         Step 3:  Confirm Event Dates
       </span>
     </li>
     <li
@@ -141,7 +141,7 @@ const Events1 = () => {
         pointerEvents: activeStep >= 4 ? 'auto' : 'none', // Allow click only for current and previous steps
       }}
     >
-      Step 4:
+      
       <span
         style={{
           fontSize: '13px',
@@ -149,7 +149,7 @@ const Events1 = () => {
         onMouseEnter={(e) => (e.target.style.color = 'blue')}
         onMouseLeave={(e) => (e.target.style.color = 'black')}
       >
-       Additional Services
+      Step 4:  Additional Services
       </span>
     </li>
     <li

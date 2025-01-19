@@ -78,8 +78,7 @@ const SignUpPage = (props) => {
                                     shrink: true,
                                 }}
                                 onBlur={changeHandler}
-                                onChange={changeHandler}
-                                required  
+                                onChange={changeHandler} 
                             />
                         </Grid>
                         <Grid item xs={12}>

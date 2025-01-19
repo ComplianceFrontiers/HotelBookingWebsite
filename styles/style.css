@@ -1484,6 +1484,10 @@ ul.smothscroll a:hover {
   display: block;
   margin: 0 auto; /* Center the image horizontally */
 }
+/* Custom style for the asterisk */
+.MuiFormLabel-asterisk {
+  color: red !important; /* Apply red to only the asterisk */
+}
 
 .logo img {
   max-width: 180px;
@@ -6454,6 +6458,7 @@ body .container {
 }
 
 .loginWrapper .loginForm {
+  font-size: 13px;
   width: 500px;
   max-width: 90%;
   margin: auto;
@@ -6476,7 +6481,7 @@ body .container {
 }
 
 .loginWrapper .loginForm > p {
-  font-size: 18px;
+ 
   margin-bottom: 30px;
   text-align: center;
   font-weight: 500;
@@ -6490,7 +6495,7 @@ body .container {
 }
 
 .loginWrapper .loginForm form .inputOutline input {
-  font-size: 18px;
+ 
   letter-spacing: 0;
 }
 
@@ -6526,7 +6531,7 @@ body .container {
 }
 
 .loginWrapper .loginForm .formAction label span {
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .loginWrapper .loginForm .formAction label span svg {
@@ -6536,8 +6541,7 @@ body .container {
 
 .loginWrapper .loginForm .formAction a {
   display: block;
-  letter-spacing: 0;
-  font-size: 18px;
+  letter-spacing: 0; 
   font-weight: 500;
   color: #246fea;
   cursor: pointer;
@@ -6580,7 +6584,7 @@ body .container {
   margin: 5px;
   color: #fff;
   border-radius: 3px;
-  font-size: 14px;
+  font-size: 13px;
   padding: 4px 9px;
 }
 
@@ -6599,7 +6603,7 @@ body .container {
 .loginWrapper .loginForm .noteHelp {
   text-align: center;
   margin-top: 20px;
-  font-size: 18px;
+  font-size: 13px;
   letter-spacing: 0;
   font-weight: 500;
 }
@@ -6608,7 +6612,7 @@ body .container {
   display: inline-block;
   color: #0077b5;
   margin-left: 10px;
-  font-size: 18px;
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
 }

@@ -58,29 +58,55 @@ const BookingOverlay = () => {
 
   const handleApprove = async () => {
     try {
-      const response = await fetch("https://hotel-website-backend-eosin.vercel.app/update-booking-status", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: bookingDetails.email,
-          booking_id: bookingDetails.booking_details.booking_id,
-          paid: false,
-          approved: true,
-        }),
-      });
-
+      // Step 1: Send a request to update the booking status to approved
+      const response = await fetch(
+        "https://hotel-website-backend-eosin.vercel.app/update-booking-status",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: bookingDetails.email,
+            booking_id: bookingDetails.booking_details.booking_id,
+            paid: false,
+            approved: true,
+          }),
+        }
+      );
+  
       if (!response.ok) {
         throw new Error("Failed to update booking status");
       }
-
+  
+      // Step 2: Call the /send_email_to_user_request_got_approved API
+      const emailResponse = await fetch(
+        "https://hotel-website-backend-eosin.vercel.app/send_email_to_user_request_got_approved",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: bookingDetails.email,
+            booking_id: bookingDetails.booking_details.booking_id,
+            stripe: stripeLink || null, // Pass Stripe link if provided
+          }),
+        }
+      );
+  
+      if (!emailResponse.ok) {
+        throw new Error("Failed to send email notification");
+      }
+  
+      // Step 3: Update local state and alert success
       setIsApproved(true); // Mark as approved
-      alert("Booking Approved!");
+      alert("Booking Approved and email notification sent!");
     } catch (err) {
       alert(`Error: ${err.message}`);
     }
   };
+  
 
   const handlePaid = async () => {
     try {
@@ -260,16 +286,16 @@ const BookingOverlay = () => {
           )}
           
           <div className="stripe-link-container">
-            <h2>Stripe Payment Link</h2>
-            <input
-              type="text"
-              placeholder="Enter Stripe link"
-              value={stripeLink}
-              onChange={handleStripeLinkChange}
-              className="stripe-link-input"
-            />
-            
-          </div>
+  <h2>Stripe Payment Link</h2>
+  <input
+    type="text"
+    placeholder="Enter Stripe link"
+    value={stripeLink}
+    onChange={handleStripeLinkChange}
+    className="stripe-link-input"
+  />
+</div>
+
 
         </div>
       ) : (

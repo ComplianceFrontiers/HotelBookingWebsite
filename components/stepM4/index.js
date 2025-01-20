@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import axios from "axios";
 
+
 const StepM4 = ({ setActiveStep, formData }) => {
   const { dateRows, dateOption, recurringDates } = formData;
   const userDetails = JSON.parse(localStorage.getItem("user_details"));
   const { email } = userDetails;
+
+  const [isLoading, setIsLoading] = useState(false); // State for loading
 
   const formatDate = (date) => {
     const d = new Date(date);
@@ -65,6 +68,8 @@ const StepM4 = ({ setActiveStep, formData }) => {
   ].reduce((total, value) => total + value, 0);
 
   const handleCheckout = async () => {
+    setIsLoading(true); // Start loading
+
     const bookedDates =
       dateOption === "One-Time"
         ? formattedDateRows1?.length > 0
@@ -155,10 +160,10 @@ const StepM4 = ({ setActiveStep, formData }) => {
       alert(
         "Error: " + (error.response?.data?.error || "Something went wrong")
       );
+    } finally {
+      setIsLoading(false); // Stop loading
     }
   };
-  
-  
 
   const handleDeleteItem = (index) => {
     const updatedItems = additionalItems.filter((_, i) => i !== index);
@@ -170,9 +175,9 @@ const StepM4 = ({ setActiveStep, formData }) => {
 
     const { additionalEstimation, totalhrs } = checkAdditionalItemEstimation(formattedDate);
   
-    setAdditionalItems([
-      ...additionalItems,
-      { ...newItem, dates: formattedDate, estimatedTotal: additionalEstimation,totalhrs },
+    setAdditionalItems([ 
+      ...additionalItems, 
+      { ...newItem, dates: formattedDate, estimatedTotal: additionalEstimation, totalhrs }
     ]);
     setNewItem({ item: '', quantity: 1, dates: '' });
   };
@@ -315,7 +320,17 @@ const StepM4 = ({ setActiveStep, formData }) => {
 
       <div className="navigation-buttons">
         <button onClick={() => setActiveStep(3)} className="btn-add">Back</button>
-        <button onClick={handleCheckout} className="btn-add" disabled={totalEstimation === 0}>Submit Request</button>
+        <button 
+          onClick={handleCheckout} 
+          className="btn-add" 
+          disabled={totalEstimation === 0 || isLoading} // Disable button when loading
+        >
+          {isLoading ? (
+            <img src="/images/loading.gif" alt="Loading..." style={{ width: '30px', height: '30px' }} />
+          ) : (
+            'Submit Request'
+          )}
+        </button>
       </div>
     </div>
   );

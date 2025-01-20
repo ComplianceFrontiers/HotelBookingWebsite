@@ -153,6 +153,23 @@
     }
   }
 }
+.view-more-btn {
+  color: rgb(25, 130, 179);          // Text color for contrast
+  padding: 10px 20px;    // Padding for better spacing
+  border: none; 
+  text-decoration: underline;         // Remove default border
+  border-radius: 5px;    // Slightly rounded corners
+  font-size: 12px;       // Adjust text size
+  cursor: pointer;       // Show pointer cursor on hover
+  text-align: center;    // Center text inside the button
+  margin: 10px auto 0;       // Center the button horizontally
+  display: block;        // Ensure button takes up its own line
+
+  &:focus {
+    outline: none;             // Remove focus outline
+    box-shadow: 0 0 4px white; // Add subtle focus effect
+  }
+}
 
 
 .step2-container {

@@ -114,7 +114,7 @@ const Events = () => {
   const handleBookNow = () => {
     const userDetails = localStorage.getItem('user_details');
     if (userDetails) {
-      router.push('/events1');
+      router.push('/dashboard');
     } else {
       router.push('/login');
     }

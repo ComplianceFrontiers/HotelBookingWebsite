@@ -137,13 +137,18 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
   
         {/* Show the View More button if there are more than 5 rows */}
         {bookings.length > 5 && (
-        <button
-          className="view-more-btn"
-          onClick={() => setShowMore(!showMore)}
-        >
-          {showMore ? 'Show Less' : 'View More'}
-        </button>
-      )}
+  <a
+    href="#"
+    className="view-more-btn"
+    onClick={(e) => {
+      e.preventDefault(); // Prevent default link behavior
+      setShowMore(!showMore); // Toggle the showMore state
+    }}
+  >
+    {showMore ? 'Show Less' : 'View More'}
+  </a>
+)}
+
       </>
     );
   };

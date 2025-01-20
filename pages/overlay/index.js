@@ -10,6 +10,17 @@ const BookingOverlay = () => {
   const [error, setError] = useState(null);
   const [isPaid, setIsPaid] = useState(false); // Track payment status
   const [isApproved, setIsApproved] = useState(false); // Track approval status
+  const [stripeLink, setStripeLink] = useState(""); // State for Stripe link
+
+  const handleStripeLinkChange = (e) => {
+    setStripeLink(e.target.value);
+  };
+
+  const handleStripeLinkSave = () => {
+    alert(`Stripe link saved: ${stripeLink}`);
+    // Optionally, send the Stripe link to a server
+  };
+
 
   useEffect(() => {
     if (bookingId) {
@@ -47,29 +58,55 @@ const BookingOverlay = () => {
 
   const handleApprove = async () => {
     try {
-      const response = await fetch("https://hotel-website-backend-eosin.vercel.app/update-booking-status", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: bookingDetails.email,
-          booking_id: bookingDetails.booking_details.booking_id,
-          paid: false,
-          approved: true,
-        }),
-      });
-
+      // Step 1: Send a request to update the booking status to approved
+      const response = await fetch(
+        "https://hotel-website-backend-eosin.vercel.app/update-booking-status",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: bookingDetails.email,
+            booking_id: bookingDetails.booking_details.booking_id,
+            paid: false,
+            approved: true,
+          }),
+        }
+      );
+  
       if (!response.ok) {
         throw new Error("Failed to update booking status");
       }
-
+  
+      // Step 2: Call the /send_email_to_user_request_got_approved API
+      const emailResponse = await fetch(
+        "https://hotel-website-backend-eosin.vercel.app/send_email_to_user_request_got_approved",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: bookingDetails.email,
+            booking_id: bookingDetails.booking_details.booking_id,
+            stripe: stripeLink || null, // Pass Stripe link if provided
+          }),
+        }
+      );
+  
+      if (!emailResponse.ok) {
+        throw new Error("Failed to send email notification");
+      }
+  
+      // Step 3: Update local state and alert success
       setIsApproved(true); // Mark as approved
-      alert("Booking Approved!");
+      alert("Booking Approved and email notification sent!");
     } catch (err) {
       alert(`Error: ${err.message}`);
     }
   };
+  
 
   const handlePaid = async () => {
     try {
@@ -97,9 +134,45 @@ const BookingOverlay = () => {
     }
   };
 
-  const handleReject = () => {
-    alert("Booking Rejected!");
+  const handleReject = async () => {
+    try {
+      // Send a request to update the booking status to rejected
+      const response = await fetch("https://hotel-website-backend-eosin.vercel.app/update-booking-status", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: bookingDetails.email,
+          booking_id: bookingDetails.booking_details.booking_id,
+          reject: true,
+          approve: false,
+          paid: false,
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to update booking status");
+      }
+  
+      // Update the local state to reflect the rejection
+      const updatedBookingDetails = { 
+        ...bookingDetails,
+        booking_details: {
+          ...bookingDetails.booking_details,
+          reject: true,
+          approve: false,
+          paid: false,
+        },
+      };
+  
+      setBookingDetails(updatedBookingDetails);
+      alert("Booking Rejected!");
+    } catch (err) {
+      alert(`Error: ${err.message}`);
+    }
   };
+  
 
   const handlePrint = () => {
     window.print();
@@ -211,37 +284,60 @@ const BookingOverlay = () => {
           ) : (
             <p>No additional items available.</p>
           )}
+          
+          <div className="stripe-link-container">
+  <h2>Stripe Payment Link</h2>
+  <input
+    type="text"
+    placeholder="Enter Stripe link"
+    value={stripeLink}
+    onChange={handleStripeLinkChange}
+    className="stripe-link-input"
+  />
+</div>
+
+
         </div>
       ) : (
         <p>No booking details found.</p>
       )}
 
-      <div className="booking-overlay-buttons">
-        <button className="booking-overlay-back-button" onClick={handleBack}>
-          Back
-        </button>
+<div className="booking-overlay-buttons">
+  <button className="booking-overlay-back-button" onClick={handleBack}>
+    Back
+  </button>
 
-        {isApproved && !isPaid ? (
-          <button className="booking-overlay-paid-button" onClick={handlePaid} disabled={isPaid}>
-            Mark as Paid
-          </button>
-        ) : (
-          !isApproved && (
-            <>
-              <button className="booking-overlay-approve-button" onClick={handleApprove}>
-                Approve
-              </button>
-              <button className="booking-overlay-reject-button" onClick={handleReject}>
-                Reject
-              </button>
-            </>
-          )
-        )}
-
-        <button className="booking-overlay-print-button" onClick={handlePrint}>
-          Print
+  {bookingDetails?.booking_details.reject && !bookingDetails?.booking_details.approve ? (
+    <>
+      <button className="booking-overlay-rejected-button" disabled>
+        Rejected
+      </button>
+      <button className="booking-overlay-print-button" onClick={handlePrint}>
+        Print
+      </button>
+    </>
+  ) : (
+    <>
+      {!isApproved && (
+        <button className="booking-overlay-approve-button" onClick={handleApprove}>
+          Approve
         </button>
-      </div>
+      )}
+      <button className="booking-overlay-reject-button" onClick={handleReject}>
+        Reject
+      </button>
+      {isApproved && !isPaid && (
+        <button className="booking-overlay-paid-button" onClick={handlePaid}>
+          Mark as Paid
+        </button>
+      )}
+      <button className="booking-overlay-print-button" onClick={handlePrint}>
+        Print
+      </button>
+    </>
+  )}
+</div>
+
     </div>
   );
 };

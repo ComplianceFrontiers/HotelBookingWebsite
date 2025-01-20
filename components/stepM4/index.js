@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import axios from "axios";
 
+
 const StepM4 = ({ setActiveStep, formData }) => {
   const { dateRows, dateOption, recurringDates } = formData;
   const userDetails = JSON.parse(localStorage.getItem("user_details"));
   const { email } = userDetails;
+
+  const [isLoading, setIsLoading] = useState(false); // State for loading
 
   const formatDate = (date) => {
     const d = new Date(date);
@@ -65,39 +68,100 @@ const StepM4 = ({ setActiveStep, formData }) => {
   ].reduce((total, value) => total + value, 0);
 
   const handleCheckout = async () => {
+    setIsLoading(true); // Start loading
+
     const bookedDates =
       dateOption === "One-Time"
-        ? formattedDateRows1 && formattedDateRows1.length > 0
+        ? formattedDateRows1?.length > 0
           ? formattedDateRows1
           : []
-        : formattedDateRows2 && formattedDateRows2.length > 0
+        : formattedDateRows2?.length > 0
         ? formattedDateRows2
         : [];
-
+  
     const bookingDetails = {
       event_name: formData.eventName,
       attendance: formData.attendance,
       room_type: formData.roomType,
       date_option: formData.dateOption,
       estimatedTotal: totalEstimation.toFixed(2),
-      additionalItems: additionalItems,
+      additionalItems,
       approved: false,
       paid: false,
       booked_dates: bookedDates,
     };
-
+  
     try {
+      // Call the /checkout endpoint
       const response = await axios.post(
         "https://hotel-website-backend-eosin.vercel.app/checkout",
-        {
-          email,
-          booked_details: bookingDetails,
-        }
+        { email, booked_details: bookingDetails }
       );
+  
+      if (response.status === 200) {
+        const bookingId = response.data.booking_id;
+  
+        // Call the /send_email_to_user endpoint
+        try {
+          const emailToUserResponse = await axios.post(
+            "https://hotel-website-backend-eosin.vercel.app/send_email_to_user",
+            {
+              email,
+              booking_id: bookingId,
+            }
+          );
+  
+          if (emailToUserResponse.status === 200) {
+            console.log("Email to user sent successfully");
+          } else {
+            console.error(
+              "Failed to send email to user:",
+              emailToUserResponse.data.error
+            );
+          }
+        } catch (error) {
+          console.error("Error sending email to user:", error);
+          alert(
+            "Error sending email to user: " +
+              (error.response?.data?.error || "Something went wrong")
+          );
+        }
+  
+        // Call the /send_email_to_admin_to_approve endpoint
+        try {
+          const emailToAdminResponse = await axios.post(
+            "https://hotel-website-backend-eosin.vercel.app/send_email_to_admin_to_approve",
+            {
+              email,
+              booking_id: bookingId,
+            }
+          );
+  
+          if (emailToAdminResponse.status === 200) {
+            console.log("Email to admin sent successfully");
+          } else {
+            console.error(
+              "Failed to send email to admin:",
+              emailToAdminResponse.data.error
+            );
+          }
+        } catch (error) {
+          console.error("Error sending email to admin:", error);
+          alert(
+            "Error sending email to admin: " +
+              (error.response?.data?.error || "Something went wrong")
+          );
+        }
+      }
+  
       setActiveStep(1);
     } catch (error) {
       console.error("Error during checkout:", error);
-      alert("Error: " + (error.response?.data?.error || "Something went wrong"));
+      alert(
+        "Error: " + (error.response?.data?.error || "Something went wrong")
+      );
+    } finally {
+      setIsLoading(false); // Stop loading
     }
   };
 
@@ -111,9 +175,9 @@ const StepM4 = ({ setActiveStep, formData }) => {
 
     const { additionalEstimation, totalhrs } = checkAdditionalItemEstimation(formattedDate);
   
-    setAdditionalItems([
-      ...additionalItems,
-      { ...newItem, dates: formattedDate, estimatedTotal: additionalEstimation,totalhrs },
+    setAdditionalItems([ 
+      ...additionalItems, 
+      { ...newItem, dates: formattedDate, estimatedTotal: additionalEstimation, totalhrs }
     ]);
     setNewItem({ item: '', quantity: 1, dates: '' });
   };
@@ -307,7 +371,17 @@ const StepM4 = ({ setActiveStep, formData }) => {
 
       <div className="navigation-buttons">
         <button onClick={() => setActiveStep(3)} className="btn-add">Back</button>
-        <button onClick={handleCheckout} className="btn-add" disabled={totalEstimation === 0}>Submit Request</button>
+        <button 
+          onClick={handleCheckout} 
+          className="btn-add" 
+          disabled={totalEstimation === 0 || isLoading} // Disable button when loading
+        >
+          {isLoading ? (
+            <img src="/images/loading.gif" alt="Loading..." style={{ width: '30px', height: '30px' }} />
+          ) : (
+            'Submit Request'
+          )}
+        </button>
       </div>
     </div>
   );

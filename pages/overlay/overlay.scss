@@ -66,6 +66,7 @@ h2 {
 .booking-overlay-back-button,
 .booking-overlay-print-button,
 .booking-overlay-approve-button,
+.booking-overlay-rejected-button,
 .booking-overlay-reject-button {
   padding: 10px 20px;
   font-size: 13px;
@@ -97,7 +98,15 @@ h2 {
 .booking-overlay-approve-button {
   background-color: #48a85e;
 }
-
+.booking-overlay-rejected-button{
+  background-color: #a07009;
+  cursor: not-allowed; 
+}
+.booking-overlay-rejected-button:hover{
+  cursor: not-allowed; 
+  background-color: #0f0b01;
+  transform: scale(1.05);
+}
 .booking-overlay-approve-button:hover {
   background-color: #218838;
   transform: scale(1.05);
@@ -124,4 +133,16 @@ h2 {
 .booking-overlay-error {
   color: #bb3939;
   font-weight: bold;
+}
+.stripe-payment-link-container {
+  margin: 1em 0;
+}
+
+.stripe-payment-link {
+  width: 100%;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #333;
 }

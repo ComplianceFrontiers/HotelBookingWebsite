@@ -78,7 +78,7 @@ const BookingTable = () => {
                   </div>
                 )) || "No dates available"}
               </td>
-              <td>{booking.estimatedTotal }</td>
+              <td>{booking.estimatedTotal}$</td>
               <td>{booking.paid?"Paid":"Pending"}</td>
             </tr>
           ))}

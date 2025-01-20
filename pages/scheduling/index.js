@@ -1,12 +1,11 @@
-import React, { useEffect, useState,Fragment } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import Calendar from 'react-calendar';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import 'react-calendar/dist/Calendar.css'; 
-import PageTitle from '../../components/pagetitle';
 import Navbar from '../../components/Navbar';
-import Footer from '../../components/footer'
-import Scrollbar from '../../components/scrollbar'
+import Footer from '../../components/footer';
+
 const Events = () => {
   const [events, setEvents] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState('');
@@ -16,15 +15,17 @@ const Events = () => {
   const [currentDate, setCurrentDate] = useState(new Date()); 
   const router = useRouter();
 
-  useEffect(() => {
+  useEffect(() => { 
     axios
       .get('https://hotel-website-backend-eosin.vercel.app/users')
-      .then((response) => {
-        const eventData = response.data[0]?.booked_details || [];
+      .then((response) => { 
+        const eventData = response.data[1]?.booked_details || []; // Fetching second user's booked details
         setEvents(eventData);
         setFilteredEvents(eventData); // No filter initially
       })
-      .catch((error) => console.error('Error fetching events:', error));
+      .catch((error) => {
+        console.error('Error fetching events:', error);
+      });
   }, []);
 
   useEffect(() => {
@@ -38,7 +39,8 @@ const Events = () => {
 
   const parseApiDate = (apiDate) => {
     const [day, month, year] = apiDate.split('-');
-    return new Date(`${year}-${month}-${day}`);
+    const parsedDate = new Date(`${year}-${month}-${day}`);
+    return parsedDate;
   };
 
   const generateTimeSlots = () => {
@@ -68,7 +70,7 @@ const Events = () => {
   const handleDateClick = (date) => {
     if (!selectedRoom) {
       alert('Please select a room type first!');
-      setSelectedDate(null)
+      setSelectedDate(null);
       return;
     }
 
@@ -122,102 +124,97 @@ const Events = () => {
 
   return (
     <Fragment>
-    <Navbar hclass={'wpo-header-style-3'} />
- 
-    <div className="admin">
-      <div className="admin-container">
-        <div className="filter-section">
-          <div className="filter-data">
-            <h2 className="heading">Filter by Room Title</h2>
-            <select onChange={(e) => setSelectedRoom(e.target.value)} value={selectedRoom}>
-              <option value="">Select Room</option>
-              <option value="Gym">Gym</option>
-              <option value="multi-purpose-room">Multi-Purpose Room</option>
-              <option value="conference-center">Conference Center</option>
-              <option value="auditorium">Auditorium</option>
-              <option value="pavilion">Pavilion</option>
-              <option value="firepit">Firepit</option>
-            </select>
-            <button className="book-now-btn" onClick={handleBookNow}>Book Now</button>
+      <Navbar hclass={'wpo-header-style-3'} />
+      <div className="admin">
+        <div className="admin-container">
+          <div className="filter-section">
+            <div className="filter-data">
+              <h2 className="heading">Filter by Room Title</h2>
+              <select onChange={(e) => setSelectedRoom(e.target.value)} value={selectedRoom}>
+                <option value="">Select Room</option>
+                <option value="Gym">Gym</option>
+                <option value="multi-purpose-room">Multi-Purpose Room</option>
+                <option value="conference-center">Conference Center</option>
+                <option value="auditorium">Auditorium</option>
+                <option value="pavilion">Pavilion</option>
+                <option value="firepit">Firepit</option>
+              </select>
+              <button className="book-now-btn" onClick={handleBookNow}>Book Now</button>
+            </div>
+            <div className="questions">
+              <h2 className="heading">How we can <br /> Help You!</h2>
+              <p>
+                Need more information or assistance with booking? Don’t hesitate to reach out.
+                Our friendly team is ready to answer any questions and guide you through the reservation process.
+              </p>
+              <button className="contact-button" onClick={() => router.push('/contact')}>
+                Contact Us
+              </button>
+            </div>
           </div>
-          <div className="questions">
-            <h2 className="heading">How we can <br /> Help You!</h2>
-            <p>
-              Need more information or assistance with booking? Don’t hesitate to reach out.
-              Our friendly team is ready to answer any questions and guide you through the reservation process.
-            </p>
-            <button className="contact-button" onClick={() => router.push('/contact')}>
-              Contact Us
-            </button>
+
+          <div className="calendar-section">
+            <Calendar
+              tileClassName={tileClassName}
+              className="custom-calendar"
+              onClickDay={handleDateClick}
+              value={currentDate}
+            />
+            {selectedDate && selectedRoom ? (
+              <div className="custom-calendar">
+                <h3>Available Time Slots for {selectedDate.toLocaleDateString()}</h3>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                  {timeSlots.map((slot, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        padding: '5px 10px',
+                        backgroundColor: slot.status === 'booked' ? 'red' : 'green',
+                        color: '#fff',
+                        borderRadius: '5px',
+                        textAlign: 'center',
+                      }}
+                    >
+                      {slot.time}
+                    </div>
+                  ))}
+                </div>
+                {/* Legends Section */}
+                <div style={{ marginTop: '20px', display: 'flex', gap: '20px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <div
+                      style={{
+                        width: '20px',
+                        height: '20px',
+                        backgroundColor: 'green',
+                        marginRight: '5px',
+                      }}
+                    ></div>
+                    <span>Available</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <div
+                      style={{
+                        width: '20px',
+                        height: '20px',
+                        backgroundColor: 'red',
+                        marginRight: '5px',
+                      }}
+                    ></div>
+                    <span>Not Available</span>
+                  </div>
+                </div>
+              </div>
+            ) : !selectedDate ? (
+              <div>
+                <h3 style={{ marginTop: '20px', color: 'red' }}>* Select a date to check availability</h3>
+              </div>
+            ) : null}
           </div>
         </div>
-
-        <div className="calendar-section">
- 
-          <Calendar
-            tileClassName={tileClassName}
-            className="custom-calendar"
-            onClickDay={handleDateClick}
-            value={currentDate}
-          />
-       {selectedDate && selectedRoom ? (
-  <div className="custom-calendar">
-    <h3>Available Time Slots for {selectedDate.toLocaleDateString()}</h3>
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-      {timeSlots.map((slot, index) => (
-        <div
-          key={index}
-          style={{
-            padding: '5px 10px',
-            backgroundColor: slot.status === 'booked' ? 'red' : 'green',
-            color: '#fff',
-            borderRadius: '5px',
-            textAlign: 'center',
-           }}
-        >
-          {slot.time}
-        </div>
-      ))}
-    </div>
-    
-    {/* Legends Section */}
-    <div style={{ marginTop: '20px', display: 'flex', gap: '20px' }}>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <div
-          style={{
-            width: '20px',
-            height: '20px',
-            backgroundColor: 'green',
-            marginRight: '5px',
-          }}
-        ></div>
-        <span>Available</span>
       </div>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <div
-          style={{
-            width: '20px',
-            height: '20px',
-            backgroundColor: 'red',
-            marginRight: '5px',
-          }}
-        ></div>
-        <span>Not Available</span>
-      </div>
-    </div>
-  </div>
-) : !selectedDate ? (
-  <div >
-    <h3 style={{ marginTop: '20px', color: 'red' }}>* Select a date to check availability</h3>
-  </div>
-) : null}
-
-
-        </div>
-      </div>
-    </div>
-    <Footer/>
-         </Fragment>
+      <Footer />
+    </Fragment>
   );
 };
 

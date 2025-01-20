@@ -220,6 +220,14 @@ const EventSummary = ({
   
           currentDate.setMonth(currentDate.getMonth() + repeatInterval); // Increment by one month
         }
+        const filteredDates = dates.filter(dateObj => {
+          const [day, month, year] = dateObj.date.split('-');
+          const formattedDate = new Date(`${year}-${month}-${day}`); // Format to YYYY-MM-DD
+          return formattedDate >= new Date(firstDate); // Compare with firstDate
+        });
+      
+        dates.length = 0; // Clear the original dates array
+        Array.prototype.push.apply(dates, filteredDates);
       }
     }
     else if (repeatFrequency === "weekly") {

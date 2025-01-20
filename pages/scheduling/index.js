@@ -210,7 +210,7 @@ const Events = () => {
             </div>
           ) : !selectedDate ? (
             <div>
-              <h3 style={{ marginTop: '20px', color: 'red' }}>* Select a date to check availability</h3>
+              <h3 style={{ marginTop: '20px',fontSize:'15px', color: 'red' }}>* Select a date to check availability</h3>
             </div>
           ) : null}
         </div>

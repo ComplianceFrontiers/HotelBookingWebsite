@@ -73,7 +73,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
         : formattedDateRows2 && formattedDateRows2.length > 0
         ? formattedDateRows2
         : [];
-
+  
     const bookingDetails = {
       event_name: formData.eventName,
       attendance: formData.attendance,
@@ -85,8 +85,9 @@ const StepM4 = ({ setActiveStep, formData }) => {
       paid: false,
       booked_dates: bookedDates,
     };
-
+  
     try {
+      // Call the /checkout endpoint
       const response = await axios.post(
         "https://hotel-website-backend-eosin.vercel.app/checkout",
         {
@@ -94,12 +95,43 @@ const StepM4 = ({ setActiveStep, formData }) => {
           booked_details: bookingDetails,
         }
       );
+  
+      if (response.status === 200) {
+        const bookingId = response.data.booking_id;
+  
+        // Call the /send_email_to_admin_to_approve endpoint
+        try {
+          const emailResponse = await axios.post(
+            "https://hotel-website-backend-eosin.vercel.app/send_email_to_user",
+            {
+              email,
+              booking_id: bookingId,
+            }
+          );
+  
+          if (emailResponse.status === 200) {
+            console.log("Email sent successfully");
+          } else {
+            console.error("Failed to send email:", emailResponse.data.error);
+          }
+        } catch (emailError) {
+          console.error("Error sending email:", emailError);
+          alert(
+            "Error sending email: " +
+              (emailError.response?.data?.error || "Something went wrong")
+          );
+        }
+      }
+  
       setActiveStep(1);
     } catch (error) {
       console.error("Error during checkout:", error);
-      alert("Error: " + (error.response?.data?.error || "Something went wrong"));
+      alert(
+        "Error: " + (error.response?.data?.error || "Something went wrong")
+      );
     }
   };
+  
 
   const handleDeleteItem = (index) => {
     const updatedItems = additionalItems.filter((_, i) => i !== index);

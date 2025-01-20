@@ -39,7 +39,12 @@ const EventSummary = ({
   const fetchBookedDates = async () => {
     try {
       const response = await axios.get(
-        "https://hotel-website-backend-eosin.vercel.app/users/already_booked_dates"
+        "https://hotel-website-backend-eosin.vercel.app/users/already_booked_dates",
+        {
+          params: {
+            room_type: formData.roomType,  // Pass roomType in the request query
+          },
+        }
       );
   
       // Ensure response.data is an array and has elements
@@ -221,20 +226,20 @@ const EventSummary = ({
       const selectedWeekdays = Object.keys(weeklyRepeatDays)
         .filter((day) => weeklyRepeatDays[day]) // Get the selected weekdays
         .map((day) => dayOfWeekMap[day]); // Map to corresponding day of the week
-  
+    
       selectedWeekdays.forEach((weekday) => {
         let nextOccurrence = new Date(currentDate);
-  
+    
         // Calculate the first occurrence of the selected weekday
         let dayOffset = (weekday - nextOccurrence.getDay() + 7) % 7;
-  
-        // If dayOffset is 0, don't skip to next week, instead, use the current date
+    
+        // If dayOffset is 0, use the current date as the first occurrence
         if (dayOffset === 0) {
           nextOccurrence = new Date(currentDate); // Use the current day as the first occurrence
         } else {
           nextOccurrence.setDate(nextOccurrence.getDate() + dayOffset); // Otherwise, move to the next occurrence
         }
-  
+    
         // Add occurrences for each week within the range
         while (nextOccurrence <= endDate) {
           dates.push({
@@ -245,16 +250,22 @@ const EventSummary = ({
           nextOccurrence.setDate(nextOccurrence.getDate() + 7); // Move to the next week
         }
       });
+    
+      // Filter out any dates that are earlier than the firstDate
+      const filteredDates = dates.filter(dateObj => {
+        const [day, month, year] = dateObj.date.split('-');
+        const formattedDate = new Date(`${year}-${month}-${day}`); // Format to YYYY-MM-DD
+        return formattedDate >= new Date(firstDate); // Compare with firstDate
+      });
+    
+      dates.length = 0; // Clear the original dates array
+      Array.prototype.push.apply(dates, filteredDates); // Populate the dates array with filtered dates
     }
+    
   
-    const filteredDates = dates.filter(dateObj => {
-      const [day, month, year] = dateObj.date.split('-');
-      const formattedDate = new Date(`${year}-${month}-${day}`); // Format to YYYY-MM-DD
-      return formattedDate >= new Date(firstDate); // Compare with firstDate
-    });
    
-    console.log("Final dates array:", filteredDates);
-    return filteredDates;
+   
+     return dates;
   };
   
   

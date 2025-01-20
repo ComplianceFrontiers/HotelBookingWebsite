@@ -17,7 +17,7 @@ import '../pages/cart/CartPage.scss';
 import '../pages/admin/admin2.scss';
 import '../pages/tandc/tandc.scss'; 
 import '../pages/Gallery/gallery.scss';
-import '../pages/events1/events1.scss';
+import '../pages/dashboard/events1.scss';
 import '../pages/scheduling/events.scss';
 import '../pages/overlay/overlay.scss';
 

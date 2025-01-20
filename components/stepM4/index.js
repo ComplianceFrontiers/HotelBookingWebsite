@@ -67,10 +67,10 @@ const StepM4 = ({ setActiveStep, formData }) => {
   const handleCheckout = async () => {
     const bookedDates =
       dateOption === "One-Time"
-        ? formattedDateRows1 && formattedDateRows1.length > 0
+        ? formattedDateRows1?.length > 0
           ? formattedDateRows1
           : []
-        : formattedDateRows2 && formattedDateRows2.length > 0
+        : formattedDateRows2?.length > 0
         ? formattedDateRows2
         : [];
   
@@ -80,7 +80,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
       room_type: formData.roomType,
       date_option: formData.dateOption,
       estimatedTotal: totalEstimation.toFixed(2),
-      additionalItems: additionalItems,
+      additionalItems,
       approved: false,
       paid: false,
       booked_dates: bookedDates,
@@ -90,18 +90,15 @@ const StepM4 = ({ setActiveStep, formData }) => {
       // Call the /checkout endpoint
       const response = await axios.post(
         "https://hotel-website-backend-eosin.vercel.app/checkout",
-        {
-          email,
-          booked_details: bookingDetails,
-        }
+        { email, booked_details: bookingDetails }
       );
   
       if (response.status === 200) {
         const bookingId = response.data.booking_id;
   
-        // Call the /send_email_to_admin_to_approve endpoint
+        // Call the /send_email_to_user endpoint
         try {
-          const emailResponse = await axios.post(
+          const emailToUserResponse = await axios.post(
             "https://hotel-website-backend-eosin.vercel.app/send_email_to_user",
             {
               email,
@@ -109,16 +106,45 @@ const StepM4 = ({ setActiveStep, formData }) => {
             }
           );
   
-          if (emailResponse.status === 200) {
-            console.log("Email sent successfully");
+          if (emailToUserResponse.status === 200) {
+            console.log("Email to user sent successfully");
           } else {
-            console.error("Failed to send email:", emailResponse.data.error);
+            console.error(
+              "Failed to send email to user:",
+              emailToUserResponse.data.error
+            );
           }
-        } catch (emailError) {
-          console.error("Error sending email:", emailError);
+        } catch (error) {
+          console.error("Error sending email to user:", error);
           alert(
-            "Error sending email: " +
-              (emailError.response?.data?.error || "Something went wrong")
+            "Error sending email to user: " +
+              (error.response?.data?.error || "Something went wrong")
+          );
+        }
+  
+        // Call the /send_email_to_admin_to_approve endpoint
+        try {
+          const emailToAdminResponse = await axios.post(
+            "https://hotel-website-backend-eosin.vercel.app/send_email_to_admin_to_approve",
+            {
+              email,
+              booking_id: bookingId,
+            }
+          );
+  
+          if (emailToAdminResponse.status === 200) {
+            console.log("Email to admin sent successfully");
+          } else {
+            console.error(
+              "Failed to send email to admin:",
+              emailToAdminResponse.data.error
+            );
+          }
+        } catch (error) {
+          console.error("Error sending email to admin:", error);
+          alert(
+            "Error sending email to admin: " +
+              (error.response?.data?.error || "Something went wrong")
           );
         }
       }
@@ -131,6 +157,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
       );
     }
   };
+  
   
 
   const handleDeleteItem = (index) => {

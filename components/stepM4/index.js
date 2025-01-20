@@ -330,7 +330,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
               </tr>
             </thead>
             <tbody>
-              {formattedDateRows1.map((row, index) => {
+              {formattedDateRows2.map((row, index) => {
                 const totalHours = calculateHours(row.startTime, row.endTime);
                 const estimatedTotal = totalHours * 50;
                 return (

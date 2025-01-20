@@ -305,29 +305,30 @@ const EventSummary = ({
 
   return (
     <div className="step2-container">
-      <h3 style={{ backgroundColor: "#3498db", fontFamily: "Monster", fontSize: "1.2rem", padding: "10px", color: "#fff" }}>Event Summary</h3>
-      <div className="event-location">
-        <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Event Name:</strong> {formData.eventName}</p>
-        <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Attendance:</strong> {formData.attendance}</p>
-        <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Room Type:</strong> {formData.roomType}</p>
-        <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Date Option:</strong> {dateOption}</p>
+        <div className="event-review">
+      <h3 >Event Summary</h3>
+    
+        <p><strong>Event Name:</strong> {formData.eventName}</p>
+        <p><strong>Attendance:</strong> {formData.attendance}</p>
+        <p><strong>Room Type:</strong> {formData.roomType}</p>
+        <p><strong>Date Option:</strong> {dateOption}</p>
 
         {/* Additional information for repeat frequencies */}
         {repeatFrequency === "weekly" && (
-          <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Weekly Repeat Days:</strong> {renderWeeklyRepeatDays()}</p>
+          <p><strong>Weekly Repeat Days:</strong> {renderWeeklyRepeatDays()}</p>
         )}
 
         {repeatFrequency === "monthly" && (
-          <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>Monthly Repeat:</strong> {renderMonthlyRepeatDetails()}</p>
+          <p><strong>Monthly Repeat:</strong> {renderMonthlyRepeatDetails()}</p>
         )}
 
         {dateOption === "Recurring" && (
           <>
-            <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>First Date:</strong> {firstDate}</p>
-            <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}><strong>End By:</strong> {endByDate}</p>
+            <p><strong>First Date:</strong> {firstDate}</p>
+            <p><strong>End By:</strong> {endByDate}</p>
             <div>
               <h4 style={{ fontFamily: "Monster", fontSize: "1rem" }}>Recurring Dates:</h4>
-              <p style={{ fontFamily: "Monster", fontSize: "0.9rem" }}>These are the dates and times your event will occur:</p>
+              <p>These are the dates and times your event will occur:</p>
               <table style={{ fontFamily: "Monster", fontSize: "0.9rem", width: "100%", border: "1px solid #ddd", borderCollapse: "collapse" }}>
                 <thead>
                   <tr>

@@ -64,6 +64,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
 
   const totalEstimation = [
     ...formattedDateRows1.map((row) => calculateHours(row.startTime, row.endTime) * 50),
+    ...formattedDateRows2.map((row) => calculateHours(row.startTime, row.endTime) * 50),
     ...additionalItems.map((item) => item.estimatedTotal)
   ].reduce((total, value) => total + value, 0);
 

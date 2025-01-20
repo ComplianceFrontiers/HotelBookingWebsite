@@ -249,6 +249,57 @@ const StepM4 = ({ setActiveStep, formData }) => {
           </table>
         </div>
       )}
+      {hasRecurringDates && (
+        <div>
+          <h2>Estimates for Request</h2>
+          <table className="estimates-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Request Date</th>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Total Hours</th>
+                <th>Estimated Base</th>
+                <th>Rate</th>
+                <th>Estimated Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {formattedDateRows1.map((row, index) => {
+                const totalHours = calculateHours(row.startTime, row.endTime);
+                const estimatedTotal = totalHours * 50;
+                return (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{row.date}</td>
+                    <td>{formData.roomType}</td>
+                    <td>1</td>
+                    <td>{totalHours.toFixed(2)}</td>
+                    <td>50$</td>
+                    <td>Per Hour</td>
+                    <td>${estimatedTotal.toFixed(2)}</td>
+                  </tr>
+                );
+              })}
+              {additionalItems.map((item, index) => {
+                return (
+                  <tr key={`additional-${index}`}>
+                    <td>{index + 1}</td>
+                    <td>{item.dates}</td>
+                    <td>{item.item}</td>
+                    <td>{item.quantity}</td>
+                    <td>{item.totalhrs.toFixed(2)}</td>
+                    <td>50$</td>
+                    <td>Per Hour</td>
+                    <td>${item.estimatedTotal.toFixed(2)}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
 
       <div className="total-estimation-container">
         <h4 className="total-estimation-text">Total Estimation: ${totalEstimation.toFixed(2)}</h4>

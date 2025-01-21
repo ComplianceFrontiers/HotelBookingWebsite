@@ -1,5 +1,6 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import Image from 'next/image'
 import LoadingGif from "../../public/images/loading.gif";
 const BookingOverlay = () => {
   const searchParams = useSearchParams();
@@ -210,7 +211,20 @@ const BookingOverlay = () => {
   };
 
   if (loading) {
-    return <div className="booking-overlay-loading">Loading booking details...</div>;
+    return <div  style={{
+      position: "fixed",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      width: "100px",
+      height: "100px",
+      zIndex: 1000,
+    }}>
+    <Image src={LoadingGif} alt="Loading..." width={100} height={100} />
+  </div>;
   }
 
   if (error) {

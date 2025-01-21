@@ -123,6 +123,7 @@ const BookingOverlay = () => {
   };
   const handleApprove = async () => {
     try {
+      setLoading(true)
       // Step 1: Send a request to update the booking status to approved
       const response = await fetch(
         "https://hotel-website-backend-eosin.vercel.app/update-booking-status",
@@ -170,10 +171,14 @@ const BookingOverlay = () => {
     } catch (err) {
       alert(`Error: ${err.message}`);
     }
+    finally {
+      setLoading(false); // Stop loading
+    }
   };
 
   
   const handlePaid = async () => {
+    setLoading(true)
     try {
       const response = await fetch("https://hotel-website-backend-eosin.vercel.app/update-booking-status", {
         method: "POST",
@@ -196,6 +201,8 @@ const BookingOverlay = () => {
       alert("Payment Completed!");
     } catch (err) {
       alert(`Error: ${err.message}`);
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 

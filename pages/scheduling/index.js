@@ -163,7 +163,7 @@ const Events = () => {
             onClickDay={handleDateClick}
             value={currentDate}
           />
-          {selectedDate && selectedRoom ? (
+          {selectedDate && selectedRoom && timeSlots.length > 0 ? (
             <div className="custom-calendar">
               <h3 style={{ marginTop:"20px" }}>Available Time Slots for {selectedDate.toLocaleDateString()}</h3>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>

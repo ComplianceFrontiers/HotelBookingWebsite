@@ -256,8 +256,21 @@ const StepM4 = ({ setActiveStep, formData }) => {
                   <td>{item.item}</td>
                   <td>{item.dates}</td>
                   <td>
-                    <p onClick={() => handleDeleteItem(index)} style={{ color: "#e74c3c", cursor: "pointer" }}>-</p>
-                  </td>
+  <button 
+    onClick={() => handleDeleteItem(index)} 
+    style={{ 
+      backgroundColor: "#e74c3c", 
+      color: "white", 
+      border: "none", 
+      padding: "5px 10px", 
+      cursor: "pointer", 
+      borderRadius: "4px" 
+    }}
+  >
+    Delete
+  </button>
+</td>
+
                 </tr>
               ))}
             </tbody>

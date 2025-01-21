@@ -155,20 +155,20 @@ const EventSummary = ({
       let dayOffset = weekday - firstWeekday;
       if (dayOffset < 0) dayOffset += 7;
   
-      // Adjust for nth occurrence (e.g., first Sunday)
+
       firstDay.setDate(1 + dayOffset + (nth - 1) * 7);
       return firstDay;
     };
   
     // Map weekday names to corresponding day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
     const dayOfWeekMap = {
-      sunday: 0,
-      monday: 1,
-      tuesday: 2,
-      wednesday: 3,
-      thursday: 4,
-      friday: 5,
-      saturday: 6
+      Sunday: 0,
+      Monday: 1,
+      Tuesday: 2,
+      Wednesday: 3,
+      Thursday: 4,
+      Friday: 5,
+      Saturday: 6
     };
   
     const repeatDayIndex = dayOfWeekMap[repeatDay.toLowerCase()];  // Convert repeatDay to lowercase

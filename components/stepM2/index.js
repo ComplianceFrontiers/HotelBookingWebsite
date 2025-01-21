@@ -172,7 +172,7 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
               </div>
               <div className="form-group" style={{ flex: 1 }}>
                 <label>End Time *</label>
-                <input type="time" value={endTime} onChange={handleEndTimeChange} />
+                <input type="time" value={endTime} onFocus={() => setEndTime("")}  onChange={handleEndTimeChange} />
               </div>
             </div>
 

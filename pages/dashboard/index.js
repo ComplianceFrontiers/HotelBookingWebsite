@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,Fragment} from 'react';
 import StepM1 from '../../components/stepM1';
 import StepM2 from '../../components/stepM2';
 import StepM3 from '../../components/stepM3';
 import StepM4 from '../../components/stepM4';
 import StepM5 from '../../components/stepM5'; // Import StepM5 component
-
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/footer';
 const Events1 = () => {
   const [activeStep, setActiveStep] = useState(1); // Tracks the active step
   const [formData, setFormData] = useState({
@@ -47,6 +48,8 @@ const Events1 = () => {
   }, []);
 
   return (
+     <Fragment>
+        <Navbar hclass={'wpo-header-style-3'} />
     <div className="events-container">
       <div className="steps-content">
         {activeStep === 1 && (
@@ -178,6 +181,8 @@ const Events1 = () => {
 
 
     </div>
+    <Footer />
+    </Fragment>
   );
 };
 

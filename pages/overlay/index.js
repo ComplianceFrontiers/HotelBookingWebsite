@@ -1,6 +1,6 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-
+import LoadingGif from "../../public/images/loading.gif";
 const BookingOverlay = () => {
   const searchParams = useSearchParams();
   const bookingId = searchParams.get("booking_id");
@@ -18,11 +18,8 @@ const BookingOverlay = () => {
   const handleStripeLinkChange = (e) => {
     setStripeLink(e.target.value);
   };
-
-  const handleStripeLinkSave = () => {
-    alert(`Stripe link saved: ${stripeLink}`);
-  };
-
+ 
+  
   useEffect(() => {
     if (bookingId) {
       fetchBookingDetails(bookingId);
@@ -62,6 +59,7 @@ const BookingOverlay = () => {
       alert("Please add a note before rejecting.");
       return;
     }
+    setLoading(true);
 
     try {
       const response = await fetch(
@@ -113,6 +111,9 @@ const BookingOverlay = () => {
       alert("Booking rejected and email sent successfully.");
     } catch (err) {
       alert(`Error: ${err.message}`);
+    }
+    finally {
+      setLoading(false); // Stop loading
     }
   };
 

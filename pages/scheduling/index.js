@@ -165,7 +165,7 @@ const Events = () => {
           />
           {selectedDate && selectedRoom ? (
             <div className="custom-calendar">
-              <h3>Available Time Slots for {selectedDate.toLocaleDateString()}</h3>
+              <h3 style={{ marginTop:"20px" }}>Available Time Slots for {selectedDate.toLocaleDateString()}</h3>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                 {timeSlots.map((slot, index) => (
                   <div

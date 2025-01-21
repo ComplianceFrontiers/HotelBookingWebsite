@@ -16,13 +16,13 @@ const Events1 = () => {
     dateOption: '',
     repeatFrequency: '',
     weeklyRepeatDays: {
-      Sunday: false,
-      Monday: false,
-      Tuesday: false,
-      Wednesday: false,
-      Thursday: false,
-      Friday: false,
-      Saturday: false,
+      sunday: false,
+      monday: false,
+      tuesday: false,
+      wednesday: false,
+      thursday: false,
+      friday: false,
+      saturday: false,
     },
     monthlyRepeatBy: '',
     monthlyRepeatFrequency: '',
@@ -181,7 +181,7 @@ const Events1 = () => {
 
 
     </div>
-    <Footer />
+     <Footer />
     </Fragment>
   );
 };

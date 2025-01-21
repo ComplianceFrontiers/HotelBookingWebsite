@@ -195,6 +195,17 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
               />
             </div>
             <div className="form-group">
+              <label>Event Description *</label>
+              <input
+                type="text"
+                name="eventDescription"
+                placeholder="Enter event Description"
+                value={formData.eventDescription}
+                onChange={(e) => setFormData((prev) => ({ ...prev, eventDescription: e.target.value }))}
+                required
+              />
+            </div>
+            <div className="form-group">
               <label>Anticipated Attendance *</label>
               <input
                 type="number"
@@ -210,7 +221,7 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
               type="button"
               className="btn-continue"
               onClick={() => setActiveStep(2)}
-              disabled={!formData.roomType || !formData.eventName || !formData.attendance} // Disable button if form is invalid
+              disabled={!formData.roomType || !formData.eventName || !formData.eventDescription ||!formData.attendance} // Disable button if form is invalid
             >
               Next
             </button>

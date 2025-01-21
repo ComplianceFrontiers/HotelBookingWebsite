@@ -82,6 +82,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
   
     const bookingDetails = {
       event_name: formData.eventName,
+      eventDescription: formData.eventDescription,
       attendance: formData.attendance,
       room_type: formData.roomType,
       date_option: formData.dateOption,
@@ -189,6 +190,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
         <h3 style={{ backgroundColor: "#3498db", fontSize: "0.8rem", padding: "10px", color: "#fff" }}>Event Summary</h3>
         <div className="event-location">
           <p><strong>Event Name:</strong> {formData.eventName}</p>
+          <p><strong>Event Description:</strong> {formData.eventDescription}</p>
           <p><strong>Attendance:</strong> {formData.attendance}</p>
           <p><strong>Room Type:</strong> {formData.roomType}</p>
           <p><strong>Date Option:</strong> {dateOption}</p>

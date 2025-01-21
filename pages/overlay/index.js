@@ -269,6 +269,10 @@ const BookingOverlay = () => {
                 <td>{booking_details.event_name || "N/A"}</td>
               </tr>
               <tr>
+                <th>Event Description</th>
+                <td>{booking_details.eventDescription || "N/A"}</td>
+              </tr>
+              <tr>
                 <th>Room Type</th>
                 <td>{booking_details.room_type || "N/A"}</td>
               </tr>

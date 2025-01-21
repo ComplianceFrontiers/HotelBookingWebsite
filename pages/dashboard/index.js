@@ -12,6 +12,7 @@ const Events1 = () => {
     full_name: '',
     roomType: '',
     eventName: '',
+    eventDescription:"",
     attendance: '',
     dateOption: '',
     repeatFrequency: '',

@@ -144,6 +144,7 @@ const StepM2 = ({ setActiveStep, formData, setFormData }) => {
           <p><strong>Full Name:</strong> {formData.full_name}</p>
           <p><strong>Room Type:</strong> {formData.roomType}</p>
           <p><strong>Event Name:</strong> {formData.eventName}</p>
+          <p><strong>Event Description:</strong> {formData.eventDescription}</p>
           <p><strong>Anticipated Attendance:</strong> {formData.attendance}</p>
         </div>
       </div>

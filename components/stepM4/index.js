@@ -362,20 +362,30 @@ const StepM4 = ({ setActiveStep, formData }) => {
                   </tr>
                 );
               })}
-              {additionalItems.map((item, index) => {
-                return (
-                  <tr key={`additional-${index}`}>
-                    <td>{index + 1}</td>
-                    <td>{item.dates}</td>
-                    <td>{item.item}</td>
-                    <td>{item.quantity}</td>
-                    <td>{item.totalhrs.toFixed(2)}</td>
-                    <td>50$</td>
-                    <td>Per Hour</td>
-                    <td>${item.estimatedTotal.toFixed(2)}</td>
-                  </tr>
-                );
-              })}
+          {additionalItems.map((item, index) => {
+          const { additionalEstimation } = checkAdditionalItemEstimation(item.dates);
+
+ 
+  return (
+    <tr key={`additional-${index}`}>
+      <td>{index + 1}</td>
+      <td>{item.dates}</td>
+      <td>{item.item}</td>
+      <td>{item.quantity}</td>
+      <td>{item.totalhrs.toFixed(2)}</td>
+      <td>50$</td>
+      <td>Per Hour</td>
+      <td>
+        {additionalEstimation === 0 ? (
+          <span style={{ color: 'red' }}>Event not selected for this date</span>
+        ) : (
+          `$${item.estimatedTotal.toFixed(2)}`
+        )}
+      </td>
+    </tr>
+  );
+})}
+
             </tbody>
           </table>
         </div>

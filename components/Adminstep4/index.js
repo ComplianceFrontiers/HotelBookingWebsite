@@ -103,65 +103,14 @@ const StepM4 = ({  setAdminCurrentStep, formData }) => {
   
       if (response.status === 200) {
         const bookingId = response.data.booking_id;
-  
-        // Call the /send_email_to_user endpoint
-        try {
-          const emailToUserResponse = await axios.post(
-            "https://hotel-website-backend-eosin.vercel.app/send_email_to_user",
-            {
-              email,
-              booking_id: bookingId,
-            }
-          );
-  
-          if (emailToUserResponse.status === 200) {
-            console.log("Email to user sent successfully");
-          } else {
-            console.error(
-              "Failed to send email to user:",
-              emailToUserResponse.data.error
-            );
-          }
-        } catch (error) {
-          console.error("Error sending email to user:", error);
-          alert(
-            "Error sending email to user: " +
-              (error.response?.data?.error || "Something went wrong")
-          );
-        }
-  
-        // Call the /send_email_to_admin_to_approve endpoint
-        try {
-          const emailToAdminResponse = await axios.post(
-            "https://hotel-website-backend-eosin.vercel.app/send_email_to_admin_to_approve",
-            {
-              email,
-              booking_id: bookingId,
-            }
-          );
-  
-          if (emailToAdminResponse.status === 200) {
-            console.log("Email to admin sent successfully");
-          } else {
-            console.error(
-              "Failed to send email to admin:",
-              emailToAdminResponse.data.error
-            );
-          }
-        } catch (error) {
-          console.error("Error sending email to admin:", error);
-          alert(
-            "Error sending email to admin: " +
-              (error.response?.data?.error || "Something went wrong")
-          );
-        }
+        alert('Dates blocked successfully');
+   
       }
-  
-      setActiveStep(1);
+   
     } catch (error) {
       console.error("Error during checkout:", error);
       alert(
-        "Error: " + (error.response?.data?.error || "Something went wrong")
+        "Error: " + (error.response?.data?.error || "Something went wrong1")
       );
     } finally {
       setIsLoading(false); // Stop loading

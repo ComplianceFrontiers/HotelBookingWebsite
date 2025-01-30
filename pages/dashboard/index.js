@@ -7,7 +7,8 @@ import StepM5 from '../../components/stepM5'; // Import StepM5 component
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/footer';
 import Adminstep2 from '../../components/Adminstep2';
-
+import Adminstep3 from '../../components/Adminstep3';
+import Adminstep4 from '../../components/Adminstep4';
 
 const Events1 = () => {
   const [activeStep, setActiveStep] = useState(1); // Tracks the active step
@@ -39,6 +40,7 @@ const Events1 = () => {
     repeatOn: '',
     repeatDay: '',
   });
+  const [AdmincurrentStep, setAdminCurrentStep] = useState(1); 
   const [formData1, setFormData1] = useState({
     full_name: '',
     roomType: '',
@@ -91,8 +93,12 @@ const Events1 = () => {
           {isAdmin ? (
             <>
                
-                <Adminstep2   setFormData={setFormData1} formData={formData1} />
-               
+               {AdmincurrentStep === 1 && (
+                <Adminstep2  setAdminCurrentStep={setAdminCurrentStep}  setFormData={setFormData1} formData={formData1} />
+              )}
+              {AdmincurrentStep === 2 && <Adminstep3 setAdminCurrentStep={setAdminCurrentStep}  formData={formData1} />}
+              {AdmincurrentStep === 3 && <Adminstep4 setAdminCurrentStep={setAdminCurrentStep}  formData={formData1} />}
+
             </>
           ) : (
             <>

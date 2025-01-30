@@ -10,7 +10,7 @@ const BookingTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://hotel-website-backend-eosin.vercel.app/users");
+        const response = await fetch("https://hotel-website-backend-eosin.vercel.app/users_without_admin");
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }

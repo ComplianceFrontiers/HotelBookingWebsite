@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Adminstep3 from "../Adminstep3";
-const StepM2 = ({ formData, setFormData }) => {
-  
-  const [dateRows, setDateRows] = useState(formData.dateRows || []);
+const StepM2 = ({ setAdminCurrentStep, formData, setFormData }) => {
+
+   const [dateRows, setDateRows] = useState(formData.dateRows || []);
   const [dateOption, setDateOption] = useState(formData.dateOption || "");
   const [repeatFrequency, setRepeatFrequency] = useState(formData.repeatFrequency || "");
   const [weeklyRepeatDays, setWeeklyRepeatDays] = useState(
@@ -147,7 +147,7 @@ const StepM2 = ({ formData, setFormData }) => {
       <div className="event-review">
         <h3>Admin Panel</h3>
         <div className="review-details">
-          <p><strong>Full Name:</strong> {formData.full_name}</p> 
+          <p><strong>Full Name:</strong> {formData.full_name}</p>
         </div>
         <div className="form-group">
               <label>Room Type *</label>
@@ -165,7 +165,7 @@ const StepM2 = ({ formData, setFormData }) => {
                 <option value="pavilion">Pavilion</option>
                 <option value="firepit">Firepit</option>
               </select>
-            </div>
+        </div>
       </div>
 
       <div className="event-location">
@@ -330,10 +330,29 @@ const StepM2 = ({ formData, setFormData }) => {
        
         <div className="navigation-buttons">
          
-          <button
-           onClick={handleNextClick}
-            className="btn-add" 
+          <button 
+            onClick={() => {
+              setFormData({
+                ...formData,
+                dateRows,
+                dateOption,
+                repeatFrequency,
+                firstDate,
+                endByDate,
+                startTime,
+                endTime,
+                weeklyRepeatDays,
+                monthlyRepeatBy,
+                monthlyRepeatFrequency,
+                repeatOn,
+                repeatDay,
+              }); 
+              setAdminCurrentStep(2);
+              // handleNextClick();
+            }}
+            className="btn-add"
             disabled={!isNextEnabled}
+           
           >
             Next
           </button>

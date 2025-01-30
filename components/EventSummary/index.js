@@ -4,6 +4,7 @@ import StepM4 from '../../components/stepM4';
 
 const EventSummary = ({
   setActiveStep,
+  setAdminCurrentStep,
   formData,
   dateOption,
   repeatFrequency,
@@ -308,9 +309,10 @@ const EventSummary = ({
         <div className="event-review">
       <h3 >Event Summary</h3>
     
-        <p><strong>Event Name:</strong> {formData.eventName}</p>
-        <p><strong>Event Description:</strong> {formData.eventDescription}</p>
-        <p><strong>Attendance:</strong> {formData.attendance}</p>
+      {formData.eventName && <p><strong>Event Name:</strong> {formData.eventName}</p>}
+{formData.eventDescription && <p><strong>Event Description:</strong> {formData.eventDescription}</p>}
+{formData.attendance && <p><strong>Attendance:</strong> {formData.attendance}</p>}
+
         <p><strong>Room Type:</strong> {formData.roomType}</p>
         <p><strong>Date Option:</strong> {dateOption}</p>
 
@@ -388,9 +390,33 @@ const EventSummary = ({
         )}
       
       <div className="navigation-buttons">
-        <button onClick={() => setActiveStep(2)} className="btn-add">Back</button>
-        <button onClick={() => setActiveStep(4)} className="btn-add" disabled={isContinueDisabled}>Continue</button>
-      </div>
+  <button 
+    onClick={() => {
+      if (formData.full_name === "Admin") {
+        setAdminCurrentStep(2);
+      } else {
+        setActiveStep(1);
+      }
+    }} 
+    className="btn-add"
+  >
+    Back
+  </button>
+  <button 
+    onClick={() => {
+      if (formData.full_name === "Admin") {
+        setAdminCurrentStep(3);
+      } else {
+        setActiveStep(4);
+      }
+    }} 
+    className="btn-add" 
+    disabled={isContinueDisabled}
+  >
+    Continue
+  </button>
+</div>
+
      </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Adminstep3 from "../Adminstep3";
+import Admintable from "../Admintable";
 const StepM2 = ({ setAdminCurrentStep, formData, setFormData }) => {
 
    const [dateRows, setDateRows] = useState(formData.dateRows || []);
@@ -25,11 +26,7 @@ const StepM2 = ({ setAdminCurrentStep, formData, setFormData }) => {
   const [startTime, setStartTime] = useState(formData.startTime || "");
   const [endTime, setEndTime] = useState(formData.endTime || "");
   const [isNextEnabled, setIsNextEnabled] = useState(false);
-  
-  const handleNextClick = () => {
-    console.log(formData);
-    <Adminstep3 formData={formData}/>
-  }
+ 
 
   useEffect(() => {
     // Validation logic for enabling "Next" button
@@ -147,7 +144,29 @@ const StepM2 = ({ setAdminCurrentStep, formData, setFormData }) => {
       <div className="event-review">
         <h3>Admin Panel</h3>
         <div className="review-details">
-          <p><strong>Full Name:</strong> {formData.full_name}</p>
+          <p><strong>Role:</strong> {formData.full_name}</p>
+          <div className="form-group">
+              <label>Admin Name *</label>
+              <input
+                type="text"
+                name="admin_name"
+                placeholder="Admin Name"
+                value={formData.admin_name}
+                onChange={(e) => setFormData((prev) => ({ ...prev, admin_name: e.target.value }))}
+                required
+              />
+            </div>
+          <div className="form-group">
+              <label>Reason For Blocking *</label>
+              <input
+                type="text"
+                name="reason"
+                placeholder="Reason For Blocking"
+                value={formData.reason}
+                onChange={(e) => setFormData((prev) => ({ ...prev, reason: e.target.value }))}
+                required
+              />
+            </div>
         </div>
         <div className="form-group">
               <label>Room Type *</label>
@@ -348,7 +367,6 @@ const StepM2 = ({ setAdminCurrentStep, formData, setFormData }) => {
                 repeatDay,
               }); 
               setAdminCurrentStep(2);
-              // handleNextClick();
             }}
             className="btn-add"
             disabled={!isNextEnabled}
@@ -358,6 +376,7 @@ const StepM2 = ({ setAdminCurrentStep, formData, setFormData }) => {
           </button>
         </div>
       </div>
+      <Admintable />
     </div>
   );
 };

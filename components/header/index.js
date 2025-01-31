@@ -6,8 +6,9 @@ import { removeFromCart } from "../../store/actions/action";
 import { totalPrice } from "../../utils";
 import MobileMenu from '../../components/MobileMenu';
 import Image from 'next/image';
-
+import { useRouter } from 'next/router';
 const Header = (props) => {
+    const router = useRouter();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
@@ -30,6 +31,7 @@ const Header = (props) => {
         localStorage.clear();
         localStorage.removeItem('user-details');
         setIsLoggedIn(false);
+        router.push('/login'); 
     };
 
     const { carts } = props;

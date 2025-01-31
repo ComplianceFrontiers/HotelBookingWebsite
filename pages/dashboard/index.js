@@ -44,6 +44,8 @@ const Events1 = () => {
   const [formData1, setFormData1] = useState({
     full_name: '',
     roomType: '',
+    admin_name:'',
+    reason:'',
     dateOption: '',
     repeatFrequency: '',
     weeklyRepeatDays: {

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from "axios";
-
+import { useRouter } from 'next/router';
 
 const StepM4 = ({  setAdminCurrentStep, formData }) => {
+  const router = useRouter();
   const { dateRows, dateOption, recurringDates } = formData;
   const userDetails = JSON.parse(localStorage.getItem("user_details"));
   const { email } = userDetails;
@@ -81,9 +82,8 @@ const StepM4 = ({  setAdminCurrentStep, formData }) => {
         : [];
   
     const bookingDetails = {
-      event_name: formData.eventName,
-      eventDescription: formData.eventDescription,
-      attendance: formData.attendance,
+      admin_name: formData.admin_name,
+      reason: formData.reason,
       room_type: formData.roomType,
       date_option: formData.dateOption,
       estimatedTotal: totalEstimation.toFixed(2),
@@ -104,6 +104,7 @@ const StepM4 = ({  setAdminCurrentStep, formData }) => {
       if (response.status === 200) {
         const bookingId = response.data.booking_id;
         alert('Dates blocked successfully');
+        setAdminCurrentStep(1);
    
       }
    

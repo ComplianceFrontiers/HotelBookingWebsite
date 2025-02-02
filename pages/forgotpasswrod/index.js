@@ -3,12 +3,14 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Navbar from '../../components/Navbar'; // Import Navbar component
+import Footer from '../../components/Footer'; // Import Footer component
 
 const ResetPasswordPage = () => {
     const router = useRouter();
     const { token } = router.query; // Extract token from the URL
 
-    const [new_password, setnew_password] = useState('');
+    const [new_password, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleResetPassword = async () => {
@@ -48,34 +50,38 @@ const ResetPasswordPage = () => {
     };
 
     return (
-        <div className="resetPasswordWrapper">
-            <div className="resetPasswordForm">
-                <h2>Reset Your Password</h2>
-                <TextField
-                    fullWidth
-                    type="password"
-                    placeholder="New Password"
-                    value={new_password}
-                    onChange={(e) => setnew_password(e.target.value)}
-                    style={{ marginBottom: '20px' }}
-                />
-                <TextField
-                    fullWidth
-                    type="password"
-                    placeholder="Confirm New Password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    style={{ marginBottom: '20px' }}
-                />
-                <Button
-                    fullWidth
-                    className="cBtnTheme"
-                    onClick={handleResetPassword}
-                >
-                    Reset Password
-                </Button>
+        <>
+            <Navbar />
+            <div className="resetPasswordWrapper">
+                <div className="resetPasswordForm">
+                    <h2>Reset Your Password</h2>
+                    <TextField
+                        fullWidth
+                        type="password"
+                        placeholder="New Password"
+                        value={new_password}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        style={{ marginBottom: '20px' }}
+                    />
+                    <TextField
+                        fullWidth
+                        type="password"
+                        placeholder="Confirm New Password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        style={{ marginBottom: '20px' }}
+                    />
+                    <Button
+                        fullWidth
+                        className="cBtnTheme"
+                        onClick={handleResetPassword}
+                    >
+                        Reset Password
+                    </Button>
+                </div>
             </div>
-        </div>
+            <Footer />
+        </>
     );
 };
 

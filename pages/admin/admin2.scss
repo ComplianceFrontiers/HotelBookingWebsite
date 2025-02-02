@@ -72,22 +72,13 @@ h2 {
   color: #ff4d4d;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-  .booking-table th,
-  .booking-table td {
-    padding: 12px 10px;
-    font-size: 14px;
-  }
-}
+/* Admin section */
 .admin {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
 }
-
-
 
 .admin-container {
   display: flex;
@@ -103,36 +94,34 @@ h2 {
 .calendar-section {
   margin-left: 80px;
   width: 80%;
+  position: relative;
 }
 
-.view-options {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-button { 
+/* Buttons */
+button {
+  padding: 10px 16px;
   margin: 0 5px;
   cursor: pointer;
-  background-color: #f0f0f0;
   border: 1px solid #ddd;
   border-radius: 4px;
   transition: background-color 0.3s;
 }
 
- 
+button:hover {
+  background-color: #095ab0;
+}
+
 button.active {
   background-color: #3498db;
   color: white;
 }
-
- 
 
 .available {
   background-color: #f0f0f0;
   color: rgb(17, 16, 16) !important;
 }
 
+/* Booking details */
 .booking-details {
   margin-top: 20px;
   background-color: #f0f0f0;
@@ -141,32 +130,37 @@ button.active {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
+/* Calendar section */
 .calendar-section {
   width: 90%;
   position: relative; // Ensure absolute positioning works
 
+.custom-calendar {
+  width: 800px;
+  height: auto;
+}
+@media (max-width: 768px) {
   .custom-calendar {
-    width: 800px; // Set your desired width
-    height: auto; // Set your desired height
-    .react-calendar__tile--active {
-      color: black; // Change text color to black
-      background-color: #fff; // Adjust background color if needed
-    }
-
-    // Additional styling for hover or focus states
-    .react-calendar__tile--active:focus,
-    .react-calendar__tile--active:hover {
-      color: black; // Ensure it remains black on hover/focus
-    }
-    .react-calendar__month-view__days__day--weekend {
-      color: inherit; /* Resets to the default text color */
-  }
-  
+    width: 100%;  // Adjust to full width on mobile
   }
 }
+.custom-calendar .react-calendar__tile--active {
+  color: black;
+  background-color: #fff;
+}
+
+.custom-calendar .react-calendar__tile--active:focus,
+.custom-calendar .react-calendar__tile--active:hover {
+  color: black;
+}
+
+.custom-calendar .react-calendar__month-view__days__day--weekend {
+  color: inherit;
+}
+}
 .custom-calendar .react-calendar__tile {
-  height: 110px; /* Increased height for more content space */
-   display: flex;
+  // height: 110px;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -179,31 +173,33 @@ button.active {
 }
 
 .custom-calendar .tile-content {
-  font-size: 10px; /* Smaller font size to fit content */
+  font-size: 10px;
   color: #0b0b0b;
-  max-height: 3em; /* Prevent overflow within the tile */
-  overflow-wrap: break-word; /* Wrap long words if needed */
-  white-space: normal; /* Allow text wrapping */
-}
-.room-title {
-  background-color: #e0410c; /* Red background */
-  color: white; /* Text color for visibility */
-  padding: 5px; /* Padding for appearance */
-  border-radius: 4px; /* Rounded corners */
-  margin: 2px 0; /* Space between titles */
-  width: 110px; /* Set fixed width */
-  height: 40px; /* Set fixed height */
-  text-align: center; /* Center text */
-  overflow: hidden; /* Hide overflow text */
-  display: flex; /* Center text vertically */
-  align-items: center; /* Center text vertically */
-  justify-content: center; /* Center text horizontally */
+  max-height: 3em;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
+.room-title {
+  background-color: #e0410c;
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+  margin: 2px 0;
+  width: 110px;
+  height: 40px;
+  text-align: center;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Booking button */
 .booking-button {
-  position: fixed; /* Fixed positioning to always place it at the bottom-right of the screen */
-  bottom: 20px; /* 20px from the bottom of the page */
-  right: 20px; /* 20px from the right side of the page */
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   padding: 12px 20px;
   font-size: 16px;
   background-color: #3498db;
@@ -213,7 +209,7 @@ button.active {
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s, transform 0.2s;
-  z-index: 10; /* Ensure it appears above other elements */
+  z-index: 10;
 }
 
 .booking-button:hover {
@@ -226,67 +222,77 @@ button.active {
   transform: scale(1);
 }
 
+/* Filter data */
 .filter-data {
   background-color: rgb(236, 236, 236);
-  border: 2px solid #e4e4e4; /* Adjust the color and width as needed */
+  border: 2px solid #e4e4e4;
   width: 350px;
-  padding: 30px; /* Optional: Adds some spacing inside the border */
-  border-radius: 5px; /* Optional: Rounds the corners of the border */
-  button{
-    margin-top: 20px;
-    background-color: #0f345f;
-    color: white;
-    margin-bottom: 20px;
-    border-radius: 20px;
-  }
-  input{
-    font-size: 12px;
-    font-weight: 600;
-    margin: 10px;
-    text-align: center;
-  }
+  padding: 30px;
+  border-radius: 5px;
 }
 
+.filter-data button {
+  margin-top: 20px;
+  background-color: #0f345f;
+  color: white;
+  margin-bottom: 20px;
+  border-radius: 20px;
+}
+
+.filter-data input {
+  font-size: 12px;
+  font-weight: 600;
+  margin: 10px;
+  text-align: center;
+}
+
+/* Questions section */
 .questions {
   background-color: rgb(41, 41, 41);
   margin-top: 50px;
   width: 350px;
-  border: 2px solid #000; /* Adjust the color and width as needed */
-  padding: 30px; /* Optional: Adds some spacing inside the border */
-  border-radius: 5px; /* Optional: Rounds the corners of the border */
-  h2,p {
-    color: white;
-  }
-  button{
-    font-size: 20px;
-    border: 2px solid white;
-    background-color:rgb(41, 41, 41);
-    color: white;
-  }
+  border: 2px solid #000;
+  padding: 30px;
+  border-radius: 5px;
 }
+
+.questions h2,
+.questions p {
+  color: white;
+}
+
+.questions button {
+  font-size: 20px;
+  border: 2px solid white;
+  background-color: rgb(41, 41, 41);
+  color: white;
+}
+
+/* Heading */
 .heading {
-  font-size: 30px; /* Adjust font size as needed */
+  font-size: 30px;
   font-weight: bold;
- 
   position: relative;
-  color: #1a2b48; /* Color for the heading */
+  color: #1a2b48;
 }
 
 .heading::after {
   margin: 5px;
   content: "";
   display: block;
-  width: 70px; /* Adjust the width of the line */
-  height: 5px; /* Adjust the thickness of the line */
-  background-color: #00c389; /* Green color */
-  margin-top: 10px; /* Space between heading text and line */
+  width: 70px;
+  height: 5px;
+  background-color: #00c389;
+  margin-top: 10px;
 }
+
+/* Contact button */
 .contact-button {
   display: inline-flex;
   align-items: center;
   padding: 10px 20px;
-  border: 2px solid #fff; /* White border */
-  background-color: #3c3f4a; /* Dark background */
+  border: 2px solid #fff;
+  background-color: #3c3f4a;
   color: #fff;
   font-size: 16px;
   font-weight: bold;
@@ -296,299 +302,158 @@ button.active {
 }
 
 .contact-button::after {
-  content: "→"; /* Arrow symbol */
-  font-size: 25px; /* Adjust size if needed */
-  margin-left: 20px; /* Space between text and arrow */
+  content: "→";
+  font-size: 25px;
+  margin-left: 20px;
   transition: transform 0.3s ease;
 }
 
 .contact-button:hover::after {
-  transform: translateX(5px); /* Moves arrow slightly to the right on hover */
-}
-.wpo-select-area form {
-  background: #fff;
-  display: flex;
-  justify-content: space-between;
-  right: -20px;
-  position: relative;
+  transform: translateX(5px);
 }
 
-.wpo-select-area form input,
-.wpo-select-area form select,
-.wpo-select-area form .theme-btn-s2 {
-  width: 100%;
-  font-size: 20px;
-  border: 0;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  border-radius: 0;
-  color: #283a5e;
-  font-weight: 700;
-}
-
-.wpo-select-area form input {
-  padding-left: 0;
-}
-
-@media (max-width: 991px) {
-  .wpo-select-area form {
-    right: 0px;
+/* Responsive design */
+@media (max-width: 768px) {
+   
+  .booking-table-container {
+    margin: 10px;
+    padding: 5px;
   }
-}
 
-@media (max-width: 767px) {
+  h2 {
+    font-size: 22px;
+  }
+
+  .booking-table th,
+  .booking-table td {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+
+  .booking-id-button {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  .admin-container {
+    flex-direction: column;
+  }
+
+  .filter-section {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .calendar-section {
+    width: 100%;
+    margin-left: 0;
+  } 
+ 
+
+  .room-title {
+    width: 100%;
+    height: auto;
+    font-size: 12px;
+  }
+
+  .booking-button {
+    bottom: 10px;
+    right: 10px;
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  .filter-data {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .questions {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .heading {
+    font-size: 24px;
+  }
+
+  .contact-button {
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+
+  .wpo-select-area form {
+    flex-direction: column;
+    align-items: center;
+  }
+
   .wpo-select-area form input,
   .wpo-select-area form select,
   .wpo-select-area form .theme-btn-s2 {
-    height: 50px;
-    font-size: 12px;
-    /* font-size: 0.9375rem; */
-  }
-}
-
-.wpo-select-area form select {
-  border-radius: 70px 0 0 70px;
-  padding: 0 5px;
-  background: white;
-}
-
-.wpo-select-area form input:focus,
-.wpo-select-area form select:focus {
-  outline: 0;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  color: #283a5e;
-}
-
-.select-sub {
-  margin-right: 20px;
-  position: relative;
-  margin-bottom: 25px;
-}
-
-.select-sub:first-child {
-  width: 230px;
-}
-
-.select-sub:nth-child(2) {
-  width: 230px;
-}
-
-.select-sub:last-child {
-  margin-right: 0;
-}
-
-.select-sub .fi:before {
-  font-size: 20px;
-}
-
-.input-group-addon {
-  background: none;
-  border: none;
-}
-
-.wpo-select-area form .theme-btn-s2 {
-  font-weight: 600;
-  color: #fff;
-  z-index: 1;
-  position: relative;
-  top: 10px;
-  right: 10px;
-  font-size: 15px;
-  width: 175px;
-  text-align: center;
-}
-
-.wpo-select-area form .theme-btn-s2:focus {
-  outline: none;
-  border: none;
-}
-
-.wpo-select-area .nice-select {
-  border: 0;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  padding-left: 0;
-}
-
-.wpo-select-area .nice-select span {
-  position: relative;
-  font-size: 20px;
-  color: #283a5e;
-  font-weight: 700;
-}
-
-.select-sub span {
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 20px;
-  font-size: 15px;
-  color: #687693;
-}
-
-.select-sub span i {
-  margin-right: 10px;
-}
-
-.wpo-select-area .select-sub:before {
-  position: absolute;
-  left: -30px;
-  top: 0;
-  width: 1px;
-  height: 70%;
-  background: #dddddd;
-  content: "";
-}
-
-.select-sub:first-child:before {
-  display: none;
-}
-
-.select-sub:last-child:before {
-  display: none;
-}
-
-.wpo-select-area input {
-  border: 0;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
-
-@media (max-width: 767px) {
-  .wpo-select-area .nice-select {
-    height: 50px;
-    line-height: 50px;
-  }
-}
-
-.wpo-select-area {
-  padding: 50px 20px 20px;
-}
-
-@media (max-width: 590px) {
-  .wpo-select-area {
-    padding: 20px 2px;
-  }
-}
-
-.nice-select:after {
-  right: 0px;
-}
-
-.react-datepicker button span {
-  margin-bottom: 0;
-}
-
-.react-datepicker button:focus {
-  outline: none;
-}
-
-.wpo-select-area .input-group-addon {
-  background: none;
-  border: none;
-  position: absolute;
-  right: 0;
-  top: 8px;
-}
-
-.wpo-select-area ::-webkit-input-placeholder {
-  /* Chrome/Opera/Safari */
-  color: #283a5e;
-}
-
-.wpo-select-area ::-moz-placeholder {
-  /* Firefox 19+ */
-
-  color: #283a5e;
-}
-
-.wpo-select-area :-ms-input-placeholder {
-  /* IE 10+ */
-  color: #283a5e;
-}
-
-.wpo-select-area :-moz-placeholder {
-  /* Firefox 18- */
-
-  color: #283a5e;
-}
-
-.datepicker table tr td.active,
-.datepicker table tr td.active.disabled,
-.datepicker table tr td.active.disabled:hover,
-.datepicker table tr td.active:hover {
-  background-image: linear-gradient(to bottom, #00d690, #00d690);
-}
-
-.datepicker table tr td.day.focused,
-.datepicker table tr td.day:hover {
-  background: #00d690;
-  color: #fff;
-}
-
-@media (max-width: 1200px) {
-  .wpo-select-area .nice-select span {
-    font-size: 20px;
+    width: 100%;
+    margin-bottom: 10px;
   }
 
-  .select-sub span {
-    font-size: 15px;
+  .select-sub {
+    width: 100% !important;
+    margin-right: 0;
   }
 
-  .wpo-select-area form .theme-btn-s2 {
-    font-size: 15px;
-  }
-
-  .select-sub:first-child {
-    width: 145px;
-  }
-
-  .select-sub:nth-child(2) {
-    width: 160px;
-  }
-}
-
-@media (max-width: 992px) {
-  .select-sub span {
-    font-size: 10px;
-  }
-
-  .select-sub .fi:before {
-    font-size: 14px;
-  }
-
-  .wpo-select-area form input,
-  .wpo-select-area form select {
-    font-size: 14px;
-  }
-
-  .select-sub:first-child {
-    width: 125px;
-  }
-
-  .select-sub:nth-child(2) {
-    width: 125px;
-  }
-
-  .wpo-select-area .nice-select span {
-    font-size: 15px;
-  }
-
-  .wpo-select-area .select-sub:before {
+  .select-sub:before {
     display: none;
   }
 
-  .hero-style-1 {
-    margin: 0;
+  .wpo-select-area .theme-btn-s2 {
+    width: 100%;
+    top: 0;
+    right: 0;
   }
 }
 
-@media (max-width: 767px) {
-  .wpo-select-area form {
-    flex-wrap: wrap;
-    justify-content: flex-start;
+@media (max-width: 480px) {
+  h2 {
+    font-size: 20px;
   }
-}
-.wpo-select-area{
-  border: 1px solid rgb(255, 255, 255);
+
+  .booking-table th,
+  .booking-table td {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+
+  .booking-id-button {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .booking-button {
+    bottom: 5px;
+    right: 5px;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .filter-data {
+    padding: 10px;
+  }
+
+  .questions {
+    padding: 10px;
+  }
+
+  .heading {
+    font-size: 20px;
+  }
+
+  .contact-button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .wpo-select-area form input,
+  .wpo-select-area form select,
+  .wpo-select-area form .theme-btn-s2 {
+    font-size: 12px;
+  }
 }

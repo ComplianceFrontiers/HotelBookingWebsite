@@ -20,6 +20,7 @@ import '../pages/Gallery/gallery.scss';
 import '../pages/dashboard/events1.scss';
 import '../pages/scheduling/events.scss';
 import '../pages/overlay/overlay.scss';
+import '../pages/login/login.scss';
 
 function MyApp({ Component, pageProps }) {
   return (

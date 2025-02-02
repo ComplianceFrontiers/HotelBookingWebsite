@@ -196,7 +196,7 @@ const LoginPage = () => {
                         className="cBtnTheme"
                         onClick={handleForgotPassword}
                     >
-                        Submit
+                        Reset
                     </Button>
                 </Box>
             </Modal>

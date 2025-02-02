@@ -9,6 +9,8 @@ import Link from "next/link";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
 
 const LoginPage = () => {
     const router = useRouter();
@@ -18,7 +20,9 @@ const LoginPage = () => {
         password: '',
     });
 
+    const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] = useState(false);
 
     const changeHandler = (e) => {
         setValue({ ...value, [e.target.name]: e.target.value });
@@ -68,9 +72,37 @@ const LoginPage = () => {
         setShowPassword((prevShowPassword) => !prevShowPassword);
     };
 
+    const handleForgotPassword = async () => {
+        if (!forgotPasswordEmail) {
+            toast.error('Please enter your email address.');
+            return;
+        }
+
+        try {
+            const response = await fetch('https://hotel-website-backend-eosin.vercel.app/forgot-password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: forgotPasswordEmail }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                toast.success(data.message);
+                setIsForgotPasswordModalOpen(false); // Close the modal after successful submission
+            } else {
+                toast.error(data.error);
+            }
+        } catch (error) {
+            toast.error('An error occurred. Please try again later.');
+        }
+    };
+
     return (
         <Grid className="loginWrapper">
-            <Grid className="loginForm"> 
+            <Grid className="loginForm">
                 <img src='/images/logo.png' alt="Bellevue Community Center Logo" className="logo1" />
                 <p>Sign in to your account</p>
                 <form onSubmit={submitForm}>
@@ -117,18 +149,57 @@ const LoginPage = () => {
                                 onBlur={(e) => changeHandler(e)}
                                 onChange={(e) => changeHandler(e)}
                             />
-                            {/* Removed min:6 validation, now only checking 'required' */}
                             {validator.message('password', value.password, 'required')}
                         </Grid>
                         <Grid item xs={12}>
                             <Grid className="formFooter">
                                 <Button fullWidth className="cBtnTheme" type="submit">Login</Button>
                             </Grid>
-                            <p className="noteHelp">Don't have an account? <Link href="/register">Create free account</Link></p>
+                            <p className="noteHelp">
+                                Don't have an account? <Link href="/register">Create free account</Link>
+                            </p>
+                            <p className="noteHelp">
+                                <Link href="#" onClick={() => setIsForgotPasswordModalOpen(true)}>
+                                    Forgot password?
+                                </Link>
+                            </p>
                         </Grid>
                     </Grid>
                 </form>
             </Grid>
+
+            {/* Forgot Password Modal */}
+            <Modal
+                open={isForgotPasswordModalOpen}
+                onClose={() => setIsForgotPasswordModalOpen(false)}
+                aria-labelledby="forgot-password-modal"
+                aria-describedby="forgot-password-modal-description"
+            >
+                <Box className="forgotPasswordModal">
+                    <h2>Forgot Password</h2>
+                    <p>Enter your email address to reset your password.</p>
+                    <TextField
+                        fullWidth
+                        placeholder="E-mail"
+                        value={forgotPasswordEmail}
+                        variant="outlined"
+                        name="forgotPasswordEmail"
+                        label="E-mail"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        onChange={(e) => setForgotPasswordEmail(e.target.value)}
+                        style={{ marginBottom: '20px' }}
+                    />
+                    <Button
+                        fullWidth
+                        className="cBtnTheme"
+                        onClick={handleForgotPassword}
+                    >
+                        Submit
+                    </Button>
+                </Box>
+            </Modal>
         </Grid>
     );
 };

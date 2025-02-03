@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Navbar from '../../components/Navbar'; // Import Navbar component
-import Footer from "../components/footer";
+import Footer from "../../components/footer";
 
 const ResetPasswordPage = () => {
     const router = useRouter();

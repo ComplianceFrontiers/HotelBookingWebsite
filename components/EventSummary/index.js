@@ -333,8 +333,8 @@ const EventSummary = ({
             <p><strong>End By:</strong> {endByDate}</p>
             <div className="step-m4-container">
           <div className="estimates-table">
-              <h4 style={{ fontFamily: "Monster", fontSize: "1rem" }}>Recurring Dates:</h4> 
-              <table style={{ fontFamily: "Monster", fontSize: "0.9rem", width: "100%", border: "1px solid #ddd", borderCollapse: "collapse" }}>
+              <h4 style={{  fontSize: "1rem" }}>Recurring Dates:</h4> 
+              <table style={{  fontSize: "0.9rem", width: "100%", border: "1px solid #ddd", borderCollapse: "collapse" }}>
                 <thead>
                   <tr>
                     <th style={{ padding: "8px", textAlign: "left" }}>Date</th>
@@ -364,8 +364,8 @@ const EventSummary = ({
         {dateOption === "One-Time" && (
           <div className="step-m4-container">
           <div className="estimates-table">
-            <h4 style={{ fontFamily: "Monster", fontSize: "1rem" }}>One-Time Event Dates:</h4>
-            <table style={{ fontFamily: "Monster", fontSize: "0.9rem", width: "100%", border: "1px solid #ddd", borderCollapse: "collapse" }}>
+            <h4 style={{  fontSize: "1rem" }}>One-Time Event Dates:</h4>
+            <table style={{  fontSize: "0.9rem", width: "100%", border: "1px solid #ddd", borderCollapse: "collapse" }}>
               <thead>
                 <tr>
                   <th style={{ padding: "8px", textAlign: "left" }}>Date</th>

@@ -110,7 +110,7 @@ const RoomSection = (props) => {
                                                         <span>{room.RoomCount}</span>
                                                         <p>{room.Des}</p>
                                                         <small>From: <span>{room.Price}</span> / Night</small>
-                                                        <Link className="theme-btn-s2" href="/events" as={`/room-single/${room.slug}`}>Explore</Link>
+                                                        <Link className="theme-btn-s2" href="/scheduling" as={`/room-single/${room.slug}`}>Explore</Link>
                                                     </div>
                                                 </div>
                                             </div>
@@ -129,7 +129,7 @@ const RoomSection = (props) => {
                                                         <span>{room.RoomCount}</span>
                                                         <p>{room.Des}</p>
                                                         <small>From: <span>{room.Price}</span> / Night</small>
-                                                        <Link className="theme-btn-s2" href="/events" as={`/${room.slug}`}>Explore</Link>
+                                                        <Link className="theme-btn-s2" href="/scheduling" as={`/${room.slug}`}>Explore</Link>
                                                     </div>
                                                 </div>
                                             </div>
@@ -148,7 +148,7 @@ const RoomSection = (props) => {
                                                         <span>{room.RoomCount}</span>
                                                         <p>{room.Des}</p>
                                                         <small>From: <span>{room.Price}</span> / Night</small>
-                                                        <Link className="theme-btn-s2" href="/events" as={`/room-single/${room.slug}`}>Explore</Link>
+                                                        <Link className="theme-btn-s2" href="/scheduling" as={`/room-single/${room.slug}`}>Explore</Link>
                                                     </div>
                                                 </div>
                                             </div>

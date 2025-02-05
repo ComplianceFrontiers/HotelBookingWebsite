@@ -10,7 +10,42 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
   const [showMorePrevious, setShowMorePrevious] = useState(false);
 
   const today = new Date();
-
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+  
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = async () => {
+        const base64Image = reader.result.split(",")[1]; // Extract only Base64 part
+  
+        setFormData((prev) => ({
+          ...prev,
+          document_uploaded: base64Image, // Store in state
+        }));
+  
+        // Call the API after setting the state
+        await uploadDocument(base64Image);
+      };
+    }
+  };
+  const uploadDocument = async (imageBase64) => {
+    try {
+      const response = await axios.post("https://hotel-website-backend-eosin.vercel.app/upload-document_non-profit", {
+        email: formData.email,
+        image: imageBase64,
+      });
+  
+      if (response.data.success) {
+        alert("Document uploaded successfully!");
+      } else {
+        alert(response.data.error || "Failed to upload document.");
+      }
+    } catch (error) {
+      console.error("Upload error:", error);
+      alert("Error uploading document.");
+    }
+  };
   const filterBookings = (bookings, isUpcoming) => {
     return bookings.filter((booking) =>
       booking.booked_dates.some((date) => {
@@ -23,9 +58,12 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
     const userDetails = JSON.parse(localStorage.getItem('user_details'));
     if (userDetails) {
       const { email, full_name } = userDetails;
-  
+   
       if (full_name) {
         setFormData((prev) => ({ ...prev, full_name }));
+      }
+      if (email) {
+        setFormData((prev) => ({ ...prev, email }));
       }
   
       if (email) {
@@ -206,19 +244,34 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
               />
                 </div>
                 <div className="form-group">
-                <label>Organization Type*</label>
-                <select
-                name="organization_type"
-                value={formData.organization_type}
-                onChange={(e) => setFormData((prev) => ({ ...prev, organization_type: e.target.value }))}
-                required
-              >
-                <option value="" disabled>Select Organization type</option>
-                <option value="Profit">Profit</option>
-                <option value="Non-Profit">Non-Profit</option>
-                 
-              </select>
-            </div>
+  <label>Organization Type*</label>
+  <select
+    name="organization_type"
+    value={formData.organization_type}
+    onChange={(e) =>
+      setFormData((prev) => ({ ...prev, organization_type: e.target.value }))
+    }
+    required
+  >
+    <option value="" disabled>Select Organization type</option>
+    <option value="Profit">Profit</option>
+    <option value="Non-Profit">Non-Profit</option>
+  </select>
+</div>
+
+{formData.organization_type === "Non-Profit" && (
+  <div className="form-group">
+    <label>Upload Document</label>
+    <input
+      type="file"
+      name="document_uploaded"
+      accept="image/*"
+      onChange={handleFileUpload} 
+    />
+  </div>
+)}
+
+
             <div className="form-group">
               <label>Anticipated Attendance *</label>
               <input

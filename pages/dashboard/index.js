@@ -13,6 +13,7 @@ import Adminstep4 from '../../components/Adminstep4';
 const Events1 = () => {
   const [activeStep, setActiveStep] = useState(1); // Tracks the active step
   const [formData, setFormData] = useState({
+    email:'',
     full_name: '',
     roomType: '',
     eventName: '',

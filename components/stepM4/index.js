@@ -328,12 +328,12 @@ const StepM4 = ({ setActiveStep, formData }) => {
               {/* Add the default row for Advance Payment */}
               <tr>
                 <td>{formattedDateRows1.length + additionalItems.length + 1}</td>
-                <td></td>
+                <td>-</td>
                 <td>Advance Payment</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>-</td>
+                <td>-</td>
+                <td>200$</td>
+                <td>For One Registration</td>
                 <td>200$</td>
               </tr>
             </tbody>
@@ -398,12 +398,12 @@ const StepM4 = ({ setActiveStep, formData }) => {
               {/* Add the default row for Advance Payment */}
               <tr>
                 <td>{formattedDateRows2.length + additionalItems.length + 1}</td>
-                <td></td>
+                <td>-</td>
                 <td>Advance Payment</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>-</td>
+                <td>-</td>
+                <td>200$</td>
+                <td>For One Registration</td>
                 <td>200$</td>
               </tr>
             </tbody>

@@ -87,6 +87,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
     const bookingDetails = {
       event_name: formData.eventName,
       eventDescription: formData.eventDescription,
+      organization_type:formData.organization_type,
       attendance: formData.attendance,
       room_type: formData.roomType,
       date_option: formData.dateOption,
@@ -195,6 +196,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
         <div className="event-location">
           <p><strong>Event Name:</strong> {formData.eventName}</p>
           <p><strong>Event Description:</strong> {formData.eventDescription}</p>
+          <p><strong>Organization Type:</strong> {formData.organization_type}</p>
           <p><strong>Attendance:</strong> {formData.attendance}</p>
           <p><strong>Room Type:</strong> {formData.roomType}</p>
           <p><strong>Date Option:</strong> {dateOption}</p>

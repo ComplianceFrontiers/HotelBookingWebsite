@@ -311,6 +311,7 @@ const EventSummary = ({
     
       {formData.eventName && <p><strong>Event Name:</strong> {formData.eventName}</p>}
 {formData.eventDescription && <p><strong>Event Description:</strong> {formData.eventDescription}</p>}
+{formData.organization_type && <p><strong>Event Description:</strong> {formData.organization_type}</p>}
 {formData.attendance && <p><strong>Attendance:</strong> {formData.attendance}</p>}
 {formData.admin_name && <p><strong>Admin Name:</strong> {formData.admin_name}</p>}
 {formData.reason && <p><strong>Reason For Blocking:</strong> {formData.reason}</p>}

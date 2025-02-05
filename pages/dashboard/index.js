@@ -17,6 +17,7 @@ const Events1 = () => {
     roomType: '',
     eventName: '',
     eventDescription: '',
+    organization_type:'',
     attendance: '',
     dateOption: '',
     repeatFrequency: '',

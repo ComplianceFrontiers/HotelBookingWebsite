@@ -204,6 +204,20 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
                 onChange={(e) => setFormData((prev) => ({ ...prev, eventDescription: e.target.value }))}
                 required
               />
+                </div>
+                <div className="form-group">
+                <label>Organization Type*</label>
+                <select
+                name="organization_type"
+                value={formData.organization_type}
+                onChange={(e) => setFormData((prev) => ({ ...prev, organization_type: e.target.value }))}
+                required
+              >
+                <option value="" disabled>Select Organization type</option>
+                <option value="Profit">Profit</option>
+                <option value="Non-Profit">Non-Profit</option>
+                 
+              </select>
             </div>
             <div className="form-group">
               <label>Anticipated Attendance *</label>
@@ -221,7 +235,7 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
               type="button"
               className="btn-continue"
               onClick={() => setActiveStep(2)}
-              disabled={!formData.roomType || !formData.eventName || !formData.eventDescription ||!formData.attendance} // Disable button if form is invalid
+              disabled={!formData.roomType || !formData.eventName || !formData.organization_type|| !formData.eventDescription ||!formData.attendance} // Disable button if form is invalid
             >
               Next
             </button>

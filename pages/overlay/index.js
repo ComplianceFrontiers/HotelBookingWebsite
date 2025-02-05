@@ -284,6 +284,7 @@ const BookingOverlay = () => {
                 <th>Attendance</th>
                 <td>{booking_details.attendance || "N/A"}</td>
               </tr>
+             
             </tbody>
           </table>
 
@@ -335,6 +336,13 @@ const BookingOverlay = () => {
           ) : (
             <p>No additional items available.</p>
           )}
+ <tr>
+  <h2>Estimated Total (Including Advance 200$)  : </h2>
+  <th style={{ fontSize: "20px", fontWeight: "bold" }}>
+  {booking_details.estimatedTotal ?? "N/A"}$
+</th>
+
+</tr>
 
           <div className="stripe-link-container">
             <h2>Stripe Payment Link</h2>

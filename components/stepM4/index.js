@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from "axios";
-
+import Link from "next/link";
 const StepM4 = ({ setActiveStep, formData }) => {
   const { dateRows, dateOption, recurringDates } = formData;
   const userDetails = JSON.parse(localStorage.getItem("user_details"));
@@ -416,16 +416,22 @@ const StepM4 = ({ setActiveStep, formData }) => {
       </div>
 
       {/* Add the checkbox for terms and conditions */}
+      
+
       <div style={{ marginTop: "20px", textAlign: "right" }}>
-        <label>
-          <input
-            type="checkbox"
-            checked={agreeToTerms}
-            onChange={(e) => setAgreeToTerms(e.target.checked)}
-          />
-          I agree to the terms and conditions
-        </label>
-      </div>
+  <label>
+    <input
+      type="checkbox"
+      checked={agreeToTerms}
+      onChange={(e) => setAgreeToTerms(e.target.checked)}
+    />
+    I agree to{" "}
+    <Link href="/tandc" target="_blank" rel="noopener noreferrer" style={{ color: "#3498db", textDecoration: "underline" }}>
+      terms and conditions
+    </Link>
+  </label>
+</div>
+
 
       <div className="navigation-buttons">
         <button onClick={() => setActiveStep(3)} className="btn-add">Back</button>

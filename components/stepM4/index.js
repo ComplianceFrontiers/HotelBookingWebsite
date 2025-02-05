@@ -35,13 +35,16 @@ const StepM4 = ({ setActiveStep, formData }) => {
   const hasRecurringDates = dateOption === 'Recurring' && formattedDateRows2.length > 0;
 
   const calculateHours = (startTime, endTime) => {
-    const [startHour, startMinute] = startTime.split(':').map(Number);
-    const [endHour, endMinute] = endTime.split(':').map(Number);
+    const [startHour, startMinute] = startTime.split(":").map(Number);
+    const [endHour, endMinute] = endTime.split(":").map(Number);
+    
     const startTotalMinutes = startHour * 60 + startMinute;
     const endTotalMinutes = endHour * 60 + endMinute;
+    
     const diffMinutes = endTotalMinutes - startTotalMinutes;
-    return diffMinutes / 60;
+    return Math.ceil(diffMinutes / 60); // Always rounds up
   };
+  
 
   const checkAdditionalItemEstimation = (itemDate) => {
     let additionalEstimation = 0;
@@ -50,7 +53,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
     // Check against One-Time and Recurring Date Rows
     [...formattedDateRows1, ...formattedDateRows2].forEach((row) => {
       if (row.date === itemDate) {
-        const hours = calculateHours(row.startTime, row.endTime);
+        const hours = Math.ceil(calculateHours(row.startTime, row.endTime));
         totalhrs += hours;
         additionalEstimation += hours * 50; // Assume $50 per hour
       }
@@ -63,8 +66,8 @@ const StepM4 = ({ setActiveStep, formData }) => {
   const [newItem, setNewItem] = useState({ item: '', quantity: 1, dates: '' });
 
   const totalEstimation = [
-    ...formattedDateRows1.map((row) => calculateHours(row.startTime, row.endTime) * 50),
-    ...formattedDateRows2.map((row) => calculateHours(row.startTime, row.endTime) * 50),
+    ...formattedDateRows1.map((row) => Math.ceil(calculateHours(row.startTime, row.endTime) * 50)),
+    ...formattedDateRows2.map((row) => Math.ceil(calculateHours(row.startTime, row.endTime) * 50)),
     ...additionalItems.map((item) => item.estimatedTotal),
     200 // Add the advance payment amount
   ].reduce((total, value) => total + value, 0);
@@ -295,36 +298,36 @@ const StepM4 = ({ setActiveStep, formData }) => {
               </tr>
             </thead>
             <tbody>
-              {formattedDateRows1.map((row, index) => {
-                const totalHours = calculateHours(row.startTime, row.endTime);
-                const estimatedTotal = totalHours * 50;
-                return (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{row.date}</td>
-                    <td>{formData.roomType}</td>
-                    <td>1</td>
-                    <td>{totalHours.toFixed(2)}</td>
-                    <td>50$</td>
-                    <td>Per Hour</td>
-                    <td>${estimatedTotal.toFixed(2)}</td>
-                  </tr>
-                );
-              })}
-              {additionalItems.map((item, index) => {
-                return (
-                  <tr key={`additional-${index}`}>
-                    <td>{index + 1}</td>
-                    <td>{item.dates}</td>
-                    <td>{item.item}</td>
-                    <td>{item.quantity}</td>
+      {formattedDateRows1.map((row, index) => {
+  const totalHours = Math.ceil(calculateHours(row.startTime, row.endTime)); // Rounds up
+  const estimatedTotal = totalHours * 50;
+  return (
+    <tr key={index}>
+      <td>{index + 1}</td>
+      <td>{row.date}</td>
+      <td>{formData.roomType}</td>
+      <td>1</td>
+      <td>{totalHours}</td> {/* No need for toFixed(2) since it's now an integer */}
+      <td>$50</td>
+      <td>Per Hour</td>
+      <td>${estimatedTotal.toFixed(2)}</td>
+    </tr>
+  );
+})}
+{additionalItems.map((item, index) => {
+  return (
+    <tr key={`additional-${index}`}>
+      <td>{index + 1}</td>
+      <td>{item.dates}</td>
+      <td>{item.item}</td>
+      <td>{item.quantity}</td>
                     <td>{item.totalhrs.toFixed(2)}</td>
-                    <td>50$</td>
-                    <td>Per Hour</td>
-                    <td>${item.estimatedTotal.toFixed(2)}</td>
-                  </tr>
-                );
-              })}
+      <td>$50</td>
+      <td>Per Hour</td>
+      <td>${item.estimatedTotal.toFixed(2)}</td>
+    </tr>
+  );
+})}
               {/* Add the default row for Advance Payment */}
               <tr>
                 <td>{formattedDateRows1.length + additionalItems.length + 1}</td>
@@ -332,9 +335,9 @@ const StepM4 = ({ setActiveStep, formData }) => {
                 <td>Advance Payment</td>
                 <td>-</td>
                 <td>-</td>
-                <td>200$</td>
+                <td>$200</td>
                 <td>For One Registration</td>
-                <td>200$</td>
+                <td>$200.00</td>
               </tr>
             </tbody>
           </table>
@@ -358,7 +361,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
             </thead>
             <tbody>
               {formattedDateRows2.map((row, index) => {
-                const totalHours = calculateHours(row.startTime, row.endTime);
+                const totalHours = Math.ceil(calculateHours(row.startTime, row.endTime));
                 const estimatedTotal = totalHours * 50;
                 return (
                   <tr key={index}>
@@ -366,8 +369,8 @@ const StepM4 = ({ setActiveStep, formData }) => {
                     <td>{row.date}</td>
                     <td>{formData.roomType}</td>
                     <td>1</td>
-                    <td>{totalHours.toFixed(2)}</td>
-                    <td>50$</td>
+                    <td>{totalHours}</td>
+                    <td>$50</td>
                     <td>Per Hour</td>
                     <td>${estimatedTotal.toFixed(2)}</td>
                   </tr>
@@ -383,13 +386,13 @@ const StepM4 = ({ setActiveStep, formData }) => {
                     <td>{item.item}</td>
                     <td>{item.quantity}</td>
                     <td>{item.totalhrs.toFixed(2)}</td>
-                    <td>50$</td>
+                    <td>$50</td>
                     <td>Per Hour</td>
                     <td>
                       {additionalEstimation === 0 ? (
                         <span style={{ color: 'red' }}>Event not selected for this date</span>
                       ) : (
-                        `$${item.estimatedTotal.toFixed(2)}`
+                        `${item.estimatedTotal.toFixed(2)}$`
                       )}
                     </td>
                   </tr>
@@ -402,9 +405,9 @@ const StepM4 = ({ setActiveStep, formData }) => {
                 <td>Advance Payment</td>
                 <td>-</td>
                 <td>-</td>
-                <td>200$</td>
+                <td>$200</td>
                 <td>For One Registration</td>
-                <td>200$</td>
+                <td>$200.00</td>
               </tr>
             </tbody>
           </table>

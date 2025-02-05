@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import axios from "axios";
 
-
 const StepM4 = ({ setActiveStep, formData }) => {
   const { dateRows, dateOption, recurringDates } = formData;
   const userDetails = JSON.parse(localStorage.getItem("user_details"));
   const { email } = userDetails;
 
   const [isLoading, setIsLoading] = useState(false); // State for loading
+  const [agreeToTerms, setAgreeToTerms] = useState(false); // State for terms and conditions checkbox
 
   const formatDate = (date) => {
     const d = new Date(date);
@@ -65,7 +65,8 @@ const StepM4 = ({ setActiveStep, formData }) => {
   const totalEstimation = [
     ...formattedDateRows1.map((row) => calculateHours(row.startTime, row.endTime) * 50),
     ...formattedDateRows2.map((row) => calculateHours(row.startTime, row.endTime) * 50),
-    ...additionalItems.map((item) => item.estimatedTotal)
+    ...additionalItems.map((item) => item.estimatedTotal),
+    200 // Add the advance payment amount
   ].reduce((total, value) => total + value, 0);
 
   const handleCheckout = async () => {
@@ -256,21 +257,20 @@ const StepM4 = ({ setActiveStep, formData }) => {
                   <td>{item.item}</td>
                   <td>{item.dates}</td>
                   <td>
-  <button 
-    onClick={() => handleDeleteItem(index)} 
-    style={{ 
-      backgroundColor: "#e74c3c", 
-      color: "white", 
-      border: "none", 
-      padding: "5px 10px", 
-      cursor: "pointer", 
-      borderRadius: "4px" 
-    }}
-  >
-    Delete
-  </button>
-</td>
-
+                    <button 
+                      onClick={() => handleDeleteItem(index)} 
+                      style={{ 
+                        backgroundColor: "#e74c3c", 
+                        color: "white", 
+                        border: "none", 
+                        padding: "5px 10px", 
+                        cursor: "pointer", 
+                        borderRadius: "4px" 
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -325,6 +325,17 @@ const StepM4 = ({ setActiveStep, formData }) => {
                   </tr>
                 );
               })}
+              {/* Add the default row for Advance Payment */}
+              <tr>
+                <td>{formattedDateRows1.length + additionalItems.length + 1}</td>
+                <td></td>
+                <td>Advance Payment</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>200$</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -362,30 +373,39 @@ const StepM4 = ({ setActiveStep, formData }) => {
                   </tr>
                 );
               })}
-          {additionalItems.map((item, index) => {
-          const { additionalEstimation } = checkAdditionalItemEstimation(item.dates);
+              {additionalItems.map((item, index) => {
+                const { additionalEstimation } = checkAdditionalItemEstimation(item.dates);
 
- 
-  return (
-    <tr key={`additional-${index}`}>
-      <td>{index + 1}</td>
-      <td>{item.dates}</td>
-      <td>{item.item}</td>
-      <td>{item.quantity}</td>
-      <td>{item.totalhrs.toFixed(2)}</td>
-      <td>50$</td>
-      <td>Per Hour</td>
-      <td>
-        {additionalEstimation === 0 ? (
-          <span style={{ color: 'red' }}>Event not selected for this date</span>
-        ) : (
-          `$${item.estimatedTotal.toFixed(2)}`
-        )}
-      </td>
-    </tr>
-  );
-})}
-
+                return (
+                  <tr key={`additional-${index}`}>
+                    <td>{index + 1}</td>
+                    <td>{item.dates}</td>
+                    <td>{item.item}</td>
+                    <td>{item.quantity}</td>
+                    <td>{item.totalhrs.toFixed(2)}</td>
+                    <td>50$</td>
+                    <td>Per Hour</td>
+                    <td>
+                      {additionalEstimation === 0 ? (
+                        <span style={{ color: 'red' }}>Event not selected for this date</span>
+                      ) : (
+                        `$${item.estimatedTotal.toFixed(2)}`
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+              {/* Add the default row for Advance Payment */}
+              <tr>
+                <td>{formattedDateRows2.length + additionalItems.length + 1}</td>
+                <td></td>
+                <td>Advance Payment</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>200$</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -395,12 +415,24 @@ const StepM4 = ({ setActiveStep, formData }) => {
         <h4 className="total-estimation-text">Total Estimation: ${totalEstimation.toFixed(2)}</h4>
       </div>
 
+      {/* Add the checkbox for terms and conditions */}
+      <div style={{ marginTop: "20px", textAlign: "right" }}>
+        <label>
+          <input
+            type="checkbox"
+            checked={agreeToTerms}
+            onChange={(e) => setAgreeToTerms(e.target.checked)}
+          />
+          I agree to the terms and conditions
+        </label>
+      </div>
+
       <div className="navigation-buttons">
         <button onClick={() => setActiveStep(3)} className="btn-add">Back</button>
         <button 
           onClick={handleCheckout} 
           className="btn-add" 
-          disabled={totalEstimation === 0 || isLoading} // Disable button when loading
+          disabled={totalEstimation === 0 || isLoading || !agreeToTerms} // Disable button when loading or terms not agreed
         >
           {isLoading ? (
             <img src="/images/loading.gif" alt="Loading..." style={{ width: '30px', height: '30px' }} />

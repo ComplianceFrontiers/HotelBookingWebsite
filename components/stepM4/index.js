@@ -338,7 +338,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
                 <td>-</td>
                 <td>-</td>
                 <td>$200</td>
-                <td>For One Registration</td>
+                <td>Security Deposit</td>
                 <td>$200.00</td>
               </tr>
             </tbody>
@@ -408,7 +408,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
                 <td>-</td>
                 <td>-</td>
                 <td>$200</td>
-                <td>For One Registration</td>
+                <td>Security Deposit</td>
                 <td>$200.00</td>
               </tr>
             </tbody>

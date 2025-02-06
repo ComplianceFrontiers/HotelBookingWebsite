@@ -18,7 +18,7 @@ const Header = (props) => {
         if (userDetails && userDetails.email) {
             setIsLoggedIn(true);
         }
-        if (userDetails.Admin){
+        if (userDetails?.Admin){
             setIsAdmin(true);
         }
     }, []);

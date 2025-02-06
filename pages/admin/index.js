@@ -13,7 +13,7 @@ const BookingTable = () => {
     // Retrieve user details from localStorage
     const userDetails = JSON.parse(localStorage.getItem('user_details'));
 
-    if (userDetails && userDetails.Admin) {
+    if (userDetails && userDetails?.Admin) {
       // User is an admin, allow access
       setIsAdmin(true);
     } else {

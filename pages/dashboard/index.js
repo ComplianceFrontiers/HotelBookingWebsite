@@ -81,14 +81,14 @@ const Events1 = () => {
       setFormData((prevFormData) => ({
         ...prevFormData,
         full_name: userDetails.full_name,
-        Admin: userDetails.Admin ? true : false, // Set Admin if Admin field exists
+        Admin: userDetails?.Admin ? true : false, // Set Admin if Admin field exists
         document_uploaded:userDetails.document_uploaded,
       }));
   
       setFormData1((prevFormData) => ({
         ...prevFormData,
         full_name: userDetails.full_name,
-        Admin: userDetails.Admin ? true : false,
+        Admin: userDetails?.Admin ? true : false,
         document_uploaded:userDetails.document_uploaded,
       }));
     }

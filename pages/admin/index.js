@@ -1,30 +1,47 @@
-import React, { useEffect, useState } from "react"; 
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const BookingTable = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("https://hotel-website-backend-eosin.vercel.app/users_without_admin");
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
-        }
-        const result = await response.json();
-        setData(result);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+    // Retrieve user details from localStorage
+    const userDetails = JSON.parse(localStorage.getItem('user_details'));
 
-    fetchData();
-  }, []);
+    if (userDetails && userDetails.Admin) {
+      // User is an admin, allow access
+      setIsAdmin(true);
+    } else {
+      // User is not an admin, show alert and redirect to login
+      alert("Please login as admin to access this page.");
+      router.push("/login");
+    }
+  },[]);
+
+  useEffect(() => {
+    if (isAdmin) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch("https://hotel-website-backend-eosin.vercel.app/users_without_admin");
+          if (!response.ok) {
+            throw new Error("Failed to fetch data");
+          }
+          const result = await response.json();
+          setData(result);
+        } catch (error) {
+          setError(error.message);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchData();
+    }
+  }, [isAdmin]);
 
   if (loading) return <div className="booking-loading">Loading...</div>;
   if (error) return <div className="booking-error">Error: {error}</div>;
@@ -53,7 +70,7 @@ const BookingTable = () => {
             <th>Room Type</th>
             <th>Booked Dates</th>
             <th>Total Amount</th>
-            <th>Actions</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
@@ -79,7 +96,7 @@ const BookingTable = () => {
                 )) || "No dates available"}
               </td>
               <td>{booking.estimatedTotal}$</td>
-              <td>{booking.paid?"Paid":"Pending"}</td>
+              <td>{booking.paid ? "Paid" : "Pending"}</td>
             </tr>
           ))}
         </tbody>

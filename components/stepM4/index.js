@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from "axios";
 import Link from "next/link";
+
 const StepM4 = ({ setActiveStep, formData }) => {
   const { dateRows, dateOption, recurringDates } = formData;
   const userDetails = JSON.parse(localStorage.getItem("user_details"));
@@ -44,7 +45,10 @@ const StepM4 = ({ setActiveStep, formData }) => {
     const diffMinutes = endTotalMinutes - startTotalMinutes;
     return Math.ceil(diffMinutes / 60); // Always rounds up
   };
-  
+
+  const getRate = (organizationType) => {
+    return organizationType === "Non-Profit" ? 25 : 50;
+  };
 
   const checkAdditionalItemEstimation = (itemDate) => {
     let additionalEstimation = 0;
@@ -55,7 +59,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
       if (row.date === itemDate) {
         const hours = Math.ceil(calculateHours(row.startTime, row.endTime));
         totalhrs += hours;
-        additionalEstimation += hours * 50; // Assume $50 per hour
+        additionalEstimation += hours * getRate(formData.organization_type);
       }
     });
   
@@ -66,12 +70,11 @@ const StepM4 = ({ setActiveStep, formData }) => {
   const [newItem, setNewItem] = useState({ item: '', quantity: 1, dates: '' });
 
   const totalEstimation = [
-    ...formattedDateRows1.map((row) => Math.ceil(calculateHours(row.startTime, row.endTime) * (formData.organization_type === "Non-Profit" ? 25 : 50))),
-    ...formattedDateRows2.map((row) => Math.ceil(calculateHours(row.startTime, row.endTime) * (formData.organization_type === "Non-Profit" ? 25 : 50))),
+    ...formattedDateRows1.map((row) => Math.ceil(calculateHours(row.startTime, row.endTime) * getRate(formData.organization_type))),
+    ...formattedDateRows2.map((row) => Math.ceil(calculateHours(row.startTime, row.endTime) * getRate(formData.organization_type))),
     ...additionalItems.map((item) => item.estimatedTotal),
     200 // Add the advance payment amount
   ].reduce((total, value) => total + value, 0);
-  
 
   const handleCheckout = async () => {
     setIsLoading(true); // Start loading
@@ -88,7 +91,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
     const bookingDetails = {
       event_name: formData.eventName,
       eventDescription: formData.eventDescription,
-      organization_type:formData.organization_type,
+      organization_type: formData.organization_type,
       attendance: formData.attendance,
       room_type: formData.roomType,
       date_option: formData.dateOption,
@@ -301,50 +304,42 @@ const StepM4 = ({ setActiveStep, formData }) => {
               </tr>
             </thead>
             <tbody>
-      {formattedDateRows1.map((row, index) => {
-  const totalHours = Math.ceil(calculateHours(row.startTime, row.endTime)); // Rounds up
-  const estimatedTotal = totalHours * (formData.organization_type === "Non-Profit" ?  50/2 : 50);
+              {formattedDateRows1.map((row, index) => {
+                const totalHours = Math.ceil(calculateHours(row.startTime, row.endTime));
+                const estimatedTotal = totalHours * getRate(formData.organization_type);
 
-  return (
-    <tr key={index}>
-      <td>{index + 1}</td>
-      <td>{row.date}</td>
-      <td>{formData.roomType}</td>
-      <td>1</td>
-      <td>{totalHours}</td> {/* No need for toFixed(2) since it's now an integer */}
-      <td>
-        {formData.organization_type === "Non-Profit" 
-          ? "$" + (50 / 2)
-          : "$50"}
-      </td>
-      <td>Per Hour</td>
-      <td>${estimatedTotal.toFixed(2)}</td>
-    </tr>
-  );
-})}
-{additionalItems.map((item, index) => {
-  return (
-    <tr key={`additional-${index}`}>
-      <td>{index + 1}</td>
-      <td>{item.dates}</td>
-      <td>{item.item}</td>
-      <td>{item.quantity}</td>
+                return (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{row.date}</td>
+                    <td>{formData.roomType}</td>
+                    <td>1</td>
+                    <td>{totalHours}</td>
+                    <td>${getRate(formData.organization_type)}</td>
+                    <td>Per Hour</td>
+                    <td>${estimatedTotal.toFixed(2)}</td>
+                  </tr>
+                );
+              })}
+              {additionalItems.map((item, index) => {
+                return (
+                  <tr key={`additional-${index}`}>
+                    <td>{index + 1}</td>
+                    <td>{item.dates}</td>
+                    <td>{item.item}</td>
+                    <td>{item.quantity}</td>
                     <td>{item.totalhrs.toFixed(2)}</td>
-      <td>
-        {formData.organization_type === "Non-Profit" 
-          ? "$" + (50 / 2)
-          : "$50"}
-      </td>
-      <td>Per Hour</td>
-      <td>${item.estimatedTotal.toFixed(2)}</td>
-    </tr>
-  );
-})}
+                    <td>${getRate(formData.organization_type)}</td>
+                    <td>Per Hour</td>
+                    <td>${item.estimatedTotal.toFixed(2)}</td>
+                  </tr>
+                );
+              })}
               {/* Add the default row for Advance Payment */}
               <tr>
-                <td>{formattedDateRows1.length + additionalItems.length + 1}</td>
+              <td>-</td>
                 <td>-</td>
-                <td>Advance Payment</td>
+                <td>Security Deposit</td>
                 <td>-</td>
                 <td>-</td>
                 <td>$200</td>
@@ -374,7 +369,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
             <tbody>
               {formattedDateRows2.map((row, index) => {
                 const totalHours = Math.ceil(calculateHours(row.startTime, row.endTime));
-                const estimatedTotal = totalHours * (formData.organization_type === "Non-Profit" ?  50/2 : 50);
+                const estimatedTotal = totalHours * getRate(formData.organization_type);
                 return (
                   <tr key={index}>
                     <td>{index + 1}</td>
@@ -382,11 +377,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
                     <td>{formData.roomType}</td>
                     <td>1</td>
                     <td>{totalHours}</td>
-                    <td>
-        {formData.organization_type === "Non-Profit" 
-          ? "$" + (50 / 2)
-          : "$50"}
-      </td>
+                    <td>${getRate(formData.organization_type)}</td>
                     <td>Per Hour</td>
                     <td>${estimatedTotal.toFixed(2)}</td>
                   </tr>
@@ -402,11 +393,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
                     <td>{item.item}</td>
                     <td>{item.quantity}</td>
                     <td>{item.totalhrs.toFixed(2)}</td>
-                    <td>
-        {formData.organization_type === "Non-Profit" 
-          ? "$" + (50 / 2)
-          : "$50"}
-      </td>
+                    <td>${getRate(formData.organization_type)}</td>
                     <td>Per Hour</td>
                     <td>
                       {additionalEstimation === 0 ? (
@@ -420,9 +407,9 @@ const StepM4 = ({ setActiveStep, formData }) => {
               })}
               {/* Add the default row for Advance Payment */}
               <tr>
-                <td>{formattedDateRows2.length + additionalItems.length + 1}</td>
+              <td>-</td>
                 <td>-</td>
-                <td>Advance Payment</td>
+                <td>Security Deposit</td>
                 <td>-</td>
                 <td>-</td>
                 <td>$200</td>
@@ -439,22 +426,19 @@ const StepM4 = ({ setActiveStep, formData }) => {
       </div>
 
       {/* Add the checkbox for terms and conditions */}
-      
-
       <div style={{ marginTop: "20px", textAlign: "right" }}>
-  <label>
-    <input
-      type="checkbox"
-      checked={agreeToTerms}
-      onChange={(e) => setAgreeToTerms(e.target.checked)}
-    />
-    I agree to{" "}
-    <Link href="/tandc" target="_blank" rel="noopener noreferrer" style={{ color: "#3498db", textDecoration: "underline" }}>
-      terms and conditions
-    </Link>
-  </label>
-</div>
-
+        <label>
+          <input
+            type="checkbox"
+            checked={agreeToTerms}
+            onChange={(e) => setAgreeToTerms(e.target.checked)}
+          />
+          I agree to{" "}
+          <Link href="/tandc" target="_blank" rel="noopener noreferrer" style={{ color: "#3498db", textDecoration: "underline" }}>
+            terms and conditions
+          </Link>
+        </label>
+      </div>
 
       <div className="navigation-buttons">
         <button onClick={() => setActiveStep(3)} className="btn-add">Back</button>

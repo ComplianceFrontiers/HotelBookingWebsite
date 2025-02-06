@@ -11,6 +11,8 @@ const BookingOverlay = () => {
   const [error, setError] = useState(null);
   const [isPaid, setIsPaid] = useState(false);
   const [isApproved, setIsApproved] = useState(false);
+  const [AdminName, setAdminName] = useState("");
+  const [AdminEmail, setAdminEmail] = useState("");
   const [stripeLink, setStripeLink] = useState("");
   const [showRejectInput, setShowRejectInput] = useState(false);
   const [rejectNote, setRejectNote] = useState("");
@@ -19,7 +21,18 @@ const BookingOverlay = () => {
   const handleStripeLinkChange = (e) => {
     setStripeLink(e.target.value);
   };
- 
+  useEffect(() => {
+    // Retrieve user details from localStorage
+    const userDetails = JSON.parse(localStorage.getItem('user_details'));
+    
+    if (userDetails) {
+      const { email,full_name } = userDetails;
+      console.log(userDetails)
+      setAdminEmail(email);
+      setAdminName(full_name);
+    
+    }
+  }, []);
   
   useEffect(() => {
     if (bookingId) {
@@ -84,6 +97,8 @@ const BookingOverlay = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          Admin_name:AdminName,
+          Admin_email:AdminEmail,
           email: bookingDetails.email,
           booking_id: bookingDetails.booking_details.booking_id,
           reject: true,
@@ -133,6 +148,8 @@ const BookingOverlay = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            Admin_name:AdminName,
+          Admin_email:AdminEmail,
             email: bookingDetails.email,
             booking_id: bookingDetails.booking_details.booking_id,
             paid: false,
@@ -186,6 +203,8 @@ const BookingOverlay = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          Admin_name:AdminName,
+          Admin_email:AdminEmail,
           email: bookingDetails.email,
           booking_id: bookingDetails.booking_details.booking_id,
           paid: true,

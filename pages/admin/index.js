@@ -70,6 +70,7 @@ const BookingTable = () => {
             <th>Room Type</th>
             <th>Booked Dates</th>
             <th>Total Amount</th>
+            <th>Last Action Done By</th>
             <th>Status</th>
           </tr>
         </thead>
@@ -96,6 +97,7 @@ const BookingTable = () => {
                 )) || "No dates available"}
               </td>
               <td>{booking.estimatedTotal}$</td>
+              <td>{booking.Admin_name} {booking.Admin_email}</td>
               <td>{booking.paid ? "Paid" : "Pending"}</td>
             </tr>
           ))}

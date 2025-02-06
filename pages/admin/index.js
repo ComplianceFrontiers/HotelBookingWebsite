@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,Fragment} from "react";
 import { useRouter } from "next/navigation";
-
+import Navbar from '../../components/Navbar';
+// import Footer from '../../components/footer';
 const BookingTable = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -60,6 +61,8 @@ const BookingTable = () => {
   };
 
   return (
+     <Fragment>
+          <Navbar hclass={'wpo-header-style-3'} />
     <div className="booking-table-container">
       <h2>Booking Details</h2>
       <table className="booking-table">
@@ -98,12 +101,23 @@ const BookingTable = () => {
               </td>
               <td>{booking.estimatedTotal}$</td>
               <td>{booking.Admin_name} {booking.Admin_email}</td>
-              <td>{booking.paid ? "Paid" : "Pending"}</td>
+              <td>
+                {booking.reject 
+                  ? "Rejected" 
+                  : booking.approved 
+                    ? "Approved" 
+                    : booking.paid 
+                      ? "Paid" 
+                      : "No Action Done "}
+              </td>
+
             </tr>
           ))}
         </tbody>
       </table>
     </div>
+    {/* <Footer /> */}
+    </Fragment>
   );
 };
 

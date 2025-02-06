@@ -10,12 +10,16 @@ import { useRouter } from 'next/router';
 const Header = (props) => {
     const router = useRouter();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
         // Check if 'user-details' exists in localStorage and has an email
         const userDetails = JSON.parse(localStorage.getItem('user_details'));
         if (userDetails && userDetails.email) {
             setIsLoggedIn(true);
+        }
+        if (userDetails.Admin){
+            setIsAdmin(true);
         }
     }, []);
 
@@ -31,6 +35,7 @@ const Header = (props) => {
         localStorage.clear();
         localStorage.removeItem('user-details');
         setIsLoggedIn(false);
+        setIsAdmin(false);
         router.push('/login'); 
     };
 
@@ -78,7 +83,12 @@ const Header = (props) => {
                                 </nav>
                             </div>
                             <div className="col-xl-3 action-buttons">
-                               
+                            {isAdmin && (
+                                    <div className="contactus-button">
+                                        <Link href="/admin">Admin
+                                        </Link>
+                                    </div>
+                                )}
                                 {isLoggedIn && (
                                     <div className="contactus-button">
                                         <Link href="/dashboard">My Dashboard</Link>
@@ -91,11 +101,11 @@ const Header = (props) => {
                                             style={{
                                                 backgroundColor: 'red',
                                                 color: 'white',
-                                                padding: '10px 20px',
+                                                padding: '5x 20px',
                                                 border: 'none',
                                                 borderRadius: '5px',
                                                 cursor: 'pointer',
-                                                fontSize: '16px',
+                                                fontSize: '12px',
                                             }}
                                             >
                                             Logout

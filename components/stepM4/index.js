@@ -66,11 +66,12 @@ const StepM4 = ({ setActiveStep, formData }) => {
   const [newItem, setNewItem] = useState({ item: '', quantity: 1, dates: '' });
 
   const totalEstimation = [
-    ...formattedDateRows1.map((row) => Math.ceil(calculateHours(row.startTime, row.endTime) * 50)),
-    ...formattedDateRows2.map((row) => Math.ceil(calculateHours(row.startTime, row.endTime) * 50)),
+    ...formattedDateRows1.map((row) => Math.ceil(calculateHours(row.startTime, row.endTime) * (formData.organization_type === "Non-Profit" ? 25 : 50))),
+    ...formattedDateRows2.map((row) => Math.ceil(calculateHours(row.startTime, row.endTime) * (formData.organization_type === "Non-Profit" ? 25 : 50))),
     ...additionalItems.map((item) => item.estimatedTotal),
     200 // Add the advance payment amount
   ].reduce((total, value) => total + value, 0);
+  
 
   const handleCheckout = async () => {
     setIsLoading(true); // Start loading
@@ -302,7 +303,8 @@ const StepM4 = ({ setActiveStep, formData }) => {
             <tbody>
       {formattedDateRows1.map((row, index) => {
   const totalHours = Math.ceil(calculateHours(row.startTime, row.endTime)); // Rounds up
-  const estimatedTotal = totalHours * 50;
+  const estimatedTotal = totalHours * (formData.organization_type === "Non-Profit" ?  50/2 : 50);
+
   return (
     <tr key={index}>
       <td>{index + 1}</td>
@@ -310,7 +312,11 @@ const StepM4 = ({ setActiveStep, formData }) => {
       <td>{formData.roomType}</td>
       <td>1</td>
       <td>{totalHours}</td> {/* No need for toFixed(2) since it's now an integer */}
-      <td>$50</td>
+      <td>
+        {formData.organization_type === "Non-Profit" 
+          ? "$" + (50 / 2)
+          : "$50"}
+      </td>
       <td>Per Hour</td>
       <td>${estimatedTotal.toFixed(2)}</td>
     </tr>
@@ -324,7 +330,11 @@ const StepM4 = ({ setActiveStep, formData }) => {
       <td>{item.item}</td>
       <td>{item.quantity}</td>
                     <td>{item.totalhrs.toFixed(2)}</td>
-      <td>$50</td>
+      <td>
+        {formData.organization_type === "Non-Profit" 
+          ? "$" + (50 / 2)
+          : "$50"}
+      </td>
       <td>Per Hour</td>
       <td>${item.estimatedTotal.toFixed(2)}</td>
     </tr>
@@ -364,7 +374,7 @@ const StepM4 = ({ setActiveStep, formData }) => {
             <tbody>
               {formattedDateRows2.map((row, index) => {
                 const totalHours = Math.ceil(calculateHours(row.startTime, row.endTime));
-                const estimatedTotal = totalHours * 50;
+                const estimatedTotal = totalHours * (formData.organization_type === "Non-Profit" ?  50/2 : 50);
                 return (
                   <tr key={index}>
                     <td>{index + 1}</td>
@@ -372,7 +382,11 @@ const StepM4 = ({ setActiveStep, formData }) => {
                     <td>{formData.roomType}</td>
                     <td>1</td>
                     <td>{totalHours}</td>
-                    <td>$50</td>
+                    <td>
+        {formData.organization_type === "Non-Profit" 
+          ? "$" + (50 / 2)
+          : "$50"}
+      </td>
                     <td>Per Hour</td>
                     <td>${estimatedTotal.toFixed(2)}</td>
                   </tr>
@@ -388,7 +402,11 @@ const StepM4 = ({ setActiveStep, formData }) => {
                     <td>{item.item}</td>
                     <td>{item.quantity}</td>
                     <td>{item.totalhrs.toFixed(2)}</td>
-                    <td>$50</td>
+                    <td>
+        {formData.organization_type === "Non-Profit" 
+          ? "$" + (50 / 2)
+          : "$50"}
+      </td>
                     <td>Per Hour</td>
                     <td>
                       {additionalEstimation === 0 ? (

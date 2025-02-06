@@ -33,7 +33,7 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
   };
   const uploadDocument = async (imageBase64) => {
     try {
-      const response = await axios.post("https://hotel-website-backend-eosin.vercel.app/upload-document_non-profit", {
+      const response = await axios.post("https://hotel-website-backend-eosin.vercel.app/upload-document_Non-Profit", {
         email: formData.email,
         image: imageBase64,
       });

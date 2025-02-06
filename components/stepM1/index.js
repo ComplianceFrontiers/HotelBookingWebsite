@@ -8,8 +8,10 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
   const [showMoreUnpaid, setShowMoreUnpaid] = useState(false);
   const [showMoreUpcoming, setShowMoreUpcoming] = useState(false);
   const [showMorePrevious, setShowMorePrevious] = useState(false);
+  const [previewVisible, setPreviewVisible] = useState(false);
 
   const today = new Date();
+  
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
   
@@ -260,16 +262,41 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
 </div>
 
 {formData.organization_type === "Non-Profit" && (
-  <div className="form-group">
-    <label>Upload Document</label>
-    <input
-      type="file"
-      name="document_uploaded"
-      accept="image/*"
-      onChange={handleFileUpload} 
+        <div className="form-group">
+          <label>{formData.document_uploaded ? "Update Document" : "Upload Document"}</label>
+          <input type="file" name="document_uploaded" accept="image/*" onChange={handleFileUpload} />
+
+          {/* Preview Button */}
+          {formData.document_uploaded && (
+            <button
+              onClick={() => setPreviewVisible(!previewVisible)}
+              style={{
+                fontSize:"10px",
+                marginTop: "0px",
+                padding: "4px 0px",
+                backgroundColor: "#007bff",
+                color: "#fff",
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              {previewVisible ? "Hide Preview" : "Show Preview"}
+            </button>
+          )}
+
+          {/* Document Preview */}
+          {previewVisible && formData.document_uploaded && (
+  <div className="document-preview" style={{ marginTop: "10px" }}>
+    <img
+      src={`data:image/png;base64,${formData.document_uploaded}`}
+      alt="Document Preview"
+      style={{ width: "200px", height: "auto", border: "1px solid #ddd" }}
     />
   </div>
 )}
+        </div>
+      )}
+
 
 
             <div className="form-group">

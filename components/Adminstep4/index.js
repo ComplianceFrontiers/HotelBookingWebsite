@@ -82,7 +82,7 @@ const StepM4 = ({  setAdminCurrentStep, formData }) => {
         : [];
   
     const bookingDetails = {
-      admin_name: formData.admin_name,
+      admin_name: formData.full_name,
       reason: formData.reason,
       room_type: formData.roomType,
       date_option: formData.dateOption,

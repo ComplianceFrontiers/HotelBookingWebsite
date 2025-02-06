@@ -144,18 +144,7 @@ const StepM2 = ({ setAdminCurrentStep, formData, setFormData }) => {
       <div className="event-review">
         <h3>Admin Panel</h3>
         <div className="review-details">
-          <p><strong>Role:</strong> {formData.full_name}</p>
-          <div className="form-group">
-              <label>Admin Name *</label>
-              <input
-                type="text"
-                name="admin_name"
-                placeholder="Admin Name"
-                value={formData.admin_name}
-                onChange={(e) => setFormData((prev) => ({ ...prev, admin_name: e.target.value }))}
-                required
-              />
-            </div>
+          <p><strong>Admin Name *</strong> {formData.full_name}</p>
           <div className="form-group">
               <label>Reason For Blocking *</label>
               <input

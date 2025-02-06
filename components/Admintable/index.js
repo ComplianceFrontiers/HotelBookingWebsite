@@ -12,9 +12,9 @@ const Admintable = () => {
       const { email } = userDetails;
       
       // Call the API to fetch bookings based on the email
-      axios.get(`https://hotel-website-backend-eosin.vercel.app/booking-details_wrt_email?email=${email}`)
+      axios.get(`https://hotel-website-backend-eosin.vercel.app/get-admin-bookings`)
         .then((response) => {
-          const allBookings = response.data.booked_details;
+          const allBookings = response.data.admin_bookings;
           console.log("All Bookings:", allBookings);
           setBookings(allBookings);  // Set the bookings in the state
         })

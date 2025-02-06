@@ -31,6 +31,8 @@ const Events1 = () => {
       friday: false,
       saturday: false,
     },
+    Admin:false,
+    document_uploaded:'',
     monthlyRepeatBy: '',
     monthlyRepeatFrequency: '',
     dateRows: [],
@@ -45,10 +47,11 @@ const Events1 = () => {
   const [AdmincurrentStep, setAdminCurrentStep] = useState(1); 
   const [formData1, setFormData1] = useState({
     full_name: '',
-    roomType: '',
-    admin_name:'',
+    roomType: '', 
     reason:'',
     dateOption: '',
+    Admin:false,
+    document_uploaded:'',
     repeatFrequency: '',
     weeklyRepeatDays: {
       sunday: false,
@@ -71,23 +74,28 @@ const Events1 = () => {
     repeatDay: '',
   });
 
-  // Set default full_name from localStorage if available
   useEffect(() => {
     const userDetails = JSON.parse(localStorage.getItem('user_details'));
-    if (userDetails && userDetails.full_name) {
+  
+    if (userDetails) {
       setFormData((prevFormData) => ({
         ...prevFormData,
         full_name: userDetails.full_name,
+        Admin: userDetails.Admin ? true : false, // Set Admin if Admin field exists
+        document_uploaded:userDetails.document_uploaded,
       }));
+  
       setFormData1((prevFormData) => ({
         ...prevFormData,
         full_name: userDetails.full_name,
+        Admin: userDetails.Admin ? true : false,
+        document_uploaded:userDetails.document_uploaded,
       }));
     }
   }, []);
-
-  const isAdmin = formData.full_name === 'Admin';
-
+  console.log("Admin",formData.Admin)
+  const isAdmin = formData.Admin;
+  
   return (
     <Fragment>
       <Navbar hclass={'wpo-header-style-3'} />

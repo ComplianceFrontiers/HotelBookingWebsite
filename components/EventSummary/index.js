@@ -313,7 +313,7 @@ const EventSummary = ({
 {formData.eventDescription && <p><strong>Event Description:</strong> {formData.eventDescription}</p>}
 {formData.organization_type && <p><strong>Event Description:</strong> {formData.organization_type}</p>}
 {formData.attendance && <p><strong>Attendance:</strong> {formData.attendance}</p>}
-{formData.admin_name && <p><strong>Admin Name:</strong> {formData.admin_name}</p>}
+{formData.full_name && <p><strong>Admin Name:</strong> {formData.full_name}</p>}
 {formData.reason && <p><strong>Reason For Blocking:</strong> {formData.reason}</p>}
 
         <p><strong>Room Type:</strong> {formData.roomType}</p>
@@ -395,7 +395,7 @@ const EventSummary = ({
       <div className="navigation-buttons">
   <button 
     onClick={() => {
-      if (formData.full_name === "Admin") {
+      if (formData.Admin) {
         setAdminCurrentStep(2);
       } else {
         setActiveStep(1);
@@ -407,7 +407,7 @@ const EventSummary = ({
   </button>
   <button 
     onClick={() => {
-      if (formData.full_name === "Admin") {
+      if (formData.Admin) {
         setAdminCurrentStep(3);
       } else {
         setActiveStep(4);

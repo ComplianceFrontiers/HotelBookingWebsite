@@ -104,12 +104,13 @@ const BookingTable = () => {
               <td>
                 {booking.reject 
                   ? "Rejected" 
-                  : booking.approved 
-                    ? "Approved" 
+                  : (booking.approved && !booking.paid) 
+                    ? "Approved (Payment Pending)" 
                     : booking.paid 
                       ? "Paid" 
-                      : "No Action Done "}
+                      : "No Action Done"}
               </td>
+
 
             </tr>
           ))}

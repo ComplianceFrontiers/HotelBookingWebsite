@@ -61,8 +61,8 @@ const BookingTable = () => {
   };
 
   return (
-     <Fragment>
-          <Navbar hclass={'wpo-header-style-3'} />
+     <div>
+          {/* <Navbar hclass={'wpo-header-style-3'} /> */}
     <div className="booking-table-container">
       <h2>Booking Details</h2>
       <table className="booking-table">
@@ -118,7 +118,7 @@ const BookingTable = () => {
       </table>
     </div>
     {/* <Footer /> */}
-    </Fragment>
+    </div>
   );
 };
 

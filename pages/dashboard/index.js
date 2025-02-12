@@ -93,7 +93,7 @@ const Events1 = () => {
       }));
     }
   }, []);
-  console.log("Admin",formData.Admin)
+  console.log("document_uploaded",formData.document_uploaded)
   const isAdmin = formData.Admin;
   
   return (

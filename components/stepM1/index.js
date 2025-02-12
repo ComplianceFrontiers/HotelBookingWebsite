@@ -33,7 +33,7 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
   };
   const uploadDocument = async (imageBase64) => {
     try {
-      const response = await axios.post("https://hotel-website-backend-eosin.vercel.app/upload-document_Non-Profit", {
+      const response = await axios.post("https://hotel-website-backend-eosin.vercel.app/upload-document_non-profit", {
         email: formData.email,
         image: imageBase64,
       });
@@ -286,16 +286,16 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
 
           {/* Document Preview */}
           {previewVisible && formData.document_uploaded && (
-  <div className="document-preview" style={{ marginTop: "10px" }}>
-    <img
-      src={`data:image/png;base64,${formData.document_uploaded}`}
-      alt="Document Preview"
-      style={{ width: "200px", height: "auto", border: "1px solid #ddd" }}
-    />
-  </div>
-)}
+        <div style={{ marginTop: "10px" }}>
+          <img
+            src={`data:image/png;base64,${formData.document_uploaded}`}
+            alt="Uploaded Document"
+            style={{ width: "100px", height: "100px", objectFit: "cover" }}
+          />
         </div>
       )}
+    </div>
+  )}
 
 
 

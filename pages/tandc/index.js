@@ -8,49 +8,44 @@ const TermsAndConditions = () => {
     window.location.href = '/checkout';
   };
 
-  return (
-    <div className="terms-and-conditions">
-      <img src='/images/logo.png' alt="Bellevue Community Center Logo" className="logo" />
-      
-      <h1>Disclaimer and Liability Waiver for Bellevue Community Center</h1>
-      <p>By participating in the Bellevue Community Center activities at the Bellevue Community Center, you acknowledge and agree to the following terms:</p>
-      
-      <h2>Acknowledgment of Risk</h2>
-      <p>I understand that participation in Bellevue Community Center activities, including chess games and physical activities, involves inherent risks, including the risk of injury. These risks cannot be entirely eliminated regardless of the care taken to avoid injuries.</p>
-      
-      <h2>Assumption of Risk</h2>
-      <p>I voluntarily assume all risks associated with participation in Bellevue Community Center activities. I accept full responsibility for any injury or damage that may result from my or my child's participation, whether caused by the negligence of Bellevue Community Center, the Bellevue Community Center, or otherwise.</p>
-      
-      <h2>Release of Liability</h2>
-      <p>In consideration of being allowed to participate in Bellevue Community Center activities, I hereby release, waive, discharge, and covenant not to sue Bellevue Community Center, its directors, officers, employees, volunteers, and agents, as well as the Bellevue Community Center, its directors, officers, employees, volunteers, and agents, from any and all claims, demands, actions, or causes of action for any injury or damage that I or my child may suffer as a result of participation in Bellevue Community Center activities.</p>
-      
-      <h2>Indemnification</h2>
-      <p>I agree to indemnify and hold harmless Bellevue Community Center and the Bellevue Community Center from any and all claims, demands, actions, or causes of action, including attorneys' fees, that may be brought against them as a result of my or my child's participation in Bellevue Community Center activities.</p>
-      
-      <h2>Medical Consent</h2>
-      <p>I give consent for emergency medical treatment to be administered to my child in the event of an injury or illness while participating in Bellevue Community Center activities. I understand that I will be responsible for any medical expenses incurred as a result of my child's participation.</p>
-      
-      <h2>Understanding of Waiver</h2>
-      <p>I have read and fully understand the terms of this Disclaimer and Liability Waiver. By participating in Bellevue Community Center activities, I am giving up substantial rights, including the right to sue Bellevue Community Center and the Bellevue Community Center for any injury or damage my child or I may suffer.</p>
-      
-      <h1>Publicity Disclaimer for Bellevue Community Center</h1>
-      
-      <h2>Communication Consent</h2>
-      <p>You consent to receive communication from Bellevue Community Center and Chess Champs LLC regarding updates, announcements, and other relevant information related to chess activities and events.</p>
-      
-      <h2>Use of Contact Information</h2>
-      <p>Your email address and phone number may be used by Bellevue Community Center and Chess Champs LLC to send promotional materials, newsletters, and event invitations.</p>
-      
-      <h2>Opt-out Option</h2>
-      <p>You have the option to unsubscribe or opt-out from receiving communications at any time by following the instructions provided in the emails or by contacting Bellevue Community Center directly.</p>
-      
-      <h2>Privacy Policy</h2>
-      <p>Your contact information will be handled in accordance with the privacy policy of Bellevue Community Center and Chess Champs LLC, ensuring confidentiality and security.</p>
-      
-      <p>By submitting this form, I agree to the terms and conditions outlined in the Disclaimer and Liability Waiver. By providing your email address and phone number, you acknowledge that you have read and understood the terms of this publicity disclaimer and consent to receive communications from Bellevue Community Center and Chess Champs LLC.</p>
-      {/* <button className="go-back-button" onClick={handleGoBack}>I Accept and continue</button> */}
-    </div>
-  );
+ return (
+  <div className="terms-and-conditions">
+    <img src='/images/logo.png' alt="Bellevue Community Center Logo" className="logo" />
+    
+    <h1>Facility Usage Policies for Bellevue Community Center</h1>
+    <p>The BELLEVUE COMMUNITY CENTER (BCC) serves as a resource providing services to a broad community. One component of our service delivery is to offer meeting and activity space to groups or individuals. Nonprofit organizations, other groups, and individuals may request the use of the facility during or outside regular operating hours. Approval is contingent upon availability of space and a BCC employee to supervise during the requested time period. Groups or individuals using the facility will abide by the following policies:</p>
+    
+    <h2>Facility Usage Agreement</h2>
+    <p>1. A Facility Usage Application/Agreement form must be completed in full and submitted with two checks (a $200.00 Security Deposit and down payment) 30 days prior to your event.</p>
+    
+    <h2>Security Deposit</h2>
+    <p>2. The $200.00 Security Deposit is held by BCC to pay for any repairs should there be any damages. The Security Deposit will be returned to the renter within ten business days of the event.</p>
+    
+    <h2>Down Payment and Cancellation Policy</h2>
+    <p>3. The down payment, equal to 50% of your total bill, secures the venue and is only refundable if you cancel seven or more days prior to the event.</p>
+    
+    <p>4. Applicants are responsible for full payment for all reserved time periods on the signed contract regardless of whether the group utilized the facility, unless BCC received seven days written notice of cancellation. Only half of the deposit will be refunded due to lost clientele.</p>
+    
+    <h2>Facility Rules</h2>
+    <p>5. The Bellevue Community Center is a smoke-free facility, including bathrooms, hallways, and the parking lot. Attendees must be 500ft or more from BCC property to smoke.</p>
+    
+    <p>6. No illegal substances are permitted in the building or on the premises.</p>
+    
+    <p>7. Decorations or other materials may not be hung on walls. All other forms and types of decorations must be approved by the management. Decorations may be placed on tables and/or chairs.</p>
+    
+    <p>8. Outside food is allowed during events; however, the BCC kitchen is not available for usage during events.</p>
+    
+    <h2>Behavioral Expectations</h2>
+    <p>9. The BCC reserves the right to ask anyone to leave the premises at any time due to inappropriate behavior. Each group is responsible for the behavior of its members while using BCC facilities. Fighting will not be tolerated at BCC. Violators will be escorted off the premises and will not be allowed back into the event.</p>
+    
+    <p>10. The BCC representative on duty reserves the right to terminate the event if deemed necessary. The renter will forfeit all fees and deposits in such cases.</p>
+    
+    <p>11. All renters must agree to abide by the "Noise and Disorderly Conduct" ordinances provided by the New Castle County Police Department (see attached).</p>
+    
+    {/* <button className="accept-button" onClick={handleAccept}>I Accept and Continue</button> */}
+  </div>
+);
+
 };
 
 export default TermsAndConditions;

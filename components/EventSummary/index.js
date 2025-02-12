@@ -50,47 +50,53 @@ const EventSummary = ({
   
       // Ensure response.data is an array and has elements
       if (Array.isArray(response.data) && response.data.length > 0) {
-        const bookedDates = response.data[0]?.booked_dates || []; // Default to an empty array if undefined
-  
+        const bookedDates = response.data.flatMap(item => item.booked_dates || []);
+      
         const datesToCheck = recurringDates1.length > 0 ? recurringDates1 : dateRows.map(row => {
-          // Check if the date is already in the "DD-MM-YYYY" format
           const isFormatted = /^\d{1,2}-\d{1,2}-\d{4}$/.test(row.date);
-  
           if (isFormatted) {
-            return row; // If already in the desired format, return the row as it is
+            return row;
           }
-  
+      
           const date = new Date(row.date);
           const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
           return { ...row, date: formattedDate };
         });
-  
+      
         function normalizeDate(date) {
-          const [day, month, year] = date.split("-").map((val) => val.padStart(2, "0"));
+          const [day, month, year] = date.split("-").map(val => val.padStart(2, "0"));
           return `${day}-${month}-${year}`;
         }
-  
-        const conflicts = datesToCheck.filter((recDate) => {
-          return bookedDates.some((bookedDate) => {
+      
+        console.log("Dates to Check:", datesToCheck, "Booked Dates:", bookedDates);
+      
+        const conflicts = datesToCheck.filter(recDate => {
+          return bookedDates.some(bookedDate => {
             if (normalizeDate(bookedDate.date) === normalizeDate(recDate.date)) {
               const recStartTime = new Date(`1970-01-01T${recDate.startTime}:00`);
               const recEndTime = new Date(`1970-01-01T${recDate.endTime}:00`);
               const bookedStartTime = new Date(`1970-01-01T${bookedDate.startTime}:00`);
               const bookedEndTime = new Date(`1970-01-01T${bookedDate.endTime}:00`);
-  
+      
               // Check for time overlap
               return recStartTime < bookedEndTime && recEndTime > bookedStartTime;
             }
             return false;
           });
         });
-  
+      
         setConflictDates(conflicts);
-        setIsContinueDisabled(conflicts.length > 0); // Disable the Continue button if there are conflicts
+        console.log("Conflicts:", conflicts, "Dates to Check:", datesToCheck, "Booked Dates:", bookedDates);
+        setIsContinueDisabled(conflicts.length > 0);
+      
         if (conflicts.length > 0) {
           alert("There are conflicts with some of the dates! Please review the conflicting dates.");
         }
-      } else {
+      }
+       
+      
+      
+      else {
         console.warn("Response data is not in the expected format or is empty:", response.data);
         setConflictDates([]); // No conflicts if no data
         setIsContinueDisabled(false); // Allow continuation if no conflicts

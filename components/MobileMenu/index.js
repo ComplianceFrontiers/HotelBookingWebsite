@@ -46,12 +46,12 @@ const menus = [
             }
         ]
     },
-    {
-        id: 3,
-        title: 'Scheduling',
-        link: '/scheduling',
+    // {
+    //     id: 3,
+    //     title: 'Scheduling',
+    //     link: '/scheduling',
         
-    },
+    // },
     
    
     {

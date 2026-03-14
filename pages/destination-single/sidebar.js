@@ -16,7 +16,12 @@ const DestinationSidebar = (props) => {
     const SubmitHandler = (e) => {
         e.preventDefault();
         // Redirect to /scheduling after form submission
-        router.push('/scheduling');
+        const userDetails = localStorage.getItem('userDetails');
+        if (userDetails) {
+            router.push('/dashboard');
+        } else {
+            router.push('/login');
+        }
     };
 
     const ClickHandler = () => {

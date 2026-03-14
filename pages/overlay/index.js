@@ -288,14 +288,6 @@ const BookingOverlay = () => {
                 <td>{booking_details.event_name || "N/A"}</td>
               </tr>
               <tr>
-                <th>Event Description</th>
-                <td>{booking_details.eventDescription || "N/A"}</td>
-              </tr>
-              <tr>
-                <th>Organization Type</th>
-                <td>{booking_details.organization_type || "N/A"}</td>
-              </tr>
-              <tr>
                 <th>Room Type</th>
                 <td>{booking_details.room_type || "N/A"}</td>
               </tr>
@@ -335,7 +327,7 @@ const BookingOverlay = () => {
             <p>No booked dates available.</p>
           )}
 
-          {/* Additional Items Table */}
+          {/* Additional Items Table
           <h2>Additional Items</h2>
           {additionalItems.length > 0 ? (
             <table className="booking-overlay-table">
@@ -378,7 +370,7 @@ const BookingOverlay = () => {
             />
           </div>
 
-
+ */}
         </div>
       ) : (
         <p>No booking details found.</p>
@@ -388,48 +380,6 @@ const BookingOverlay = () => {
         <button className="booking-overlay-back-button" onClick={handleBack}>
           Back
         </button>
-
-        {bookingDetails?.booking_details.reject && !bookingDetails?.booking_details.approve ? (
-
-          <button className="booking-overlay-rejected-button" disabled>
-            Rejected
-          </button>
-          
-        ) : (
-          <>
-          {!isApproved && (
-        <button className="booking-overlay-approve-button" onClick={handleApprove}>
-          Approve
-        </button>
-      )}
-            <button
-              className="booking-overlay-reject-button"
-              onClick={handleShowRejectInput}
-            >
-              Reject
-            </button>
-            {isApproved && !isPaid && (
-        <button className="booking-overlay-paid-button" onClick={handlePaid}>
-          Mark as Paid
-        </button>
-      )}
-            {showRejectInput && (
-              <div className="reject-input-container">
-                <textarea
-                  placeholder="Add rejection note"
-                  value={rejectNote}
-                  onChange={(e) => setRejectNote(e.target.value)}
-                />
-                <button
-                  className="reject-confirm-button"
-                  onClick={handleReject}
-                >
-                  Confirm Rejection
-                </button>
-              </div>
-            )}
-          </>
-        )}
         <button className="booking-overlay-print-button" onClick={handlePrint}>
           Print
         </button>

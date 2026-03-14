@@ -1,12 +1,21 @@
 import React from 'react'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 import ab1 from '/public/images/about/2.jpg'
 import Image from 'next/image'
+import { Button } from 'reactstrap'
 
 const About2 = (props) => {
-    const ClickHandler = () =>{
+    const router = useRouter();
+    const handleScheduleClick = () => {
         window.scrollTo(10, 0);
-     }
+        const userDetails = localStorage.getItem('user_details');
+        if (userDetails) {
+            router.push('/dashboard');
+        } else {
+            router.push('/login');
+        }
+    };
+
     return(
         <div className="wpo-about-area-2 section-padding">
             <div className="container">
@@ -27,7 +36,7 @@ special celebration, Bellevue Community Center (BCC) offers a range of beautiful
 eco-friendly facilities tailored to meet your needs. Located in the heart of Wilmington, Delaware,
 our center is a hub for community activities, events, and experiences that bring people together.</p>
                             <div className="btns">
-                                <Link onClick={ClickHandler} href="/scheduling" className="theme-btn-s2">Schedule Your Event</Link>
+                                <button onClick={handleScheduleClick} className="theme-btn-s2">Schedule Your Event</button>
                             </div>
                         </div>
                     </div>

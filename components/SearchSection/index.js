@@ -1,16 +1,21 @@
-
-import Link from "next/link";
 import React, { useState } from "react";
+import {useRouter}  from "next/router";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const SearchSection = (props) => {
-
+    const router = useRouter();
     const [startDate,  setStartDate] = useState(new Date());
     const [startDates,  setStartDates] = useState(new Date());
 
     const SubmitHandler = (e) =>{
         e.preventDefault()
+        const userDetails = localStorage.getItem('user_details');
+        if (userDetails) {
+            router.push('/dashboard');
+        } else {
+            router.push('/login');
+        }
      }
 
     return(
@@ -68,7 +73,7 @@ const SearchSection = (props) => {
                                         </select>
                                     </div> */}
                                     <div className="select-sub">
-                                        <Link href='/scheduling' className="theme-btn-s2" type="submit">Check Availability</Link>
+                                        <button className="theme-btn-s2" type="submit">Check Availability</button>
                                     </div>
                                 </form>
                             </div>

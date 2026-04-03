@@ -19,7 +19,23 @@ const AdminPanel = () => {
   const [sortBy, setSortBy] = useState("date"); // 'date', 'name', 'id', 'room'
   const [sortOrder, setSortOrder] = useState("desc"); // 'asc' or 'desc'
   const [filterRoom, setFilterRoom] = useState("");
+  const [showAcceptModal, setShowAcceptModal] = useState(false);
+  const [showDeclineModal, setShowDeclineModal] = useState(false);
+  const [selectedBooking, setSelectedBooking] = useState(null);
+  const [acceptComments, setAcceptComments] = useState("");
+  const [securityDepositAmount, setSecurityDepositAmount] = useState("");
+  const [rentalAmount, setRentalAmount] = useState("");
+  const [rejectNote, setRejectNote] = useState("");
+  const [spokenToCustomer, setSpokenToCustomer] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
+
+  const formatRoomType = (roomType) => {
+    if (!roomType) return "N/A";
+    if (roomType === "multi-purpose-room") return "Multi-Purpose Room";
+    if (roomType === "conference-center") return "Conference Center";
+    return roomType.charAt(0).toUpperCase() + roomType.slice(1);
+  };
 
   useEffect(() => {
     const userDetails = JSON.parse(localStorage.getItem("user_details"));
@@ -74,6 +90,7 @@ const AdminPanel = () => {
           ...booking,
           user_email: user.email,
           user_name: user.full_name,
+          user_phone: user.phone,
         }))
       : []
   );
@@ -81,6 +98,159 @@ const AdminPanel = () => {
   const handleBookingClick = (booking) => {
     const queryString = new URLSearchParams(booking).toString();
     router.push(`/overlay?${queryString}`);
+  };
+
+  const handleAcceptClick = (booking) => {
+    setSelectedBooking(booking);
+    setShowAcceptModal(true);
+  };
+
+  const handleDeclineClick = (booking) => {
+    setSelectedBooking(booking);
+    setShowDeclineModal(true);
+  };
+
+  const handleAcceptSubmit = async () => {
+    if (!securityDepositAmount.trim() || !rentalAmount.trim()) {
+      alert("Please enter Security Deposit Amount and Rental Amount.");
+      return;
+    }
+
+    const totalAmount = (parseFloat(securityDepositAmount) + parseFloat(rentalAmount)).toFixed(2);
+    setIsSubmitting(true);
+
+    try {
+      // Get admin details
+      const userDetails = JSON.parse(localStorage.getItem('user_details'));
+      const AdminName = userDetails?.full_name || '';
+      const AdminEmail = userDetails?.email || '';
+
+      // Update booking status
+      const response = await axios.post(
+        "https://hotel-website-backend-eosin.vercel.app/update-booking-status",
+        {
+          Admin_name: AdminName,
+          Admin_email: AdminEmail,
+          email: selectedBooking.user_email,
+          booking_id: selectedBooking.booking_id,
+          paid: false,
+          approved: true,
+          security_deposit: securityDepositAmount,
+          rental_amount: rentalAmount,
+          total_amount: totalAmount,
+          admin_comments: acceptComments || "N/A",
+        }
+      );
+
+      if (response.status === 200) {
+        // Send email notification
+        await axios.post(
+          "https://hotel-website-backend-eosin.vercel.app/send_email_to_user_request_got_approved",
+          {
+            email: selectedBooking.user_email,
+            booking_id: selectedBooking.booking_id,
+            user_name: selectedBooking.user_name,
+            event_name: selectedBooking.event_name,
+            room_type: formatRoomType(selectedBooking.room_type),
+            booked_dates: selectedBooking.booked_dates,
+            amount: totalAmount,
+            security_deposit: securityDepositAmount,
+            rental_amount: rentalAmount,
+            comments: acceptComments || "N/A",
+          }
+        );
+
+        alert("Booking approved successfully! Email notification has been sent to the customer.");
+
+        // Refresh the data
+        const fetchResponse = await fetch("https://hotel-website-backend-eosin.vercel.app/users");
+        const result = await fetchResponse.json();
+        setData(result);
+
+        // Reset and close modal
+        setShowAcceptModal(false);
+        setAcceptComments("");
+        setSecurityDepositAmount("");
+        setRentalAmount("");
+        setSelectedBooking(null);
+      }
+    } catch (error) {
+      alert(`Failed to approve booking: ${error.message}`);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleDeclineSubmit = async () => {
+    if (!rejectNote.trim()) {
+      alert("Please enter a reason for rejection.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Get admin details
+      const userDetails = JSON.parse(localStorage.getItem('user_details'));
+      const AdminName = userDetails?.full_name || '';
+      const AdminEmail = userDetails?.email || '';
+
+      // Send rejection email
+      console.log("Sending decline email to:", selectedBooking.user_email);
+      console.log("Reason:", rejectNote);
+      console.log("Spoken to customer:", spokenToCustomer);
+
+      const emailResponse = await axios.post(
+        "https://hotel-website-backend-eosin.vercel.app/send_email_to_user_request_got_rejected",
+        {
+          email: selectedBooking.user_email,
+          booking_id: selectedBooking.booking_id,
+          user_name: selectedBooking.user_name,
+          event_name: selectedBooking.event_name,
+          room_type: formatRoomType(selectedBooking.room_type),
+          booked_dates: selectedBooking.booked_dates,
+          reason: rejectNote,
+          spoken_to_customer: spokenToCustomer,
+        }
+      );
+
+      console.log("Email response:", emailResponse.data);
+
+      // Update booking status
+      const response = await axios.post(
+        "https://hotel-website-backend-eosin.vercel.app/update-booking-status",
+        {
+          Admin_name: AdminName,
+          Admin_email: AdminEmail,
+          email: selectedBooking.user_email,
+          booking_id: selectedBooking.booking_id,
+          reject: true,
+          approve: false,
+          paid: false,
+          decline_reason: rejectNote,
+          spoken_to_customer: spokenToCustomer,
+        }
+      );
+
+      if (response.status === 200) {
+        alert("Booking declined successfully! Email notification has been sent to the customer.");
+
+        // Refresh the data
+        const fetchResponse = await fetch("https://hotel-website-backend-eosin.vercel.app/users");
+        const result = await fetchResponse.json();
+        setData(result);
+
+        // Reset and close modal
+        setShowDeclineModal(false);
+        setRejectNote("");
+        setSpokenToCustomer(false);
+        setSelectedBooking(null);
+      }
+    } catch (error) {
+      alert(`Failed to decline booking: ${error.message}`);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleDeleteBooking = async (booking) => {
@@ -591,6 +761,16 @@ const AdminPanel = () => {
                     <th
                       style={{
                         padding: "10px 12px",
+                        textAlign: "left",
+                        fontWeight: "600",
+                        fontSize: "12px",
+                      }}
+                    >
+                      Contact Number
+                    </th>
+                    <th
+                      style={{
+                        padding: "10px 12px",
                         textAlign: "center",
                         fontWeight: "600",
                         fontSize: "12px",
@@ -666,7 +846,7 @@ const AdminPanel = () => {
                               color: "#1976d2",
                             }}
                           >
-                            {booking.room_type}
+                            {formatRoomType(booking.room_type)}
                           </span>
                         </td>
                         <td style={{ padding: "8px 10px" }}>
@@ -704,6 +884,9 @@ const AdminPanel = () => {
                             {booking.user_email}
                           </div>
                         </td>
+                        <td style={{ padding: "8px 10px", fontSize: "12px" }}>
+                          {booking.user_phone || "N/A"}
+                        </td>
                         <td
                           style={{
                             padding: "8px 10px",
@@ -729,37 +912,125 @@ const AdminPanel = () => {
                         <td
                           style={{ padding: "8px 10px", textAlign: "center" }}
                         >
-                          <button
-                            onClick={() => handleDeleteBooking(booking)}
-                            style={{
-                              backgroundColor: "#ff5252",
-                              color: "white",
-                              border: "none",
-                              padding: "5px 12px",
-                              borderRadius: "4px",
-                              cursor: "pointer",
-                              fontWeight: "500",
-                              fontSize: "11px",
-                              transition: "background-color 0.2s",
-                            }}
-                            onMouseEnter={(e) =>
-                              (e.currentTarget.style.backgroundColor =
-                                "#d32f2f")
-                            }
-                            onMouseLeave={(e) =>
-                              (e.currentTarget.style.backgroundColor =
-                                "#ff5252")
-                            }
-                          >
-                            Delete
-                          </button>
+                          {booking.approved && !booking.reject ? (
+                            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "5px" }}>
+                              <span
+                                style={{
+                                  backgroundColor: "#e8f5e9",
+                                  padding: "5px 12px",
+                                  borderRadius: "10px",
+                                  fontSize: "11px",
+                                  fontWeight: "600",
+                                  color: "#2e7d32",
+                                }}
+                              >
+                                ✓ Approved
+                              </span>
+                              <button
+                                onClick={() => handleBookingClick(booking)}
+                                style={{
+                                  backgroundColor: "#3498db",
+                                  color: "white",
+                                  border: "none",
+                                  padding: "3px 8px",
+                                  borderRadius: "4px",
+                                  cursor: "pointer",
+                                  fontSize: "10px",
+                                  fontWeight: "500",
+                                }}
+                              >
+                                View Details
+                              </button>
+                            </div>
+                          ) : booking.reject ? (
+                            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "5px" }}>
+                              <span
+                                style={{
+                                  backgroundColor: "#ffebee",
+                                  padding: "5px 12px",
+                                  borderRadius: "10px",
+                                  fontSize: "11px",
+                                  fontWeight: "600",
+                                  color: "#c62828",
+                                }}
+                              >
+                                ✗ Declined
+                              </span>
+                              <button
+                                onClick={() => handleBookingClick(booking)}
+                                style={{
+                                  backgroundColor: "#3498db",
+                                  color: "white",
+                                  border: "none",
+                                  padding: "3px 8px",
+                                  borderRadius: "4px",
+                                  cursor: "pointer",
+                                  fontSize: "10px",
+                                  fontWeight: "500",
+                                }}
+                              >
+                                View Details
+                              </button>
+                            </div>
+                          ) : (
+                            <div style={{ display: "flex", gap: "6px", justifyContent: "center" }}>
+                              <button
+                                onClick={() => handleAcceptClick(booking)}
+                                style={{
+                                  backgroundColor: "#4caf50",
+                                  color: "white",
+                                  border: "none",
+                                  padding: "5px 12px",
+                                  borderRadius: "4px",
+                                  cursor: "pointer",
+                                  fontWeight: "500",
+                                  fontSize: "11px",
+                                  transition: "background-color 0.2s",
+                                }}
+                                onMouseEnter={(e) =>
+                                  (e.currentTarget.style.backgroundColor =
+                                    "#45a049")
+                                }
+                                onMouseLeave={(e) =>
+                                  (e.currentTarget.style.backgroundColor =
+                                    "#4caf50")
+                                }
+                              >
+                                Accept
+                              </button>
+                              <button
+                                onClick={() => handleDeclineClick(booking)}
+                                style={{
+                                  backgroundColor: "#ff5252",
+                                  color: "white",
+                                  border: "none",
+                                  padding: "5px 12px",
+                                  borderRadius: "4px",
+                                  cursor: "pointer",
+                                  fontWeight: "500",
+                                  fontSize: "11px",
+                                  transition: "background-color 0.2s",
+                                }}
+                                onMouseEnter={(e) =>
+                                  (e.currentTarget.style.backgroundColor =
+                                    "#d32f2f")
+                                }
+                                onMouseLeave={(e) =>
+                                  (e.currentTarget.style.backgroundColor =
+                                    "#ff5252")
+                                }
+                              >
+                                Decline
+                              </button>
+                            </div>
+                          )}
                         </td>
                       </tr>
                     ))
                   ) : (
                     <tr>
                       <td
-                        colSpan="7"
+                        colSpan="8"
                         style={{
                           padding: "20px",
                           textAlign: "center",
@@ -1134,33 +1405,28 @@ const AdminPanel = () => {
                               Room Type
                             </strong>
                             <div style={{ fontSize: "13px", marginTop: "3px" }}>
-                              {booking.room_type}
+                              {formatRoomType(booking.room_type)}
                             </div>
                           </div>
-                          {/* COMMENTED OUT - Status field
- <div>
- <strong style={{ color: '#666', fontSize: '10px', textTransform: 'uppercase' }}>Status</strong>
- <div style={{ marginTop: '3px' }}>
- <span style={{
- padding: '4px 8px',
- borderRadius: '10px',
- fontSize: '11px',
- fontWeight: '600',
- backgroundColor: booking.reject ? '#ffebee' :
- booking.paid ? '#e8f5e9' :
- booking.approved ? '#fff3e0' : '#f5f5f5',
- color: booking.reject ? '#c62828' :
- booking.paid ? '#2e7d32' :
- booking.approved ? '#ef6c00' : '#666'
- }}>
- {booking.reject ? "Rejected" :
- booking.paid ? "Paid" :
- booking.approved ? "Pending Pay" :
- "Pending"}
- </span>
- </div>
- </div>
- */}
+                          <div>
+                            <strong style={{ color: '#666', fontSize: '10px', textTransform: 'uppercase' }}>Status</strong>
+                            <div style={{ marginTop: '3px' }}>
+                              <span style={{
+                                padding: '4px 8px',
+                                borderRadius: '10px',
+                                fontSize: '11px',
+                                fontWeight: '600',
+                                backgroundColor: booking.reject ? '#ffebee' :
+                                  booking.approved ? '#e8f5e9' : '#f5f5f5',
+                                color: booking.reject ? '#c62828' :
+                                  booking.approved ? '#2e7d32' : '#666'
+                              }}>
+                                {booking.reject ? "Declined" :
+                                  booking.approved ? "Approved" :
+                                  "Pending"}
+                              </span>
+                            </div>
+                          </div>
                         </div>
                         <button
                           onClick={() => handleBookingClick(booking)}
@@ -1279,6 +1545,279 @@ const AdminPanel = () => {
         }
       `}</style>
       <Footer />
+
+      {/* Accept Modal */}
+      {showAcceptModal && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 9999,
+          }}
+          onClick={() => !isSubmitting && setShowAcceptModal(false)}
+        >
+          <div
+            style={{
+              backgroundColor: "white",
+              padding: "30px",
+              borderRadius: "8px",
+              maxWidth: "500px",
+              width: "90%",
+              maxHeight: "90vh",
+              overflowY: "auto",
+              border: "2px solid #4caf50",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 style={{ marginTop: 0, color: "#4caf50", fontSize: "24px", fontWeight: "700" }}>
+              Approve Booking
+            </h2>
+
+            <div style={{ marginBottom: "15px" }}>
+              <label style={{ display: "block", marginBottom: "8px", fontWeight: "600", fontSize: "14px" }}>
+                Comments (Optional)
+              </label>
+              <textarea
+                value={acceptComments}
+                onChange={(e) => setAcceptComments(e.target.value)}
+                placeholder="Enter any additional comments..."
+                disabled={isSubmitting}
+                style={{
+                  width: "100%",
+                  padding: "10px",
+                  borderRadius: "4px",
+                  border: "1px solid #ccc",
+                  fontSize: "14px",
+                  minHeight: "80px",
+                  fontFamily: "inherit",
+                }}
+              />
+            </div>
+
+            <div style={{ marginBottom: "15px" }}>
+              <label style={{ display: "block", marginBottom: "8px", fontWeight: "600", fontSize: "14px" }}>
+                Security Deposit Amount (Refundable) *
+              </label>
+              <input
+                type="number"
+                value={securityDepositAmount}
+                onChange={(e) => setSecurityDepositAmount(e.target.value)}
+                placeholder="Enter security deposit amount"
+                disabled={isSubmitting}
+                style={{
+                  width: "100%",
+                  padding: "10px",
+                  borderRadius: "4px",
+                  border: "1px solid #ccc",
+                  fontSize: "14px",
+                }}
+              />
+            </div>
+
+            <div style={{ marginBottom: "20px" }}>
+              <label style={{ display: "block", marginBottom: "8px", fontWeight: "600", fontSize: "14px" }}>
+                Rental Amount *
+              </label>
+              <input
+                type="number"
+                value={rentalAmount}
+                onChange={(e) => setRentalAmount(e.target.value)}
+                placeholder="Enter rental amount"
+                disabled={isSubmitting}
+                style={{
+                  width: "100%",
+                  padding: "10px",
+                  borderRadius: "4px",
+                  border: "1px solid #ccc",
+                  fontSize: "14px",
+                }}
+              />
+            </div>
+
+            <div style={{ display: "flex", gap: "10px", justifyContent: "flex-end" }}>
+              <button
+                onClick={() => {
+                  setShowAcceptModal(false);
+                  setAcceptComments("");
+                  setSecurityDepositAmount("");
+                  setRentalAmount("");
+                }}
+                disabled={isSubmitting}
+                style={{
+                  backgroundColor: "#9e9e9e",
+                  color: "white",
+                  border: "none",
+                  padding: "12px 24px",
+                  borderRadius: "6px",
+                  cursor: isSubmitting ? "not-allowed" : "pointer",
+                  fontWeight: "700",
+                  fontSize: "14px",
+                  textTransform: "uppercase",
+                  opacity: isSubmitting ? 0.6 : 1,
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleAcceptSubmit}
+                disabled={isSubmitting}
+                style={{
+                  backgroundColor: "#4caf50",
+                  color: "white",
+                  border: "none",
+                  padding: "12px 24px",
+                  borderRadius: "6px",
+                  cursor: isSubmitting ? "not-allowed" : "pointer",
+                  fontWeight: "700",
+                  fontSize: "14px",
+                  textTransform: "uppercase",
+                  opacity: isSubmitting ? 0.6 : 1,
+                }}
+              >
+                {isSubmitting ? "Processing..." : "Confirm Accept"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Decline Modal */}
+      {showDeclineModal && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 9999,
+          }}
+          onClick={() => !isSubmitting && setShowDeclineModal(false)}
+        >
+          <div
+            style={{
+              backgroundColor: "white",
+              padding: "30px",
+              borderRadius: "8px",
+              maxWidth: "500px",
+              width: "90%",
+              maxHeight: "90vh",
+              overflowY: "auto",
+              border: "2px solid #ff5252",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 style={{ marginTop: 0, color: "#ff5252", fontSize: "24px", fontWeight: "700" }}>
+              Decline Booking
+            </h2>
+
+            <div style={{ marginBottom: "15px" }}>
+              <label style={{ display: "block", marginBottom: "8px", fontWeight: "600", fontSize: "14px" }}>
+                Reason for Rejection *
+              </label>
+              <textarea
+                value={rejectNote}
+                onChange={(e) => setRejectNote(e.target.value)}
+                placeholder="Enter reason for declining the booking..."
+                disabled={isSubmitting}
+                style={{
+                  width: "100%",
+                  padding: "10px",
+                  borderRadius: "4px",
+                  border: "1px solid #ccc",
+                  fontSize: "14px",
+                  minHeight: "100px",
+                  fontFamily: "inherit",
+                }}
+              />
+            </div>
+
+            <div style={{ marginBottom: "20px" }}>
+              <label style={{ display: "block", marginBottom: "10px", fontWeight: "600", fontSize: "14px" }}>
+                Spoken to Customer *
+              </label>
+              <div style={{ display: "flex", gap: "20px" }}>
+                <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
+                  <input
+                    type="radio"
+                    name="spokenToCustomer"
+                    checked={spokenToCustomer === true}
+                    onChange={() => setSpokenToCustomer(true)}
+                    disabled={isSubmitting}
+                    style={{ width: "18px", height: "18px", cursor: "pointer" }}
+                  />
+                  <span style={{ fontSize: "14px", fontWeight: "500" }}>Yes</span>
+                </label>
+                <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
+                  <input
+                    type="radio"
+                    name="spokenToCustomer"
+                    checked={spokenToCustomer === false}
+                    onChange={() => setSpokenToCustomer(false)}
+                    disabled={isSubmitting}
+                    style={{ width: "18px", height: "18px", cursor: "pointer" }}
+                  />
+                  <span style={{ fontSize: "14px", fontWeight: "500" }}>No</span>
+                </label>
+              </div>
+            </div>
+
+            <div style={{ display: "flex", gap: "10px", justifyContent: "flex-end" }}>
+              <button
+                onClick={() => {
+                  setShowDeclineModal(false);
+                  setRejectNote("");
+                  setSpokenToCustomer(false);
+                }}
+                disabled={isSubmitting}
+                style={{
+                  backgroundColor: "#9e9e9e",
+                  color: "white",
+                  border: "none",
+                  padding: "12px 24px",
+                  borderRadius: "6px",
+                  cursor: isSubmitting ? "not-allowed" : "pointer",
+                  fontWeight: "700",
+                  fontSize: "14px",
+                  textTransform: "uppercase",
+                  opacity: isSubmitting ? 0.6 : 1,
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDeclineSubmit}
+                disabled={isSubmitting}
+                style={{
+                  backgroundColor: "#ff5252",
+                  color: "white",
+                  border: "none",
+                  padding: "12px 24px",
+                  borderRadius: "6px",
+                  cursor: isSubmitting ? "not-allowed" : "pointer",
+                  fontWeight: "700",
+                  fontSize: "14px",
+                  textTransform: "uppercase",
+                  opacity: isSubmitting ? 0.6 : 1,
+                }}
+              >
+                {isSubmitting ? "Processing..." : "Confirm Decline"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </Fragment>
   );
 };

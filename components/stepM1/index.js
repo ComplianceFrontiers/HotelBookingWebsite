@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -841,20 +840,38 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
             <div className="form-group">
               <label>Flexible?</label>
               <div
-                style={{ display: "flex", alignItems: "center", gap: "10px" }}
+                style={{ display: "flex", flexDirection: "column", gap: "10px" }}
               >
-                <input
-                  type="checkbox"
-                  name="flexible"
-                  checked={formData.flexible || false}
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      flexible: e.target.checked,
-                    }))
-                  }
-                />
-                <span style={{ fontSize: "14px" }}>Flexible</span>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  <input
+                    type="radio"
+                    name="flexible"
+                    value="flexible"
+                    checked={formData.flexible === true}
+                    onChange={() =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        flexible: true,
+                      }))
+                    }
+                  />
+                  <span style={{ fontSize: "14px" }}>My dates are flexible</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  <input
+                    type="radio"
+                    name="flexible"
+                    value="fixed"
+                    checked={formData.flexible === false}
+                    onChange={() =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        flexible: false,
+                      }))
+                    }
+                  />
+                  <span style={{ fontSize: "14px" }}>My dates are fixed</span>
+                </div>
               </div>
             </div>
 
@@ -1521,7 +1538,7 @@ const StepM1 = ({ setActiveStep, setFormData, formData }) => {
                       cursor: "pointer",
                     }}
                   >
-                    + Add Another Date
+                    + Add Date
                   </button>
                 </div>
               )}

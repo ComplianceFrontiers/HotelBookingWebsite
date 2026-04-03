@@ -31,7 +31,7 @@ const Contactpage = () => {
                                         <span>Official Mail</span>
                                     </div>
                                 </div>
-                                <h2>info@bellevuecc.org</h2>
+                                <h2>accounts@bellevuecc.org</h2>
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-6 col-sm-12 col-12">

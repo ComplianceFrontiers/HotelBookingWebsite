@@ -30,7 +30,7 @@ const Footer = (props) => {
                                 <div className="contact-ft">
                                 <ul>
                                 <li><i className="fi ti-location-pin"></i>510 Duncan Rd, Wilmington, DE, United States, Delaware</li>
-                                <li><i className="fi flaticon-email"></i>info@bellevuecc.org</li>
+                                <li><i className="fi flaticon-email"></i>accounts@bellevuecc.org</li>
                                 <li><i>☏</i>&nbsp;&nbsp;&nbsp;&nbsp;Contact : (302) 762 - 1391</li>
                                 </ul>
                                 </div>

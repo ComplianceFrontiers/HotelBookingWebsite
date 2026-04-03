@@ -55,10 +55,11 @@ const SearchSection = (props) => {
                                     <div className="select-sub">
                                         <span> <i className="fi flaticon-user"></i> Guests</span>
                                         <select className="select wide">
+                                            <option>1-25</option>
                                             <option>25-50</option>
                                             <option>50-75</option>
-                                            <option>75-100</option>
-                                            <option>100+</option>
+                                            <option>75</option>
+                                            <option>75+</option>
                                         </select>
                                     </div>
                                     {/* <div className="select-sub">

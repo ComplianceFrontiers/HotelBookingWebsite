@@ -13,12 +13,7 @@ const RoomSection = (props) => {
         <section >
             <div className="Room-section">
                 <div className="container">
-                    <div className="col-12">
-                        <div className="wpo-section-title">
-                            {/* <span></span> */}
-                            <h2>Explore Our Facilities</h2>
-                        </div>
-                    </div>
+               
                     <div className="row">
                         <div className="col col-xs-12 sortable-gallery">
                             <div className="gallery-filters">

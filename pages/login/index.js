@@ -56,7 +56,7 @@ const LoginPage = () => {
                     toast.success(data.message);
                     localStorage.setItem('user_details', JSON.stringify(data.user_details));
                     console.log(data.user_details);
-                    router.push('/');
+                    router.push('/dashboard');
                 } else {
                     toast.error(data.error);
                 }

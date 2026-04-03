@@ -788,6 +788,16 @@ const AdminPanel = () => {
                     >
                       Actions
                     </th>
+                    <th
+                      style={{
+                        padding: "10px 12px",
+                        textAlign: "center",
+                        fontWeight: "600",
+                        fontSize: "12px",
+                      }}
+                    >
+                      Delete
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -1025,12 +1035,40 @@ const AdminPanel = () => {
                             </div>
                           )}
                         </td>
+                        <td
+                          style={{ padding: "8px 10px", textAlign: "center" }}
+                        >
+                          <button
+                            onClick={() => handleDeleteBooking(booking)}
+                            style={{
+                              backgroundColor: "#ff5252",
+                              color: "white",
+                              border: "none",
+                              padding: "5px 12px",
+                              borderRadius: "4px",
+                              cursor: "pointer",
+                              fontWeight: "500",
+                              fontSize: "11px",
+                              transition: "background-color 0.2s",
+                            }}
+                            onMouseEnter={(e) =>
+                              (e.currentTarget.style.backgroundColor =
+                                "#d32f2f")
+                            }
+                            onMouseLeave={(e) =>
+                              (e.currentTarget.style.backgroundColor =
+                                "#ff5252")
+                            }
+                          >
+                            Delete
+                          </button>
+                        </td>
                       </tr>
                     ))
                   ) : (
                     <tr>
                       <td
-                        colSpan="8"
+                        colSpan="9"
                         style={{
                           padding: "20px",
                           textAlign: "center",
